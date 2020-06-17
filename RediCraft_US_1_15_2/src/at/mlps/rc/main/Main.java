@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.ServicePriority;
@@ -156,13 +157,37 @@ public class Main extends JavaPlugin implements Listener{
 	}
 	
 	private void regDB() {
-		at.mlps.rc.mysql.lb.MySQL.connect("127.0.0.1", "3306", "RediCraft", "mauriceb", "MauriceB2400");
-		mysql = new MySQL("127.0.0.1", 3306, "RediCraft", "mauriceb", "MauriceB2400");
+		File config = new File("plugins/RCUSS/config.yml");
+		if(!config.exists()) {
+			try {
+				config.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		YamlConfiguration cfg = YamlConfiguration.loadConfiguration(config);
+		cfg.addDefault("MySQL.Host", "localhost");
+		cfg.addDefault("MySQL.Port", 3306);
+		cfg.addDefault("MySQL.Database", "database");
+		cfg.addDefault("MySQL.Username", "username");
+		cfg.addDefault("MySQL.Password", "password");
+		cfg.options().copyDefaults(true);
+		try {
+			cfg.save(config);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		String host = cfg.getString("MySQL.Host");
+		int port = cfg.getInt("MySQL.Port");
+		String db = cfg.getString("MySQL.Database");
+		String user = cfg.getString("MySQL.Username");
+		String pass = cfg.getString("MySQL.Password");
+		at.mlps.rc.mysql.lb.MySQL.connect(host, String.valueOf(port), db, user, pass);
+		mysql = new MySQL(host, port, db, user, pass);
 		try {
 			mysql.connect();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		}catch (SQLException e) {}
 	}
 	
 	private void fillList() {
