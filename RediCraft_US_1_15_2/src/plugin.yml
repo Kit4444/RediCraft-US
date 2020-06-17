@@ -1,0 +1,45 @@
+author: Maurice_Bailey
+version: 20200514_17b
+name: RediCore_SubServer
+description: This is the Core-Plugin of RediCraft.
+website: www.redicraft.eu
+prefix: REDICRAFTCOREPLUGIN
+api-version: 1.13
+main: at.mlps.rc.main.Main
+
+commands:
+    sb:
+    afk:
+    cc:
+    chatclear:
+    setid:
+    setpf:
+    clearlag:
+    ping:
+    s:
+    gm:
+    gamemode:
+    gc:
+    setspawn:
+    stop:
+    time:
+    weather:
+    msg:
+    r:
+    blockmsg:
+    home:
+    listhomes:
+    sethome:
+    delhome:
+    spawnvillager: 
+    money:
+    setmoney:
+    removemoney:
+    addmoney:
+    topmoney:
+    setbankmoney:
+    bankdeposit:
+    bankwithdraw:
+    pay:
+    head:
+    
