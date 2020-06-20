@@ -148,20 +148,27 @@ public class ScoreboardCLS implements Listener{
 					i++;
 				}
 			}else if(getSB(p) == 3) {
-				o.getScore("§7Newest Report").setScore(13);
-				o.getScore("§7REP:  §a" + retLatestReport("reporter")).setScore(12);
-				o.getScore("§7PER:  §c" + retLatestReport("perpetrator")).setScore(11);
-				o.getScore("§7SER:  §a" + retLatestReport("server")).setScore(10);
-				o.getScore("§7REA:  §a" + retLatestReport("reason")).setScore(9);
-				o.getScore("§0").setScore(8);
-				o.getScore("§7Reports total " + APIs.getServerName()).setScore(7);
-				o.getScore("§1  §a" + retRepsTotCuSe()).setScore(6);
-				o.getScore("§7Reports today " + APIs.getServerName()).setScore(5);
-				o.getScore("§2  §a" + retRepsTodCuSe()).setScore(4);
-				o.getScore("§7Reports total").setScore(3);
-				o.getScore("§3  §a" + retRepstotal()).setScore(2);
-				o.getScore("§7Reports today").setScore(1);
-				o.getScore("§4  §a" + retRepsToday()).setScore(0);
+				if(sbmain >= 0 && sbmain <= 5) {
+					o.getScore("§7Newest Report").setScore(9);
+					o.getScore("§a§b§c").setScore(8);
+					o.getScore("§7Reporter:").setScore(7);
+					o.getScore("  §1§a" + retLatestReport("reporter")).setScore(6);
+					o.getScore("§7Perpetrator:").setScore(5);
+					o.getScore("  §2§c" + retLatestReport("perpetrator")).setScore(4);
+					o.getScore("§7Server:").setScore(3);
+					o.getScore("  §3§a" + retLatestReport("server")).setScore(2);
+					o.getScore("§7Reason:").setScore(1);
+					o.getScore("  §4§a" + retLatestReport("reason")).setScore(0);
+				}else if(sbmain >= 6 && sbmain <= 10) {
+					o.getScore("§7Reports total " + APIs.getServerName()).setScore(7);
+					o.getScore("§1  §a" + retRepsTotCuSe() + " §7Reports").setScore(6);
+					o.getScore("§7Reports today " + APIs.getServerName()).setScore(5);
+					o.getScore("§2  §a" + retRepsTodCuSe() + " §7Reports").setScore(4);
+					o.getScore("§7Reports total Network").setScore(3);
+					o.getScore("§3  §a" + retRepstotal() + " §7Reports").setScore(2);
+					o.getScore("§7Reports today Network").setScore(1);
+					o.getScore("§4  §a" + retRepsToday() + " §7Reports").setScore(0);
+				}
 			}else if(getSB(p) == 4) {
 				Runtime runtime = Runtime.getRuntime();
 				PerformanceMonitor cpu = new PerformanceMonitor();
@@ -352,20 +359,27 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("  §7" + igpre(p) + " §9" + igid(p)).setScore(0);
 				}
 			}else if(getSB(p) == 3) {
-				o.getScore("§7Newest Report").setScore(13);
-				o.getScore("§7REP:  §a" + retLatestReport("reporter")).setScore(12);
-				o.getScore("§7PER:  §c" + retLatestReport("perpetrator")).setScore(11);
-				o.getScore("§7SER:  §a" + retLatestReport("server")).setScore(10);
-				o.getScore("§7REA:  §a" + retLatestReport("reason")).setScore(9);
-				o.getScore("§0").setScore(8);
-				o.getScore("§7Reports total " + APIs.getServerName()).setScore(7);
-				o.getScore("§1  §a" + retRepsTotCuSe()).setScore(6);
-				o.getScore("§7Reports today " + APIs.getServerName()).setScore(5);
-				o.getScore("§2  §a" + retRepsTodCuSe()).setScore(4);
-				o.getScore("§7Reports total").setScore(3);
-				o.getScore("§3  §a" + retRepstotal()).setScore(2);
-				o.getScore("§7Reports today").setScore(1);
-				o.getScore("§4  §a" + retRepsToday()).setScore(0);
+				if(sbmain >= 0 && sbmain <= 5) {
+					o.getScore("§7Newest Report").setScore(9);
+					o.getScore("§a§b§c").setScore(8);
+					o.getScore("§7Reporter:").setScore(7);
+					o.getScore("  §1§a" + retLatestReport("reporter")).setScore(6);
+					o.getScore("§7Perpetrator:").setScore(5);
+					o.getScore("  §2§c" + retLatestReport("perpetrator")).setScore(4);
+					o.getScore("§7Server:").setScore(3);
+					o.getScore("  §3§a" + retLatestReport("server")).setScore(2);
+					o.getScore("§7Reason:").setScore(1);
+					o.getScore("  §4§a" + retLatestReport("reason")).setScore(0);
+				}else if(sbmain >= 6 && sbmain <= 10) {
+					o.getScore("§7Reports total " + APIs.getServerName()).setScore(7);
+					o.getScore("§1  §a" + retRepsTotCuSe() + " §7Reports").setScore(6);
+					o.getScore("§7Reports today " + APIs.getServerName()).setScore(5);
+					o.getScore("§2  §a" + retRepsTodCuSe() + " §7Reports").setScore(4);
+					o.getScore("§7Reports total Network").setScore(3);
+					o.getScore("§3  §a" + retRepstotal() + " §7Reports").setScore(2);
+					o.getScore("§7Reports today Network").setScore(1);
+					o.getScore("§4  §a" + retRepsToday() + " §7Reports").setScore(0);
+				}
 			}else if(getSB(p) == 4) {
 				Runtime runtime = Runtime.getRuntime();
 				PerformanceMonitor cpu = new PerformanceMonitor();
