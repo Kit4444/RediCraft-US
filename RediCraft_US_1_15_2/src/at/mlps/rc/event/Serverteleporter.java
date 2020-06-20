@@ -36,7 +36,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 	public static String title = "§aServer§cNavigator";
 	static String dailyrew = "§aDaily Rewards";
 	static String spawn = "§6Spawn";
-	static String skyblock = "§fSky§2Block";
+	static String skyblock = "§a§fSky§2Block";
 	static String creative = "§eCreative";
 	static String survival = "§cSurvival";
 	static String towny = "§6Towny";
@@ -212,7 +212,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(skyblock)) {
 				e.setCancelled(true);
 				sendPlayer(p, "skyblock", skyblock);
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(skyblock+ locked)) {
+			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(skyblock + locked)) {
 				e.setCancelled(true);
 				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "SkyBlock"));
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(skyblock + offline)) {
