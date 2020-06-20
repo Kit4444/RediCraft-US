@@ -173,101 +173,113 @@ public class ScoreboardCLS implements Listener{
 				float networkuserperc = (pusergen * 100/pusermax);
 				float curruserperc = (pusercurr * 100/pusermax);
 				
-				o.getScore("§7CPU load: (§a" + cpucores + " §7Cores)").setScore(7);
-				if(cpuload <= 10) {
-					o.getScore("§1§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(6);
-				}else if(cpuload >= 11 && cpuload <= 20) {
-					o.getScore("§1§c⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜").setScore(6);
-				}else if(cpuload >= 21 && cpuload <= 30) {
-					o.getScore("§1§c⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜").setScore(6);
-				}else if(cpuload >= 31 && cpuload <= 40) {
-					o.getScore("§1§c⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜").setScore(6);
-				}else if(cpuload >= 41 && cpuload <= 50) {
-					o.getScore("§1§c⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜").setScore(6);
-				}else if(cpuload >= 51 && cpuload <= 60) {
-					o.getScore("§1§c⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜").setScore(6);
-				}else if(cpuload >= 61 && cpuload <= 70) {
-					o.getScore("§1§c⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜").setScore(6);
-				}else if(cpuload >= 71 && cpuload <= 80) {
-					o.getScore("§1§c⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜").setScore(6);
-				}else if(cpuload >= 81 && cpuload <= 90) {
-					o.getScore("§1§c⬛⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜").setScore(6);
-				}else if(cpuload >= 91 && cpuload <= 100) {
-					o.getScore("§1§c⬛⬛⬛⬛⬛⬛⬛⬛⬛§e⬛").setScore(6);
-				}else {
-					o.getScore("§1§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(6);
-				}
-				o.getScore("§7Ramload: §a" + ramusage + "§7MB /§c " + ramtotal + "§7MB").setScore(5);
-				if(rampercentage <= 10) {
-					o.getScore("§2§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(4);
-				}else if(rampercentage >= 11 && rampercentage <= 20) {
-					o.getScore("§2§c⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜").setScore(4);
-				}else if(rampercentage >= 21 && rampercentage <= 30) {
-					o.getScore("§2§c⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜").setScore(4);
-				}else if(rampercentage >= 31 && rampercentage <= 40) {
-					o.getScore("§2§c⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜").setScore(4);
-				}else if(rampercentage >= 41 && rampercentage <= 50) {
-					o.getScore("§2§c⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜").setScore(4);
-				}else if(rampercentage >= 51 && rampercentage <= 60) {
-					o.getScore("§2§c⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜").setScore(4);
-				}else if(rampercentage >= 61 && rampercentage <= 70) {
-					o.getScore("§2§c⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜").setScore(4);
-				}else if(rampercentage >= 71 && rampercentage <= 80) {
-					o.getScore("§2§c⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜").setScore(4);
-				}else if(rampercentage >= 81 && rampercentage <= 90) {
-					o.getScore("§2§c⬛⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜").setScore(4);
-				}else if(rampercentage >= 91 && rampercentage <= 100) {
-					o.getScore("§2§c⬛⬛⬛⬛⬛⬛⬛⬛⬛§e⬛").setScore(4);
-				}else {
-					o.getScore("§2§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(4);
-				}
-				o.getScore("§7Playerload Network: (§l" + pusergen + "§7)").setScore(3);
-				if(networkuserperc <= 10) {
-					o.getScore("§3§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(2);
-				}else if(networkuserperc >= 11 && networkuserperc <= 20) {
-					o.getScore("§3§c⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜").setScore(2);
-				}else if(networkuserperc >= 21 && networkuserperc <= 30) {
-					o.getScore("§3§c⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜").setScore(2);
-				}else if(networkuserperc >= 31 && networkuserperc <= 40) {
-					o.getScore("§3§c⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜").setScore(2);
-				}else if(networkuserperc >= 41 && networkuserperc <= 50) {
-					o.getScore("§3§c⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜").setScore(2);
-				}else if(networkuserperc >= 51 && networkuserperc <= 60) {
-					o.getScore("§3§c⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜").setScore(2);
-				}else if(networkuserperc >= 61 && networkuserperc <= 70) {
-					o.getScore("§3§c⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜").setScore(2);
-				}else if(networkuserperc >= 71 && networkuserperc <= 80) {
-					o.getScore("§3§c⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜").setScore(2);
-				}else if(networkuserperc >= 81 && networkuserperc <= 90) {
-					o.getScore("§3§c⬛⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜").setScore(2);
-				}else if(networkuserperc >= 91 && networkuserperc <= 100) {
-					o.getScore("§3§c⬛⬛⬛⬛⬛⬛⬛⬛⬛§e⬛").setScore(2);
-				}else {
-					o.getScore("§3§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(2);
-				}
-				o.getScore("§7Playerload " + APIs.getServerName()).setScore(1);
-				if(curruserperc <= 10) {
-					o.getScore("§4§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(0);
-				}else if(curruserperc >= 11 && curruserperc <= 20) {
-					o.getScore("§4§c⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜").setScore(0);
-				}else if(curruserperc >= 21 && curruserperc <= 30) {
-					o.getScore("§4§c⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜").setScore(0);
-				}else if(curruserperc >= 31 && curruserperc <= 40) {
-					o.getScore("§4§c⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜").setScore(0);
-				}else if(curruserperc >= 41 && curruserperc <= 50) {
-					o.getScore("§4§c⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜").setScore(0);
-				}else if(curruserperc >= 51 && curruserperc <= 60) {
-					o.getScore("§4§c⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜").setScore(0);
-				}else if(curruserperc >= 61 && curruserperc <= 70) {
-					o.getScore("§4§c⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜").setScore(0);
-				}else if(curruserperc >= 71 && curruserperc <= 80) {
-					o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜").setScore(0);
-				}else if(curruserperc >= 81 && curruserperc <= 90) {
-					o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜").setScore(0);
-				}else if(curruserperc >= 91 && curruserperc <= 100) {
-					o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛⬛⬛§e⬛").setScore(0);
-				}else {
-					o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(0);
+				if(sbmain >= 0 && sbmain <= 5) {
+					o.getScore("§7CPU load: (§a" + cpucores + " §7Cores)").setScore(7);
+					if(cpuload <= 10) {
+						o.getScore("§1§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(6);
+					}else if(cpuload >= 11 && cpuload <= 20) {
+						o.getScore("§1§c⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜").setScore(6);
+					}else if(cpuload >= 21 && cpuload <= 30) {
+						o.getScore("§1§c⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜").setScore(6);
+					}else if(cpuload >= 31 && cpuload <= 40) {
+						o.getScore("§1§c⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜").setScore(6);
+					}else if(cpuload >= 41 && cpuload <= 50) {
+						o.getScore("§1§c⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜").setScore(6);
+					}else if(cpuload >= 51 && cpuload <= 60) {
+						o.getScore("§1§c⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜").setScore(6);
+					}else if(cpuload >= 61 && cpuload <= 70) {
+						o.getScore("§1§c⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜").setScore(6);
+					}else if(cpuload >= 71 && cpuload <= 80) {
+						o.getScore("§1§c⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜").setScore(6);
+					}else if(cpuload >= 81 && cpuload <= 90) {
+						o.getScore("§1§c⬛⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜").setScore(6);
+					}else if(cpuload >= 91 && cpuload <= 100) {
+						o.getScore("§1§c⬛⬛⬛⬛⬛⬛⬛⬛⬛§e⬛").setScore(6);
+					}else {
+						o.getScore("§1§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(6);
+					}
+					o.getScore("§7Ramload:").setScore(5);
+					if(rampercentage <= 10) {
+						o.getScore("§2§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(4);
+					}else if(rampercentage >= 11 && rampercentage <= 20) {
+						o.getScore("§2§c⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜").setScore(4);
+					}else if(rampercentage >= 21 && rampercentage <= 30) {
+						o.getScore("§2§c⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜").setScore(4);
+					}else if(rampercentage >= 31 && rampercentage <= 40) {
+						o.getScore("§2§c⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜").setScore(4);
+					}else if(rampercentage >= 41 && rampercentage <= 50) {
+						o.getScore("§2§c⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜").setScore(4);
+					}else if(rampercentage >= 51 && rampercentage <= 60) {
+						o.getScore("§2§c⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜").setScore(4);
+					}else if(rampercentage >= 61 && rampercentage <= 70) {
+						o.getScore("§2§c⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜").setScore(4);
+					}else if(rampercentage >= 71 && rampercentage <= 80) {
+						o.getScore("§2§c⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜").setScore(4);
+					}else if(rampercentage >= 81 && rampercentage <= 90) {
+						o.getScore("§2§c⬛⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜").setScore(4);
+					}else if(rampercentage >= 91 && rampercentage <= 100) {
+						o.getScore("§2§c⬛⬛⬛⬛⬛⬛⬛⬛⬛§e⬛").setScore(4);
+					}else {
+						o.getScore("§2§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(4);
+					}
+					o.getScore("§7Playerload Network:").setScore(3);
+					if(networkuserperc <= 10) {
+						o.getScore("§3§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(2);
+					}else if(networkuserperc >= 11 && networkuserperc <= 20) {
+						o.getScore("§3§c⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜").setScore(2);
+					}else if(networkuserperc >= 21 && networkuserperc <= 30) {
+						o.getScore("§3§c⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜").setScore(2);
+					}else if(networkuserperc >= 31 && networkuserperc <= 40) {
+						o.getScore("§3§c⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜").setScore(2);
+					}else if(networkuserperc >= 41 && networkuserperc <= 50) {
+						o.getScore("§3§c⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜").setScore(2);
+					}else if(networkuserperc >= 51 && networkuserperc <= 60) {
+						o.getScore("§3§c⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜").setScore(2);
+					}else if(networkuserperc >= 61 && networkuserperc <= 70) {
+						o.getScore("§3§c⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜").setScore(2);
+					}else if(networkuserperc >= 71 && networkuserperc <= 80) {
+						o.getScore("§3§c⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜").setScore(2);
+					}else if(networkuserperc >= 81 && networkuserperc <= 90) {
+						o.getScore("§3§c⬛⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜").setScore(2);
+					}else if(networkuserperc >= 91 && networkuserperc <= 100) {
+						o.getScore("§3§c⬛⬛⬛⬛⬛⬛⬛⬛⬛§e⬛").setScore(2);
+					}else {
+						o.getScore("§3§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(2);
+					}
+					o.getScore("§7Playerload " + APIs.getServerName()).setScore(1);
+					if(curruserperc <= 10) {
+						o.getScore("§4§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(0);
+					}else if(curruserperc >= 11 && curruserperc <= 20) {
+						o.getScore("§4§c⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜").setScore(0);
+					}else if(curruserperc >= 21 && curruserperc <= 30) {
+						o.getScore("§4§c⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜").setScore(0);
+					}else if(curruserperc >= 31 && curruserperc <= 40) {
+						o.getScore("§4§c⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜").setScore(0);
+					}else if(curruserperc >= 41 && curruserperc <= 50) {
+						o.getScore("§4§c⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜").setScore(0);
+					}else if(curruserperc >= 51 && curruserperc <= 60) {
+						o.getScore("§4§c⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜").setScore(0);
+					}else if(curruserperc >= 61 && curruserperc <= 70) {
+						o.getScore("§4§c⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜").setScore(0);
+					}else if(curruserperc >= 71 && curruserperc <= 80) {
+						o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜").setScore(0);
+					}else if(curruserperc >= 81 && curruserperc <= 90) {
+						o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜").setScore(0);
+					}else if(curruserperc >= 91 && curruserperc <= 100) {
+						o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛⬛⬛§e⬛").setScore(0);
+					}else {
+						o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(0);
+					}
+				}else if(sbmain >= 6 && sbmain <= 10) {
+					DecimalFormat df = new DecimalFormat("#.##");
+					o.getScore("§7CPU load: (§a" + cpucores + " §7Cores)").setScore(7);
+					o.getScore("  §1§a" + df.format(cpuload) + "§7% usage").setScore(6);
+					o.getScore("§7Ramload: §a").setScore(5);
+					o.getScore("  §2§a" + ramusage + "§7MB /§c " + ramtotal + "§7MB").setScore(4);
+					o.getScore("§7Playerload Network:").setScore(3);
+					o.getScore("  §3§a" + pusergen + " §7Players").setScore(2);
+					o.getScore("§7Playerload " + APIs.getServerName()).setScore(1);
+					o.getScore("  §4§a" + Bukkit.getOnlinePlayers().size() + " §7Players").setScore(0);
 				}
 			}
 		}else {
@@ -365,101 +377,113 @@ public class ScoreboardCLS implements Listener{
 				float networkuserperc = (pusergen * 100/pusermax);
 				float curruserperc = (pusercurr * 100/pusermax);
 				
-				o.getScore("§7CPU load: (§a" + cpucores + " §7Cores)").setScore(7);
-				if(cpuload <= 10) {
-					o.getScore("§1§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(6);
-				}else if(cpuload >= 11 && cpuload <= 20) {
-					o.getScore("§1§c⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜").setScore(6);
-				}else if(cpuload >= 21 && cpuload <= 30) {
-					o.getScore("§1§c⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜").setScore(6);
-				}else if(cpuload >= 31 && cpuload <= 40) {
-					o.getScore("§1§c⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜").setScore(6);
-				}else if(cpuload >= 41 && cpuload <= 50) {
-					o.getScore("§1§c⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜").setScore(6);
-				}else if(cpuload >= 51 && cpuload <= 60) {
-					o.getScore("§1§c⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜").setScore(6);
-				}else if(cpuload >= 61 && cpuload <= 70) {
-					o.getScore("§1§c⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜").setScore(6);
-				}else if(cpuload >= 71 && cpuload <= 80) {
-					o.getScore("§1§c⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜").setScore(6);
-				}else if(cpuload >= 81 && cpuload <= 90) {
-					o.getScore("§1§c⬛⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜").setScore(6);
-				}else if(cpuload >= 91 && cpuload <= 100) {
-					o.getScore("§1§c⬛⬛⬛⬛⬛⬛⬛⬛⬛§e⬛").setScore(6);
-				}else {
-					o.getScore("§1§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(6);
-				}
-				o.getScore("§7Ramload: §a" + ramusage + "§7MB /§c " + ramtotal + "§7MB").setScore(5);
-				if(rampercentage <= 10) {
-					o.getScore("§2§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(4);
-				}else if(rampercentage >= 11 && rampercentage <= 20) {
-					o.getScore("§2§c⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜").setScore(4);
-				}else if(rampercentage >= 21 && rampercentage <= 30) {
-					o.getScore("§2§c⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜").setScore(4);
-				}else if(rampercentage >= 31 && rampercentage <= 40) {
-					o.getScore("§2§c⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜").setScore(4);
-				}else if(rampercentage >= 41 && rampercentage <= 50) {
-					o.getScore("§2§c⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜").setScore(4);
-				}else if(rampercentage >= 51 && rampercentage <= 60) {
-					o.getScore("§2§c⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜").setScore(4);
-				}else if(rampercentage >= 61 && rampercentage <= 70) {
-					o.getScore("§2§c⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜").setScore(4);
-				}else if(rampercentage >= 71 && rampercentage <= 80) {
-					o.getScore("§2§c⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜").setScore(4);
-				}else if(rampercentage >= 81 && rampercentage <= 90) {
-					o.getScore("§2§c⬛⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜").setScore(4);
-				}else if(rampercentage >= 91 && rampercentage <= 100) {
-					o.getScore("§2§c⬛⬛⬛⬛⬛⬛⬛⬛⬛§e⬛").setScore(4);
-				}else {
-					o.getScore("§2§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(4);
-				}
-				o.getScore("§7Playerload Network: (§l" + pusergen + "§7)").setScore(3);
-				if(networkuserperc <= 10) {
-					o.getScore("§3§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(2);
-				}else if(networkuserperc >= 11 && networkuserperc <= 20) {
-					o.getScore("§3§c⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜").setScore(2);
-				}else if(networkuserperc >= 21 && networkuserperc <= 30) {
-					o.getScore("§3§c⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜").setScore(2);
-				}else if(networkuserperc >= 31 && networkuserperc <= 40) {
-					o.getScore("§3§c⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜").setScore(2);
-				}else if(networkuserperc >= 41 && networkuserperc <= 50) {
-					o.getScore("§3§c⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜").setScore(2);
-				}else if(networkuserperc >= 51 && networkuserperc <= 60) {
-					o.getScore("§3§c⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜").setScore(2);
-				}else if(networkuserperc >= 61 && networkuserperc <= 70) {
-					o.getScore("§3§c⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜").setScore(2);
-				}else if(networkuserperc >= 71 && networkuserperc <= 80) {
-					o.getScore("§3§c⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜").setScore(2);
-				}else if(networkuserperc >= 81 && networkuserperc <= 90) {
-					o.getScore("§3§c⬛⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜").setScore(2);
-				}else if(networkuserperc >= 91 && networkuserperc <= 100) {
-					o.getScore("§3§c⬛⬛⬛⬛⬛⬛⬛⬛⬛§e⬛").setScore(2);
-				}else {
-					o.getScore("§3§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(2);
-				}
-				o.getScore("§7Playerload " + APIs.getServerName()).setScore(1);
-				if(curruserperc <= 10) {
-					o.getScore("§4§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(0);
-				}else if(curruserperc >= 11 && curruserperc <= 20) {
-					o.getScore("§4§c⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜").setScore(0);
-				}else if(curruserperc >= 21 && curruserperc <= 30) {
-					o.getScore("§4§c⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜").setScore(0);
-				}else if(curruserperc >= 31 && curruserperc <= 40) {
-					o.getScore("§4§c⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜").setScore(0);
-				}else if(curruserperc >= 41 && curruserperc <= 50) {
-					o.getScore("§4§c⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜").setScore(0);
-				}else if(curruserperc >= 51 && curruserperc <= 60) {
-					o.getScore("§4§c⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜").setScore(0);
-				}else if(curruserperc >= 61 && curruserperc <= 70) {
-					o.getScore("§4§c⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜").setScore(0);
-				}else if(curruserperc >= 71 && curruserperc <= 80) {
-					o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜").setScore(0);
-				}else if(curruserperc >= 81 && curruserperc <= 90) {
-					o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜").setScore(0);
-				}else if(curruserperc >= 91 && curruserperc <= 100) {
-					o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛⬛⬛§e⬛").setScore(0);
-				}else {
-					o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(0);
+				if(sbmain >= 0 && sbmain <= 5) {
+					o.getScore("§7CPU load: (§a" + cpucores + " §7Cores)").setScore(7);
+					if(cpuload <= 10) {
+						o.getScore("§1§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(6);
+					}else if(cpuload >= 11 && cpuload <= 20) {
+						o.getScore("§1§c⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜").setScore(6);
+					}else if(cpuload >= 21 && cpuload <= 30) {
+						o.getScore("§1§c⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜").setScore(6);
+					}else if(cpuload >= 31 && cpuload <= 40) {
+						o.getScore("§1§c⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜").setScore(6);
+					}else if(cpuload >= 41 && cpuload <= 50) {
+						o.getScore("§1§c⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜").setScore(6);
+					}else if(cpuload >= 51 && cpuload <= 60) {
+						o.getScore("§1§c⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜").setScore(6);
+					}else if(cpuload >= 61 && cpuload <= 70) {
+						o.getScore("§1§c⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜").setScore(6);
+					}else if(cpuload >= 71 && cpuload <= 80) {
+						o.getScore("§1§c⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜").setScore(6);
+					}else if(cpuload >= 81 && cpuload <= 90) {
+						o.getScore("§1§c⬛⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜").setScore(6);
+					}else if(cpuload >= 91 && cpuload <= 100) {
+						o.getScore("§1§c⬛⬛⬛⬛⬛⬛⬛⬛⬛§e⬛").setScore(6);
+					}else {
+						o.getScore("§1§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(6);
+					}
+					o.getScore("§7Ramload:").setScore(5);
+					if(rampercentage <= 10) {
+						o.getScore("§2§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(4);
+					}else if(rampercentage >= 11 && rampercentage <= 20) {
+						o.getScore("§2§c⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜").setScore(4);
+					}else if(rampercentage >= 21 && rampercentage <= 30) {
+						o.getScore("§2§c⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜").setScore(4);
+					}else if(rampercentage >= 31 && rampercentage <= 40) {
+						o.getScore("§2§c⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜").setScore(4);
+					}else if(rampercentage >= 41 && rampercentage <= 50) {
+						o.getScore("§2§c⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜").setScore(4);
+					}else if(rampercentage >= 51 && rampercentage <= 60) {
+						o.getScore("§2§c⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜").setScore(4);
+					}else if(rampercentage >= 61 && rampercentage <= 70) {
+						o.getScore("§2§c⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜").setScore(4);
+					}else if(rampercentage >= 71 && rampercentage <= 80) {
+						o.getScore("§2§c⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜").setScore(4);
+					}else if(rampercentage >= 81 && rampercentage <= 90) {
+						o.getScore("§2§c⬛⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜").setScore(4);
+					}else if(rampercentage >= 91 && rampercentage <= 100) {
+						o.getScore("§2§c⬛⬛⬛⬛⬛⬛⬛⬛⬛§e⬛").setScore(4);
+					}else {
+						o.getScore("§2§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(4);
+					}
+					o.getScore("§7Playerload Network:").setScore(3);
+					if(networkuserperc <= 10) {
+						o.getScore("§3§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(2);
+					}else if(networkuserperc >= 11 && networkuserperc <= 20) {
+						o.getScore("§3§c⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜").setScore(2);
+					}else if(networkuserperc >= 21 && networkuserperc <= 30) {
+						o.getScore("§3§c⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜").setScore(2);
+					}else if(networkuserperc >= 31 && networkuserperc <= 40) {
+						o.getScore("§3§c⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜").setScore(2);
+					}else if(networkuserperc >= 41 && networkuserperc <= 50) {
+						o.getScore("§3§c⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜").setScore(2);
+					}else if(networkuserperc >= 51 && networkuserperc <= 60) {
+						o.getScore("§3§c⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜").setScore(2);
+					}else if(networkuserperc >= 61 && networkuserperc <= 70) {
+						o.getScore("§3§c⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜").setScore(2);
+					}else if(networkuserperc >= 71 && networkuserperc <= 80) {
+						o.getScore("§3§c⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜").setScore(2);
+					}else if(networkuserperc >= 81 && networkuserperc <= 90) {
+						o.getScore("§3§c⬛⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜").setScore(2);
+					}else if(networkuserperc >= 91 && networkuserperc <= 100) {
+						o.getScore("§3§c⬛⬛⬛⬛⬛⬛⬛⬛⬛§e⬛").setScore(2);
+					}else {
+						o.getScore("§3§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(2);
+					}
+					o.getScore("§7Playerload " + APIs.getServerName()).setScore(1);
+					if(curruserperc <= 10) {
+						o.getScore("§4§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(0);
+					}else if(curruserperc >= 11 && curruserperc <= 20) {
+						o.getScore("§4§c⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜").setScore(0);
+					}else if(curruserperc >= 21 && curruserperc <= 30) {
+						o.getScore("§4§c⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜⬜").setScore(0);
+					}else if(curruserperc >= 31 && curruserperc <= 40) {
+						o.getScore("§4§c⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜⬜").setScore(0);
+					}else if(curruserperc >= 41 && curruserperc <= 50) {
+						o.getScore("§4§c⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜⬜").setScore(0);
+					}else if(curruserperc >= 51 && curruserperc <= 60) {
+						o.getScore("§4§c⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜⬜").setScore(0);
+					}else if(curruserperc >= 61 && curruserperc <= 70) {
+						o.getScore("§4§c⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜⬜").setScore(0);
+					}else if(curruserperc >= 71 && curruserperc <= 80) {
+						o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜⬜").setScore(0);
+					}else if(curruserperc >= 81 && curruserperc <= 90) {
+						o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛⬛§e⬛§a⬜").setScore(0);
+					}else if(curruserperc >= 91 && curruserperc <= 100) {
+						o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛⬛⬛§e⬛").setScore(0);
+					}else {
+						o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(0);
+					}
+				}else if(sbmain >= 6 && sbmain <= 10) {
+					DecimalFormat df = new DecimalFormat("#.##");
+					o.getScore("§7CPU load: (§a" + cpucores + " §7Cores)").setScore(7);
+					o.getScore("  §1§a" + df.format(cpuload) + "§7% usage").setScore(6);
+					o.getScore("§7Ramload: §a").setScore(5);
+					o.getScore("  §2§a" + ramusage + "§7MB /§c " + ramtotal + "§7MB").setScore(4);
+					o.getScore("§7Playerload Network:").setScore(3);
+					o.getScore("  §3§a" + pusergen + " §7Players").setScore(2);
+					o.getScore("§7Playerload " + APIs.getServerName()).setScore(1);
+					o.getScore("  §4§a" + Bukkit.getOnlinePlayers().size() + " §7Players").setScore(0);
 				}
 			}
 		}
@@ -941,25 +965,42 @@ public class ScoreboardCLS implements Listener{
 	
 	private String retLatestReport(String type) {
 		String report = "";
+		String csdate = retDate("yyyy.MM.dd");
 		try {
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_reports ORDER BY id DESC");
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			if(type.equalsIgnoreCase("reporter")) {
-				report = rs.getString("user_reporter");
-			}else if(type.equalsIgnoreCase("perpetrator")) {
-				report = rs.getString("user_target");
-			}else if(type.equalsIgnoreCase("reason")) {
-				if(rs.getString("reason").length() <= 15) {
-					report = rs.getString("reason");
-				}else {
-					report = rs.getString("reason").substring(0, 16);
-				}
-			}else if(type.equalsIgnoreCase("server")) {
-				report = rs.getString("server");
-			}else {
-				report = "ERRORDEF1a";
-			}
+                if(rs.getString("time_string").equalsIgnoreCase(csdate)) {
+                    report = rs.getString("user_reporter");
+                }else {
+                    report = "n/a";
+                }
+            }else if(type.equalsIgnoreCase("perpetrator")) {
+                if(rs.getString("time_string").equalsIgnoreCase(csdate)) {
+                    report = rs.getString("user_target");
+                }else {
+                    report = "n/a";
+                }
+            }else if(type.equalsIgnoreCase("reason")) {
+                if(rs.getString("time_string").equalsIgnoreCase(csdate)) {
+                    if(rs.getString("reason").length() <= 15) {
+                        report = rs.getString("reason");
+                    }else {
+                        report = rs.getString("reason").substring(0, 16);
+                    }
+                }else {
+                    report = "n/a";
+                }
+            }else if(type.equalsIgnoreCase("server")) {
+                if(rs.getString("time_string").equalsIgnoreCase(csdate)) {
+                    report = rs.getString("server");
+                }else {
+                    report = "n/a";
+                }
+            }else {
+                report = "ERRORDEF1a";
+            }
 			rs.close();
 			ps.close();
 		}catch (SQLException e) {
