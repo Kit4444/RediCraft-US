@@ -45,7 +45,7 @@ public class Serverupdater {
 				ps.setInt(5, (int) timestamp);
 				ps.setString(6, stime);
 				ps.setInt(7, (int) ramtotal);
-				ps.setString(8, "1.15.2");
+				ps.setString(8, "1.16.1");
 				ps.setString(9, tps);
 				ps.setString(10, APIs.getServerName());
 				ps.executeUpdate();
