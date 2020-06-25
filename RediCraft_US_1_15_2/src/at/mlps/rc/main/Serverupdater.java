@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.mysql.lb.MySQL;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_15_R1.MinecraftServer;
+import net.minecraft.server.v1_16_R1.MinecraftServer;
 
 public class Serverupdater {
 	

@@ -152,6 +152,7 @@ public class APIs {
 		cfg.addDefault("Language.EN.event.worldteleporter.theend", "&7You has been teleported to &0The End");
 		cfg.addDefault("Language.EN.event.worldteleporter.notset", "&7This spawn isn't setted yet.");
 		cfg.addDefault("Language.EN.event.join.welcomemessage", "&7Welcome on &a%server&7, %displayer");
+		cfg.addDefault("Language.EN.event.deathevent", "%target &7has been killed by %killer");
 		cfg.addDefault("Language.EN.restarter.time.200000", "&7The Server will be restarted in &a4 Hours");
 		cfg.addDefault("Language.EN.restarter.time.210000", "&7The Server will be restarted in &a3 Hours");
 		cfg.addDefault("Language.EN.restarter.time.220000", "&7The Server will be restarted in &a2 Hours");
@@ -291,6 +292,7 @@ public class APIs {
 		cfg.addDefault("Language.DE.event.worldteleporter.theend", "&7Du wurdest in das &aEnde &7teleportiert.");
 		cfg.addDefault("Language.DE.event.worldteleporter.notset", "&7Dieser Spawn ist nicht gesetzt.");
 		cfg.addDefault("Language.DE.event.join.welcomemessage", "&7Willkommen auf &a%server&7, %displayer");
+		cfg.addDefault("Language.DE.event.deathevent", "%target wurde von %killer &7getötet");
 		cfg.addDefault("Language.DE.restarter.time.200000", "&7Der Server wird neugestartet in &a4 Stunden");
 		cfg.addDefault("Language.DE.restarter.time.210000", "&7Der Server wird neugestartet in &a3 Stunden");
 		cfg.addDefault("Language.DE.restarter.time.220000", "&7Der Server wird neugestartet in &a2 Stunden");

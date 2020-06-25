@@ -144,17 +144,6 @@ public class JoinQuitEvents implements Listener{
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
 		Player p = e.getEntity();
-		if(e.getEntity().getKiller() == null) {
-			e.setDeathMessage(null);
-		}else {
-			if(e.getEntity().getKiller() instanceof Player) {
-				Player k = p.getKiller();
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "").replace("%killer", k.getDisplayName()));
-				e.setDeathMessage(null);
-			}else {
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "").replace("%killer", p.getKiller().getType().toString().toUpperCase()));
-				e.setDeathMessage(null);
-			}
-		}
+		e.setDeathMessage(null);
 	}
 }
