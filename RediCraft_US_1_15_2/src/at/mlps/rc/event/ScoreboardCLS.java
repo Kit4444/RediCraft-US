@@ -7,7 +7,6 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,10 +21,6 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
-
-import com.gamingmesh.jobs.Jobs;
-import com.gamingmesh.jobs.container.JobProgression;
-//import com.hotmail.steven.bconomy.account.AccountData;
 
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.api.PerformanceMonitor;
@@ -50,7 +45,7 @@ public class ScoreboardCLS implements Listener{
 	@SuppressWarnings("deprecation")
 	public void setScoreboard(Player p) throws IllegalStateException, IllegalArgumentException, SQLException {
 		Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
-		Objective o = sb.registerNewObjective("aaa", "bbb");
+		Objective o = sb.registerNewObjective("aaa", "dummy");
 		
 		int ping = ((CraftPlayer)p).getHandle().ping;
 		PermissionUser pu = PermissionsEx.getUser(p);
@@ -59,7 +54,6 @@ public class ScoreboardCLS implements Listener{
 		int pusercurr = Bukkit.getOnlinePlayers().size();
 		String dbpr = APIs.prefix("scoreboard");
 		int userperc = (pusergen * 100 / pusermax);
-		//int money = AccountData.getAccountBalance(p.getUniqueId().toString(), "default");
 		int money = MoneyAPI.getMoney(p.getUniqueId().toString());
 		
 		o.setDisplaySlot(DisplaySlot.SIDEBAR);
@@ -134,7 +128,7 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("  §7" + igpre(p) + " §9" + igid(p)).setScore(0);
 				}
 			}else if(getSB(p) == 2) {
-				List<JobProgression> jobs = Jobs.getPlayerManager().getJobsPlayer(p).getJobProgression();
+				/*List<JobProgression> jobs = Jobs.getPlayerManager().getJobsPlayer(p).getJobProgression();
 				int i = 0;
 				int j = jobs.size();
 				DecimalFormat df = new DecimalFormat("#.##");
@@ -146,7 +140,9 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("§9  Job " + j).setScore(i);
 					j--;
 					i++;
-				}
+				}*/
+				o.getScore("§7This is under").setScore(1);
+				o.getScore("§7maintenance.").setScore(0);
 			}else if(getSB(p) == 3) {
 				if(sbmain >= 0 && sbmain <= 5) {
 					o.getScore("§7Newest Report").setScore(9);
@@ -501,6 +497,7 @@ public class ScoreboardCLS implements Listener{
 				}
 			}
 		}
+		
 		p.setScoreboard(sb);
 		
 		Team pm = getTeam(sb, "00000", retPrefix("pm", "prefix_tab"), ChatColor.GRAY); //gold

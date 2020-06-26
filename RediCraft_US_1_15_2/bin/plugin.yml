@@ -4,8 +4,9 @@ name: RediCore_SubServer
 description: This is the Core-Plugin of RediCraft.
 website: www.redicraft.eu
 prefix: REDICRAFTCOREPLUGIN
-api-version: 1.13
+api-version: 1.16
 main: at.mlps.rc.main.Main
+softdepend: [PermissionsEx]
 
 commands:
     sb:
