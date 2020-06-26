@@ -35,7 +35,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 	
 	public static String title = "§aServer§cNavigator";
 	static String dailyrew = "§aDaily Rewards";
-	static String spawn = "§6Spawn";
+	static String spawn = "§6Lobby";
 	static String skyblock = "§a§fSky§2Block";
 	static String creative = "§eCreative";
 	static String survival = "§cSurvival";
@@ -78,90 +78,18 @@ public class Serverteleporter implements Listener, CommandExecutor{
 		inv.setItem(22, APIs.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		inv.setItem(23, APIs.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		inv.setItem(25, APIs.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
+		//inv w/ items
+		inv.setItem(6, APIs.naviItem(Material.DIAMOND_PICKAXE, creative, "Creative"));
+		inv.setItem(10, APIs.naviItem(Material.GRASS_BLOCK, skyblock, "SkyBlock"));
+		inv.setItem(16, APIs.naviItem(Material.GOLDEN_SHOVEL, farmserver, "Farmserver"));
+		inv.setItem(20, APIs.naviItem(Material.BRICKS, towny, "Towny"));
+		inv.setItem(24, APIs.naviItem(Material.IRON_AXE, survival, "Survival"));
 		if(p.hasPermission("mlps.isTeam")) {
-			if(getData("Staffserver", "locked")) {
-				inv.setItem(26, APIs.defItem(Material.RED_STAINED_GLASS_PANE, 1, bauserver + locked));
-			}else {
-				if(getData("Staffserver", "monitoring")) {
-					inv.setItem(26, APIs.defItem(Material.BLUE_STAINED_GLASS_PANE, 1, bauserver + monitored));
-				}else {
-					if(getData("Staffserver", "online")) {
-						inv.setItem(26, APIs.onlineItem(Material.WOODEN_AXE, 1, bauserver, getPlayers("Staffserver"))); //bauserver
-					}else {
-						inv.setItem(26, APIs.defItem(Material.YELLOW_STAINED_GLASS_PANE, 1, bauserver + offline));
-					}
-				}
-			}
+			inv.setItem(26, APIs.naviItem(Material.WOODEN_AXE, bauserver, "Staffserver"));
 		}else {
 			inv.setItem(26, APIs.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		}
-		if(getData("Creative", "locked")) {
-			inv.setItem(6, APIs.defItem(Material.RED_STAINED_GLASS_PANE, 1, creative + locked));
-		}else {
-			if(getData("Creative", "monitoring")) {
-				inv.setItem(6, APIs.defItem(Material.BLUE_STAINED_GLASS_PANE, 1, creative + monitored));
-			}else {
-				if(getData("Creative", "online")) {
-					inv.setItem(6, APIs.onlineItem(Material.DIAMOND_PICKAXE, 1, creative, getPlayers("Creative"))); //creative
-				}else {
-					inv.setItem(6, APIs.defItem(Material.YELLOW_STAINED_GLASS_PANE, 1, creative + offline));
-				}
-			}
-		}
-		if(getData("SkyBlock", "locked")) {
-			inv.setItem(10, APIs.defItem(Material.RED_STAINED_GLASS_PANE, 1, skyblock + locked));
-		}else {
-			if(getData("SkyBlock", "monitoring")) {
-				inv.setItem(10, APIs.defItem(Material.BLUE_STAINED_GLASS_PANE, 1, skyblock + monitored));
-			}else {
-				if(getData("SkyBlock", "online")) {
-					inv.setItem(10, APIs.onlineItem(Material.GRASS_BLOCK, 1, skyblock, getPlayers("SkyBlock"))); //skyblock
-				}else {
-					inv.setItem(10, APIs.defItem(Material.YELLOW_STAINED_GLASS_PANE, 1, skyblock + offline));
-				}
-			}
-		}
-		if(getData("Farmserver", "locked")) {
-			inv.setItem(16, APIs.defItem(Material.RED_STAINED_GLASS_PANE, 1, farmserver + locked));
-		}else {
-			if(getData("Farmserver", "monitoring")) {
-				inv.setItem(16, APIs.defItem(Material.BLUE_STAINED_GLASS_PANE, 1, farmserver + monitored));
-			}else {
-				if(getData("Farmserver", "online")) {
-					inv.setItem(16, APIs.onlineItem(Material.GOLDEN_SHOVEL, 1, farmserver, getPlayers("Farmserver"))); //farmserver
-				}else {
-					inv.setItem(16, APIs.defItem(Material.YELLOW_STAINED_GLASS_PANE, 1, farmserver + offline));
-				}
-			}
-		}
-		if(getData("Towny", "locked")) {
-			inv.setItem(20, APIs.defItem(Material.RED_STAINED_GLASS_PANE, 1, towny + locked));
-		}else {
-			if(getData("Towny", "monitoring")) {
-				inv.setItem(20, APIs.defItem(Material.BLUE_STAINED_GLASS_PANE, 1, towny + monitored));
-			}else {
-				if(getData("Towny", "online")) {
-					inv.setItem(20, APIs.onlineItem(Material.BRICKS, 1, towny, getPlayers("Towny"))); //towny
-				}else {
-					inv.setItem(20, APIs.defItem(Material.YELLOW_STAINED_GLASS_PANE, 1, towny + offline));
-				}
-			}
-		}
-		if(getData("Survival", "locked")) {
-			inv.setItem(24, APIs.defItem(Material.RED_STAINED_GLASS_PANE, 1, survival + locked));
-		}else {
-			if(getData("Survival", "monitoring")) {
-				inv.setItem(24, APIs.defItem(Material.BLUE_STAINED_GLASS_PANE, 1, survival + monitored));
-			}else {
-				if(getData("Survival", "online")) {
-					inv.setItem(24, APIs.onlineItem(Material.IRON_AXE, 1, survival, getPlayers("Survival"))); //survival
-				}else {
-					inv.setItem(24, APIs.defItem(Material.YELLOW_STAINED_GLASS_PANE, 1, survival + offline));
-				}
-			}
-		}
-		//inv.setItem(2, APIs.defItem(Material.EMERALD, 1, dailyrew)); //dailyrewards
-		inv.setItem(2, APIs.defItem(Material.EMERALD, 1, wt_inventory));
+		inv.setItem(2, APIs.defItem(Material.EMERALD, 1, wt_inventory)); //dailyrewards
 		inv.setItem(13, APIs.defItem(Material.NETHER_STAR, 1, spawn)); //spawn
 		p.openInventory(inv);
 		p.updateInventory();
@@ -180,90 +108,147 @@ public class Serverteleporter implements Listener, CommandExecutor{
 				APIs.sendMSGReady(p, "event.navigator.local.dailyreward");
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(spawn)) {
 				e.setCancelled(true);
-				p.closeInventory();
-				p.teleport(retLoc(cfg, "general"));
-				APIs.sendMSGReady(p, "event.navigator.local.spawn");
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(creative)) {
-				e.setCancelled(true);
-				sendPlayer(p, "creative", creative);
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(creative + locked)) {
-				e.setCancelled(true);
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Creative"));
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(creative + offline)) {
-				e.setCancelled(true);
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Creative"));
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(creative + monitored)) {
-				e.setCancelled(true);
-				APIs.sendMSGReady(p, "event.navigator.sendPlayer.monitorinfo");
-				sendPlayer(p, "creative", creative);
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(survival)) {
-				e.setCancelled(true);
-				sendPlayer(p, "survival", survival);
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(survival + locked)) {
-				e.setCancelled(true);
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Survival"));
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(survival + offline)) {
-				e.setCancelled(true);
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Survival"));
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(survival + monitored)) {
-				e.setCancelled(true);
-				APIs.sendMSGReady(p, "event.navigator.sendPlayer.monitorinfo");
-				sendPlayer(p, "survival", survival);
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(skyblock)) {
-				e.setCancelled(true);
-				sendPlayer(p, "skyblock", skyblock);
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(skyblock + locked)) {
-				e.setCancelled(true);
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "SkyBlock"));
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(skyblock + offline)) {
-				e.setCancelled(true);
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "SkyBlock"));
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(skyblock + monitored)) {
-				e.setCancelled(true);
-				APIs.sendMSGReady(p, "event.navigator.sendPlayer.monitorinfo");
-				sendPlayer(p, "skyblock", skyblock);
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(farmserver)) {
-				e.setCancelled(true);
-				sendPlayer(p, "farmserver", farmserver);
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(farmserver + locked)) {
-				e.setCancelled(true);
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Farmserver"));
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(farmserver + offline)) {
-				e.setCancelled(true);
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Farmserver"));
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(farmserver + monitored)) {
-				e.setCancelled(true);
-				APIs.sendMSGReady(p, "event.navigator.sendPlayer.monitorinfo");
-				sendPlayer(p, "farmserver", farmserver);
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(towny)) {
-				e.setCancelled(true);
-				sendPlayer(p, "towny", towny);
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(towny + locked)) {
-				e.setCancelled(true);
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Towny"));
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(towny + offline)) {
-				e.setCancelled(true);
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Towny"));
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(towny + monitored)) {
-				e.setCancelled(true);
-				APIs.sendMSGReady(p, "event.navigator.sendPlayer.monitorinfo");
-				sendPlayer(p, "towny", towny);
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(bauserver)) {
-				e.setCancelled(true);
-				sendPlayer(p, "bauserver", bauserver);
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(bauserver + locked)) {
-				e.setCancelled(true);
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Staffserver"));
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(bauserver + offline)) {
-				e.setCancelled(true);
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Staffserver"));
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(bauserver + monitored)) {
-				e.setCancelled(true);
-				APIs.sendMSGReady(p, "event.navigator.sendPlayer.monitorinfo");
-				sendPlayer(p, "bauserver", bauserver);
+				boolean lock = getData("Lobby", "locked");
+				if(lock) {
+					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Lobby"));
+				}else {
+					boolean monitor = getData("Lobby", "monitoring");
+					boolean online = getData("Lobby", "online");
+					if(online) {
+						if(monitor) {
+							APIs.sendMSGReady(p, "event.navigator.sendPlayer.monitorinfo");
+							sendPlayer(p, "lobby", spawn);
+						}else {
+							sendPlayer(p, "lobby", spawn);
+						}
+					}else {
+						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Lobby"));
+					}
+					
+				}
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(wt_inventory)) {
 				e.setCancelled(true);
 				worldteleporter(p);
+			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(creative)) {
+				e.setCancelled(true);
+				boolean lock = getData("Creative", "locked");
+				if(lock) {
+					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Creative"));
+				}else {
+					boolean monitor = getData("Creative", "monitoring");
+					boolean online = getData("Creative", "online");
+					if(online) {
+						if(monitor) {
+							APIs.sendMSGReady(p, "event.navigator.sendPlayer.monitorinfo");
+							sendPlayer(p, "creative", creative);
+						}else {
+							sendPlayer(p, "creative", creative);
+						}
+					}else {
+						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Creative"));
+					}
+					
+				}
+			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(survival)) {
+				e.setCancelled(true);
+				boolean lock = getData("Survival", "locked");
+				if(lock) {
+					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Survival"));
+				}else {
+					boolean monitor = getData("Survival", "monitoring");
+					boolean online = getData("Survival", "online");
+					if(online) {
+						if(monitor) {
+							APIs.sendMSGReady(p, "event.navigator.sendPlayer.monitorinfo");
+							sendPlayer(p, "survival", survival);
+						}else {
+							sendPlayer(p, "survival", survival);
+						}
+					}else {
+						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Survival"));
+					}
+					
+				}
+			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(skyblock)) {
+				e.setCancelled(true);
+				boolean lock = getData("SkyBlock", "locked");
+				if(lock) {
+					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "SkyBlock"));
+				}else {
+					boolean monitor = getData("SkyBlock", "monitoring");
+					boolean online = getData("SkyBlock", "online");
+					if(online) {
+						if(monitor) {
+							APIs.sendMSGReady(p, "event.navigator.sendPlayer.monitorinfo");
+							sendPlayer(p, "skyblock", skyblock);
+						}else {
+							sendPlayer(p, "skyblock", skyblock);
+						}
+					}else {
+						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "SkyBlock"));
+					}
+					
+				}
+			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(farmserver)) {
+				e.setCancelled(true);
+				boolean lock = getData("Farmserver", "locked");
+				if(lock) {
+					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Farmserver"));
+				}else {
+					boolean monitor = getData("Farmserver", "monitoring");
+					boolean online = getData("Farmserver", "online");
+					if(online) {
+						if(monitor) {
+							APIs.sendMSGReady(p, "event.navigator.sendPlayer.monitorinfo");
+							sendPlayer(p, "farmserver", farmserver);
+						}else {
+							sendPlayer(p, "farmserver", farmserver);
+						}
+					}else {
+						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Creative"));
+					}
+					
+				}
+			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(towny)) {
+				e.setCancelled(true);
+				boolean lock = getData("Towny", "locked");
+				if(lock) {
+					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Towny"));
+				}else {
+					boolean monitor = getData("Towny", "monitoring");
+					boolean online = getData("Towny", "online");
+					if(online) {
+						if(monitor) {
+							APIs.sendMSGReady(p, "event.navigator.sendPlayer.monitorinfo");
+							sendPlayer(p, "towny", towny);
+						}else {
+							sendPlayer(p, "towny", towny);
+						}
+					}else {
+						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Towny"));
+					}
+					
+				}
+			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(bauserver)) {
+				e.setCancelled(true);
+				boolean lock = getData("Staffserver", "locked");
+				if(lock) {
+					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Staffserver"));
+				}else {
+					boolean monitor = getData("Staffserver", "monitoring");
+					boolean online = getData("Staffserver", "online");
+					if(online) {
+						if(monitor) {
+							APIs.sendMSGReady(p, "event.navigator.sendPlayer.monitorinfo");
+							sendPlayer(p, "bauserver", bauserver);
+						}else {
+							sendPlayer(p, "bauserver", bauserver);
+						}
+					}else {
+						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Staffserver"));
+					}
+					
+				}
 			}
 		}else if(e.getView().getTitle().equalsIgnoreCase(wt_inventory)) {
 			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(wt_freebuild)) {
@@ -331,20 +316,6 @@ public class Serverteleporter implements Listener, CommandExecutor{
 			APIs.sendMSGReady(p, "event.navigator.sendPlayer.failed");
 		}
 		p.sendPluginMessage(plugin, "BungeeCord", b.toByteArray());
-	}
-	
-	private static int getPlayers(String server) {
-		int i = 0;
-		try {
-			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_serverstats WHERE servername = ?");
-			ps.setString(1, server);
-			ResultSet rs = ps.executeQuery();
-			rs.next();
-			i = rs.getInt("currPlayers");
-			ps.close();
-			rs.close();
-		}catch (SQLException e) { e.printStackTrace(); }
-		return i;
 	}
 	
 	private Location retLoc(YamlConfiguration cfg, String type) {

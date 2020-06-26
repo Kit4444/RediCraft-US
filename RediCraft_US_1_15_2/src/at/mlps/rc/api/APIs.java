@@ -557,6 +557,7 @@ public class APIs {
 	    return item;
 	  }
 	
+	@Deprecated
 	public static ItemStack onlineItem(Material mat, int avg, String dpname, int online) {
 		ArrayList<String> lore = new ArrayList<>();
 		ItemStack item = new ItemStack(mat, avg);
@@ -566,6 +567,59 @@ public class APIs {
 		mitem.setDisplayName(dpname);
 		item.setItemMeta(mitem);
 		return item;
+	}
+	
+	public static ItemStack naviItem(Material mat, String dpname, String servername) {
+		ArrayList<String> lore = new ArrayList<>();
+		ItemStack item = new ItemStack(mat, 1);
+		ItemMeta mitem = item.getItemMeta();
+		boolean online = getData(servername, "online");
+		boolean locked = getData(servername, "locked");
+		boolean monitor = getData(servername, "monitoring");
+		if(online){
+			lore.add("§7Online: §ayes");
+			lore.add("§7Online: §a" + getPlayers(servername) + " §7Players");
+		}else {
+			lore.add("§7Online: §cno");
+		}
+		if(locked) {
+			lore.add("§7Locked: §cyes");
+		}
+		if(monitor) {
+			lore.add("§7Monitoring: §cyes");
+		}
+		mitem.setLore(lore);
+		mitem.setDisplayName(dpname);
+		item.setItemMeta(mitem);
+		return item;
+	}
+	
+	private static boolean getData(String server, String column) {
+		boolean boo = false;
+		try {
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_serverstats WHERE servername = ?");
+			ps.setString(1, server);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			boo = rs.getBoolean(column);
+			ps.close();
+			rs.close();
+		}catch (SQLException e) { e.printStackTrace(); }
+		return boo;
+	}
+	
+	private static int getPlayers(String server) {
+		int i = 0;
+		try {
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_serverstats WHERE servername = ?");
+			ps.setString(1, server);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			i = rs.getInt("currPlayers");
+			ps.close();
+			rs.close();
+		}catch (SQLException e) { e.printStackTrace(); }
+		return i;
 	}
 	
 	public static void sendHotbarMessage(Player p, String message) {
