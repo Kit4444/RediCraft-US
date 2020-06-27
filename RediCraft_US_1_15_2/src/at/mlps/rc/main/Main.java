@@ -20,6 +20,7 @@ import at.mlps.rc.cmd.ChatClear;
 import at.mlps.rc.cmd.ClearLag;
 import at.mlps.rc.cmd.GamemodeCMD;
 import at.mlps.rc.cmd.Homesystem;
+import at.mlps.rc.cmd.LogSystem;
 import at.mlps.rc.cmd.MoneyAPI;
 import at.mlps.rc.cmd.PM_System;
 import at.mlps.rc.cmd.PingCMD;
@@ -136,6 +137,9 @@ public class Main extends JavaPlugin implements Listener{
 		getCommand("bankwithdraw").setExecutor(new MoneyAPI());
 		getCommand("pay").setExecutor(new MoneyAPI());
 		getCommand("head").setExecutor(new SkullCMD());
+		getCommand("login").setExecutor(new LogSystem());
+		getCommand("logout").setExecutor(new LogSystem());
+		getCommand("tg").setExecutor(new LogSystem());
 	}
 	
 	private void registerEvents() {
