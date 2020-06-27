@@ -150,6 +150,7 @@ public class Main extends JavaPlugin implements Listener{
 		pl.registerEvents(new Homesystem(), this);
 		pl.registerEvents(new SpawnVillager(), this);
 		pl.registerEvents(new MoneyAPI(), this);
+		pl.registerEvents(new AFK_CMD(), this);
 		pl.registerEvents(this, this);
 	}
 	
