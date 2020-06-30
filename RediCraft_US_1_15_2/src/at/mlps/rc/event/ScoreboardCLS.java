@@ -1041,6 +1041,7 @@ public class ScoreboardCLS implements Listener{
 		new BukkitRunnable() {
 			@Override
 			public void run() {
+				Serverupdater.updateServer();
 				for(Player all : Bukkit.getOnlinePlayers()) {
 					try {
 						setScoreboard(all);
@@ -1058,8 +1059,8 @@ public class ScoreboardCLS implements Listener{
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				Serverupdater.updateServer();
 				Serverupdater.clearlag();
+				Serverupdater.Serverrestarter();
 				SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
 				String stime = time.format(new Date());
 				for(Player all : Bukkit.getOnlinePlayers()) {

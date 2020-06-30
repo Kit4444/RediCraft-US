@@ -55,10 +55,9 @@ public class Serverupdater {
 		}else {
 			Bukkit.getConsoleSender().sendMessage("§cDB is not connected.");
 		}
-		Serverrestarter();
 	}
 	
-	private static void Serverrestarter() {
+	public static void Serverrestarter() {
 		SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
 	    String stime = time.format(new Date());
 	    if(stime.equals("20:00:00")) {
