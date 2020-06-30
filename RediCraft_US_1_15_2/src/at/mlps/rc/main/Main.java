@@ -158,7 +158,7 @@ public class Main extends JavaPlugin implements Listener{
 		fillList();
 		APIs.loadConfig();
 		ScoreboardCLS sb = new ScoreboardCLS();
-		sb.sbSched(0, 40, 20);
+		sb.sbSched(0, 100, 20);
 	}
 	
 	private void regDB() {

@@ -1042,6 +1042,10 @@ public class ScoreboardCLS implements Listener{
 			@Override
 			public void run() {
 				Serverupdater.updateServer();
+				sbmain++;
+				if(sbmain == 10) {
+					sbmain = 0;
+				}
 				for(Player all : Bukkit.getOnlinePlayers()) {
 					try {
 						setScoreboard(all);
@@ -1065,10 +1069,6 @@ public class ScoreboardCLS implements Listener{
 				String stime = time.format(new Date());
 				for(Player all : Bukkit.getOnlinePlayers()) {
 					all.setPlayerListHeaderFooter(APIs.returnStringReady(all, "scoreboard.playerlist.top").replace("|", "\n"), APIs.returnStringReady(all, "scoreboard.playerlist.bottom").replace("|", "\n").replace("%time", stime).replace("%servername", APIs.getServerName()).replace("%serverid", APIs.getServerId()));
-				}
-				sbmain++;
-				if(sbmain == 10) {
-					sbmain = 0;
 				}
 			}
 		}.runTaskTimerAsynchronously(Main.instance, delay, periodot);
