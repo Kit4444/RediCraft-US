@@ -25,6 +25,9 @@ public class JoinQuitEvents implements Listener{
 	public void onJoin(PlayerJoinEvent e) {
 		e.setJoinMessage(null);
 		Player p = e.getPlayer();
+		if(!p.hasPlayedBefore()) {
+			Serverteleporter.worldteleporter(p);
+		}
 		SimpleDateFormat time = new SimpleDateFormat("dd/MM/yy - HH:mm:ss");
         String stime = time.format(new Date());
         Timestamp ts = new Timestamp(System.currentTimeMillis());
