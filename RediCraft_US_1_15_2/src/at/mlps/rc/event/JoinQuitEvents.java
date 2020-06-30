@@ -14,7 +14,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import at.mlps.rc.api.APIs;
-import at.mlps.rc.main.Main;
 import at.mlps.rc.mysql.lb.MySQL;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
@@ -146,7 +145,6 @@ public class JoinQuitEvents implements Listener{
 	
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
-		Player p = e.getEntity();
 		e.setDeathMessage(null);
 	}
 }
