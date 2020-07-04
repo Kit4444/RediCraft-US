@@ -40,61 +40,73 @@ public class MoneyAPI implements Listener, CommandExecutor{
 					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + " §7/money [Player]");
 				}
 			}else if(cmd.getName().equalsIgnoreCase("setmoney")) {
-				if(args.length == 0) {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + " §7/setmoney <Player> <Money>");
-				}else if(args.length >= 1 && args.length <= 2) {
-					Player p2 = Bukkit.getPlayerExact(args[0]);
-					if(p2 == null) {
-						APIs.sendMSGReady(p, "cmd.setmoney.playernotonline");
-					}else {
-						String uuid2 = p2.getUniqueId().toString();
-						int money = Integer.parseInt(args[1]);
-						if(money < 0) {
-							APIs.sendMSGReady(p, "cmd.setmoney.belowzero");
+				if(p.hasPermission("mlps.setmoney")) {
+					if(args.length == 0) {
+						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + " §7/setmoney <Player> <Money>");
+					}else if(args.length >= 1 && args.length <= 2) {
+						Player p2 = Bukkit.getPlayerExact(args[0]);
+						if(p2 == null) {
+							APIs.sendMSGReady(p, "cmd.setmoney.playernotonline");
 						}else {
-							setMoney(uuid2, money);
-							p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.setmoney.successfull").replace("%money", args[1]).replace("%displayer", p2.getDisplayName()));
-							//APIs.sendMSGReady(p, "cmd.setmoney.successfull");
+							String uuid2 = p2.getUniqueId().toString();
+							int money = Integer.parseInt(args[1]);
+							if(money < 0) {
+								APIs.sendMSGReady(p, "cmd.setmoney.belowzero");
+							}else {
+								setMoney(uuid2, money);
+								p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.setmoney.successfull").replace("%money", args[1]).replace("%displayer", p2.getDisplayName()));
+								//APIs.sendMSGReady(p, "cmd.setmoney.successfull");
+							}
 						}
+					}else {
+						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + " §7/setmoney <Player> <Money>");
 					}
 				}else {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + " §7/setmoney <Player> <Money>");
+					APIs.noPerm(p);
 				}
 			}else if(cmd.getName().equalsIgnoreCase("addmoney")) {
-				if(args.length >= 1 && args.length <= 2) {
-					Player p2 = Bukkit.getPlayerExact(args[0]);
-					if(p2 == null) {
-						APIs.sendMSGReady(p, "cmd.addmoney.playernotonline");
+				if(p.hasPermission("mlps.addmoney")) {
+					if(args.length >= 1 && args.length <= 2) {
+						Player p2 = Bukkit.getPlayerExact(args[0]);
+						if(p2 == null) {
+							APIs.sendMSGReady(p, "cmd.addmoney.playernotonline");
+						}else {
+							String uuid2 = p2.getUniqueId().toString();
+							int money = Integer.parseInt(args[1]);
+							int oldmoney = getMoney(uuid2);
+							setMoney(uuid2, (money + oldmoney));
+							p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.addmoney.successfull").replace("%money", String.valueOf(money)).replace("%displayer", p2.getDisplayName()));
+							//APIs.sendMSGReady(p, "cmd.addmoney.successfull");
+						}
 					}else {
-						String uuid2 = p2.getUniqueId().toString();
-						int money = Integer.parseInt(args[1]);
-						int oldmoney = getMoney(uuid2);
-						setMoney(uuid2, (money + oldmoney));
-						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.addmoney.successfull").replace("%money", String.valueOf(money)).replace("%displayer", p2.getDisplayName()));
-						//APIs.sendMSGReady(p, "cmd.addmoney.successfull");
+						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + " §7/addmoney <Player> <Money>");
 					}
 				}else {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + " §7/addmoney <Player> <Money>");
+					APIs.noPerm(p);
 				}
 			}else if(cmd.getName().equalsIgnoreCase("removemoney")) {
-				if(args.length >= 1 && args.length <= 2) {
-					Player p2 = Bukkit.getPlayerExact(args[0]);
-					if(p2 == null) {
-						APIs.sendMSGReady(p, "cmd.removemoney.playernotonline");
-					}else {
-						String uuid2 = p2.getUniqueId().toString();
-						int money = Integer.parseInt(args[1]);
-						int oldmoney = getMoney(uuid2);
-						if(money <= oldmoney) {
-							setMoney(uuid2, (oldmoney - money));
-							p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.removemoney.successfull").replace("%money", String.valueOf(money)).replace("%displayer", p2.getDisplayName()));
-							//APIs.sendMSGReady(p, "cmd.removemoney.successfull");
+				if(p.hasPermission("mlps.removemoney")) {
+					if(args.length >= 1 && args.length <= 2) {
+						Player p2 = Bukkit.getPlayerExact(args[0]);
+						if(p2 == null) {
+							APIs.sendMSGReady(p, "cmd.removemoney.playernotonline");
 						}else {
-							APIs.sendMSGReady(p, "cmd.removemoney.belowzero");
+							String uuid2 = p2.getUniqueId().toString();
+							int money = Integer.parseInt(args[1]);
+							int oldmoney = getMoney(uuid2);
+							if(money <= oldmoney) {
+								setMoney(uuid2, (oldmoney - money));
+								p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.removemoney.successfull").replace("%money", String.valueOf(money)).replace("%displayer", p2.getDisplayName()));
+								//APIs.sendMSGReady(p, "cmd.removemoney.successfull");
+							}else {
+								APIs.sendMSGReady(p, "cmd.removemoney.belowzero");
+							}
 						}
+					}else {
+						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + " §7/removemoney <Player> <Money>");
 					}
 				}else {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + " §7/removemoney <Player> <Money>");
+					APIs.noPerm(p);
 				}
 			}else if(cmd.getName().equalsIgnoreCase("pay")) {
 				if(args.length >= 1 && args.length <= 2) {
