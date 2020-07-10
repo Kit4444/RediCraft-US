@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -21,6 +22,9 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+
+import com.gamingmesh.jobs.Jobs;
+import com.gamingmesh.jobs.container.JobProgression;
 
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.api.PerformanceMonitor;
@@ -54,7 +58,8 @@ public class ScoreboardCLS implements Listener{
 		int pusercurr = Bukkit.getOnlinePlayers().size();
 		String dbpr = APIs.prefix("scoreboard");
 		int userperc = (pusergen * 100 / pusermax);
-		int money = MoneyAPI.getMoney(p.getUniqueId().toString());
+		int cashmoney = MoneyAPI.getMoney(p.getUniqueId().toString());
+		int bankmoney = MoneyAPI.getBankMoney(p.getUniqueId().toString());
 		
 		o.setDisplaySlot(DisplaySlot.SIDEBAR);
 		o.setDisplayName(dbpr);
@@ -89,9 +94,9 @@ public class ScoreboardCLS implements Listener{
 					}else if (pu.inGroup("CMan")) {
 					    o.getScore("  §2Community Manager").setScore(0);
 					}else if (pu.inGroup("AMan")) {
-					    o.getScore("  §4Administrations Manager").setScore(0);
+					    o.getScore("  §4Game Moderation Manager").setScore(0);
 					}else if (pu.inGroup("Admin")) {
-					    o.getScore("  §cAdministrator").setScore(0);
+					    o.getScore("  §cGame Moderator").setScore(0);
 					}else if (pu.inGroup("Support")) {
 					    o.getScore("  §9Support").setScore(0);
 					}else if (pu.inGroup("Translator")) {
@@ -118,20 +123,22 @@ public class ScoreboardCLS implements Listener{
 						o.getScore("  §7Player").setScore(0);
 					}
 				}else if(sbmain >= 6 && sbmain <= 10) {
-					o.getScore("§7Server:").setScore(7);
-					o.getScore("  §a" + APIs.getServerName() + " §7/§a " + APIs.getServerId()).setScore(6);
-					o.getScore("  §9").setScore(5);
-					o.getScore(APIs.returnStringReady(p, "scoreboard.sideboard.money")).setScore(4);
-					o.getScore("  §a" + money + "§7 Coins").setScore(3);
+					o.getScore("§7Server:").setScore(8);
+					o.getScore("  §a" + APIs.getServerName() + " §7/§a " + APIs.getServerId()).setScore(7);
+					o.getScore("  §9").setScore(6);
+					o.getScore(APIs.returnStringReady(p, "scoreboard.sideboard.money")).setScore(5);
+					o.getScore("  §a" + bankmoney + "§7 Bank").setScore(4);
+					o.getScore("  §a" + cashmoney + "§7 Cash").setScore(3);
 					o.getScore("  §8").setScore(2);
 					o.getScore(APIs.returnStringReady(p, "scoreboard.sideboard.playerid")).setScore(1);
 					o.getScore("  §7" + igpre(p) + " §9" + igid(p)).setScore(0);
 				}
 			}else if(getSB(p) == 2) {
-				/*List<JobProgression> jobs = Jobs.getPlayerManager().getJobsPlayer(p).getJobProgression();
+				List<JobProgression> jobs = Jobs.getPlayerManager().getJobsPlayer(p).getJobProgression();
 				int i = 0;
 				int j = jobs.size();
 				DecimalFormat df = new DecimalFormat("#.##");
+				o.getScore("§9Jobs").setScore(15);
 				for(JobProgression job : jobs) {
 					o.getScore("§7Exp: §a" + df.format(job.getExperience()) + " §7/§c" + df.format(job.getMaxExperience())).setScore(i);
 					i++;
@@ -140,9 +147,7 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("§9  Job " + j).setScore(i);
 					j--;
 					i++;
-				}*/
-				o.getScore("§7This is under").setScore(1);
-				o.getScore("§7maintenance.").setScore(0);
+				}
 			}else if(getSB(p) == 3) {
 				if(sbmain >= 0 && sbmain <= 5) {
 					o.getScore("§7Newest Report").setScore(9);
@@ -316,9 +321,9 @@ public class ScoreboardCLS implements Listener{
 					}else if (pu.inGroup("CMan")) {
 					    o.getScore("  §2Community Manager").setScore(0);
 					}else if (pu.inGroup("AMan")) {
-					    o.getScore("  §4Administrations Manager").setScore(0);
+					    o.getScore("  §4Game Moderation Manager").setScore(0);
 					}else if (pu.inGroup("Admin")) {
-					    o.getScore("  §cAdministrator").setScore(0);
+					    o.getScore("  §cGame Moderator").setScore(0);
 					}else if (pu.inGroup("Support")) {
 					    o.getScore("  §9Support").setScore(0);
 					}else if (pu.inGroup("Translator")) {
@@ -345,11 +350,12 @@ public class ScoreboardCLS implements Listener{
 						o.getScore("  §7Player").setScore(0);
 					}
 				}else if(sbmain >= 6 && sbmain <= 10) {
-					o.getScore("§7Server:").setScore(7);
-					o.getScore("  §a" + APIs.getServerName() + " §7/§a " + APIs.getServerId()).setScore(6);
-					o.getScore("  §9").setScore(5);
-					o.getScore(APIs.returnStringReady(p, "scoreboard.sideboard.money")).setScore(4);
-					o.getScore("  §a" + money + "§7 Coins").setScore(3);
+					o.getScore("§7Server:").setScore(8);
+					o.getScore("  §a" + APIs.getServerName() + " §7/§a " + APIs.getServerId()).setScore(7);
+					o.getScore("  §9").setScore(6);
+					o.getScore(APIs.returnStringReady(p, "scoreboard.sideboard.money")).setScore(5);
+					o.getScore("  §a" + bankmoney + "§7 Bank").setScore(4);
+					o.getScore("  §a" + cashmoney + "§7 Cash").setScore(3);
 					o.getScore("  §8").setScore(2);
 					o.getScore(APIs.returnStringReady(p, "scoreboard.sideboard.playerid")).setScore(1);
 					o.getScore("  §7" + igpre(p) + " §9" + igid(p)).setScore(0);
@@ -715,7 +721,7 @@ public class ScoreboardCLS implements Listener{
 					all.setDisplayName(retPrefix("rltm", "prefix_chat") + all.getName());
 					all.setPlayerListName(retPrefix("rltm", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
 				}
-			}else if(pp.inGroup("Retired")) {
+			}else if(pp.inGroup("RTM")) {
 				if(isAFK(all)) {
 					afk.addPlayer(all);
 					all.setPlayerListName("§9AFK §7- " + all.getName() + " §7| ID§7: §a" + igid(all) + " §f" + igpre(all));
