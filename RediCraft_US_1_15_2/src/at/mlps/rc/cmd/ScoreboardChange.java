@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.event.ScoreboardCLS;
 import at.mlps.rc.main.Main;
 import at.mlps.rc.mysql.lb.MySQL;
 
@@ -48,6 +49,19 @@ public class ScoreboardChange implements CommandExecutor{
 							APIs.noPerm(p);
 						}
 					}
+					ScoreboardCLS sb = new ScoreboardCLS();
+					try {
+						sb.setScoreboard(p);
+					} catch (IllegalStateException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}else {
 					if(args[0].equalsIgnoreCase("off")) {
 						updateSB(uuid, 0);
@@ -71,6 +85,19 @@ public class ScoreboardChange implements CommandExecutor{
 						}else {
 							APIs.noPerm(p);
 						}
+					}
+					ScoreboardCLS sb = new ScoreboardCLS();
+					try {
+						sb.setScoreboard(p);
+					} catch (IllegalStateException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 			}else {
