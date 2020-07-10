@@ -1,12 +1,12 @@
 author: Maurice_Bailey
-version: 20200625_19b
+version: 20200710_20s
 name: RediCore_SubServer
 description: This is the Core-Plugin of RediCraft.
 website: www.redicraft.eu
 prefix: REDICRAFTCOREPLUGIN
 api-version: 1.16
 main: at.mlps.rc.main.Main
-softdepend: [PermissionsEx]
+softdepend: [PermissionsEx, Jobs]
 
 commands:
     sb:
@@ -46,4 +46,7 @@ commands:
     login:
     logout:
     tg:
+    fly:
+    wb:
+    workbench:
     

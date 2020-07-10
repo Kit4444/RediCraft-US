@@ -126,6 +126,13 @@ public class APIs {
 		cfg.addDefault("Language.EN.cmd.bankwithdraw.moreaspossible", "&7You can't deposit more as you have.");
 		cfg.addDefault("Language.EN.cmd.bankwithdraw.successfull", "&7You have withdrawn &a%money &7Coins from your bank.");
 		cfg.addDefault("Language.EN.cmd.setvillager", "&7You have set the Shopvillager");
+		cfg.addDefault("Language.EN.cmd.fly.other", "&7The player is not online.");
+		cfg.addDefault("Language.EN.cmd.workbench", "&7You have opened the workbench.");
+		cfg.addDefault("Language.EN.cmd.fly.own.true", "&7You can fly now.");
+		cfg.addDefault("Language.EN.cmd.fly.own.false", "&7You can't fly anymore.");
+		cfg.addDefault("Language.EN.cmd.fly.other.true", "%displayer &7 can now fly.");
+		cfg.addDefault("Language.EN.cmd.fly.other.false", "%displayer &7 can't fly anymore.");
+		cfg.addDefault("Language.EN.cmd.fly.other.offline", "&7This player is offline.");
 		cfg.addDefault("Language.EN.event.shopvillager.open", "&7You have opened the Shop.");
 		cfg.addDefault("Language.EN.event.shopvillager.hurt", "&7You can't hurt the villager.");
 		cfg.addDefault("Language.EN.event.afk.leave", "&7You are not longer AFK.");
@@ -266,6 +273,13 @@ public class APIs {
 		cfg.addDefault("Language.DE.cmd.bankdeposit.successfull", "&7Du hast &a%money &7Coins auf deine Bank überwiesen.");
 		cfg.addDefault("Language.DE.cmd.bankwithdraw.moreaspossible", "&7Du kannst nicht mehr von deiner Bank abheben als du hast.");
 		cfg.addDefault("Language.DE.cmd.bankwithdraw.successfull", "&7Du hast &a%money &7Coins von deiner Bank abgehoben.");
+		cfg.addDefault("Language.DE.cmd.fly.other", "&7Dieser Spieler ist nicht online.");
+		cfg.addDefault("Language.DE.cmd.workbench", "&7Du hast die Werkbank geöffnet.");
+		cfg.addDefault("Language.DE.cmd.fly.own.true", "&7Du kannst nun fliegen.");
+		cfg.addDefault("Language.DE.cmd.fly.own.false", "&7Du kannst nicht mehr fliegen.");
+		cfg.addDefault("Language.DE.cmd.fly.other.true", "%displayer &7kann nun fliegen.");
+		cfg.addDefault("Language.DE.cmd.fly.other.false", "%displayer &7kann nicht mehr fliegen.");
+		cfg.addDefault("Language.DE.cmd.fly.other.offline", "&7Dieser Spieler ist nicht online.");
 		cfg.addDefault("Language.DE.event.shopvillager.open", "&7Du hast den Shop geöffnet.");
 		cfg.addDefault("Language.DE.event.shopvillager.hurt", "&7Du kannst dem Villager nicht wehtun.");
 		cfg.addDefault("Language.DE.event.afk.leave", "&7Du bist nicht mehr AFK.");

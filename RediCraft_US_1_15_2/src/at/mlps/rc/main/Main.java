@@ -18,6 +18,7 @@ import at.mlps.rc.cmd.AFK_CMD;
 import at.mlps.rc.cmd.CMD_SetID_SetPf;
 import at.mlps.rc.cmd.ChatClear;
 import at.mlps.rc.cmd.ClearLag;
+import at.mlps.rc.cmd.FlyCMD;
 import at.mlps.rc.cmd.GamemodeCMD;
 import at.mlps.rc.cmd.Homesystem;
 import at.mlps.rc.cmd.LogSystem;
@@ -30,6 +31,7 @@ import at.mlps.rc.cmd.SkullCMD;
 import at.mlps.rc.cmd.SpawnVillager;
 import at.mlps.rc.cmd.TimeCMD;
 import at.mlps.rc.cmd.WeatherCMD;
+import at.mlps.rc.cmd.WorkBenchCMD;
 import at.mlps.rc.cmd.setspawn;
 import at.mlps.rc.cmd.stop;
 import at.mlps.rc.event.JoinQuitEvents;
@@ -140,6 +142,9 @@ public class Main extends JavaPlugin implements Listener{
 		getCommand("login").setExecutor(new LogSystem());
 		getCommand("logout").setExecutor(new LogSystem());
 		getCommand("tg").setExecutor(new LogSystem());
+		getCommand("fly").setExecutor(new FlyCMD());
+		getCommand("wb").setExecutor(new WorkBenchCMD());
+		getCommand("workbench").setExecutor(new WorkBenchCMD());
 	}
 	
 	private void registerEvents() {
@@ -151,6 +156,7 @@ public class Main extends JavaPlugin implements Listener{
 		pl.registerEvents(new SpawnVillager(), this);
 		pl.registerEvents(new MoneyAPI(), this);
 		pl.registerEvents(new AFK_CMD(), this);
+		pl.registerEvents(new FlyCMD(), this);
 		pl.registerEvents(this, this);
 	}
 	
