@@ -20,10 +20,10 @@ public class GamemodeCMD implements CommandExecutor{
 			Player p = (Player)sender;
 			if(args.length == 0 ) {
 				if(p.hasPermission("mlps.gamemode.other")) {
-					p.sendMessage(Main.prefix() + "§7Usage: /gm* <0|1|2|3> [Player] [boolean (send Message to Player 2)]");
+					p.sendMessage(Main.prefix() + "§7Usage: /gm* <0|1|2|3> [Player]");
 					p.sendMessage(Main.prefix() + "§7* -> §a/gm §7|§a /gamemode §7are useable");
 				}else if(p.hasPermission("mlps.gamemode.own")) {
-					p.sendMessage(Main.prefix() + "§7Usage: /gm* <0|1|2|3> [Player]");
+					p.sendMessage(Main.prefix() + "§7Usage: /gm* <0|1|2|3>");
 					p.sendMessage(Main.prefix() + "§7* -> §a/gm §7|§a /gamemode §7are useable");
 				}else {
 					APIs.noPerm(p);
@@ -49,50 +49,25 @@ public class GamemodeCMD implements CommandExecutor{
 				}else {
 					APIs.noPerm(p);
 				}
-			}else if(args.length >= 3 && args.length <= 3) {
+			}else if(args.length >= 2 && args.length <= 2) {
 				if(p.hasPermission("mlps.gamemode.other")) {
 					String gm = args[0];
-					String sendmsg = args[2];
 					Player p2 = Bukkit.getPlayerExact(args[1]);
 					if(p2 == null) {
 						APIs.sendMSGReady(p, "cmd.gamemode.notonline");
 					}else {
 						if(gm.equalsIgnoreCase("0")) {
 							p2.setGameMode(GameMode.SURVIVAL);
-							if(sendmsg.equalsIgnoreCase("true")) {
-								p2.sendMessage(Main.prefix() + APIs.returnStringReady(p2, "cmd.gamemode.change").replace("%gamemode", "Survival"));
-							}else if(sendmsg.equalsIgnoreCase("false")) {
-								//do nothing at all
-							}else {
-								p2.sendMessage(Main.prefix() + APIs.returnStringReady(p2, "cmd.gamemode.change").replace("%gamemode", "Survival"));
-							}
+							p2.sendMessage(Main.prefix() + APIs.returnStringReady(p2, "cmd.gamemode.change").replace("%gamemode", "Survival"));
 						}else if(gm.equalsIgnoreCase("1")) {
 							p2.setGameMode(GameMode.CREATIVE);
-							if(sendmsg.equalsIgnoreCase("true")) {
-								p2.sendMessage(Main.prefix() + APIs.returnStringReady(p2, "cmd.gamemode.change").replace("%gamemode", "Creative"));
-							}else if(sendmsg.equalsIgnoreCase("false")) {
-								//do nothing at all
-							}else {
-								p2.sendMessage(Main.prefix() + APIs.returnStringReady(p2, "cmd.gamemode.change").replace("%gamemode", "Creative"));
-							}
+							p2.sendMessage(Main.prefix() + APIs.returnStringReady(p2, "cmd.gamemode.change").replace("%gamemode", "Creative"));
 						}else if(gm.equalsIgnoreCase("2")) {
 							p2.setGameMode(GameMode.ADVENTURE);
-							if(sendmsg.equalsIgnoreCase("true")) {
-								p2.sendMessage(Main.prefix() + APIs.returnStringReady(p2, "cmd.gamemode.change").replace("%gamemode", "Adventure"));
-							}else if(sendmsg.equalsIgnoreCase("false")) {
-								//do nothing at all
-							}else {
-								p2.sendMessage(Main.prefix() + APIs.returnStringReady(p2, "cmd.gamemode.change").replace("%gamemode", "Adventure"));
-							}
+							p2.sendMessage(Main.prefix() + APIs.returnStringReady(p2, "cmd.gamemode.change").replace("%gamemode", "Adventure"));
 						}else if(gm.equalsIgnoreCase("3")) {
 							p2.setGameMode(GameMode.SPECTATOR);
-							if(sendmsg.equalsIgnoreCase("true")) {
-								p2.sendMessage(Main.prefix() + APIs.returnStringReady(p2, "cmd.gamemode.change").replace("%gamemode", "Spectator"));
-							}else if(sendmsg.equalsIgnoreCase("false")) {
-								//do nothing at all
-							}else {
-								p2.sendMessage(Main.prefix() + APIs.returnStringReady(p2, "cmd.gamemode.change").replace("%gamemode", "Spectator"));
-							}
+							p2.sendMessage(Main.prefix() + APIs.returnStringReady(p2, "cmd.gamemode.change").replace("%gamemode", "Spectator"));
 						}
 					}
 				}else {
@@ -100,9 +75,9 @@ public class GamemodeCMD implements CommandExecutor{
 				}
 			}else {
 				if(p.hasPermission("mlps.gamemode.other")) {
-					p.sendMessage(Main.prefix() + "§7Usage: /gm <0|1|2|3> [Player] [boolean (send Message to Player 2)]");
-				}else if(p.hasPermission("mlps.gamemode.own")) {
 					p.sendMessage(Main.prefix() + "§7Usage: /gm <0|1|2|3> [Player]");
+				}else if(p.hasPermission("mlps.gamemode.own")) {
+					p.sendMessage(Main.prefix() + "§7Usage: /gm <0|1|2|3>");
 				}else {
 					APIs.noPerm(p);
 				}
