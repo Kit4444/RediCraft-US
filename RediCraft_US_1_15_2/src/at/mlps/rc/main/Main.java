@@ -159,6 +159,7 @@ public class Main extends JavaPlugin implements Listener{
 		pl.registerEvents(new MoneyAPI(), this);
 		pl.registerEvents(new AFK_CMD(), this);
 		pl.registerEvents(new FlyCMD(), this);
+		pl.registerEvents(new stop(this), this);
 		pl.registerEvents(this, this);
 	}
 	
