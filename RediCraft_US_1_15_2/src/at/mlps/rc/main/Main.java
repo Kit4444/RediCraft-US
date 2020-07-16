@@ -18,6 +18,7 @@ import at.mlps.rc.cmd.AFK_CMD;
 import at.mlps.rc.cmd.CMD_SetID_SetPf;
 import at.mlps.rc.cmd.ChatClear;
 import at.mlps.rc.cmd.ClearLag;
+import at.mlps.rc.cmd.Dynmap_CMD;
 import at.mlps.rc.cmd.FlyCMD;
 import at.mlps.rc.cmd.GamemodeCMD;
 import at.mlps.rc.cmd.Homesystem;
@@ -145,6 +146,7 @@ public class Main extends JavaPlugin implements Listener{
 		getCommand("fly").setExecutor(new FlyCMD());
 		getCommand("wb").setExecutor(new WorkBenchCMD());
 		getCommand("workbench").setExecutor(new WorkBenchCMD());
+		getCommand("onlinemap").setExecutor(new Dynmap_CMD());
 	}
 	
 	private void registerEvents() {

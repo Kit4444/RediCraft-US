@@ -133,6 +133,7 @@ public class APIs {
 		cfg.addDefault("Language.EN.cmd.fly.other.true", "%displayer &7 can now fly.");
 		cfg.addDefault("Language.EN.cmd.fly.other.false", "%displayer &7 can't fly anymore.");
 		cfg.addDefault("Language.EN.cmd.fly.other.offline", "&7This player is offline.");
+		cfg.addDefault("Language.EN.cmd.onlinemap.invalidserver", "§cThis server doesn't have a online map.");
 		cfg.addDefault("Language.EN.event.shopvillager.open", "&7You have opened the Shop.");
 		cfg.addDefault("Language.EN.event.shopvillager.hurt", "&7You can't hurt the villager.");
 		cfg.addDefault("Language.EN.event.afk.leave", "&7You are not longer AFK.");
@@ -280,6 +281,7 @@ public class APIs {
 		cfg.addDefault("Language.DE.cmd.fly.other.true", "%displayer &7kann nun fliegen.");
 		cfg.addDefault("Language.DE.cmd.fly.other.false", "%displayer &7kann nicht mehr fliegen.");
 		cfg.addDefault("Language.DE.cmd.fly.other.offline", "&7Dieser Spieler ist nicht online.");
+		cfg.addDefault("Language.DE.cmd.onlinemap.invalidserver", "§7Dieser Server hat keine online - map.");
 		cfg.addDefault("Language.DE.event.shopvillager.open", "&7Du hast den Shop geöffnet.");
 		cfg.addDefault("Language.DE.event.shopvillager.hurt", "&7Du kannst dem Villager nicht wehtun.");
 		cfg.addDefault("Language.DE.event.afk.leave", "&7Du bist nicht mehr AFK.");
