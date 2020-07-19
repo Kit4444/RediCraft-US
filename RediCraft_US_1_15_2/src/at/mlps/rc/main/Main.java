@@ -34,7 +34,7 @@ import at.mlps.rc.cmd.TimeCMD;
 import at.mlps.rc.cmd.WeatherCMD;
 import at.mlps.rc.cmd.WorkBenchCMD;
 import at.mlps.rc.cmd.setspawn;
-import at.mlps.rc.cmd.stop;
+import at.mlps.rc.cmd.StopCMD;
 import at.mlps.rc.event.JoinQuitEvents;
 import at.mlps.rc.event.ScoreboardCLS;
 import at.mlps.rc.event.Serverteleporter;
@@ -119,7 +119,7 @@ public class Main extends JavaPlugin implements Listener{
 		getCommand("s").setExecutor(new Serverteleporter(this));
 		getCommand("gc").setExecutor(new ServerhealthCMD());
 		getCommand("setspawn").setExecutor(new setspawn());
-		getCommand("stop").setExecutor(new stop(this));
+		getCommand("stop").setExecutor(new StopCMD(this));
 		getCommand("time").setExecutor(new TimeCMD());
 		getCommand("weather").setExecutor(new WeatherCMD());
 		getCommand("msg").setExecutor(new PM_System());
@@ -159,7 +159,7 @@ public class Main extends JavaPlugin implements Listener{
 		pl.registerEvents(new MoneyAPI(), this);
 		pl.registerEvents(new AFK_CMD(), this);
 		pl.registerEvents(new FlyCMD(), this);
-		pl.registerEvents(new stop(this), this);
+		pl.registerEvents(new StopCMD(this), this);
 		pl.registerEvents(this, this);
 	}
 	
