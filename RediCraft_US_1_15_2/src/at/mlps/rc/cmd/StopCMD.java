@@ -12,15 +12,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.main.Main;
 
-public class stop implements CommandExecutor, Listener{
+public class StopCMD implements CommandExecutor, Listener{
 	
 	private Main plugin;
 	
-	public stop(Main m) {
+	public StopCMD(Main m) {
 		this.plugin = m;
 	}
 	
@@ -56,12 +57,12 @@ public class stop implements CommandExecutor, Listener{
 					}
 					all.sendPluginMessage(this.plugin, "BungeeCord", b.toByteArray());
 				}
-				Bukkit.getScheduler().scheduleSyncDelayedTask(Main.instance, new Runnable() {
+				new BukkitRunnable() {
 					@Override
 					public void run() {
 						Bukkit.shutdown();
 					}
-				}, 200);
+				}.runTaskLater(Main.instance, 200);
 			}else {
 				APIs.noPerm((Player) sender);
 			}
