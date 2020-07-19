@@ -9,35 +9,11 @@ import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import at.mlps.rc.api.APIs;
-import at.mlps.rc.cmd.AFK_CMD;
-import at.mlps.rc.cmd.CMD_SetID_SetPf;
-import at.mlps.rc.cmd.ChatClear;
-import at.mlps.rc.cmd.ClearLag;
-import at.mlps.rc.cmd.Dynmap_CMD;
-import at.mlps.rc.cmd.FlyCMD;
-import at.mlps.rc.cmd.GamemodeCMD;
-import at.mlps.rc.cmd.Homesystem;
-import at.mlps.rc.cmd.LogSystem;
-import at.mlps.rc.cmd.MoneyAPI;
-import at.mlps.rc.cmd.PM_System;
-import at.mlps.rc.cmd.PingCMD;
-import at.mlps.rc.cmd.ScoreboardChange;
-import at.mlps.rc.cmd.ServerhealthCMD;
-import at.mlps.rc.cmd.SkullCMD;
-import at.mlps.rc.cmd.SpawnVillager;
-import at.mlps.rc.cmd.TimeCMD;
-import at.mlps.rc.cmd.WeatherCMD;
-import at.mlps.rc.cmd.WorkBenchCMD;
-import at.mlps.rc.cmd.setspawn;
-import at.mlps.rc.cmd.StopCMD;
-import at.mlps.rc.event.JoinQuitEvents;
 import at.mlps.rc.event.ScoreboardCLS;
-import at.mlps.rc.event.Serverteleporter;
 import at.mlps.rc.mysql.lpb.MySQL;
 import net.milkbowl.vault.economy.Economy;
 
@@ -85,8 +61,8 @@ public class Main extends JavaPlugin implements Listener{
 		regDB();
 		UpdateOnline(true);
 		registerMisc();
-		registerCMDs();
-		registerEvents();
+		Manager man = new Manager();
+		man.init();
 		if(Bukkit.getPluginManager().getPlugin("Vault") != null) {
 			Bukkit.getServicesManager().register(Economy.class, new Vault(), Bukkit.getPluginManager().getPlugin("Vault"), ServicePriority.Normal);
 		}
@@ -103,64 +79,6 @@ public class Main extends JavaPlugin implements Listener{
 			e.printStackTrace();
 		}
 		Bukkit.getConsoleSender().sendMessage(prefix() + "§cPlugin wurde gestoppt");
-	}
-	
-	private void registerCMDs() {
-		getCommand("sb").setExecutor(new ScoreboardChange());
-		getCommand("afk").setExecutor(new AFK_CMD());
-		getCommand("cc").setExecutor(new ChatClear());
-		getCommand("chatclear").setExecutor(new ChatClear());
-		getCommand("setid").setExecutor(new CMD_SetID_SetPf());
-		getCommand("setpf").setExecutor(new CMD_SetID_SetPf());
-		getCommand("clearlag").setExecutor(new ClearLag());
-		getCommand("gm").setExecutor(new GamemodeCMD());
-		getCommand("gamemode").setExecutor(new GamemodeCMD());
-		getCommand("ping").setExecutor(new PingCMD());
-		getCommand("s").setExecutor(new Serverteleporter(this));
-		getCommand("gc").setExecutor(new ServerhealthCMD());
-		getCommand("setspawn").setExecutor(new setspawn());
-		getCommand("stop").setExecutor(new StopCMD(this));
-		getCommand("time").setExecutor(new TimeCMD());
-		getCommand("weather").setExecutor(new WeatherCMD());
-		getCommand("msg").setExecutor(new PM_System());
-		getCommand("r").setExecutor(new PM_System());
-		getCommand("blockmsg").setExecutor(new PM_System());
-		getCommand("delhome").setExecutor(new Homesystem());
-		getCommand("home").setExecutor(new Homesystem());
-		getCommand("sethome").setExecutor(new Homesystem());
-		getCommand("listhomes").setExecutor(new Homesystem());
-		getCommand("spawnvillager").setExecutor(new SpawnVillager());
-		getCommand("money").setExecutor(new MoneyAPI());
-		getCommand("setmoney").setExecutor(new MoneyAPI());
-		getCommand("removemoney").setExecutor(new MoneyAPI());
-		getCommand("addmoney").setExecutor(new MoneyAPI());
-		getCommand("topmoney").setExecutor(new MoneyAPI());
-		getCommand("setbankmoney").setExecutor(new MoneyAPI());
-		getCommand("bankdeposit").setExecutor(new MoneyAPI());
-		getCommand("bankwithdraw").setExecutor(new MoneyAPI());
-		getCommand("pay").setExecutor(new MoneyAPI());
-		getCommand("head").setExecutor(new SkullCMD());
-		getCommand("login").setExecutor(new LogSystem());
-		getCommand("logout").setExecutor(new LogSystem());
-		getCommand("tg").setExecutor(new LogSystem());
-		getCommand("fly").setExecutor(new FlyCMD());
-		getCommand("wb").setExecutor(new WorkBenchCMD());
-		getCommand("workbench").setExecutor(new WorkBenchCMD());
-		getCommand("onlinemap").setExecutor(new Dynmap_CMD());
-	}
-	
-	private void registerEvents() {
-		PluginManager pl = Bukkit.getPluginManager();
-		pl.registerEvents(new ScoreboardCLS(), this);
-		pl.registerEvents(new JoinQuitEvents(), this);
-		pl.registerEvents(new Serverteleporter(this), this);
-		pl.registerEvents(new Homesystem(), this);
-		pl.registerEvents(new SpawnVillager(), this);
-		pl.registerEvents(new MoneyAPI(), this);
-		pl.registerEvents(new AFK_CMD(), this);
-		pl.registerEvents(new FlyCMD(), this);
-		pl.registerEvents(new StopCMD(this), this);
-		pl.registerEvents(this, this);
 	}
 	
 	private void registerMisc() {
