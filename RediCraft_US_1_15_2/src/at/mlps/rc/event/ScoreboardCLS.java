@@ -132,6 +132,19 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("  §8").setScore(2);
 					o.getScore(APIs.returnStringReady(p, "scoreboard.sideboard.playerid")).setScore(1);
 					o.getScore("  §7" + igpre(p) + " §9" + igid(p)).setScore(0);
+				}else if(sbmain >= 11 && sbmain <= 15) {
+					//serverlist and their Players 
+					if(p.hasPermission("mlps.isTeam")) {
+						o.getScore("§7Servers/Players:").setScore(6);
+						o.getScore("  §bStaffserver§7: §a" + getPlayers("Staffserver")).setScore(5);
+					}else {
+						o.getScore("§7Servers/Players:").setScore(5);
+					}
+					o.getScore("  §eCreative§7: §a" + getPlayers("Creative")).setScore(4);
+					o.getScore("  §cSurvival§7: §a" + getPlayers("Survival")).setScore(3);
+					o.getScore("  §fSky§2Block§7: §a" + getPlayers("SkyBlock")).setScore(2);
+					o.getScore("  §6Towny§7: §a" + getPlayers("Towny")).setScore(1);
+					o.getScore("  §5Farmserver§7: §a" + getPlayers("Farmserver")).setScore(0);
 				}
 			}else if(getSB(p) == 2) {
 				List<JobProgression> jobs = Jobs.getPlayerManager().getJobsPlayer(p).getJobProgression();
@@ -149,7 +162,7 @@ public class ScoreboardCLS implements Listener{
 					i++;
 				}
 			}else if(getSB(p) == 3) {
-				if(sbmain >= 0 && sbmain <= 5) {
+				if(sbmain >= 0 && sbmain <= 7) {
 					o.getScore("§7Newest Report").setScore(9);
 					o.getScore("§a§b§c").setScore(8);
 					o.getScore("§7Reporter:").setScore(7);
@@ -160,7 +173,7 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("  §3§a" + retLatestReport("server")).setScore(2);
 					o.getScore("§7Reason:").setScore(1);
 					o.getScore("  §4§a" + retLatestReport("reason")).setScore(0);
-				}else if(sbmain >= 6 && sbmain <= 10) {
+				}else if(sbmain >= 8 && sbmain <= 15) {
 					o.getScore("§7Reports total " + APIs.getServerName()).setScore(7);
 					o.getScore("§1  §a" + retRepsTotCuSe() + " §7Reports").setScore(6);
 					o.getScore("§7Reports today " + APIs.getServerName()).setScore(5);
@@ -181,7 +194,7 @@ public class ScoreboardCLS implements Listener{
 				float networkuserperc = (pusergen * 100/pusermax);
 				float curruserperc = (pusercurr * 100/pusermax);
 				
-				if(sbmain >= 0 && sbmain <= 5) {
+				if(sbmain >= 0 && sbmain <= 7) {
 					o.getScore("§7CPU load: (§a" + cpucores + " §7Cores)").setScore(7);
 					if(cpuload <= 10) {
 						o.getScore("§1§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(6);
@@ -278,7 +291,7 @@ public class ScoreboardCLS implements Listener{
 					}else {
 						o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(0);
 					}
-				}else if(sbmain >= 6 && sbmain <= 10) {
+				}else if(sbmain >= 8 && sbmain <= 15) {
 					DecimalFormat df = new DecimalFormat("#.##");
 					o.getScore("§7CPU load: (§a" + cpucores + " §7Cores)").setScore(7);
 					o.getScore("  §1§a" + df.format(cpuload) + "§7% usage").setScore(6);
@@ -359,9 +372,22 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("  §8").setScore(2);
 					o.getScore(APIs.returnStringReady(p, "scoreboard.sideboard.playerid")).setScore(1);
 					o.getScore("  §7" + igpre(p) + " §9" + igid(p)).setScore(0);
+				}else if(sbmain >= 11 && sbmain <= 15) {
+					//serverlist and their Players 
+					if(p.hasPermission("mlps.isTeam")) {
+						o.getScore("§7Servers/Players:").setScore(6);
+						o.getScore("  §bStaffserver§7: §a" + getPlayers("Staffserver")).setScore(5);
+					}else {
+						o.getScore("§7Servers/Players:").setScore(5);
+					}
+					o.getScore("  §eCreative§7: §a" + getPlayers("Creative")).setScore(4);
+					o.getScore("  §cSurvival§7: §a" + getPlayers("Survival")).setScore(3);
+					o.getScore("  §fSky§2Block§7: §a" + getPlayers("SkyBlock")).setScore(2);
+					o.getScore("  §6Towny§7: §a" + getPlayers("Towny")).setScore(1);
+					o.getScore("  §5Farmserver§7: §a" + getPlayers("Farmserver")).setScore(0);
 				}
 			}else if(getSB(p) == 3) {
-				if(sbmain >= 0 && sbmain <= 5) {
+				if(sbmain >= 0 && sbmain <= 7) {
 					o.getScore("§7Newest Report").setScore(9);
 					o.getScore("§a§b§c").setScore(8);
 					o.getScore("§7Reporter:").setScore(7);
@@ -372,7 +398,7 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("  §3§a" + retLatestReport("server")).setScore(2);
 					o.getScore("§7Reason:").setScore(1);
 					o.getScore("  §4§a" + retLatestReport("reason")).setScore(0);
-				}else if(sbmain >= 6 && sbmain <= 10) {
+				}else if(sbmain >= 8 && sbmain <= 15) {
 					o.getScore("§7Reports total " + APIs.getServerName()).setScore(7);
 					o.getScore("§1  §a" + retRepsTotCuSe() + " §7Reports").setScore(6);
 					o.getScore("§7Reports today " + APIs.getServerName()).setScore(5);
@@ -393,7 +419,7 @@ public class ScoreboardCLS implements Listener{
 				float networkuserperc = (pusergen * 100/pusermax);
 				float curruserperc = (pusercurr * 100/pusermax);
 				
-				if(sbmain >= 0 && sbmain <= 5) {
+				if(sbmain >= 0 && sbmain <= 7) {
 					o.getScore("§7CPU load: (§a" + cpucores + " §7Cores)").setScore(7);
 					if(cpuload <= 10) {
 						o.getScore("§1§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(6);
@@ -490,7 +516,7 @@ public class ScoreboardCLS implements Listener{
 					}else {
 						o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(0);
 					}
-				}else if(sbmain >= 6 && sbmain <= 10) {
+				}else if(sbmain >= 8 && sbmain <= 15) {
 					DecimalFormat df = new DecimalFormat("#.##");
 					o.getScore("§7CPU load: (§a" + cpucores + " §7Cores)").setScore(7);
 					o.getScore("  §1§a" + df.format(cpuload) + "§7% usage").setScore(6);
@@ -887,6 +913,21 @@ public class ScoreboardCLS implements Listener{
 		return team;
 	}
 	
+	private int getPlayers(String server) {
+		int i = 0;
+		try {
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_serverstats WHERE servername = ?");
+			ps.setString(1, server);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			i = rs.getInt("currPlayers");
+			rs.close();
+			ps.close();
+		} catch (SQLException e) { }
+		
+		return i;
+	}
+	
 	private int getSB(Player p) {
 		int i = 0;
 		try {
@@ -1049,7 +1090,7 @@ public class ScoreboardCLS implements Listener{
 			public void run() {
 				Serverupdater.updateServer();
 				sbmain++;
-				if(sbmain == 10) {
+				if(sbmain == 15) {
 					sbmain = 0;
 				}
 				for(Player all : Bukkit.getOnlinePlayers()) {
