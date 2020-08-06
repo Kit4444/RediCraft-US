@@ -88,5 +88,4 @@ public class Manager {
 		pl.registerEvents(new StopCMD(Main.instance), Main.instance);
 		pl.registerEvents(new Blocker(), Main.instance);
 	}
-
 }
