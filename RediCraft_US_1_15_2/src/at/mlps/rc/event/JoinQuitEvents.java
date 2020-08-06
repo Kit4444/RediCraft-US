@@ -1,6 +1,7 @@
 package at.mlps.rc.event;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -14,6 +15,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.main.Main;
 import at.mlps.rc.mysql.lb.MySQL;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
@@ -24,9 +26,6 @@ public class JoinQuitEvents implements Listener{
 	public void onJoin(PlayerJoinEvent e) {
 		e.setJoinMessage(null);
 		Player p = e.getPlayer();
-		if(!p.hasPlayedBefore()) {
-			Serverteleporter.worldteleporter(p);
-		}
 		SimpleDateFormat time = new SimpleDateFormat("dd/MM/yy - HH:mm:ss");
         String stime = time.format(new Date());
         Timestamp ts = new Timestamp(System.currentTimeMillis());
@@ -85,6 +84,18 @@ public class JoinQuitEvents implements Listener{
 		}catch (SQLException ex) {
 			ex.printStackTrace();
 		}
+        if(!p.hasPlayedBefore()) {
+			Serverteleporter.worldteleporter(p);
+		}
+        if(p.hasPermission("mlps.isSA")) {
+        	String isVer = Main.instance.getDescription().getVersion();
+            String shouldVer = retVersion();
+            if(!isVer.equalsIgnoreCase(shouldVer)) {
+            	p.sendMessage(Main.prefix() + "§cInfo, the Version you use is different to the DB.");
+            	p.sendMessage("§aServerversion§7: " + isVer);
+            	p.sendMessage("§cDB-Version§7: " + shouldVer);
+            }
+        }
 	}
 	
 	@EventHandler
@@ -146,5 +157,19 @@ public class JoinQuitEvents implements Listener{
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
 		e.setDeathMessage(null);
+	}
+	
+	private String retVersion() {
+		String s = "";
+		try {
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT version FROM redicore_versions WHERE type = ?");
+			ps.setString(1, "game");
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			s = rs.getString("version");
+			rs.close();
+			ps.closeOnCompletion();
+		}catch (SQLException ex) { ex.printStackTrace(); }
+		return s;
 	}
 }

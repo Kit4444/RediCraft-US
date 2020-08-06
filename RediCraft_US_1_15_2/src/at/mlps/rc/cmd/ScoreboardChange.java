@@ -48,18 +48,17 @@ public class ScoreboardChange implements CommandExecutor{
 						}else {
 							APIs.noPerm(p);
 						}
+					}else if(args[0].equalsIgnoreCase("redifm")) {
+						updateSB(uuid, 5);
 					}
 					ScoreboardCLS sb = new ScoreboardCLS();
 					try {
 						sb.setScoreboard(p);
 					} catch (IllegalStateException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (IllegalArgumentException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}else {
@@ -85,23 +84,22 @@ public class ScoreboardChange implements CommandExecutor{
 						}else {
 							APIs.noPerm(p);
 						}
+					}else if(args[0].equalsIgnoreCase("redifm")) {
+						updateSB(uuid, 5);
 					}
 					ScoreboardCLS sb = new ScoreboardCLS();
 					try {
 						sb.setScoreboard(p);
 					} catch (IllegalStateException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (IllegalArgumentException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
 			}else {
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7/sb <off|default|job|admin|data");
+				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7/sb <off|default|job|redifm|admin|data");
 			}
 		}
 		return false;

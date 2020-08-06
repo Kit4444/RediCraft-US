@@ -11,6 +11,7 @@ import at.mlps.rc.cmd.Dynmap_CMD;
 import at.mlps.rc.cmd.FlyCMD;
 import at.mlps.rc.cmd.GamemodeCMD;
 import at.mlps.rc.cmd.Homesystem;
+import at.mlps.rc.cmd.InvseeCMD;
 import at.mlps.rc.cmd.LogSystem;
 import at.mlps.rc.cmd.MoneyAPI;
 import at.mlps.rc.cmd.PM_System;
@@ -24,6 +25,7 @@ import at.mlps.rc.cmd.TimeCMD;
 import at.mlps.rc.cmd.WeatherCMD;
 import at.mlps.rc.cmd.WorkBenchCMD;
 import at.mlps.rc.cmd.setspawn;
+import at.mlps.rc.event.Blocker;
 import at.mlps.rc.event.JoinQuitEvents;
 import at.mlps.rc.event.ScoreboardCLS;
 import at.mlps.rc.event.Serverteleporter;
@@ -72,6 +74,8 @@ public class Manager {
 		Main.instance.getCommand("wb").setExecutor(new WorkBenchCMD());
 		Main.instance.getCommand("workbench").setExecutor(new WorkBenchCMD());
 		Main.instance.getCommand("onlinemap").setExecutor(new Dynmap_CMD());
+		Main.instance.getCommand("invsee").setExecutor(new InvseeCMD());
+		
 		PluginManager pl = Bukkit.getPluginManager();
 		pl.registerEvents(new ScoreboardCLS(), Main.instance);
 		pl.registerEvents(new JoinQuitEvents(), Main.instance);
@@ -82,6 +86,7 @@ public class Manager {
 		pl.registerEvents(new AFK_CMD(), Main.instance);
 		pl.registerEvents(new FlyCMD(), Main.instance);
 		pl.registerEvents(new StopCMD(Main.instance), Main.instance);
+		pl.registerEvents(new Blocker(), Main.instance);
 	}
 
 }

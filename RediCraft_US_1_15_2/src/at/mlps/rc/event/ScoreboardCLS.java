@@ -302,6 +302,9 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("§7Playerload " + APIs.getServerName()).setScore(1);
 					o.getScore("  §4§a" + Bukkit.getOnlinePlayers().size() + " §7Players").setScore(0);
 				}
+			}else if(getSB(p) == 5) {
+				o.getScore("§aRedi§6FM").setScore(1);
+				o.getScore("§acoming soon").setScore(0);
 			}
 		}else {
 			if(getSB(p) == 0) {
@@ -527,6 +530,9 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("§7Playerload " + APIs.getServerName()).setScore(1);
 					o.getScore("  §4§a" + Bukkit.getOnlinePlayers().size() + " §7Players").setScore(0);
 				}
+			}else if(getSB(p) == 5) {
+				o.getScore("§aRedi§6FM").setScore(1);
+				o.getScore("§acoming soon").setScore(0);
 			}
 		}
 		
