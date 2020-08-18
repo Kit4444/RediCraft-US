@@ -67,12 +67,15 @@ public class SpawnVillager implements CommandExecutor, Listener{
 	public void onDamage(EntityDamageByEntityEvent e) {
 		Player p = (Player) e.getDamager();
 		Villager v = (Villager) e.getEntity();
-		if(v.getCustomName().equals(villagername)) {
-			e.setCancelled(true);
-			APIs.sendMSGReady(p, "event.shopvillager.hurt");
+		if(e.getDamager() == p) {
+			if(v.getCustomName().equals(villagername)) {
+				e.setCancelled(true);
+				APIs.sendMSGReady(p, "event.shopvillager.hurt");
+			}
 		}else {
-			
+			e.setCancelled(true);
 		}
+		
 	}
 	
 	private static void ShopInv(Player p) {
@@ -230,10 +233,14 @@ public class SpawnVillager implements CommandExecutor, Listener{
 				}else {
 					p.setFoodLevel(20);
 					p.setHealth(20.0);
-					MoneyAPI.setMoney(p.getUniqueId().toString(), (money - 250));
-					APIs.sendMSGReady(p, "event.villagershop.healsuccess");
-					cfg.set(p.getUniqueId().toString(), (current + 600000));
-					cfg.save(file);
+					if(money >= 250) {
+						MoneyAPI.setMoney(p.getUniqueId().toString(), (money - 250));
+						APIs.sendMSGReady(p, "event.villagershop.healsuccess");
+						cfg.set(p.getUniqueId().toString(), (current + 600000));
+						cfg.save(file);
+					}else {
+						APIs.sendMSGReady(p, "event.villagershop.healnomoney");
+					}
 				}
 			}
 		}else if(e.getView().getTitle().equalsIgnoreCase(shop + "§aEffects")) {

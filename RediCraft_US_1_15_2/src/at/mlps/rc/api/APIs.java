@@ -148,6 +148,7 @@ public class APIs {
 		cfg.addDefault("Language.EN.event.villagershop.effects", "&7You already purchased the Effects");
 		cfg.addDefault("Language.EN.event.villagershop.healwait", "&7You have to wait %time mins to heal you again");
 		cfg.addDefault("Language.EN.event.villagershop.healsuccess", "&7You have healed yourself");
+		cfg.addDefault("Language.EN.event.villagershop.healnomoney", "&7You don't have enough money");
 		cfg.addDefault("Language.EN.event.villagershop.money", "&7You have &a%money &7Coins");
 		cfg.addDefault("Language.EN.event.villagershop.notenoughmoney", "&7You don't have enough money to purchase this.");
 		cfg.addDefault("Language.EN.event.villagershop.purchase.effects", "&7You have purchased the effects");
@@ -296,6 +297,7 @@ public class APIs {
 		cfg.addDefault("Language.DE.event.villagershop.effects", "&7Du hast dir bereits die Effekte gekauft");
 		cfg.addDefault("Language.DE.event.villagershop.healwait", "&7Du musst noch &a%time &7Minuten warten um dich wieder zu heilen.");
 		cfg.addDefault("Language.DE.event.villagershop.healsuccess", "&7Du hast dich nun geheilt");
+		cfg.addDefault("Language.DE.event.villagershop.healnomoney", "&7Du hast nicht genug Geld");
 		cfg.addDefault("Language.DE.event.villagershop.money", "&7Du hast &a%money &7Coins");
 		cfg.addDefault("Language.DE.event.villagershop.notenoughmoney", "&7Du hast nicht genügend Geld um das zu kaufen.");
 		cfg.addDefault("Language.DE.event.villagershop.purchase.effects", "&7Du hast dir nun die Effekte gekauft");
