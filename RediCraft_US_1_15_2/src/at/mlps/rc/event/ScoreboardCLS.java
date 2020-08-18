@@ -8,10 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,10 +21,8 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
-
 import com.gamingmesh.jobs.Jobs;
 import com.gamingmesh.jobs.container.JobProgression;
-
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.api.PerformanceMonitor;
 import at.mlps.rc.cmd.MoneyAPI;
@@ -304,7 +301,41 @@ public class ScoreboardCLS implements Listener{
 				}
 			}else if(getSB(p) == 5) {
 				o.getScore("§aRedi§6FM").setScore(1);
-				o.getScore("§acoming soon").setScore(0);
+				o.getScore("§cunder work").setScore(0);
+				/*String pl = returnRadio1("https://api.laut.fm/station/redifm", "current_playlist", 1);
+				String art = returnRadio1("https://api.laut.fm/station/redifm/current_song", "artist", 0);
+				String tra = returnRadio("https://api.laut.fm/station/redifm/current_song", "title");
+				String alb = returnRadio("https://api.laut.fm/station/redifm/current_song", "album");
+				o.getScore("§aRedi§6FM").setScore(9);
+				o.getScore("§7Current Playlist:").setScore(8);
+				if(pl.length() <= 16) {
+					o.getScore("§9§a" + pl).setScore(7);
+				}else {
+					o.getScore("§9§a" + pl.substring(0, 16)).setScore(7);
+				}
+				o.getScore("§9").setScore(6);
+				o.getScore("§7Current Album:").setScore(5);
+				if(tra.length() <= 16) {
+					o.getScore("§8§a" + tra).setScore(4);
+				}else {
+					o.getScore("§8§a" + tra.substring(0, 16)).setScore(4);
+				}
+				o.getScore("§7Current Artist:").setScore(3);
+				if(art.length() <= 16) {
+					o.getScore("§7§a" + art).setScore(2);
+				}else {
+					o.getScore("§7§a" + art.substring(0, 16)).setScore(2);
+				}
+				if(alb != null) {
+					if(!alb.equalsIgnoreCase("")) {
+						o.getScore("§7Current Album:").setScore(1);
+						if(alb.length() <= 16) {
+							o.getScore("§6§a" + alb).setScore(0);
+						}else {
+							o.getScore("§6§a" + alb.substring(0, 16)).setScore(0);
+						}
+					}
+				}*/
 			}
 		}else {
 			if(getSB(p) == 0) {
@@ -704,7 +735,7 @@ public class ScoreboardCLS implements Listener{
 						all.setPlayerListName(retPrefix("spieler", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
 					}
 				}
-			}else if(pp.inGroup("support")) {
+			}else if(pp.inGroup("Support")) {
 				if(rs.getBoolean("loggedin")) {
 					if(isAFK(all)) {
 						tafk.addPlayer(all);
@@ -724,7 +755,7 @@ public class ScoreboardCLS implements Listener{
 						all.setPlayerListName(retPrefix("spieler", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
 					}
 				}
-			}else if(pp.inGroup("builder")) {
+			}else if(pp.inGroup("Builder")) {
 				if(rs.getBoolean("loggedin")) {
 					if(isAFK(all)) {
 						tafk.addPlayer(all);
@@ -744,7 +775,19 @@ public class ScoreboardCLS implements Listener{
 						all.setPlayerListName(retPrefix("spieler", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
 					}
 				}
-			}else if(pp.inGroup("RetiredLegend")) {
+			}else if(pp.inGroup("RLTM")) {
+				if(rs.getBoolean("loggedin")) {
+					
+				}else {
+					if(isAFK(all)) {
+						afk.addPlayer(all);
+						all.setPlayerListName("§9AFK §7| " + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+					}else {
+						spieler.addPlayer(all);
+						all.setDisplayName(retPrefix("spieler", "prefix_chat") + all.getName());
+						all.setPlayerListName(retPrefix("spieler", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
+					}
+				}
 				if(isAFK(all)) {
 					afk.addPlayer(all);
 					all.setPlayerListName("§9AFK §7- " + all.getName() + " §7| ID§7: §a" + igid(all) + " §f" + igpre(all));
@@ -754,6 +797,19 @@ public class ScoreboardCLS implements Listener{
 					all.setPlayerListName(retPrefix("rltm", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
 				}
 			}else if(pp.inGroup("RTM")) {
+				if(rs.getBoolean("loggedin")) {
+					
+				}else {
+					if(isAFK(all)) {
+						afk.addPlayer(all);
+						all.setPlayerListName("§9AFK §7| " + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+					}else {
+						spieler.addPlayer(all);
+						all.setDisplayName(retPrefix("spieler", "prefix_chat") + all.getName());
+						all.setPlayerListName(retPrefix("spieler", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
+					}
+				}
+				
 				if(isAFK(all)) {
 					afk.addPlayer(all);
 					all.setPlayerListName("§9AFK §7- " + all.getName() + " §7| ID§7: §a" + igid(all) + " §f" + igpre(all));
@@ -762,23 +818,45 @@ public class ScoreboardCLS implements Listener{
 					all.setDisplayName(retPrefix("rtm", "prefix_chat") + all.getName());
 					all.setPlayerListName(retPrefix("rtm", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
 				}
-			}else if(pp.inGroup("partner")) {
+			}else if(pp.inGroup("Partner")) {
 				if(rs.getBoolean("loggedin")) {
-					afk.addPlayer(all);
-					all.setPlayerListName("§9AFK §7- " + all.getName() + " §7| ID§7: §a" + igid(all) + " §f" + igpre(all));
+					if(isAFK(all)) {
+						afk.addPlayer(all);
+						all.setPlayerListName("§9AFK §7- " + all.getName() + " §7| ID§7: §a" + igid(all) + " §f" + igpre(all));
+					}else {
+						partner.addPlayer(all);
+						all.setDisplayName(retPrefix("partner", "prefix_chat") + all.getName());
+						all.setPlayerListName(retPrefix("partner", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
+					}
 				}else {
-					partner.addPlayer(all);
-					all.setDisplayName(retPrefix("partner", "prefix_chat") + all.getName());
-					all.setPlayerListName(retPrefix("partner", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
+					if(isAFK(all)) {
+						afk.addPlayer(all);
+						all.setPlayerListName("§9AFK §7| " + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+					}else {
+						spieler.addPlayer(all);
+						all.setDisplayName(retPrefix("spieler", "prefix_chat") + all.getName());
+						all.setPlayerListName(retPrefix("spieler", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
+					}
 				}
-			}else if(pp.inGroup("beta")) {
-				if(isAFK(all)) {
-					afk.addPlayer(all);
-					all.setPlayerListName("§9AFK §7- " + all.getName() + " §7| ID§7: §a" + igid(all) + " §f" + igpre(all));
+			}else if(pp.inGroup("Beta")) {
+				if(rs.getBoolean("loggedin")) {
+					if(isAFK(all)) {
+						afk.addPlayer(all);
+						all.setPlayerListName("§9AFK §7- " + all.getName() + " §7| ID§7: §a" + igid(all) + " §f" + igpre(all));
+					}else {
+						beta.addPlayer(all);
+						all.setDisplayName(retPrefix("beta", "prefix_chat") + all.getName());
+						all.setPlayerListName(retPrefix("beta", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
+					}
 				}else {
-					beta.addPlayer(all);
-					all.setDisplayName(retPrefix("beta", "prefix_chat") + all.getName());
-					all.setPlayerListName(retPrefix("beta", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
+					if(isAFK(all)) {
+						afk.addPlayer(all);
+						all.setPlayerListName("§9AFK §7| " + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+					}else {
+						spieler.addPlayer(all);
+						all.setDisplayName(retPrefix("spieler", "prefix_chat") + all.getName());
+						all.setPlayerListName(retPrefix("spieler", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
+					}
 				}
 			}else if(pp.inGroup("Patron")) {
 				if(rs.getBoolean("loggedin")) {
@@ -800,7 +878,7 @@ public class ScoreboardCLS implements Listener{
 						all.setPlayerListName(retPrefix("spieler", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
 					}
 				}
-			}else if(pp.inGroup("nitrobooster")) {
+			}else if(pp.inGroup("Nitrobooster")) {
 				if(rs.getBoolean("loggedin")) {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
@@ -820,7 +898,7 @@ public class ScoreboardCLS implements Listener{
 						all.setPlayerListName(retPrefix("spieler", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
 					}
 				}
-			}else if(pp.inGroup("freund")) {
+			}else if(pp.inGroup("Freund")) {
 				if(rs.getBoolean("loggedin")) {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
@@ -1026,6 +1104,47 @@ public class ScoreboardCLS implements Listener{
 		}
 		return reports;
 	}
+	
+	/*private String returnRadio(String uri, String node) {
+		String s = "";
+		try {
+			URL url = new URL(uri);
+			URLConnection request = url.openConnection();
+			request.connect();
+			
+			JsonParser jp = new JsonParser();
+			JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
+			JsonObject rootobj = root.getAsJsonObject();
+			s = rootobj.get(node).getAsString();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return s;
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private String returnRadio1(String uri, String node, int subnode) {
+		String s = "";
+		try {
+			URL url = new URL(uri);
+			URLConnection request = url.openConnection();
+			request.connect();
+			JSONObject jo = (JSONObject) request.getContent();
+			Map map = ((Map)jo.get(node));
+			Iterator<Map.Entry> itr1 = map.entrySet().iterator();
+			while(itr1.hasNext()) {
+				Map.Entry pair = itr1.next();
+				Bukkit.getConsoleSender().sendMessage(pair.getKey() + ":" + pair.getValue());
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return s;
+	}*/
 	
 	private String retLatestReport(String type) {
 		String report = "";
