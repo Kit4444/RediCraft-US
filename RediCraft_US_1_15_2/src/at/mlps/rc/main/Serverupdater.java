@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.mysql.lb.MySQL;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_16_R1.MinecraftServer;
+import net.minecraft.server.v1_16_R2.MinecraftServer;
 
 public class Serverupdater {
 	
@@ -168,12 +168,8 @@ public class Serverupdater {
 			Bukkit.broadcastMessage(prefix + " Removing items in §62 minutes§7.");
 		}else if(time == 840) {
 			Bukkit.broadcastMessage(prefix + " Removing items in §61 minute§7.");
-		}else if(time == 870) {
-			Bukkit.broadcastMessage(prefix + " Removing items in §630 seconds§7.");
 		}else if(time == 885) {
 			Bukkit.broadcastMessage(prefix + " Removing items in §615 seconds§7.");
-		}else if(time == 890) {
-			Bukkit.broadcastMessage(prefix + " Removing items in §610 seconds§7.");
 		}else if(time == 895) {
 			Bukkit.broadcastMessage(prefix + " Removing items in §65 seconds§7.");
 		}else if(time == 896) {

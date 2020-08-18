@@ -1,5 +1,5 @@
 author: Maurice_Bailey
-version: 20200806_0002-0025b
+version: 20200814_0002-0026s
 name: RediCore_SubServer
 description: This is the Core-Plugin of RediCraft.
 website: www.redicraft.eu
@@ -51,5 +51,5 @@ commands:
     workbench:
     onlinemap:
     invsee:
-    
+    pinfo:
     

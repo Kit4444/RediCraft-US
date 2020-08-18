@@ -4,10 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -58,14 +59,13 @@ public class Main extends JavaPlugin implements Listener{
 		}
 		Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 		instance = this;
-		regDB();
-		UpdateOnline(true);
 		registerMisc();
 		Manager man = new Manager();
 		man.init();
 		if(Bukkit.getPluginManager().getPlugin("Vault") != null) {
 			Bukkit.getServicesManager().register(Economy.class, new Vault(), Bukkit.getPluginManager().getPlugin("Vault"), ServicePriority.Normal);
 		}
+		UpdateOnline(true);
 		Bukkit.getConsoleSender().sendMessage(prefix() + "§aPlugin wurde geladen.");
 	}
 	
@@ -88,40 +88,6 @@ public class Main extends JavaPlugin implements Listener{
 		sb.sbSched(0, 100, 20);
 	}
 	
-	private void regDB() {
-		File config = new File("plugins/RCUSS/config.yml");
-		if(!config.exists()) {
-			try {
-				config.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		YamlConfiguration cfg = YamlConfiguration.loadConfiguration(config);
-		cfg.addDefault("MySQL.Host", "localhost");
-		cfg.addDefault("MySQL.Port", 3306);
-		cfg.addDefault("MySQL.Database", "database");
-		cfg.addDefault("MySQL.Username", "username");
-		cfg.addDefault("MySQL.Password", "password");
-		cfg.options().copyDefaults(true);
-		try {
-			cfg.save(config);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
-		String host = cfg.getString("MySQL.Host");
-		int port = cfg.getInt("MySQL.Port");
-		String db = cfg.getString("MySQL.Database");
-		String user = cfg.getString("MySQL.Username");
-		String pass = cfg.getString("MySQL.Password");
-		at.mlps.rc.mysql.lb.MySQL.connect(host, String.valueOf(port), db, user, pass);
-		mysql = new MySQL(host, port, db, user, pass);
-		try {
-			mysql.connect();
-		}catch (SQLException e) {}
-	}
-	
 	private void fillList() {
 		serverlist.add("Survival");
 		serverlist.add("SkyBlock");
@@ -135,8 +101,13 @@ public class Main extends JavaPlugin implements Listener{
 			ps.setString(2, APIs.getServerName());
 			ps.executeUpdate();
 			ps.closeOnCompletion();
-		}catch (SQLException e) {
-			
-		}
+			if(online == true) {
+				PreparedStatement ps1 = at.mlps.rc.mysql.lb.MySQL.getConnection().prepareStatement("UPDATE redicore_serverstats SET onlinesince = ? WHERE servername = ?");
+				SimpleDateFormat time = new SimpleDateFormat("dd/MM/yy - HH:mm:ss");
+				ps1.setString(1, time.format(new Date()));
+				ps1.setString(2, APIs.getServerName());
+				ps1.executeUpdate();
+			}
+		}catch (SQLException e) { }
 	}
 }

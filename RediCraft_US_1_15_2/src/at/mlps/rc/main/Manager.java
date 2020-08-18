@@ -1,6 +1,11 @@
 package at.mlps.rc.main;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 
 import at.mlps.rc.cmd.AFK_CMD;
@@ -15,6 +20,7 @@ import at.mlps.rc.cmd.InvseeCMD;
 import at.mlps.rc.cmd.LogSystem;
 import at.mlps.rc.cmd.MoneyAPI;
 import at.mlps.rc.cmd.PM_System;
+import at.mlps.rc.cmd.Pinfo;
 import at.mlps.rc.cmd.PingCMD;
 import at.mlps.rc.cmd.ScoreboardChange;
 import at.mlps.rc.cmd.ServerhealthCMD;
@@ -29,6 +35,7 @@ import at.mlps.rc.event.Blocker;
 import at.mlps.rc.event.JoinQuitEvents;
 import at.mlps.rc.event.ScoreboardCLS;
 import at.mlps.rc.event.Serverteleporter;
+import at.mlps.rc.mysql.lpb.MySQL;
 
 public class Manager {
 	
@@ -75,6 +82,7 @@ public class Manager {
 		Main.instance.getCommand("workbench").setExecutor(new WorkBenchCMD());
 		Main.instance.getCommand("onlinemap").setExecutor(new Dynmap_CMD());
 		Main.instance.getCommand("invsee").setExecutor(new InvseeCMD());
+		Main.instance.getCommand("pinfo").setExecutor(new Pinfo());
 		
 		PluginManager pl = Bukkit.getPluginManager();
 		pl.registerEvents(new ScoreboardCLS(), Main.instance);
@@ -87,5 +95,37 @@ public class Manager {
 		pl.registerEvents(new FlyCMD(), Main.instance);
 		pl.registerEvents(new StopCMD(Main.instance), Main.instance);
 		pl.registerEvents(new Blocker(), Main.instance);
+		
+		File config = new File("plugins/RCUSS/config.yml");
+		if(!config.exists()) {
+			try {
+				config.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		YamlConfiguration cfg = YamlConfiguration.loadConfiguration(config);
+		cfg.addDefault("MySQL.Host", "localhost");
+		cfg.addDefault("MySQL.Port", 3306);
+		cfg.addDefault("MySQL.Database", "database");
+		cfg.addDefault("MySQL.Username", "username");
+		cfg.addDefault("MySQL.Password", "password");
+		cfg.options().copyDefaults(true);
+		try {
+			cfg.save(config);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		String host = cfg.getString("MySQL.Host");
+		int port = cfg.getInt("MySQL.Port");
+		String db = cfg.getString("MySQL.Database");
+		String user = cfg.getString("MySQL.Username");
+		String pass = cfg.getString("MySQL.Password");
+		at.mlps.rc.mysql.lb.MySQL.connect(host, String.valueOf(port), db, user, pass);
+		Main.mysql = new MySQL(host, port, db, user, pass);
+		try {
+			Main.mysql.connect();
+		}catch (SQLException e) {}
 	}
 }
