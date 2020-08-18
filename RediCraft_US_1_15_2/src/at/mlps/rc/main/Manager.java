@@ -95,12 +95,22 @@ public class Manager {
 		pl.registerEvents(new FlyCMD(), Main.instance);
 		pl.registerEvents(new StopCMD(Main.instance), Main.instance);
 		pl.registerEvents(new Blocker(), Main.instance);
+		pl.registerEvents(new Serverupdater(), Main.instance);
 		
 		File config = new File("plugins/RCUSS/config.yml");
 		if(!config.exists()) {
 			try {
 				config.createNewFile();
 			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		File file = new File("plugins/RCUSS/ptimecache.yml");
+		if(!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
