@@ -1,5 +1,11 @@
 package at.mlps.rc.event;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,6 +29,10 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import com.gamingmesh.jobs.Jobs;
 import com.gamingmesh.jobs.container.JobProgression;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.api.PerformanceMonitor;
 import at.mlps.rc.cmd.MoneyAPI;
@@ -300,34 +310,33 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("  §4§a" + Bukkit.getOnlinePlayers().size() + " §7Players").setScore(0);
 				}
 			}else if(getSB(p) == 5) {
-				o.getScore("§aRedi§6FM").setScore(1);
-				o.getScore("§cunder work").setScore(0);
-				/*String pl = returnRadio1("https://api.laut.fm/station/redifm", "current_playlist", 1);
-				String art = returnRadio1("https://api.laut.fm/station/redifm/current_song", "artist", 0);
-				String tra = returnRadio("https://api.laut.fm/station/redifm/current_song", "title");
-				String alb = returnRadio("https://api.laut.fm/station/redifm/current_song", "album");
-				o.getScore("§aRedi§6FM").setScore(9);
-				o.getScore("§7Current Playlist:").setScore(8);
-				if(pl.length() <= 16) {
-					o.getScore("§9§a" + pl).setScore(7);
-				}else {
-					o.getScore("§9§a" + pl.substring(0, 16)).setScore(7);
-				}
-				o.getScore("§9").setScore(6);
-				o.getScore("§7Current Album:").setScore(5);
-				if(tra.length() <= 16) {
-					o.getScore("§8§a" + tra).setScore(4);
-				}else {
-					o.getScore("§8§a" + tra.substring(0, 16)).setScore(4);
-				}
-				o.getScore("§7Current Artist:").setScore(3);
-				if(art.length() <= 16) {
-					o.getScore("§7§a" + art).setScore(2);
-				}else {
-					o.getScore("§7§a" + art.substring(0, 16)).setScore(2);
-				}
-				if(alb != null) {
-					if(!alb.equalsIgnoreCase("")) {
+				if(p.hasPermission("*")) {
+					/*String pl = returnRadio1("https://api.laut.fm/station/redifm", "current_playlist", 1);
+					String art = returnRadio1("https://api.laut.fm/station/redifm/current_song", "artist", 0);*/
+					String tra = returnRadio("https://api.laut.fm/station/redifm/current_song", "title");
+					String alb = returnRadio("https://api.laut.fm/station/redifm/current_song", "album");
+					o.getScore("§aRedi§6FM").setScore(9);
+					/*o.getScore("§7Current Playlist:").setScore(8);
+					if(pl.length() <= 16) {
+						o.getScore("§9§a" + pl).setScore(7);
+					}else {
+						o.getScore("§9§a" + pl.substring(0, 16)).setScore(7);
+					}
+					o.getScore("§9").setScore(6);
+					o.getScore("§7Current Artist:").setScore(5);
+					if(art.length() <= 16) {
+						o.getScore("§7§a" + art).setScore(4);
+					}else {
+						o.getScore("§7§a" + art.substring(0, 16)).setScore(4);
+					}
+					*/
+					o.getScore("§7Current Track:").setScore(3);
+					if(tra.length() <= 16) {
+						o.getScore("§8§a" + tra).setScore(2);
+					}else {
+						o.getScore("§8§a" + tra.substring(0, 16)).setScore(2);
+					}
+					if(!alb.equalsIgnoreCase("null")) {
 						o.getScore("§7Current Album:").setScore(1);
 						if(alb.length() <= 16) {
 							o.getScore("§6§a" + alb).setScore(0);
@@ -335,7 +344,10 @@ public class ScoreboardCLS implements Listener{
 							o.getScore("§6§a" + alb.substring(0, 16)).setScore(0);
 						}
 					}
-				}*/
+				}else {
+					o.getScore("§aRedi§6FM").setScore(1);
+					o.getScore("§cunder work").setScore(0);
+				}
 			}
 		}else {
 			if(getSB(p) == 0) {
@@ -562,8 +574,44 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("  §4§a" + Bukkit.getOnlinePlayers().size() + " §7Players").setScore(0);
 				}
 			}else if(getSB(p) == 5) {
-				o.getScore("§aRedi§6FM").setScore(1);
-				o.getScore("§acoming soon").setScore(0);
+				if(p.hasPermission("*")) {
+					/*String pl = returnRadio1("https://api.laut.fm/station/redifm", "current_playlist", 1);
+					String art = returnRadio1("https://api.laut.fm/station/redifm/current_song", "artist", 0);*/
+					String tra = returnRadio("https://api.laut.fm/station/redifm/current_song", "title");
+					String alb = returnRadio("https://api.laut.fm/station/redifm/current_song", "album");
+					o.getScore("§aRedi§6FM").setScore(9);
+					/*o.getScore("§7Current Playlist:").setScore(8);
+					if(pl.length() <= 16) {
+						o.getScore("§9§a" + pl).setScore(7);
+					}else {
+						o.getScore("§9§a" + pl.substring(0, 16)).setScore(7);
+					}
+					o.getScore("§9").setScore(6);
+					o.getScore("§7Current Artist:").setScore(5);
+					if(art.length() <= 16) {
+						o.getScore("§7§a" + art).setScore(4);
+					}else {
+						o.getScore("§7§a" + art.substring(0, 16)).setScore(4);
+					}
+					*/
+					o.getScore("§7Current Track:").setScore(3);
+					if(tra.length() <= 16) {
+						o.getScore("§8§a" + tra).setScore(2);
+					}else {
+						o.getScore("§8§a" + tra.substring(0, 16)).setScore(2);
+					}
+					if(!alb.equalsIgnoreCase("null")) {
+						o.getScore("§7Current Album:").setScore(1);
+						if(alb.length() <= 16) {
+							o.getScore("§6§a" + alb).setScore(0);
+						}else {
+							o.getScore("§6§a" + alb.substring(0, 16)).setScore(0);
+						}
+					}
+				}else {
+					o.getScore("§aRedi§6FM").setScore(1);
+					o.getScore("§cunder work").setScore(0);
+				}
 			}
 		}
 		
@@ -1105,7 +1153,7 @@ public class ScoreboardCLS implements Listener{
 		return reports;
 	}
 	
-	/*private String returnRadio(String uri, String node) {
+	private String returnRadio(String uri, String node) {
 		String s = "";
 		try {
 			URL url = new URL(uri);
@@ -1115,7 +1163,11 @@ public class ScoreboardCLS implements Listener{
 			JsonParser jp = new JsonParser();
 			JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
 			JsonObject rootobj = root.getAsJsonObject();
-			s = rootobj.get(node).getAsString();
+			if(rootobj.get(node).getAsString() == "null") {
+				s = "-1";
+			}else {
+				s = rootobj.get(node).getAsString();
+			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -1124,7 +1176,7 @@ public class ScoreboardCLS implements Listener{
 		return s;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	/*@SuppressWarnings({ "rawtypes", "unchecked" })
 	private String returnRadio1(String uri, String node, int subnode) {
 		String s = "";
 		try {
