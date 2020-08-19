@@ -22,11 +22,15 @@ public class InvseeCMD implements CommandExecutor{
 				if(p2 == null) {
 					APIs.sendMSGReady(p, "cmd.invsee.playeroffline");
 				}else {
-					if(p != p2) {
-						p.openInventory(p2.getInventory());
-						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.invsee.success").replace("%displayer", p2.getDisplayName()));
+					if(p.hasPermission("mlps.invsee")) {
+						if(p != p2) {
+							p.openInventory(p2.getInventory());
+							p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.invsee.success").replace("%displayer", p2.getDisplayName()));
+						}else {
+							APIs.sendMSGReady(p, "cmd.invsee.notown");
+						}
 					}else {
-						APIs.sendMSGReady(p, "cmd.invsee.notown");
+						APIs.noPerm(p);
 					}
 				}
 			}else {

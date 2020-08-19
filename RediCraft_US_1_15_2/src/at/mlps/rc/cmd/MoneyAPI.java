@@ -143,18 +143,22 @@ public class MoneyAPI implements Listener, CommandExecutor{
 				}
 			}else if(cmd.getName().equalsIgnoreCase("setbankmoney")) {
 				if(args.length >= 1 && args.length <= 2) {
-					Player p2 = Bukkit.getPlayerExact(args[0]);
-					if(p2 == null) {
-						APIs.sendMSGReady(p, "cmd.setbankmoney.playernotonline");
-					}else {
-						String uuid2 = p2.getUniqueId().toString();
-						int money = Integer.parseInt(args[1]);
-						if(money <= 0) {
-							APIs.sendMSGReady(p, "cmd.setbankmoney.belowzero");
+					if(p.hasPermission("mlps.setbankmoney")) {
+						Player p2 = Bukkit.getPlayerExact(args[0]);
+						if(p2 == null) {
+							APIs.sendMSGReady(p, "cmd.setbankmoney.playernotonline");
 						}else {
-							setBankMoney(uuid2, money);
-							p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.setbankmoney.successfull").replace("%money", args[1]).replace("%displayer", p2.getDisplayName()));
+							String uuid2 = p2.getUniqueId().toString();
+							int money = Integer.parseInt(args[1]);
+							if(money <= 0) {
+								APIs.sendMSGReady(p, "cmd.setbankmoney.belowzero");
+							}else {
+								setBankMoney(uuid2, money);
+								p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.setbankmoney.successfull").replace("%money", args[1]).replace("%displayer", p2.getDisplayName()));
+							}
 						}
+					}else {
+						APIs.noPerm(p);
 					}
 				}else {
 					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + " §7/setbankmoney <Player> <Money>");

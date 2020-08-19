@@ -44,14 +44,18 @@ public class FlyCMD implements CommandExecutor, Listener{
 				if(p2 == null) {
 					APIs.sendMSGReady(p, "cmd.fly.other.offline");
 				}else {
-					if(flylist.contains(p2.getUniqueId())) {
-						flylist.remove(p2.getUniqueId());
-						p2.setAllowFlight(false);
-						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.fly.other.false").replace("%displayer", p2.getDisplayName()));
+					if(p.hasPermission("mlps.canFly.other")) {
+						if(flylist.contains(p2.getUniqueId())) {
+							flylist.remove(p2.getUniqueId());
+							p2.setAllowFlight(false);
+							p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.fly.other.false").replace("%displayer", p2.getDisplayName()));
+						}else {
+							flylist.add(p2.getUniqueId());
+							p2.setAllowFlight(true);
+							p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.fly.other.true").replace("%displayer", p2.getDisplayName()));
+						}
 					}else {
-						flylist.add(p2.getUniqueId());
-						p2.setAllowFlight(true);
-						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.fly.other.true").replace("%displayer", p2.getDisplayName()));
+						APIs.noPerm(p);
 					}
 				}
 			}else {
