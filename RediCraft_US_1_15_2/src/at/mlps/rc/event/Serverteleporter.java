@@ -36,7 +36,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 	public static String title = "§aServer§cNavigator";
 	static String dailyrew = "§aDaily Rewards";
 	static String spawn = "§6Lobby";
-	static String skyblock = "§a§fSky§2Block";
+	static String skyblock = "§7Sky§2Block";
 	static String creative = "§eCreative";
 	static String survival = "§cSurvival";
 	static String towny = "§6Towny";
