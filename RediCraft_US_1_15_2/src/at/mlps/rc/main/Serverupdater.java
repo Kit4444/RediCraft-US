@@ -53,12 +53,11 @@ public class Serverupdater implements Listener{
 				ps.setInt(5, (int) timestamp);
 				ps.setString(6, stime);
 				ps.setInt(7, (int) ramtotal);
-				ps.setString(8, "1.16.1");
+				ps.setString(8, "1.16.3");
 				ps.setString(9, tps);
 				ps.setString(10, APIs.getServerName());
 				ps.executeUpdate();
 				ps.close();
-				Bukkit.getConsoleSender().sendMessage("§aDB-Stats updated!");
 		    }catch (SQLException e) { e.printStackTrace(); Bukkit.getConsoleSender().sendMessage("§cCan't update DB-Stats."); }
 		}else {
 			Bukkit.getConsoleSender().sendMessage("§cDB is not connected.");
