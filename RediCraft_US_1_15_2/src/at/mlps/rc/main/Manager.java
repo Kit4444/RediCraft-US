@@ -27,6 +27,7 @@ import at.mlps.rc.cmd.ServerhealthCMD;
 import at.mlps.rc.cmd.SkullCMD;
 import at.mlps.rc.cmd.SpawnVillager;
 import at.mlps.rc.cmd.StopCMD;
+import at.mlps.rc.cmd.TPA_System;
 import at.mlps.rc.cmd.TimeCMD;
 import at.mlps.rc.cmd.WeatherCMD;
 import at.mlps.rc.cmd.WorkBenchCMD;
@@ -83,6 +84,11 @@ public class Manager {
 		Main.instance.getCommand("onlinemap").setExecutor(new Dynmap_CMD());
 		Main.instance.getCommand("invsee").setExecutor(new InvseeCMD());
 		Main.instance.getCommand("pinfo").setExecutor(new Pinfo());
+		Main.instance.getCommand("tpa").setExecutor(new TPA_System());
+		Main.instance.getCommand("tpahere").setExecutor(new TPA_System());
+		Main.instance.getCommand("tpaccept").setExecutor(new TPA_System());
+		Main.instance.getCommand("tpdeny").setExecutor(new TPA_System());
+		Main.instance.getCommand("blocktpa").setExecutor(new TPA_System());
 		
 		PluginManager pl = Bukkit.getPluginManager();
 		pl.registerEvents(new ScoreboardCLS(), Main.instance);

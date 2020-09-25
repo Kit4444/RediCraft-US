@@ -41,6 +41,8 @@ public class APIs {
 		//cfg.addDefault("Language..", "&");
 		//key = Language.<LangKey>.<cmd|event|misc>.<whatexactly>.state
 		
+		cfg.options().header("Dear Translators. Please use Notepad++ for correct encoding/decoding.\nAlso please do not change the placeholders like '%displayer' or something else or the message won't be displayed correctly!\n You can move them but do not change it do %player as example.\n \nIf you are unsure if it's correct, just copy the whole thing with CTRL + A and paste it there: https://yaml-online-parser.appspot.com/ - Screenshot: https://prnt.sc/u8txtg \nIf the right side is red, there is a issue in it, if not and shows a JSON-Format, you are good to go. (Of course I will double check it :D)").copyHeader();
+		
 		//english
 		cfg.addDefault("Language.EN.noPerm", "&cInsufficent Permissions!");
 		cfg.addDefault("Language.EN.notAvailable", "&cThis is currently not available.");
@@ -134,6 +136,23 @@ public class APIs {
 		cfg.addDefault("Language.EN.cmd.fly.other.false", "%displayer &7 can't fly anymore.");
 		cfg.addDefault("Language.EN.cmd.fly.other.offline", "&7This player is offline.");
 		cfg.addDefault("Language.EN.cmd.onlinemap.invalidserver", "§cThis server doesn't have a online map.");
+		cfg.addDefault("Language.EN.cmd.tpa.notonline", "&7The Player is not online.");
+		cfg.addDefault("Language.EN.cmd.tpa.ownrequest", "&7Why do you want to TPA to yourself? Makes no sense.");
+		cfg.addDefault("Language.EN.cmd.tpa.playerblocked", "&7The Player has blocked TPA-Requests.");
+		cfg.addDefault("Language.EN.cmd.tpa.success.ownmsg", "&7You have sent %displayer &7a TPA request.");
+		cfg.addDefault("Language.EN.cmd.tpa.success.othermsg.main", "%displayer &7sent you a TPA request.");
+		cfg.addDefault("Language.EN.cmd.tpa.success.othermsg.info", "&7To &aaccept &7the request, write &a/tpaccept&7, to &cdecline&7 the request, write &c/tpdeny");
+		cfg.addDefault("Language.EN.cmd.tpahere.notonline", "&7The Player is not online.");
+		cfg.addDefault("Language.EN.cmd.tpahere.ownrequest", "&7Why do you want to TPA to yourself? Makes no sense.");
+		cfg.addDefault("Language.EN.cmd.tpahere.playerblocked", "&7The Player has blocked TPA-Requests.");
+		cfg.addDefault("Language.EN.cmd.tpahere.success.ownmsg", "&7You have sent %displayer &7a TPA request to you.");
+		cfg.addDefault("Language.EN.cmd.tpahere.success.othermsg.main", "%displayer &7sent you a TPA request to him.");
+		cfg.addDefault("Language.EN.cmd.tpahere.success.othermsg.info", "&7To &aaccept &7the request, write &a/tpaccept&7, to &cdecline&7 the request, write &c/tpdeny");
+		cfg.addDefault("Language.EN.cmd.tpaccept.noreqopen", "&7You don't have any requests open.");
+		cfg.addDefault("Language.EN.cmd.tpdeny.declined", "&7You have declined the request.");
+		cfg.addDefault("Language.EN.cmd.tpdeny.noreqopen", "&7You don't have any requests open.");
+		cfg.addDefault("Language.EN.cmd.cmd.blocktpa.removed", "&7You can receive now TPA-Requests again.");
+		cfg.addDefault("Language.EN.cmd.blocktpa.added", "&7TPA-Requests are now blocked.");
 		cfg.addDefault("Language.EN.event.shopvillager.open", "&7You have opened the Shop.");
 		cfg.addDefault("Language.EN.event.shopvillager.hurt", "&7You can't hurt the villager.");
 		cfg.addDefault("Language.EN.event.afk.leave", "&7You are not longer AFK.");
@@ -283,6 +302,23 @@ public class APIs {
 		cfg.addDefault("Language.DE.cmd.fly.other.false", "%displayer &7kann nicht mehr fliegen.");
 		cfg.addDefault("Language.DE.cmd.fly.other.offline", "&7Dieser Spieler ist nicht online.");
 		cfg.addDefault("Language.DE.cmd.onlinemap.invalidserver", "§7Dieser Server hat keine online - map.");
+		cfg.addDefault("Language.DE.cmd.tpa.notonline", "&7Dieser Spieler ist nicht online.");
+		cfg.addDefault("Language.DE.cmd.tpa.ownrequest", "&7Wieso willst du dir selbst eine Anfrage schicken?");
+		cfg.addDefault("Language.DE.cmd.tpa.playerblocked", "&7Dieser Spieler hat Anfragen blockiert.");
+		cfg.addDefault("Language.DE.cmd.tpa.success.ownmsg", "&7You have sent %displayer &7a TPA request.");
+		cfg.addDefault("Language.DE.cmd.tpa.success.othermsg.main", "%displayer &7sent you a TPA request.");
+		cfg.addDefault("Language.DE.cmd.tpa.success.othermsg.info", "&7To &aaccept &7the request, write &a/tpaccept&7, to &cdecline&7 the request, write &c/tpdeny");
+		cfg.addDefault("Language.DE.cmd.tpahere.notonline", "&7The Player is not online.");
+		cfg.addDefault("Language.DE.cmd.tpahere.ownrequest", "&7Why do you want to TPA to yourself? Makes no sense.");
+		cfg.addDefault("Language.DE.cmd.tpahere.playerblocked", "&7The Player has blocked TPA-Requests.");
+		cfg.addDefault("Language.DE.cmd.tpahere.success.ownmsg", "&7You have sent %displayer &7a TPA request to you.");
+		cfg.addDefault("Language.DE.cmd.tpahere.success.othermsg.main", "%displayer &7sent you a TPA request to him.");
+		cfg.addDefault("Language.DE.cmd.tpahere.success.othermsg.info", "&7To &aaccept &7the request, write &a/tpaccept&7, to &cdecline&7 the request, write &c/tpdeny");
+		cfg.addDefault("Language.DE.cmd.tpaccept.noreqopen", "&7You don't have any requests open.");
+		cfg.addDefault("Language.DE.cmd.tpdeny.declined", "&7You have declined the request.");
+		cfg.addDefault("Language.DE.cmd.tpdeny.noreqopen", "&7You don't have any requests open.");
+		cfg.addDefault("Language.DE.cmd.cmd.blocktpa.removed", "&7You can receive now TPA-Requests again.");
+		cfg.addDefault("Language.DE.cmd.blocktpa.added", "&7TPA-Requests are now blocked.");
 		cfg.addDefault("Language.DE.event.shopvillager.open", "&7Du hast den Shop geöffnet.");
 		cfg.addDefault("Language.DE.event.shopvillager.hurt", "&7Du kannst dem Villager nicht wehtun.");
 		cfg.addDefault("Language.DE.event.afk.leave", "&7Du bist nicht mehr AFK.");

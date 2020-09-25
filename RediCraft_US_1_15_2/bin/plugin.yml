@@ -52,4 +52,15 @@ commands:
     onlinemap:
     invsee:
     pinfo:
+    tpa:
+    tpahere:
+    tpaccept:
+        aliases: 
+        - tpyes
+        - tpallow
+    tpdeny:
+        aliases:
+        - tpnp
+        - tpdisallow
+    blocktpa:
     
