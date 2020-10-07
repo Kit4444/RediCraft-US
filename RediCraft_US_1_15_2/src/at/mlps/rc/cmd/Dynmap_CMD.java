@@ -19,15 +19,15 @@ public class Dynmap_CMD implements CommandExecutor{
 			Player p = (Player)sender;
 			String server = APIs.getServerName();
 			if(server.equalsIgnoreCase("Creative")) {
-				p.sendMessage(Main.prefix() + "§aURL§7: creativemap.redicraft.eu");
+				p.sendMessage(Main.prefix() + "§aURL§7: http://map.redicraft.eu:21201");
 			}else if(server.equalsIgnoreCase("Survival")) {
-				p.sendMessage(Main.prefix() + "§aURL§7: survivalmap.redicraft.eu");
+				p.sendMessage(Main.prefix() + "§aURL§7: http://map.redicraft.eu:21203");
 			}else if(server.equalsIgnoreCase("Farmserver")) {
-				p.sendMessage(Main.prefix() + "§aURL§7: farmmap.redicraft.eu");
+				p.sendMessage(Main.prefix() + "§aURL§7: http://map.redicraft.eu:21205");
 			}else if(server.equalsIgnoreCase("Towny")) {
-				p.sendMessage(Main.prefix() + "§aURL§7: townymap.redicraft.eu");
+				p.sendMessage(Main.prefix() + "§aURL§7: http://map.redicraft.eu:21214");
 			}else if(server.equalsIgnoreCase("SkyBlock")) {
-				p.sendMessage(Main.prefix() + "§aURL§7: skyblockmap.redicraft.eu");
+				p.sendMessage(Main.prefix() + "§aURL§7: http://map.redicraft.eu:21204");
 			}else {
 				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.onlinemap.invalidserver"));
 			}
