@@ -153,6 +153,8 @@ public class APIs {
 		cfg.addDefault("Language.EN.cmd.tpdeny.noreqopen", "&7You don't have any requests open.");
 		cfg.addDefault("Language.EN.cmd.cmd.blocktpa.removed", "&7You can receive now TPA-Requests again.");
 		cfg.addDefault("Language.EN.cmd.blocktpa.added", "&7TPA-Requests are now blocked.");
+		cfg.addDefault("Language.EN.cmd.invsee.success", "§7You are now seeing %displayer§7's Inventory");
+		cfg.addDefault("Language.EN.cmd.invsee.notown", "§7You can't see your own Inventory.");
 		cfg.addDefault("Language.EN.event.shopvillager.open", "&7You have opened the Shop.");
 		cfg.addDefault("Language.EN.event.shopvillager.hurt", "&7You can't hurt the villager.");
 		cfg.addDefault("Language.EN.event.afk.leave", "&7You are not longer AFK.");
@@ -319,6 +321,8 @@ public class APIs {
 		cfg.addDefault("Language.DE.cmd.tpdeny.noreqopen", "&7You don't have any requests open.");
 		cfg.addDefault("Language.DE.cmd.cmd.blocktpa.removed", "&7You can receive now TPA-Requests again.");
 		cfg.addDefault("Language.DE.cmd.blocktpa.added", "&7TPA-Requests are now blocked.");
+		cfg.addDefault("Language.DE.cmd.invsee.success", "§7Du siehst nun %displayer§7's Inventar.");
+		cfg.addDefault("Language.DE.cmd.invsee.notown", "§7Du kannst dein eigenes Inventar nicht sehen.");
 		cfg.addDefault("Language.DE.event.shopvillager.open", "&7Du hast den Shop geöffnet.");
 		cfg.addDefault("Language.DE.event.shopvillager.hurt", "&7Du kannst dem Villager nicht wehtun.");
 		cfg.addDefault("Language.DE.event.afk.leave", "&7Du bist nicht mehr AFK.");

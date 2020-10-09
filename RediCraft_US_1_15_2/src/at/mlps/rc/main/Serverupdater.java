@@ -25,12 +25,15 @@ import at.mlps.rc.api.APIs;
 import at.mlps.rc.mysql.lb.MySQL;
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.server.v1_16_R2.MinecraftServer;
+import ru.tehkode.permissions.PermissionUser;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class Serverupdater implements Listener{
 	
 	@SuppressWarnings({ "deprecation", "resource" })
 	public static void updateServer() {
 		if(MySQL.isConnected()) {
+			userUpdater();
 			Runtime runtime = Runtime.getRuntime();
 			long ramusage = (runtime.totalMemory() - runtime.freeMemory()) / 1048576L;
 			long ramtotal = runtime.totalMemory() / 1048576L;
@@ -70,6 +73,63 @@ public class Serverupdater implements Listener{
 	}
 	
 	static int secs = 0;
+	
+	public static void userUpdater() {
+		for(Player all : Bukkit.getOnlinePlayers()) {
+			String uuid = all.getUniqueId().toString().replace("-", "");
+			try {
+				PermissionUser pu = PermissionsEx.getUser(all);
+	    		PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET userrank = ?, online = ?, server = ?, isstaff = ? WHERE uuid = ?");
+	    		if(pu.inGroup("PMan")) {
+	        		ps.setString(1, "Projectmanager");
+	        	}else if(pu.inGroup("CMan")) {
+	        		ps.setString(1, "Community Manager");
+	        	}else if(pu.inGroup("AMan")) {
+	        		ps.setString(1, "Game Moderation Manager");
+	        	}else if(pu.inGroup("Developer")) {
+	        		ps.setString(1, "Developer");
+	        	}else if(pu.inGroup("Admin")) {
+	        		ps.setString(1, "Game Moderator");
+	        	}else if(pu.inGroup("Mod")) {
+	        		ps.setString(1, "Moderator");
+	        	}else if(pu.inGroup("Support")) {
+	        		ps.setString(1, "Support");
+	        	}else if(pu.inGroup("Translator")) {
+	        		ps.setString(1, "Content");
+	        	}else if(pu.inGroup("Builder")) {
+	        		ps.setString(1, "Builder");
+	        	}else if(pu.inGroup("RLTM")) {
+	        		ps.setString(1, "Retired Legend Team Member");
+	        	}else if(pu.inGroup("RTM")) {
+	        		ps.setString(1, "Retired Team Member");
+	        	}else if(pu.inGroup("Partner")) {
+	        		ps.setString(1, "Partner");
+	        	}else if(pu.inGroup("Beta")) {
+	        		ps.setString(1, "Beta-Tester");
+	        	}else if(pu.inGroup("Patron")) {
+	        		ps.setString(1, "Patron");
+	        	}else if(pu.inGroup("NitroBooster")) {
+	        		ps.setString(1, "Nitrobooster");
+	        	}else if(pu.inGroup("Friend")) {
+	        		ps.setString(1, "Friend");
+	        	}else {
+	        		ps.setString(1, "Player");
+	        	}
+	    		ps.setBoolean(2, true);
+	    		ps.setString(3, APIs.getServerName());
+	    		if(all.hasPermission("mlps.isStaff")) {
+	    			ps.setBoolean(4, true);
+	    		}else {
+	    			ps.setBoolean(4, false);
+	    		}
+	    		ps.setString(5, uuid);
+	    		ps.executeUpdate();
+	    		ps.close();
+			}catch (SQLException e) {
+				
+			}
+		}
+	}
 	
 	public static void Serverrestarter() {
 		secs++;

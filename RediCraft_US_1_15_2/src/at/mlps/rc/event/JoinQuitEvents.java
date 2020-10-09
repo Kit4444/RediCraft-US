@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -38,17 +39,17 @@ public class JoinQuitEvents implements Listener{
         	}else if(pu.inGroup("CMan")) {
         		ps.setString(1, "Community Manager");
         	}else if(pu.inGroup("AMan")) {
-        		ps.setString(1, "Administrations Manager");
+        		ps.setString(1, "Game Moderation Manager");
         	}else if(pu.inGroup("Developer")) {
         		ps.setString(1, "Developer");
         	}else if(pu.inGroup("Admin")) {
-        		ps.setString(1, "Admin");
+        		ps.setString(1, "Game Moderator");
         	}else if(pu.inGroup("Mod")) {
         		ps.setString(1, "Moderator");
         	}else if(pu.inGroup("Support")) {
         		ps.setString(1, "Support");
         	}else if(pu.inGroup("Translator")) {
-        		ps.setString(1, "Translator");
+        		ps.setString(1, "Content");
         	}else if(pu.inGroup("Builder")) {
         		ps.setString(1, "Builder");
         	}else if(pu.inGroup("RLTM")) {
@@ -85,7 +86,12 @@ public class JoinQuitEvents implements Listener{
 			ex.printStackTrace();
 		}
         if(!p.hasPlayedBefore()) {
-			Serverteleporter.worldteleporter(p);
+        	Bukkit.getScheduler().scheduleSyncDelayedTask(Main.instance, new Runnable() {
+				@Override
+				public void run() {
+					Serverteleporter.worldteleporter(p);
+				}
+			}, 20);
 		}
         if(p.hasPermission("mlps.isSA")) {
         	String isVer = Main.instance.getDescription().getVersion();
@@ -114,17 +120,17 @@ public class JoinQuitEvents implements Listener{
         	}else if(pu.inGroup("CMan")) {
         		ps.setString(1, "Community Manager");
         	}else if(pu.inGroup("AMan")) {
-        		ps.setString(1, "Administrations Manager");
+        		ps.setString(1, "Game Moderation Manager");
         	}else if(pu.inGroup("Developer")) {
         		ps.setString(1, "Developer");
         	}else if(pu.inGroup("Admin")) {
-        		ps.setString(1, "Admin");
+        		ps.setString(1, "Game Moderator");
         	}else if(pu.inGroup("Mod")) {
         		ps.setString(1, "Moderator");
         	}else if(pu.inGroup("Support")) {
         		ps.setString(1, "Support");
         	}else if(pu.inGroup("Translator")) {
-        		ps.setString(1, "Translator");
+        		ps.setString(1, "Content");
         	}else if(pu.inGroup("Builder")) {
         		ps.setString(1, "Builder");
         	}else if(pu.inGroup("RLTM")) {
