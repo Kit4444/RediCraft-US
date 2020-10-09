@@ -46,12 +46,12 @@ public class Vault implements Economy{
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean createPlayerAccount(String arg0) {
-		return createPlayerAccount(arg0);
+		return true;
 	}
 
 	@Override
 	public boolean createPlayerAccount(OfflinePlayer arg0) {
-		return MoneyAPI.createAccount(arg0.getUniqueId().toString(), arg0.getUniqueId().toString().replace("-", ""));
+		return true;
 	}
 
 	@SuppressWarnings("deprecation")
