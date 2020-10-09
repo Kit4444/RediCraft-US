@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -24,16 +25,14 @@ public class MoneyAPI implements Listener, CommandExecutor{
 			Bukkit.getConsoleSender().sendMessage(Main.consolesend);
 		}else {
 			Player p = (Player)sender;
-			String uuid = p.getUniqueId().toString();
 			if(cmd.getName().equalsIgnoreCase("money")) {
 				if(args.length == 0) {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.money.player.own").replace("%money", String.valueOf(getMoney(uuid))));
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.money.bank.own").replace("%money", String.valueOf(getBankMoney(uuid))));
+					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.money.player.own").replace("%money", String.valueOf(getMoney(p.getUniqueId()))));
+					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.money.bank.own").replace("%money", String.valueOf(getBankMoney(p.getUniqueId()))));
 				}else if(args.length == 1) {
-					String uuid2 = Bukkit.getPlayerExact(args[0]).getUniqueId().toString();
 					Player p2 = Bukkit.getPlayerExact(args[0]);
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.money.player.other").replace("%money", String.valueOf(getMoney(uuid2)).replace("%displayer", p2.getDisplayName())));
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.money.bank.other").replace("%money", String.valueOf(getBankMoney(uuid2)).replace("%displayer", p2.getDisplayName())));
+					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.money.player.other").replace("%money", String.valueOf(getMoney(p2.getUniqueId()))).replace("%displayer", p2.getDisplayName()));
+					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.money.bank.other").replace("%money", String.valueOf(getBankMoney(p2.getUniqueId())).replace("%displayer", p2.getDisplayName())));
 				}else {
 					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + " §7/money [Player]");
 				}
@@ -46,12 +45,11 @@ public class MoneyAPI implements Listener, CommandExecutor{
 						if(p2 == null) {
 							APIs.sendMSGReady(p, "cmd.setmoney.playernotonline");
 						}else {
-							String uuid2 = p2.getUniqueId().toString();
 							int money = Integer.parseInt(args[1]);
 							if(money < 0) {
 								APIs.sendMSGReady(p, "cmd.setmoney.belowzero");
 							}else {
-								setMoney(uuid2, money);
+								setMoney(p2.getUniqueId(), money);
 								p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.setmoney.successfull").replace("%money", args[1]).replace("%displayer", p2.getDisplayName()));
 								//APIs.sendMSGReady(p, "cmd.setmoney.successfull");
 							}
@@ -69,10 +67,9 @@ public class MoneyAPI implements Listener, CommandExecutor{
 						if(p2 == null) {
 							APIs.sendMSGReady(p, "cmd.addmoney.playernotonline");
 						}else {
-							String uuid2 = p2.getUniqueId().toString();
 							int money = Integer.parseInt(args[1]);
-							int oldmoney = getMoney(uuid2);
-							setMoney(uuid2, (money + oldmoney));
+							int oldmoney = getMoney(p2.getUniqueId());
+							setMoney(p2.getUniqueId(), (money + oldmoney));
 							p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.addmoney.successfull").replace("%money", String.valueOf(money)).replace("%displayer", p2.getDisplayName()));
 							//APIs.sendMSGReady(p, "cmd.addmoney.successfull");
 						}
@@ -89,11 +86,10 @@ public class MoneyAPI implements Listener, CommandExecutor{
 						if(p2 == null) {
 							APIs.sendMSGReady(p, "cmd.removemoney.playernotonline");
 						}else {
-							String uuid2 = p2.getUniqueId().toString();
 							int money = Integer.parseInt(args[1]);
-							int oldmoney = getMoney(uuid2);
+							int oldmoney = getMoney(p.getUniqueId());
 							if(money <= oldmoney) {
-								setMoney(uuid2, (oldmoney - money));
+								setMoney(p2.getUniqueId(), (oldmoney - money));
 								p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.removemoney.successfull").replace("%money", String.valueOf(money)).replace("%displayer", p2.getDisplayName()));
 								//APIs.sendMSGReady(p, "cmd.removemoney.successfull");
 							}else {
@@ -112,13 +108,12 @@ public class MoneyAPI implements Listener, CommandExecutor{
 					if(p2 == null) {
 						APIs.sendMSGReady(p, "cmd.pay.playernotonline");
 					}else {
-						String uuid2 = p2.getUniqueId().toString();
 						int money = Integer.parseInt(args[1]);
-						int oldmoney2 = getMoney(uuid2);
-						int oldmoney1 = getMoney(uuid);
+						int oldmoney2 = getMoney(p2.getUniqueId());
+						int oldmoney1 = getMoney(p.getUniqueId());
 						if(money <= oldmoney1) {
-							setMoney(uuid2, (oldmoney2 + money));
-							setMoney(uuid, (oldmoney1 - money));
+							setMoney(p2.getUniqueId(), (oldmoney2 + money));
+							setMoney(p.getUniqueId(), (oldmoney1 - money));
 							p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.pay.successfull").replace("%displayer", p2.getDisplayName()).replace("%money", args[1]));
 							//APIs.sendMSGReady(p, "cmd.pay.successfull");
 						}else {
@@ -146,12 +141,11 @@ public class MoneyAPI implements Listener, CommandExecutor{
 						if(p2 == null) {
 							APIs.sendMSGReady(p, "cmd.setbankmoney.playernotonline");
 						}else {
-							String uuid2 = p2.getUniqueId().toString();
 							int money = Integer.parseInt(args[1]);
 							if(money <= 0) {
 								APIs.sendMSGReady(p, "cmd.setbankmoney.belowzero");
 							}else {
-								setBankMoney(uuid2, money);
+								setBankMoney(p2.getUniqueId(), money);
 								p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.setbankmoney.successfull").replace("%money", args[1]).replace("%displayer", p2.getDisplayName()));
 							}
 						}
@@ -164,11 +158,11 @@ public class MoneyAPI implements Listener, CommandExecutor{
 			}else if(cmd.getName().equalsIgnoreCase("bankdeposit")) { //add to bankaccount
 				if(args.length == 1) {
 					int money = Integer.parseInt(args[0]);
-					int currMoney = getMoney(p.getUniqueId().toString());
-					int bankcurrMoney = getBankMoney(p.getUniqueId().toString());
+					int currMoney = getMoney(p.getUniqueId());
+					int bankcurrMoney = getBankMoney(p.getUniqueId());
 					if(money <= currMoney) {
-						setBankMoney(p.getUniqueId().toString(), (bankcurrMoney + money));
-						setMoney(p.getUniqueId().toString(), (currMoney - money));
+						setBankMoney(p.getUniqueId(), (bankcurrMoney + money));
+						setMoney(p.getUniqueId(), (currMoney - money));
 						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.bankdeposit.successfull").replace("%money", args[0]));
 					}else {
 						APIs.sendMSGReady(p, "cmd.bankdeposit.moreaspossible");
@@ -179,11 +173,11 @@ public class MoneyAPI implements Listener, CommandExecutor{
 			}else if(cmd.getName().equalsIgnoreCase("bankwithdraw")) { //remove from bankaccount
 				if(args.length == 1) {
 					int money = Integer.parseInt(args[0]);
-					int currMoney = getBankMoney(p.getUniqueId().toString());
-					int usercurrMoney = getMoney(p.getUniqueId().toString());
+					int currMoney = getBankMoney(p.getUniqueId());
+					int usercurrMoney = getMoney(p.getUniqueId());
 					if(money <= currMoney) {
-						setBankMoney(p.getUniqueId().toString(), (currMoney - money));
-						setMoney(p.getUniqueId().toString(), (usercurrMoney + money));
+						setBankMoney(p.getUniqueId(), (currMoney - money));
+						setMoney(p.getUniqueId(), (usercurrMoney + money));
 						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.bankwithdraw.successfull").replace("%money", args[0]));
 					}else {
 						APIs.sendMSGReady(p, "cmd.bankwithdraw.moreaspossible");
@@ -196,61 +190,62 @@ public class MoneyAPI implements Listener, CommandExecutor{
 		return false;
 	}
 	
-	public static int getBankMoney(String uuid) {
+	public static int getBankMoney(UUID uuid) {
 		int i = 0;
 		try {
-			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_userstats WHERE uuid_ut = ?");
-			ps.setString(1, uuid);
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_userstats WHERE uuid = ?");
+			ps.setString(1, uuid.toString().replace("-", ""));
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			i = rs.getInt("bankmoney");
-			rs.close();
-			ps.closeOnCompletion();
 		}catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return i;
 	}
 	
-	public static int getMoney(String uuid) {
+	public static int getMoney(UUID uuid) {
 		int i = 0;
 		try {
-			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_userstats WHERE uuid_ut = ?");
-			ps.setString(1, uuid);
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_userstats WHERE uuid = ?");
+			ps.setString(1, uuid.toString().replace("-", ""));
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			i = rs.getInt("money");
-		}catch (SQLException e) {}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return i;
 	}
 	
-	public static void addMoney(String uuid, int moneytoadd) {
+	public static void addMoney(UUID uuid, int moneytoadd) {
 		int currentMoney = getMoney(uuid);
 		setMoney(uuid, (currentMoney + moneytoadd));
 	}
 	
-	public static void setBankMoney(String uuid, int money) {
+	public static void setBankMoney(UUID uuid, int money) {
 		try {
-			PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET bankmoney = ? WHERE uuid_ut = ?");
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET bankmoney = ? WHERE uuid = ?");
 			ps.setInt(1, money);
-			ps.setString(2, uuid);
+			ps.setString(2, uuid.toString().replace("-", ""));
 			ps.executeUpdate();
 			ps.closeOnCompletion();
 		}catch (SQLException e) {
 		}
 	}
 	
-	public static void setMoney(String uuid, int money) {
+	public static void setMoney(UUID uuid, int money) {
 		try {
-			PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET money = ? WHERE uuid_ut = ?");
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET money = ? WHERE uuid = ?");
 			ps.setInt(1, money);
-			ps.setString(2, uuid);
+			ps.setString(2, uuid.toString().replace("-", ""));
 			ps.executeUpdate();
 			ps.closeOnCompletion();
 		}catch (SQLException e) {
 		}
 	}
 	
-	public static boolean hasAccount(String uuid) {
+	public static boolean hasAccount(UUID uuid) {
 		boolean boo = false;
 		HashMap<String, Object> hm = new HashMap<>();
 		hm.put("uuid_ut", uuid);

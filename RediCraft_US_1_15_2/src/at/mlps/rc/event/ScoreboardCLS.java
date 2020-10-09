@@ -65,8 +65,8 @@ public class ScoreboardCLS implements Listener{
 		int pusercurr = Bukkit.getOnlinePlayers().size();
 		String dbpr = APIs.prefix("scoreboard");
 		int userperc = (pusergen * 100 / pusermax);
-		int cashmoney = MoneyAPI.getMoney(p.getUniqueId().toString());
-		int bankmoney = MoneyAPI.getBankMoney(p.getUniqueId().toString());
+		int cashmoney = MoneyAPI.getMoney(p.getUniqueId());
+		int bankmoney = MoneyAPI.getBankMoney(p.getUniqueId());
 		
 		o.setDisplaySlot(DisplaySlot.SIDEBAR);
 		o.setDisplayName(dbpr);
@@ -825,7 +825,14 @@ public class ScoreboardCLS implements Listener{
 				}
 			}else if(pp.inGroup("RLTM")) {
 				if(rs.getBoolean("loggedin")) {
-					
+					if(isAFK(all)) {
+						afk.addPlayer(all);
+						all.setPlayerListName("§9AFK §7- " + all.getName() + " §7| ID§7: §a" + igid(all) + " §f" + igpre(all));
+					}else {
+						rltm.addPlayer(all);
+						all.setDisplayName(retPrefix("rltm", "prefix_chat") + all.getName());
+						all.setPlayerListName(retPrefix("rltm", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
+					}
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
@@ -835,18 +842,17 @@ public class ScoreboardCLS implements Listener{
 						all.setDisplayName(retPrefix("spieler", "prefix_chat") + all.getName());
 						all.setPlayerListName(retPrefix("spieler", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
 					}
-				}
-				if(isAFK(all)) {
-					afk.addPlayer(all);
-					all.setPlayerListName("§9AFK §7- " + all.getName() + " §7| ID§7: §a" + igid(all) + " §f" + igpre(all));
-				}else {
-					rltm.addPlayer(all);
-					all.setDisplayName(retPrefix("rltm", "prefix_chat") + all.getName());
-					all.setPlayerListName(retPrefix("rltm", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
 				}
 			}else if(pp.inGroup("RTM")) {
 				if(rs.getBoolean("loggedin")) {
-					
+					if(isAFK(all)) {
+						afk.addPlayer(all);
+						all.setPlayerListName("§9AFK §7- " + all.getName() + " §7| ID§7: §a" + igid(all) + " §f" + igpre(all));
+					}else {
+						rtm.addPlayer(all);
+						all.setDisplayName(retPrefix("rtm", "prefix_chat") + all.getName());
+						all.setPlayerListName(retPrefix("rtm", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
+					}
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
@@ -856,15 +862,6 @@ public class ScoreboardCLS implements Listener{
 						all.setDisplayName(retPrefix("spieler", "prefix_chat") + all.getName());
 						all.setPlayerListName(retPrefix("spieler", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
 					}
-				}
-				
-				if(isAFK(all)) {
-					afk.addPlayer(all);
-					all.setPlayerListName("§9AFK §7- " + all.getName() + " §7| ID§7: §a" + igid(all) + " §f" + igpre(all));
-				}else {
-					rtm.addPlayer(all);
-					all.setDisplayName(retPrefix("rtm", "prefix_chat") + all.getName());
-					all.setPlayerListName(retPrefix("rtm", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
 				}
 			}else if(pp.inGroup("Partner")) {
 				if(rs.getBoolean("loggedin")) {

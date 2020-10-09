@@ -83,7 +83,7 @@ public class SpawnVillager implements CommandExecutor, Listener{
 		YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 		long current = System.currentTimeMillis();
 		long player = cfg.getLong(p.getUniqueId().toString());
-		int money = MoneyAPI.getMoney(p.getUniqueId().toString());
+		int money = MoneyAPI.getMoney(p.getUniqueId());
 		ItemStack redglass = APIs.defItem(Material.RED_STAINED_GLASS_PANE, 1, "");
 		ItemStack greenglass = APIs.defItem(Material.LIME_STAINED_GLASS_PANE, 1, "");
 		ItemStack comingsoon = APIs.defItem(Material.BARRIER, 1, "§ccoming soon");
@@ -170,7 +170,7 @@ public class SpawnVillager implements CommandExecutor, Listener{
 	}
 	
 	public void shop(Player p, String name) {
-		int money = MoneyAPI.getMoney(p.getUniqueId().toString());
+		int money = MoneyAPI.getMoney(p.getUniqueId());
 		Inventory inv = Bukkit.createInventory(null, InventoryType.HOPPER, shop + name);
 		inv.setItem(0, APIs.defItem(Material.LIME_STAINED_GLASS_PANE, 1, "§aAccept"));
 		inv.setItem(1, APIs.defItem(Material.GRAY_STAINED_GLASS_PANE, 1, ""));
@@ -186,7 +186,7 @@ public class SpawnVillager implements CommandExecutor, Listener{
 		Player p = (Player) e.getWhoClicked();
 		if(e.getView().getTitle().equalsIgnoreCase(villagername)) {
 			YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-			int money = MoneyAPI.getMoney(p.getUniqueId().toString());
+			int money = MoneyAPI.getMoney(p.getUniqueId());
 			long current = System.currentTimeMillis();
 			long player = cfg.getLong(p.getUniqueId().toString());
 			e.setCancelled(true);
@@ -234,7 +234,7 @@ public class SpawnVillager implements CommandExecutor, Listener{
 					p.setFoodLevel(20);
 					p.setHealth(20.0);
 					if(money >= 250) {
-						MoneyAPI.setMoney(p.getUniqueId().toString(), (money - 250));
+						MoneyAPI.setMoney(p.getUniqueId(), (money - 250));
 						APIs.sendMSGReady(p, "event.villagershop.healsuccess");
 						cfg.set(p.getUniqueId().toString(), (current + 600000));
 						cfg.save(file);
@@ -244,7 +244,7 @@ public class SpawnVillager implements CommandExecutor, Listener{
 				}
 			}
 		}else if(e.getView().getTitle().equalsIgnoreCase(shop + "§aEffects")) {
-			int money = MoneyAPI.getMoney(p.getUniqueId().toString());
+			int money = MoneyAPI.getMoney(p.getUniqueId());
 			e.setCancelled(true);
 			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aAccept")) {
 				e.setCancelled(true);
@@ -258,7 +258,7 @@ public class SpawnVillager implements CommandExecutor, Listener{
 				e.setCancelled(true);
 			}
 		}else if(e.getView().getTitle().equalsIgnoreCase(shop + "§aFly")) {
-			int money = MoneyAPI.getMoney(p.getUniqueId().toString());
+			int money = MoneyAPI.getMoney(p.getUniqueId());
 			e.setCancelled(true);
 			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aAccept")) {
 				e.setCancelled(true);
@@ -272,7 +272,7 @@ public class SpawnVillager implements CommandExecutor, Listener{
 				e.setCancelled(true);
 			}
 		}else if(e.getView().getTitle().equalsIgnoreCase(shop + "§aColor Chat")) {
-			int money = MoneyAPI.getMoney(p.getUniqueId().toString());
+			int money = MoneyAPI.getMoney(p.getUniqueId());
 			e.setCancelled(true);
 			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aAccept")) {
 				e.setCancelled(true);
@@ -286,7 +286,7 @@ public class SpawnVillager implements CommandExecutor, Listener{
 				e.setCancelled(true);
 			}
 		}else if(e.getView().getTitle().equalsIgnoreCase(shop + "§aMore Plots")) {
-			int money = MoneyAPI.getMoney(p.getUniqueId().toString());
+			int money = MoneyAPI.getMoney(p.getUniqueId());
 			e.setCancelled(true);
 			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aAccept")) {
 				e.setCancelled(true);
@@ -304,7 +304,7 @@ public class SpawnVillager implements CommandExecutor, Listener{
 	
 	private void doBank(Player p, int money, int subtractor, String permission) {
 		if(money >= subtractor) {
-			MoneyAPI.setMoney(p.getUniqueId().toString(), (money - subtractor));
+			MoneyAPI.setMoney(p.getUniqueId(), (money - subtractor));
 			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + p.getName() + " add " + permission);
 			if(permission.equalsIgnoreCase("mlps.subeffects")) {
 				APIs.sendMSGReady(p, "event.villagershop.purchase.effects");

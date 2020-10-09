@@ -90,9 +90,9 @@ public class Vault implements Economy{
 	@Override
 	public EconomyResponse depositPlayer(OfflinePlayer arg0, double arg1) {
 		int money = (int)arg1;
-		int money1 = MoneyAPI.getMoney(arg0.getUniqueId().toString());
+		int money1 = MoneyAPI.getMoney(arg0.getUniqueId());
 		int imoney = (money + money1);
-		MoneyAPI.setMoney(arg0.getUniqueId().toString(), imoney);
+		MoneyAPI.setMoney(arg0.getUniqueId(), imoney);
 		return new EconomyResponse(money, money1, EconomyResponse.ResponseType.SUCCESS, "");
 	}
 
@@ -120,23 +120,23 @@ public class Vault implements Economy{
 	@SuppressWarnings("deprecation")
 	@Override
 	public double getBalance(String arg0) {
-		return MoneyAPI.getMoney(arg0);
+		return getBalance(arg0);
 	}
 
 	@Override
 	public double getBalance(OfflinePlayer arg0) {
-		return MoneyAPI.getMoney(arg0.getUniqueId().toString());
+		return MoneyAPI.getMoney(arg0.getUniqueId());
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
 	public double getBalance(String arg0, String arg1) {
-		return MoneyAPI.getMoney(arg0);
+		return getBalance(arg0);
 	}
 
 	@Override
 	public double getBalance(OfflinePlayer arg0, String arg1) {
-		return MoneyAPI.getMoney(arg0.getUniqueId().toString());
+		return MoneyAPI.getMoney(arg0.getUniqueId());
 	}
 
 	@Override
@@ -158,7 +158,7 @@ public class Vault implements Economy{
 	@Override
 	public boolean has(OfflinePlayer arg0, double arg1) {
 		int money = (int)arg1;
-		int money1 = MoneyAPI.getMoney(arg0.getUniqueId().toString());
+		int money1 = MoneyAPI.getMoney(arg0.getUniqueId());
 		return MoneyAPI.hasenoughmoney(money1, money);
 	}
 
@@ -181,7 +181,7 @@ public class Vault implements Economy{
 
 	@Override
 	public boolean hasAccount(OfflinePlayer arg0) {
-		return MoneyAPI.hasAccount(arg0.getUniqueId().toString());
+		return MoneyAPI.hasAccount(arg0.getUniqueId());
 	}
 
 	@SuppressWarnings("deprecation")
@@ -236,9 +236,9 @@ public class Vault implements Economy{
 	@Override
 	public EconomyResponse withdrawPlayer(OfflinePlayer arg0, double arg1) {
 		int money = (int) arg1;
-		int money1 = MoneyAPI.getMoney(arg0.getUniqueId().toString());
+		int money1 = MoneyAPI.getMoney(arg0.getUniqueId());
 		int newmoney = (money1 - money);
-		MoneyAPI.setMoney(arg0.getUniqueId().toString(), newmoney);
+		MoneyAPI.setMoney(arg0.getUniqueId(), newmoney);
 		return new EconomyResponse(arg1, money1, EconomyResponse.ResponseType.SUCCESS, "");
 	}
 

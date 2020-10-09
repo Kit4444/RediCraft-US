@@ -59,7 +59,7 @@ public class Pinfo implements CommandExecutor {
 							}
 							if(p.hasPermission("mlps.canBan")) {
 								p.sendMessage("§7Last Join: §a" + rs.getString("lastjoinstring"));
-								p.sendMessage("§7Money Cash/Bank: §a" + MoneyAPI.getMoney(rs.getString("uuid_ut")) + " §7/§a " + MoneyAPI.getBankMoney(rs.getString("uuid_ut")) + " §7Coins");
+								p.sendMessage("§7Money Cash/Bank: §a" + rs.getInt("money") + " §7/§a " + rs.getInt("bankmoney") + " §7Coins");
 							}
 							if(p.hasPermission("*")) {
 								p.sendMessage("§7Firstjoin IP: §a" + rs.getString("firstjoinip"));
