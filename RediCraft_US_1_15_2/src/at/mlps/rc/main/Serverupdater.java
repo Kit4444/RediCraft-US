@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -44,7 +45,11 @@ public class Serverupdater implements Listener{
 		    	sb.append(format(tps));
 		    }
 		    String tps = sb.substring(0, sb.length() - 1);
+		    int code1 = random(0, 5000);
+			int code2 = random(5001, 10000);
+			String gcode1 = code1 + "-" + code2;
 		    try {
+		    	Main.mysql.update("UPDATE useless_testtable SET toupdate = '" + gcode1 + "' WHERE type = '" + APIs.getServerName().toLowerCase() + "';");
 		    	PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_serverstats SET ramusage = ?, serverid = ?, currPlayers = ?, maxPlayers = ?, lastupdateTS = ?, lastupdateST = ?, ramavailable = ?, version = ?, tps = ? WHERE servername = ?");
 		    	ps.setInt(1, (int) ramusage);
 				ps.setString(2, APIs.getServerId());
@@ -270,6 +275,15 @@ public class Serverupdater implements Listener{
 		long diffts = (newts - oldts);
 		long newptime = (diffts + getPlayTime(p));
 		setPlayTime(p, newptime);
+	}
+	
+	static int random(int low, int max) {
+		Random r = new Random();
+		int number = r.nextInt(max);
+		while(number < low) {
+			number = r.nextInt(max);
+		}
+		return number;
 	}
 
 }
