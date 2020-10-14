@@ -1,11 +1,5 @@
 package at.mlps.rc.event;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,10 +23,6 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import com.gamingmesh.jobs.Jobs;
 import com.gamingmesh.jobs.container.JobProgression;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.api.PerformanceMonitor;
 import at.mlps.rc.cmd.MoneyAPI;
@@ -310,43 +300,38 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("  §4§a" + Bukkit.getOnlinePlayers().size() + " §7Players").setScore(0);
 				}
 			}else if(getSB(p) == 5) {
-				if(p.hasPermission("*")) {
-					/*String pl = returnRadio1("https://api.laut.fm/station/redifm", "current_playlist", 1);
-					String art = returnRadio1("https://api.laut.fm/station/redifm/current_song", "artist", 0);*/
-					String tra = returnRadio("https://api.laut.fm/station/redifm/current_song", "title");
-					String alb = returnRadio("https://api.laut.fm/station/redifm/current_song", "album");
-					o.getScore("§aRedi§6FM").setScore(9);
-					/*o.getScore("§7Current Playlist:").setScore(8);
-					if(pl.length() <= 16) {
-						o.getScore("§9§a" + pl).setScore(7);
-					}else {
-						o.getScore("§9§a" + pl.substring(0, 16)).setScore(7);
-					}
-					o.getScore("§9").setScore(6);
-					o.getScore("§7Current Artist:").setScore(5);
-					if(art.length() <= 16) {
-						o.getScore("§7§a" + art).setScore(4);
-					}else {
-						o.getScore("§7§a" + art.substring(0, 16)).setScore(4);
-					}
-					*/
-					o.getScore("§7Current Track:").setScore(3);
-					if(tra.length() <= 16) {
-						o.getScore("§8§a" + tra).setScore(2);
-					}else {
-						o.getScore("§8§a" + tra.substring(0, 16)).setScore(2);
-					}
-					if(!alb.equalsIgnoreCase("null")) {
-						o.getScore("§7Current Album:").setScore(1);
-						if(alb.length() <= 16) {
-							o.getScore("§6§a" + alb).setScore(0);
-						}else {
-							o.getScore("§6§a" + alb.substring(0, 16)).setScore(0);
-						}
-					}
+				String pl = getRadio("playlist");
+				String art = getRadio("artist");
+				String tra = getRadio("track");
+				String alb = getRadio("album");
+				o.getScore("§aRedi§6FM").setScore(9);
+				o.getScore("§7Current Playlist:").setScore(8);
+				if(pl.length() <= 16) {
+					o.getScore("§9§a" + pl).setScore(7);
 				}else {
-					o.getScore("§aRedi§6FM").setScore(1);
-					o.getScore("§cunder work").setScore(0);
+					o.getScore("§9§a" + pl.substring(0, 16)).setScore(7);
+				}
+				o.getScore("§9").setScore(6);
+				o.getScore("§7Current Artist:").setScore(5);
+				if(art.length() <= 16) {
+					o.getScore("§7§a" + art).setScore(4);
+				}else {
+					o.getScore("§7§a" + art.substring(0, 16)).setScore(4);
+				}
+				
+				o.getScore("§7Current Track:").setScore(3);
+				if(tra.length() <= 16) {
+					o.getScore("§8§a" + tra).setScore(2);
+				}else {
+					o.getScore("§8§a" + tra.substring(0, 16)).setScore(2);
+				}
+				if(!alb.equalsIgnoreCase("null")) {
+					o.getScore("§7Current Album:").setScore(1);
+					if(alb.length() <= 16) {
+						o.getScore("§6§a" + alb).setScore(0);
+					}else {
+						o.getScore("§6§a" + alb.substring(0, 16)).setScore(0);
+					}
 				}
 			}
 		}else {
@@ -574,43 +559,38 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("  §4§a" + Bukkit.getOnlinePlayers().size() + " §7Players").setScore(0);
 				}
 			}else if(getSB(p) == 5) {
-				if(p.hasPermission("*")) {
-					/*String pl = returnRadio1("https://api.laut.fm/station/redifm", "current_playlist", 1);
-					String art = returnRadio1("https://api.laut.fm/station/redifm/current_song", "artist", 0);*/
-					String tra = returnRadio("https://api.laut.fm/station/redifm/current_song", "title");
-					String alb = returnRadio("https://api.laut.fm/station/redifm/current_song", "album");
-					o.getScore("§aRedi§6FM").setScore(9);
-					/*o.getScore("§7Current Playlist:").setScore(8);
-					if(pl.length() <= 16) {
-						o.getScore("§9§a" + pl).setScore(7);
-					}else {
-						o.getScore("§9§a" + pl.substring(0, 16)).setScore(7);
-					}
-					o.getScore("§9").setScore(6);
-					o.getScore("§7Current Artist:").setScore(5);
-					if(art.length() <= 16) {
-						o.getScore("§7§a" + art).setScore(4);
-					}else {
-						o.getScore("§7§a" + art.substring(0, 16)).setScore(4);
-					}
-					*/
-					o.getScore("§7Current Track:").setScore(3);
-					if(tra.length() <= 16) {
-						o.getScore("§8§a" + tra).setScore(2);
-					}else {
-						o.getScore("§8§a" + tra.substring(0, 16)).setScore(2);
-					}
-					if(!alb.equalsIgnoreCase("null")) {
-						o.getScore("§7Current Album:").setScore(1);
-						if(alb.length() <= 16) {
-							o.getScore("§6§a" + alb).setScore(0);
-						}else {
-							o.getScore("§6§a" + alb.substring(0, 16)).setScore(0);
-						}
-					}
+				String pl = getRadio("playlist");
+				String art = getRadio("artist");
+				String tra = getRadio("track");
+				String alb = getRadio("album");
+				o.getScore("§aRedi§6FM").setScore(9);
+				o.getScore("§7Current Playlist:").setScore(8);
+				if(pl.length() <= 16) {
+					o.getScore("§9§a" + pl).setScore(7);
 				}else {
-					o.getScore("§aRedi§6FM").setScore(1);
-					o.getScore("§cunder work").setScore(0);
+					o.getScore("§9§a" + pl.substring(0, 16)).setScore(7);
+				}
+				o.getScore("§9").setScore(6);
+				o.getScore("§7Current Artist:").setScore(5);
+				if(art.length() <= 16) {
+					o.getScore("§7§a" + art).setScore(4);
+				}else {
+					o.getScore("§7§a" + art.substring(0, 16)).setScore(4);
+				}
+				
+				o.getScore("§7Current Track:").setScore(3);
+				if(tra.length() <= 16) {
+					o.getScore("§8§a" + tra).setScore(2);
+				}else {
+					o.getScore("§8§a" + tra.substring(0, 16)).setScore(2);
+				}
+				if(!alb.equalsIgnoreCase("null")) {
+					o.getScore("§7Current Album:").setScore(1);
+					if(alb.length() <= 16) {
+						o.getScore("§6§a" + alb).setScore(0);
+					}else {
+						o.getScore("§6§a" + alb.substring(0, 16)).setScore(0);
+					}
 				}
 			}
 		}
@@ -743,7 +723,7 @@ public class ScoreboardCLS implements Listener{
 						all.setPlayerListName(retPrefix("spieler", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
 					}
 				}
-			}else if(pp.inGroup("Moderator")) {
+			}else if(pp.inGroup("Mod")) {
 				if(rs.getBoolean("loggedin")) {
 					if(isAFK(all)) {
 						tafk.addPlayer(all);
@@ -1150,50 +1130,20 @@ public class ScoreboardCLS implements Listener{
 		return reports;
 	}
 	
-	private String returnRadio(String uri, String node) {
+	private String getRadio(String type) {
 		String s = "";
 		try {
-			URL url = new URL(uri);
-			URLConnection request = url.openConnection();
-			request.connect();
-			
-			JsonParser jp = new JsonParser();
-			JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
-			JsonObject rootobj = root.getAsJsonObject();
-			if(rootobj.get(node).getAsString() == "null") {
-				s = "-1";
-			}else {
-				s = rootobj.get(node).getAsString();
-			}
-		} catch (MalformedURLException e) {
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redifm_current WHERE id = ?");
+			ps.setInt(1, 1);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			s = rs.getString(type);
+		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			s = e.getMessage();
 		}
 		return s;
 	}
-	
-	/*@SuppressWarnings({ "rawtypes", "unchecked" })
-	private String returnRadio1(String uri, String node, int subnode) {
-		String s = "";
-		try {
-			URL url = new URL(uri);
-			URLConnection request = url.openConnection();
-			request.connect();
-			JSONObject jo = (JSONObject) request.getContent();
-			Map map = ((Map)jo.get(node));
-			Iterator<Map.Entry> itr1 = map.entrySet().iterator();
-			while(itr1.hasNext()) {
-				Map.Entry pair = itr1.next();
-				Bukkit.getConsoleSender().sendMessage(pair.getKey() + ":" + pair.getValue());
-			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return s;
-	}*/
 	
 	private String retLatestReport(String type) {
 		String report = "";
