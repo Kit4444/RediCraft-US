@@ -129,19 +129,6 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("  §8").setScore(2);
 					o.getScore(APIs.returnStringReady(p, "scoreboard.sideboard.playerid")).setScore(1);
 					o.getScore("  §7" + igpre(p) + " §9" + igid(p)).setScore(0);
-				}else if(sbmain >= 11 && sbmain <= 15) {
-					//serverlist and their Players 
-					if(p.hasPermission("mlps.isTeam")) {
-						o.getScore("§7Servers/Players:").setScore(6);
-						o.getScore("  §bStaffserver§7: §a" + getPlayers("Staffserver")).setScore(5);
-					}else {
-						o.getScore("§7Servers/Players:").setScore(5);
-					}
-					o.getScore("  §eCreative§7: §a" + getPlayers("Creative")).setScore(4);
-					o.getScore("  §cSurvival§7: §a" + getPlayers("Survival")).setScore(3);
-					o.getScore("  §fSky§2Block§7: §a" + getPlayers("SkyBlock")).setScore(2);
-					o.getScore("  §6Towny§7: §a" + getPlayers("Towny")).setScore(1);
-					o.getScore("  §5Farmserver§7: §a" + getPlayers("Farmserver")).setScore(0);
 				}
 			}else if(getSB(p) == 2) {
 				List<JobProgression> jobs = Jobs.getPlayerManager().getJobsPlayer(p).getJobProgression();
@@ -159,7 +146,7 @@ public class ScoreboardCLS implements Listener{
 					i++;
 				}
 			}else if(getSB(p) == 3) {
-				if(sbmain >= 0 && sbmain <= 7) {
+				if(sbmain >= 0 && sbmain <= 5) {
 					o.getScore("§7Newest Report").setScore(9);
 					o.getScore("§a§b§c").setScore(8);
 					o.getScore("§7Reporter:").setScore(7);
@@ -170,7 +157,7 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("  §3§a" + retLatestReport("server")).setScore(2);
 					o.getScore("§7Reason:").setScore(1);
 					o.getScore("  §4§a" + retLatestReport("reason")).setScore(0);
-				}else if(sbmain >= 8 && sbmain <= 15) {
+				}else if(sbmain >= 6 && sbmain <= 10) {
 					o.getScore("§7Reports total " + APIs.getServerName()).setScore(7);
 					o.getScore("§1  §a" + retRepsTotCuSe() + " §7Reports").setScore(6);
 					o.getScore("§7Reports today " + APIs.getServerName()).setScore(5);
@@ -191,7 +178,7 @@ public class ScoreboardCLS implements Listener{
 				float networkuserperc = (pusergen * 100/pusermax);
 				float curruserperc = (pusercurr * 100/pusermax);
 				
-				if(sbmain >= 0 && sbmain <= 7) {
+				if(sbmain >= 0 && sbmain <= 5) {
 					o.getScore("§7CPU load: (§a" + cpucores + " §7Cores)").setScore(7);
 					if(cpuload <= 10) {
 						o.getScore("§1§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(6);
@@ -288,7 +275,7 @@ public class ScoreboardCLS implements Listener{
 					}else {
 						o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(0);
 					}
-				}else if(sbmain >= 8 && sbmain <= 15) {
+				}else if(sbmain >= 6 && sbmain <= 10) {
 					DecimalFormat df = new DecimalFormat("#.##");
 					o.getScore("§7CPU load: (§a" + cpucores + " §7Cores)").setScore(7);
 					o.getScore("  §1§a" + df.format(cpuload) + "§7% usage").setScore(6);
@@ -304,35 +291,49 @@ public class ScoreboardCLS implements Listener{
 				String art = getRadio("artist");
 				String tra = getRadio("track");
 				String alb = getRadio("album");
-				o.getScore("§aRedi§6FM").setScore(9);
+				o.getScore("§aRedi§6FM").setScore(10);
+				o.getScore("§a§b").setScore(9);
 				o.getScore("§7Current Playlist:").setScore(8);
-				if(pl.length() <= 16) {
+				if(pl.length() <= 20) {
 					o.getScore("§9§a" + pl).setScore(7);
 				}else {
-					o.getScore("§9§a" + pl.substring(0, 16)).setScore(7);
+					o.getScore("§9§a" + pl.substring(0, 20)).setScore(7);
 				}
 				o.getScore("§9").setScore(6);
 				o.getScore("§7Current Artist:").setScore(5);
-				if(art.length() <= 16) {
+				if(art.length() <= 20) {
 					o.getScore("§7§a" + art).setScore(4);
 				}else {
-					o.getScore("§7§a" + art.substring(0, 16)).setScore(4);
+					o.getScore("§7§a" + art.substring(0, 20)).setScore(4);
 				}
 				
 				o.getScore("§7Current Track:").setScore(3);
-				if(tra.length() <= 16) {
+				if(tra.length() <= 20) {
 					o.getScore("§8§a" + tra).setScore(2);
 				}else {
-					o.getScore("§8§a" + tra.substring(0, 16)).setScore(2);
+					o.getScore("§8§a" + tra.substring(0, 20)).setScore(2);
 				}
 				if(!alb.equalsIgnoreCase("null")) {
 					o.getScore("§7Current Album:").setScore(1);
-					if(alb.length() <= 16) {
+					if(alb.length() <= 20) {
 						o.getScore("§6§a" + alb).setScore(0);
 					}else {
-						o.getScore("§6§a" + alb.substring(0, 16)).setScore(0);
+						o.getScore("§6§a" + alb.substring(0, 20)).setScore(0);
 					}
 				}
+			}else if(getSB(p) == 6) {
+				if(p.hasPermission("mlps.isTeam")) {
+					o.getScore("§7Servers/Players:").setScore(7);
+					o.getScore("  §bStaffserver§7: §a" + getPlayers("Staffserver")).setScore(6);
+				}else {
+					o.getScore("§7Servers/Players:").setScore(6);
+				}
+				o.getScore("  §6Lobby§7: §a" + getPlayers("Lobby")).setScore(5);
+				o.getScore("  §eCreative§7: §a" + getPlayers("Creative")).setScore(4);
+				o.getScore("  §cSurvival§7: §a" + getPlayers("Survival")).setScore(3);
+				o.getScore("  §fSky§2Block§7: §a" + getPlayers("SkyBlock")).setScore(2);
+				o.getScore("  §6Towny§7: §a" + getPlayers("Towny")).setScore(1);
+				o.getScore("  §5Farmserver§7: §a" + getPlayers("Farmserver")).setScore(0);
 			}
 		}else {
 			if(getSB(p) == 0) {
@@ -403,22 +404,9 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("  §8").setScore(2);
 					o.getScore(APIs.returnStringReady(p, "scoreboard.sideboard.playerid")).setScore(1);
 					o.getScore("  §7" + igpre(p) + " §9" + igid(p)).setScore(0);
-				}else if(sbmain >= 11 && sbmain <= 15) {
-					//serverlist and their Players 
-					if(p.hasPermission("mlps.isTeam")) {
-						o.getScore("§7Servers/Players:").setScore(6);
-						o.getScore("  §bStaffserver§7: §a" + getPlayers("Staffserver")).setScore(5);
-					}else {
-						o.getScore("§7Servers/Players:").setScore(5);
-					}
-					o.getScore("  §eCreative§7: §a" + getPlayers("Creative")).setScore(4);
-					o.getScore("  §cSurvival§7: §a" + getPlayers("Survival")).setScore(3);
-					o.getScore("  §fSky§2Block§7: §a" + getPlayers("SkyBlock")).setScore(2);
-					o.getScore("  §6Towny§7: §a" + getPlayers("Towny")).setScore(1);
-					o.getScore("  §5Farmserver§7: §a" + getPlayers("Farmserver")).setScore(0);
 				}
 			}else if(getSB(p) == 3) {
-				if(sbmain >= 0 && sbmain <= 7) {
+				if(sbmain >= 0 && sbmain <= 5) {
 					o.getScore("§7Newest Report").setScore(9);
 					o.getScore("§a§b§c").setScore(8);
 					o.getScore("§7Reporter:").setScore(7);
@@ -429,7 +417,7 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("  §3§a" + retLatestReport("server")).setScore(2);
 					o.getScore("§7Reason:").setScore(1);
 					o.getScore("  §4§a" + retLatestReport("reason")).setScore(0);
-				}else if(sbmain >= 8 && sbmain <= 15) {
+				}else if(sbmain >= 6 && sbmain <= 10) {
 					o.getScore("§7Reports total " + APIs.getServerName()).setScore(7);
 					o.getScore("§1  §a" + retRepsTotCuSe() + " §7Reports").setScore(6);
 					o.getScore("§7Reports today " + APIs.getServerName()).setScore(5);
@@ -450,7 +438,7 @@ public class ScoreboardCLS implements Listener{
 				float networkuserperc = (pusergen * 100/pusermax);
 				float curruserperc = (pusercurr * 100/pusermax);
 				
-				if(sbmain >= 0 && sbmain <= 7) {
+				if(sbmain >= 0 && sbmain <= 5) {
 					o.getScore("§7CPU load: (§a" + cpucores + " §7Cores)").setScore(7);
 					if(cpuload <= 10) {
 						o.getScore("§1§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(6);
@@ -547,7 +535,7 @@ public class ScoreboardCLS implements Listener{
 					}else {
 						o.getScore("§4§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(0);
 					}
-				}else if(sbmain >= 8 && sbmain <= 15) {
+				}else if(sbmain >= 6 && sbmain <= 10) {
 					DecimalFormat df = new DecimalFormat("#.##");
 					o.getScore("§7CPU load: (§a" + cpucores + " §7Cores)").setScore(7);
 					o.getScore("  §1§a" + df.format(cpuload) + "§7% usage").setScore(6);
@@ -563,35 +551,49 @@ public class ScoreboardCLS implements Listener{
 				String art = getRadio("artist");
 				String tra = getRadio("track");
 				String alb = getRadio("album");
-				o.getScore("§aRedi§6FM").setScore(9);
+				o.getScore("§aRedi§6FM").setScore(10);
+				o.getScore("§a§b").setScore(9);
 				o.getScore("§7Current Playlist:").setScore(8);
-				if(pl.length() <= 16) {
+				if(pl.length() <= 20) {
 					o.getScore("§9§a" + pl).setScore(7);
 				}else {
-					o.getScore("§9§a" + pl.substring(0, 16)).setScore(7);
+					o.getScore("§9§a" + pl.substring(0, 20)).setScore(7);
 				}
 				o.getScore("§9").setScore(6);
 				o.getScore("§7Current Artist:").setScore(5);
-				if(art.length() <= 16) {
+				if(art.length() <= 20) {
 					o.getScore("§7§a" + art).setScore(4);
 				}else {
-					o.getScore("§7§a" + art.substring(0, 16)).setScore(4);
+					o.getScore("§7§a" + art.substring(0, 20)).setScore(4);
 				}
 				
 				o.getScore("§7Current Track:").setScore(3);
-				if(tra.length() <= 16) {
+				if(tra.length() <= 20) {
 					o.getScore("§8§a" + tra).setScore(2);
 				}else {
-					o.getScore("§8§a" + tra.substring(0, 16)).setScore(2);
+					o.getScore("§8§a" + tra.substring(0, 20)).setScore(2);
 				}
 				if(!alb.equalsIgnoreCase("null")) {
 					o.getScore("§7Current Album:").setScore(1);
-					if(alb.length() <= 16) {
+					if(alb.length() <= 20) {
 						o.getScore("§6§a" + alb).setScore(0);
 					}else {
-						o.getScore("§6§a" + alb.substring(0, 16)).setScore(0);
+						o.getScore("§6§a" + alb.substring(0, 20)).setScore(0);
 					}
 				}
+			}else if(getSB(p) == 6) {
+				if(p.hasPermission("mlps.isTeam")) {
+					o.getScore("§7Servers/Players:").setScore(7);
+					o.getScore("  §bStaffserver§7: §a" + getPlayers("Staffserver")).setScore(6);
+				}else {
+					o.getScore("§7Servers/Players:").setScore(6);
+				}
+				o.getScore("  §6Lobby§7: §a" + getPlayers("Lobby")).setScore(5);
+				o.getScore("  §eCreative§7: §a" + getPlayers("Creative")).setScore(4);
+				o.getScore("  §cSurvival§7: §a" + getPlayers("Survival")).setScore(3);
+				o.getScore("  §fSky§2Block§7: §a" + getPlayers("SkyBlock")).setScore(2);
+				o.getScore("  §6Towny§7: §a" + getPlayers("Towny")).setScore(1);
+				o.getScore("  §5Farmserver§7: §a" + getPlayers("Farmserver")).setScore(0);
 			}
 		}
 		
@@ -1214,7 +1216,7 @@ public class ScoreboardCLS implements Listener{
 			public void run() {
 				Serverupdater.updateServer();
 				sbmain++;
-				if(sbmain == 15) {
+				if(sbmain == 10) {
 					sbmain = 0;
 				}
 				for(Player all : Bukkit.getOnlinePlayers()) {

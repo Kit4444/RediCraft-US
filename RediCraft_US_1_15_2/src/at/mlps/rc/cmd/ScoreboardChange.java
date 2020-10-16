@@ -50,6 +50,8 @@ public class ScoreboardChange implements CommandExecutor{
 						}
 					}else if(args[0].equalsIgnoreCase("redifm")) {
 						updateSB(uuid, 5);
+					}else if(args[0].equalsIgnoreCase("players")) {
+						updateSB(uuid, 6);
 					}
 					ScoreboardCLS sb = new ScoreboardCLS();
 					try {
@@ -86,6 +88,8 @@ public class ScoreboardChange implements CommandExecutor{
 						}
 					}else if(args[0].equalsIgnoreCase("redifm")) {
 						updateSB(uuid, 5);
+					}else if(args[0].equalsIgnoreCase("players")) {
+						updateSB(uuid, 6);
 					}
 					ScoreboardCLS sb = new ScoreboardCLS();
 					try {
@@ -99,7 +103,7 @@ public class ScoreboardChange implements CommandExecutor{
 					}
 				}
 			}else {
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7/sb <off|default|job|redifm|admin|data");
+				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7/sb <off|default|players|job|redifm|admin|data");
 			}
 		}
 		return false;
