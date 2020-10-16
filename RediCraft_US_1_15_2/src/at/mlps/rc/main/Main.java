@@ -85,7 +85,7 @@ public class Main extends JavaPlugin implements Listener{
 		fillList();
 		APIs.loadConfig();
 		ScoreboardCLS sb = new ScoreboardCLS();
-		sb.sbSched(0, 100, 20);
+		sb.sbSched(0, 50, 20);
 	}
 	
 	private void fillList() {
