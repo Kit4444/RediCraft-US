@@ -291,36 +291,50 @@ public class ScoreboardCLS implements Listener{
 				String art = getRadio("artist");
 				String tra = getRadio("track");
 				String alb = getRadio("album");
-				o.getScore("§aRedi§6FM").setScore(10);
-				o.getScore("§a§b").setScore(9);
-				o.getScore("§7Current Playlist:").setScore(8);
-				if(pl.length() <= 20) {
-					o.getScore("§9§a" + pl).setScore(7);
+				String currListen = getRadio("current_listener");
+				o.getScore("§aRedi§6FM").setScore(11);
+				o.getScore("§a§b").setScore(10);
+				o.getScore("§7Current Playlist:").setScore(9);
+				if(pl.length() <= 24) {
+					o.getScore("  §9§a" + pl).setScore(8);
 				}else {
-					o.getScore("§9§a" + pl.substring(0, 20)).setScore(7);
+					o.getScore("  §9§a" + pl.substring(0, 24)).setScore(8);
 				}
-				o.getScore("§9").setScore(6);
-				o.getScore("§7Current Artist:").setScore(5);
-				if(art.length() <= 20) {
-					o.getScore("§7§a" + art).setScore(4);
+				o.getScore("§7Current Listeners:").setScore(7);
+				o.getScore("  §6§a" + currListen).setScore(6);
+				o.getScore("§7Current Track:").setScore(5);
+				if(tra.length() <= 24) {
+					o.getScore("  §8§a" + tra).setScore(4);
 				}else {
-					o.getScore("§7§a" + art.substring(0, 20)).setScore(4);
+					o.getScore("  §8§a" + tra.substring(0, 24)).setScore(4);
 				}
-				
-				o.getScore("§7Current Track:").setScore(3);
-				if(tra.length() <= 20) {
-					o.getScore("§8§a" + tra).setScore(2);
+				o.getScore("§7Current Artist:").setScore(3);
+				if(art.length() <= 24) {
+					o.getScore("  §7§a" + art).setScore(2);
 				}else {
-					o.getScore("§8§a" + tra.substring(0, 20)).setScore(2);
+					o.getScore("  §7§a" + art.substring(0, 24)).setScore(2);
 				}
-				if(!alb.equalsIgnoreCase("null")) {
+				if(!alb.equalsIgnoreCase("null") || !alb.equalsIgnoreCase("none")) {
 					o.getScore("§7Current Album:").setScore(1);
-					if(alb.length() <= 20) {
-						o.getScore("§6§a" + alb).setScore(0);
+					if(alb.length() <= 24) {
+						o.getScore("  §6§a" + alb).setScore(0);
 					}else {
-						o.getScore("§6§a" + alb.substring(0, 20)).setScore(0);
+						o.getScore("  §6§a" + alb.substring(0, 24)).setScore(0);
 					}
 				}
+			}else if(getSB(p) == 6) {
+				if(p.hasPermission("mlps.isTeam")) {
+					o.getScore("§7Servers/Players:").setScore(7);
+					o.getScore("  §bStaffserver§7: §a" + getPlayers("Staffserver")).setScore(6);
+				}else {
+					o.getScore("§7Servers/Players:").setScore(6);
+				}
+				o.getScore("  §6Lobby§7: §a" + getPlayers("Lobby")).setScore(5);
+				o.getScore("  §eCreative§7: §a" + getPlayers("Creative")).setScore(4);
+				o.getScore("  §cSurvival§7: §a" + getPlayers("Survival")).setScore(3);
+				o.getScore("  §fSky§2Block§7: §a" + getPlayers("SkyBlock")).setScore(2);
+				o.getScore("  §6Towny§7: §a" + getPlayers("Towny")).setScore(1);
+				o.getScore("  §5Farmserver§7: §a" + getPlayers("Farmserver")).setScore(0);
 			}else if(getSB(p) == 6) {
 				if(p.hasPermission("mlps.isTeam")) {
 					o.getScore("§7Servers/Players:").setScore(7);
@@ -551,34 +565,35 @@ public class ScoreboardCLS implements Listener{
 				String art = getRadio("artist");
 				String tra = getRadio("track");
 				String alb = getRadio("album");
-				o.getScore("§aRedi§6FM").setScore(10);
-				o.getScore("§a§b").setScore(9);
-				o.getScore("§7Current Playlist:").setScore(8);
-				if(pl.length() <= 20) {
-					o.getScore("§9§a" + pl).setScore(7);
+				String currListen = getRadio("current_listener");
+				o.getScore("§aRedi§6FM").setScore(11);
+				o.getScore("§a§b").setScore(10);
+				o.getScore("§7Current Playlist:").setScore(9);
+				if(pl.length() <= 24) {
+					o.getScore("  §9§a" + pl).setScore(8);
 				}else {
-					o.getScore("§9§a" + pl.substring(0, 20)).setScore(7);
+					o.getScore("  §9§a" + pl.substring(0, 24)).setScore(8);
 				}
-				o.getScore("§9").setScore(6);
-				o.getScore("§7Current Artist:").setScore(5);
-				if(art.length() <= 20) {
-					o.getScore("§7§a" + art).setScore(4);
+				o.getScore("§7Current Listeners:").setScore(7);
+				o.getScore("  §6§a" + currListen).setScore(6);
+				o.getScore("§7Current Track:").setScore(5);
+				if(tra.length() <= 24) {
+					o.getScore("  §8§a" + tra).setScore(4);
 				}else {
-					o.getScore("§7§a" + art.substring(0, 20)).setScore(4);
+					o.getScore("  §8§a" + tra.substring(0, 24)).setScore(4);
 				}
-				
-				o.getScore("§7Current Track:").setScore(3);
-				if(tra.length() <= 20) {
-					o.getScore("§8§a" + tra).setScore(2);
+				o.getScore("§7Current Artist:").setScore(3);
+				if(art.length() <= 24) {
+					o.getScore("  §7§a" + art).setScore(2);
 				}else {
-					o.getScore("§8§a" + tra.substring(0, 20)).setScore(2);
+					o.getScore("  §7§a" + art.substring(0, 24)).setScore(2);
 				}
-				if(!alb.equalsIgnoreCase("null")) {
+				if(!alb.equalsIgnoreCase("null") || !alb.equalsIgnoreCase("none")) {
 					o.getScore("§7Current Album:").setScore(1);
-					if(alb.length() <= 20) {
-						o.getScore("§6§a" + alb).setScore(0);
+					if(alb.length() <= 24) {
+						o.getScore("  §6§a" + alb).setScore(0);
 					}else {
-						o.getScore("§6§a" + alb.substring(0, 20)).setScore(0);
+						o.getScore("  §6§a" + alb.substring(0, 24)).setScore(0);
 					}
 				}
 			}else if(getSB(p) == 6) {
