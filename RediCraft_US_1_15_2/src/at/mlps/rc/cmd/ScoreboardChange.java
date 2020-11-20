@@ -103,7 +103,7 @@ public class ScoreboardChange implements CommandExecutor{
 					}
 				}
 			}else {
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7/sb <off|default|players|job|redifm|admin|data");
+				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7/sb <off|default|players|job|redifm|admin|data>");
 			}
 		}
 		return false;
