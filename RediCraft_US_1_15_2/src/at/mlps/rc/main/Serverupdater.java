@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
@@ -24,7 +25,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.mysql.lb.MySQL;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_16_R2.MinecraftServer;
+import net.minecraft.server.v1_16_R3.MinecraftServer;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
@@ -34,6 +35,7 @@ public class Serverupdater implements Listener{
 	public static void updateServer() {
 		if(MySQL.isConnected()) {
 			userUpdater();
+			updateWorlds();
 			Runtime runtime = Runtime.getRuntime();
 			long ramusage = (runtime.totalMemory() - runtime.freeMemory()) / 1048576L;
 			long ramtotal = runtime.totalMemory() / 1048576L;
@@ -61,7 +63,7 @@ public class Serverupdater implements Listener{
 				ps.setInt(5, (int) timestamp);
 				ps.setString(6, stime);
 				ps.setInt(7, (int) ramtotal);
-				ps.setString(8, "1.16.3");
+				ps.setString(8, "1.16.4");
 				ps.setString(9, tps);
 				ps.setString(10, APIs.getServerName());
 				ps.executeUpdate();
@@ -127,6 +129,43 @@ public class Serverupdater implements Listener{
 	    		ps.close();
 			}catch (SQLException e) {
 				
+			}
+		}
+	}
+	
+	public static void updateWorlds() {
+		String server = APIs.getServerName();
+		for(World w : Bukkit.getWorlds()) {
+			HashMap<String, Object> hm = new HashMap<>();
+			hm.put("server", server);
+			hm.put("world", w.getName());
+			String weather = "";
+			if(w.isThundering()) {
+				weather = "thunder";
+			}else if(w.hasStorm()) {
+				weather = "rain";
+			}else {
+				weather = "clear";
+			}
+			String time = parseTimeWorld(w.getTime());
+			int players = w.getPlayers().size();
+			try {
+				if(!Main.mysql.isInDatabase("redicore_worldsettings", hm)) {
+					hm.put("weather", weather);
+					hm.put("time", time);
+					hm.put("players", players);
+					Main.mysql.insertInto("redicore_worldsettings", hm);
+				}else {
+					PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_worldsettings SET weather = ?, time = ?, players = ? WHERE server = ? AND world = ?");
+					ps.setString(1, weather);
+					ps.setString(2, time);
+					ps.setInt(3, players);
+					ps.setString(4, server);
+					ps.setString(5, w.getName());
+					ps.executeUpdate();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
 		}
 	}
@@ -344,6 +383,23 @@ public class Serverupdater implements Listener{
 			number = r.nextInt(max);
 		}
 		return number;
+	}
+	
+	private static String parseTimeWorld(long time) {
+		long gameTime = time;
+		long hours = gameTime / 1000 + 6;
+		long minutes = (gameTime % 1000) * 60 / 1000;
+		String ampm = "AM";
+		if(hours >= 12) {
+			hours -= 12; ampm = "PM";
+		}
+		if(hours >= 12) {
+			hours -= 12; ampm = "AM";
+		}
+		if(hours == 0) hours = 12;
+		String mm = "0" + minutes;
+		mm = mm.substring(mm.length() - 2, mm.length());
+		return hours + ":" + mm + " " + ampm;
 	}
 
 }

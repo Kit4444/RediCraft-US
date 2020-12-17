@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.api.PerformanceMonitor;
 import at.mlps.rc.main.Main;
-import net.minecraft.server.v1_16_R2.MinecraftServer;
+import net.minecraft.server.v1_16_R3.MinecraftServer;
 
 public class ServerhealthCMD implements CommandExecutor{
 	
