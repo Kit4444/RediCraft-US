@@ -28,9 +28,6 @@ public class Main extends JavaPlugin implements Listener{
 	static File file = new File("plugins/RCUSS");
 	static File msgf = new File("plugins/RCUSS/msg.yml");
 	static File pdata = new File("plugins/RCUSS/playerdata.yml");
-	/*public static String prefix() {
-		return APIs.prefix("main");
-	}*/
 	
 	public void onEnable() {
 		if(!file.exists()) {
