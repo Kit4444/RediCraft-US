@@ -28,12 +28,12 @@ public class CMD_SetID_SetPf implements CommandExecutor{
 			Player p = (Player)sender;
 			if(cmd.getName().equalsIgnoreCase("setid")) {
 				if(args.length == 0) {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7/setid <Player> <ID>");
+					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7/setid <Player> <ID>");
 				}else if(args.length >= 1 && args.length <= 2) {
 					if(p.hasPermission("mlps.setID")) {
 						Player p2 = Bukkit.getPlayerExact(args[0]);
 						if(p2 == null) {
-							p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.setid.playernotonline").replace("%displayer", args[0]));
+							p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.setid.playernotonline").replace("%displayer", args[0]));
 						}else {
 							int id = Integer.parseInt(args[1]);
 							if(p.hasPermission("mlps.setID.exceedLimit")) {
@@ -55,7 +55,7 @@ public class CMD_SetID_SetPf implements CommandExecutor{
 										ps.setString(2, p2.getUniqueId().toString().replace("-", ""));
 										ps.executeUpdate();
 										ps.closeOnCompletion();
-										p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.setid.updatesuccessfull").replace("%displayer", p2.getDisplayName()).replace("%id", String.valueOf(id)));
+										p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.setid.updatesuccessfull").replace("%displayer", p2.getDisplayName()).replace("%id", String.valueOf(id)));
 									}catch (SQLException e1) {
 										e1.printStackTrace();
 									}
@@ -80,13 +80,13 @@ public class CMD_SetID_SetPf implements CommandExecutor{
 											ps.setString(2, p2.getUniqueId().toString().replace("-", ""));
 											ps.executeUpdate();
 											ps.closeOnCompletion();
-											p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.setid.updatesuccessfull").replace("%displayer", p2.getDisplayName()).replace("%id", String.valueOf(id)));
+											p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.setid.updatesuccessfull").replace("%displayer", p2.getDisplayName()).replace("%id", String.valueOf(id)));
 										}catch (SQLException e1) {
 											e1.printStackTrace();
 										}
 									}
 								}else {
-									p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.setid.limitexceeded").replace("%minid", String.valueOf(minid)).replace("%maxid", String.valueOf(maxid)));
+									p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.setid.limitexceeded").replace("%minid", String.valueOf(minid)).replace("%maxid", String.valueOf(maxid)));
 								}
 							}
 						}
@@ -94,11 +94,11 @@ public class CMD_SetID_SetPf implements CommandExecutor{
 						APIs.noPerm(p);
 					}
 				}else {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7/setid <Player> <ID>");
+					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7/setid <Player> <ID>");
 				}
 			}else if(cmd.getName().equalsIgnoreCase("setpf")) {
 				if(args.length == 0) {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7 /setpf <Player> <Prefix>");
+					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7 /setpf <Player> <Prefix>");
 				}else if(args.length >= 1) {
 					if(p.hasPermission("mlps.setPF")) {
 						StringBuilder sb = new StringBuilder();
@@ -108,7 +108,7 @@ public class CMD_SetID_SetPf implements CommandExecutor{
 						String reason = sb.toString().trim();
 						Player p2 = Bukkit.getPlayerExact(args[0]);
 						if(p2 == null) {
-							p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.setpf.playernotonline").replace("%displayer", args[0]));
+							p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.setpf.playernotonline").replace("%displayer", args[0]));
 						}else {
 							String uuid2 = p2.getUniqueId().toString().replace("-", "");
 							String prefix = ChatColor.translateAlternateColorCodes('&', reason);
@@ -121,7 +121,7 @@ public class CMD_SetID_SetPf implements CommandExecutor{
 										ps.setString(3, uuid2);
 										ps.executeUpdate();
 										ps.closeOnCompletion();
-										p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.setpf.playerreset").replace("%displayer", p2.getDisplayName()));
+										p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.setpf.playerreset").replace("%displayer", p2.getDisplayName()));
 									}catch (SQLException e) { }
 								}else {
 									try {
@@ -131,11 +131,11 @@ public class CMD_SetID_SetPf implements CommandExecutor{
 										ps.setString(3, uuid2);
 										ps.executeUpdate();
 										ps.closeOnCompletion();
-										p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.setpf.newprefix").replace("%displayer", p2.getDisplayName()).replace("%prefix", prefix).replace("|", "\n"));
+										p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.setpf.newprefix").replace("%displayer", p2.getDisplayName()).replace("%prefix", prefix).replace("|", "\n"));
 									}catch (SQLException e) { }
 								}
 							}else {
-								p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.setpf.prefixtoolong").replace("%length", String.valueOf(prefix.length())));
+								p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.setpf.prefixtoolong").replace("%length", String.valueOf(prefix.length())));
 							}
 						}
 					}else {

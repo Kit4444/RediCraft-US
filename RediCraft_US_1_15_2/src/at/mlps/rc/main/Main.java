@@ -22,15 +22,15 @@ public class Main extends JavaPlugin implements Listener{
 	
 	public static String mysqlprefix = "§eMySQL §7- ";
 	public static MySQL mysql;
-	public static String consolesend = prefix() + "§cPlease use this command ingame!";
+	public static String consolesend = APIs.prefix("main") + "§cPlease use this command ingame!";
 	public static ArrayList<String> serverlist = new ArrayList<>();
 	public static Main instance;
 	static File file = new File("plugins/RCUSS");
 	static File msgf = new File("plugins/RCUSS/msg.yml");
 	static File pdata = new File("plugins/RCUSS/playerdata.yml");
-	public static String prefix() {
+	/*public static String prefix() {
 		return APIs.prefix("main");
-	}
+	}*/
 	
 	public void onEnable() {
 		if(!file.exists()) {
@@ -66,7 +66,7 @@ public class Main extends JavaPlugin implements Listener{
 			Bukkit.getServicesManager().register(Economy.class, new Vault(), Bukkit.getPluginManager().getPlugin("Vault"), ServicePriority.Normal);
 		}
 		UpdateOnline(true);
-		Bukkit.getConsoleSender().sendMessage(prefix() + "§aPlugin wurde geladen.");
+		Bukkit.getConsoleSender().sendMessage(APIs.prefix("main") + "§aPlugin wurde geladen.");
 	}
 	
 	public void onDisable() {
@@ -78,7 +78,7 @@ public class Main extends JavaPlugin implements Listener{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		Bukkit.getConsoleSender().sendMessage(prefix() + "§cPlugin wurde gestoppt");
+		Bukkit.getConsoleSender().sendMessage(APIs.prefix("main") + "§cPlugin wurde gestoppt");
 	}
 	
 	private void registerMisc() {

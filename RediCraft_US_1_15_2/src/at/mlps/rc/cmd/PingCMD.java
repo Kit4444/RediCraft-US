@@ -20,14 +20,14 @@ public class PingCMD implements CommandExecutor{
 			Player p = (Player)sender;
 			int ping = ((CraftPlayer)p).getHandle().ping;
 			if(args.length == 0) {
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7 /ping <me|Player|all>");
+				p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7 /ping <me|Player|all>");
 			}else if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("me")) {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.ping.own").replace("%ping", String.valueOf(ping)));
+					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.ping.own").replace("%ping", String.valueOf(ping)));
 				}else if(args[0].equalsIgnoreCase("all")) {
 					for(Player all : Bukkit.getOnlinePlayers()) {
 						int ping1 = ((CraftPlayer)all).getHandle().ping;
-						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.ping.all").replace("%displayer", all.getDisplayName()).replace("%ping", String.valueOf(ping1)));
+						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.ping.all").replace("%displayer", all.getDisplayName()).replace("%ping", String.valueOf(ping1)));
 					}
 				}else {
 					Player p2 = Bukkit.getPlayerExact(args[0]);
@@ -35,11 +35,11 @@ public class PingCMD implements CommandExecutor{
 						APIs.sendMSGReady(p, "cmd.ping.notonline");
 					}else {
 						int ping2 = ((CraftPlayer)p2).getHandle().ping;
-						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.ping.other").replace("%displayer", p2.getDisplayName()).replace("%ping", String.valueOf(ping2)));
+						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.ping.other").replace("%displayer", p2.getDisplayName()).replace("%ping", String.valueOf(ping2)));
 					}
 				}
 			}else {
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7 /ping <me|Player|all>");
+				p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7 /ping <me|Player|all>");
 			}
 		}
 		return false;

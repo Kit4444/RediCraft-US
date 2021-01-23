@@ -11,7 +11,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
-import at.mlps.rc.main.Main;
 
 public class TPA_System implements CommandExecutor{
 	
@@ -27,7 +26,7 @@ public class TPA_System implements CommandExecutor{
             Player p = (Player)sender;
             if(cmd.getName().equalsIgnoreCase("tpa")) {
                 if(args.length == 0) {
-                    p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7/tpa <Player>");
+                    p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7/tpa <Player>");
                 }else if(args.length == 1) {
                     Player p2 = Bukkit.getPlayerExact(args[0]);
                     if(p2 == null) {
@@ -35,28 +34,28 @@ public class TPA_System implements CommandExecutor{
                     }else {
                         if(p2.getName() == p.getName()) {
                         	APIs.sendMSGReady(p, "cmd.tpa.ownrequest");
-                            //p.sendMessage(Main.prefix() + "§cDu kannst dir selbst keine TPA-Anfrage senden. Du Trottel!");
+                            //p.sendMessage(APIs.prefix("main") + "§cDu kannst dir selbst keine TPA-Anfrage senden. Du Trottel!");
                         }else {
                             if(tpblock.contains(p2.getUniqueId())) {
                             	APIs.sendMSGReady(p, "cmd.tpa.playerblocked");
-                                //p.sendMessage(Main.prefix() + "§cDieser Spieler hat TPA-Anfragen geblockt.");
+                                //p.sendMessage(APIs.prefix("main") + "§cDieser Spieler hat TPA-Anfragen geblockt.");
                             }else {
                                 tprequests.put(p2.getUniqueId(), p.getUniqueId());
                                 tprequesttype.put(p2.getUniqueId(), false);
-                                p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.tpa.success.ownmsg").replace("%displayer", p2.getDisplayName()));
-                                p2.sendMessage(Main.prefix() + APIs.returnStringReady(p2, "cmd.tpa.success.othermsg.main").replace("%displayer", p.getDisplayName()));
+                                p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.tpa.success.ownmsg").replace("%displayer", p2.getDisplayName()));
+                                p2.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p2, "cmd.tpa.success.othermsg.main").replace("%displayer", p.getDisplayName()));
                                 APIs.sendMSGReady(p2, "cmd.tpa.success.othermsg.info");
-                                //p.sendMessage(Main.prefix() + "§7Du hast dem Spieler §a" + p2.getName() + " §7eine TPA-Anfrage geschickt.");
-                                //p2.sendMessage(Main.prefix() + "§7Du hast eine TPA-Anfrage von §a" + p.getName() + " §7bekommen.");
+                                //p.sendMessage(APIs.prefix("main") + "§7Du hast dem Spieler §a" + p2.getName() + " §7eine TPA-Anfrage geschickt.");
+                                //p2.sendMessage(APIs.prefix("main") + "§7Du hast eine TPA-Anfrage von §a" + p.getName() + " §7bekommen.");
                             }
                         }
                     }
                 }else {
-                	p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7/tpa <Player>");
+                	p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7/tpa <Player>");
                 }
             }else if(cmd.getName().equalsIgnoreCase("tpahere")) {
             	if(args.length == 0) {
-                    p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7/tpahere <Player>");
+                    p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7/tpahere <Player>");
                 }else if(args.length == 1) {
                     Player p2 = Bukkit.getPlayerExact(args[0]);
                     if(p2 == null) {
@@ -64,24 +63,24 @@ public class TPA_System implements CommandExecutor{
                     }else {
                         if(p2.getName() == p.getName()) {
                         	APIs.sendMSGReady(p, "cmd.tpahere.ownrequest");
-                            //p.sendMessage(Main.prefix() + "§cDu kannst dir selbst keine TPA-Anfrage senden. Du Trottel!");
+                            //p.sendMessage(APIs.prefix("main") + "§cDu kannst dir selbst keine TPA-Anfrage senden. Du Trottel!");
                         }else {
                             if(tpblock.contains(p2.getUniqueId())) {
                             	APIs.sendMSGReady(p, "cmd.tpahere.playerblocked");
-                                //p.sendMessage(Main.prefix() + "§cDieser Spieler hat TPA-Anfragen geblockt.");
+                                //p.sendMessage(APIs.prefix("main") + "§cDieser Spieler hat TPA-Anfragen geblockt.");
                             }else {
                                 tprequests.put(p2.getUniqueId(), p.getUniqueId());
                                 tprequesttype.put(p2.getUniqueId(), true);
-                                p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.tpahere.success.ownmsg").replace("%displayer", p2.getDisplayName()));
-                                p2.sendMessage(Main.prefix() + APIs.returnStringReady(p2, "cmd.tpahere.success.othermsg.main").replace("%displayer", p.getDisplayName()));
+                                p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.tpahere.success.ownmsg").replace("%displayer", p2.getDisplayName()));
+                                p2.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p2, "cmd.tpahere.success.othermsg.main").replace("%displayer", p.getDisplayName()));
                                 APIs.sendMSGReady(p2, "cmd.tpahere.success.othermsg.info");
-                                //p.sendMessage(Main.prefix() + "§7Du hast dem Spieler §a" + p2.getName() + " §7eine TPA-Anfrage geschickt.");
-                                //p2.sendMessage(Main.prefix() + "§7Du hast eine TPA-Anfrage von §a" + p.getName() + " §7bekommen.");
+                                //p.sendMessage(APIs.prefix("main") + "§7Du hast dem Spieler §a" + p2.getName() + " §7eine TPA-Anfrage geschickt.");
+                                //p2.sendMessage(APIs.prefix("main") + "§7Du hast eine TPA-Anfrage von §a" + p.getName() + " §7bekommen.");
                             }
                         }
                     }
                 }else {
-                	p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7/tpa <Player>");
+                	p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7/tpa <Player>");
                 }
             }else if(cmd.getName().equalsIgnoreCase("tpaccept")) {
                 if(tprequests.containsKey(p.getUniqueId())) {

@@ -1,5 +1,6 @@
 package at.mlps.rc.event;
 
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,6 +26,8 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class JoinQuitEvents implements Listener{
 	
+	static File spawnfile = new File("plugins/RCUSS/spawn.yml");
+	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
 		e.setJoinMessage(null);
@@ -31,6 +36,7 @@ public class JoinQuitEvents implements Listener{
         String stime = time.format(new Date());
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         String uuid = p.getUniqueId().toString().replace("-", "");
+        YamlConfiguration cfg = YamlConfiguration.loadConfiguration(spawnfile);
         try {
 			PermissionUser pu = PermissionsEx.getUser(p);
     		PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET userrank = ?, online = ?, server = ?, lastjoints = ?, lastjoinstring = ?, lastloginip = ?, isstaff = ? WHERE uuid = ?");
@@ -89,15 +95,35 @@ public class JoinQuitEvents implements Listener{
         	Bukkit.getScheduler().scheduleSyncDelayedTask(Main.instance, new Runnable() {
 				@Override
 				public void run() {
-					Serverteleporter.worldteleporter(p);
+					String sname = APIs.getServerName();
+					if(sname.equalsIgnoreCase("Survival")) {
+						p.teleport(retLoc(cfg, "freebuild"));
+					}else if(sname.equalsIgnoreCase("Creative")) {
+						p.teleport(retLoc(cfg, "plotworld"));
+					}else if(sname.equalsIgnoreCase("SkyBlock")) {
+						p.teleport(retLoc(cfg, "plotworld"));
+					}else if(sname.equalsIgnoreCase("Farmserver")) {
+						p.teleport(retLoc(cfg, "freebuild"));
+					}
 				}
 			}, 20);
+		}else {
+			String sname = APIs.getServerName();
+			if(sname.equalsIgnoreCase("Survival")) {
+				p.teleport(retLoc(cfg, "freebuild"));
+			}else if(sname.equalsIgnoreCase("Creative")) {
+				p.teleport(retLoc(cfg, "plotworld"));
+			}else if(sname.equalsIgnoreCase("SkyBlock")) {
+				p.teleport(retLoc(cfg, "plotworld"));
+			}else if(sname.equalsIgnoreCase("Farmserver")) {
+				p.teleport(retLoc(cfg, "freebuild"));
+			}
 		}
         if(p.hasPermission("mlps.isSA")) {
         	String isVer = Main.instance.getDescription().getVersion();
             String shouldVer = retVersion();
             if(!isVer.equalsIgnoreCase(shouldVer)) {
-            	p.sendMessage(Main.prefix() + "§cInfo, the Version you use is different to the DB.");
+            	p.sendMessage(APIs.prefix("main") + "§cInfo, the Version you use is different to the DB.");
             	p.sendMessage("§aServerversion§7: " + isVer);
             	p.sendMessage("§cDB-Version§7: " + shouldVer);
             }
@@ -177,5 +203,15 @@ public class JoinQuitEvents implements Listener{
 			ps.closeOnCompletion();
 		}catch (SQLException ex) { ex.printStackTrace(); }
 		return s;
+	}
+	
+	private Location retLoc(YamlConfiguration cfg, String type) {
+		Location loc = null;
+		if(cfg.contains("Spawn." + type + ".WORLD")) {
+			loc = new Location(Bukkit.getWorld(cfg.getString("Spawn." + type + ".WORLD")), cfg.getDouble("Spawn." + type + ".X"), cfg.getDouble("Spawn." + type + ".Y"), cfg.getDouble("Spawn." + type + ".Z"), (float)cfg.getDouble("Spawn." + type + ".YAW"), (float)cfg.getDouble("Spawn." + type + ".PITCH"));
+		}else {
+			loc = null;
+		}
+		return loc;
 	}
 }

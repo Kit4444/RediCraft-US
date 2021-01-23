@@ -192,7 +192,7 @@ public class SpawnVillager implements CommandExecutor, Listener{
 			e.setCancelled(true);
 			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aCoins")) {
 				e.setCancelled(true);
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.villagershop.money").replace("%money", String.valueOf(money)));
+				p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.villagershop.money").replace("%money", String.valueOf(money)));
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aFly")) {
 				e.setCancelled(true);
 				if(p.hasPermission("mlps.userfly")) {
@@ -229,7 +229,7 @@ public class SpawnVillager implements CommandExecutor, Listener{
 					long mins = secs / 60;
 					long restsecs = secs % 60;
 					String tf = mins + ":" + restsecs;
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.villagershop.healwait").replace("%time", tf));
+					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.villagershop.healwait").replace("%time", tf));
 				}else {
 					p.setFoodLevel(20);
 					p.setHealth(20.0);
@@ -318,7 +318,7 @@ public class SpawnVillager implements CommandExecutor, Listener{
 				
 			}
 		}else {
-			p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.villagershop.notenoughmoney"));
+			p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.villagershop.notenoughmoney"));
 		}
 	}
 }

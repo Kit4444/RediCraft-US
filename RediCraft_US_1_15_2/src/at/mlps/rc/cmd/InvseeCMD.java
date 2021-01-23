@@ -25,7 +25,7 @@ public class InvseeCMD implements CommandExecutor{
 					if(p.hasPermission("mlps.invsee")) {
 						if(p != p2) {
 							p.openInventory(p2.getInventory());
-							p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.invsee.success").replace("%displayer", p2.getDisplayName()));
+							p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.invsee.success").replace("%displayer", p2.getDisplayName()));
 						}else {
 							APIs.sendMSGReady(p, "cmd.invsee.notown");
 						}
@@ -34,7 +34,7 @@ public class InvseeCMD implements CommandExecutor{
 					}
 				}
 			}else {
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + " §7/invsee <Name>");
+				p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + " §7/invsee <Name>");
 			}
 		}
 		return true;

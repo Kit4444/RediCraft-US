@@ -44,7 +44,7 @@ public class ChatClear implements CommandExecutor{
 						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
 						APIs.sendMSGReady(p, "cmd.cc.public");
 						for(Player all : Bukkit.getOnlinePlayers()) {
-							all.sendMessage(Main.prefix() + APIs.returnStringReady(all, "cmd.cc.forall.public").replace("%displayer", p.getDisplayName()));
+							all.sendMessage(APIs.prefix("main") + APIs.returnStringReady(all, "cmd.cc.forall.public").replace("%displayer", p.getDisplayName()));
 						}
 					}else {
 						APIs.noPerm(p);
@@ -69,10 +69,10 @@ public class ChatClear implements CommandExecutor{
 						APIs.noPerm(p);
 					}
 				}else {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7 /cc <private|public|anonymous>");
+					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7 /cc <private|public|anonymous>");
 				}
 			}else {
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7 /cc <private|public|anonymous>");
+				p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7 /cc <private|public|anonymous>");
 			}
 		}
 		return false;

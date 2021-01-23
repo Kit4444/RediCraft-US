@@ -31,7 +31,7 @@ import at.mlps.rc.cmd.TPA_System;
 import at.mlps.rc.cmd.TimeCMD;
 import at.mlps.rc.cmd.WeatherCMD;
 import at.mlps.rc.cmd.WorkBenchCMD;
-import at.mlps.rc.cmd.setspawn;
+import at.mlps.rc.cmd.Setspawn;
 import at.mlps.rc.event.Blocker;
 import at.mlps.rc.event.JoinQuitEvents;
 import at.mlps.rc.event.ScoreboardCLS;
@@ -53,7 +53,7 @@ public class Manager {
 		Main.instance.getCommand("ping").setExecutor(new PingCMD());
 		Main.instance.getCommand("s").setExecutor(new Serverteleporter(Main.instance));
 		Main.instance.getCommand("gc").setExecutor(new ServerhealthCMD());
-		Main.instance.getCommand("setspawn").setExecutor(new setspawn());
+		Main.instance.getCommand("setspawn").setExecutor(new Setspawn());
 		Main.instance.getCommand("stop").setExecutor(new StopCMD(Main.instance));
 		Main.instance.getCommand("time").setExecutor(new TimeCMD());
 		Main.instance.getCommand("weather").setExecutor(new WeatherCMD());

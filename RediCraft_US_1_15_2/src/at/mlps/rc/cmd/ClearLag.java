@@ -30,7 +30,7 @@ public class ClearLag implements CommandExecutor{
 						}
 					}
 				}
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "cmd.clearlag").replace("%entities", String.valueOf(worldentities)).replace("%worldcount", String.valueOf(Bukkit.getWorlds().size())));
+				p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.clearlag").replace("%entities", String.valueOf(worldentities)).replace("%worldcount", String.valueOf(Bukkit.getWorlds().size())));
 			}else {
 				APIs.noPerm(p);
 			}

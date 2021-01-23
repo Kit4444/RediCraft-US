@@ -33,7 +33,7 @@ public class PM_System implements CommandExecutor{
 			Player p = (Player)sender;
 			if(cmd.getName().equalsIgnoreCase("msg")) {
 				if(args.length == 0) {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7 /msg <Player> <Message>");
+					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7 /msg <Player> <Message>");
 				}else {
 					Player p2 = Bukkit.getPlayerExact(args[0]);
 					if(p2 == null) {
@@ -79,7 +79,7 @@ public class PM_System implements CommandExecutor{
 				}
 			}else if(cmd.getName().equalsIgnoreCase("r")) {
 				if(args.length == 0) {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + "§7 /r <Message>");
+					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7 /r <Message>");
 				}else {
 					YamlConfiguration cfg = YamlConfiguration.loadConfiguration(msgf);
 					Player p2 = Bukkit.getPlayer(cfg.getString(p.getName()));

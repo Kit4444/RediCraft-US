@@ -11,7 +11,6 @@ import at.mlps.rc.main.Main;
 
 public class SkullCMD implements CommandExecutor{
 
-	//@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(!(sender instanceof Player)) {
@@ -20,12 +19,10 @@ public class SkullCMD implements CommandExecutor{
 			Player p = (Player)sender;
 			if(args.length == 1) {
 				p.getInventory().addItem(APIs.skullItem(1, args[0] + "'s Head", args[0]));
-				//p.getInventory().setItemInHand(APIs.skullItem(1, args[0] + "'s Head", args[0]));
 			}else {
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + " §7/head <Headname>");
+				p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + " §7/head <Headname>");
 			}
 		}
 		return false;
 	}
-
 }

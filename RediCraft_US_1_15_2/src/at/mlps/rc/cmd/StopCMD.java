@@ -31,7 +31,7 @@ public class StopCMD implements CommandExecutor, Listener{
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(args.length == 0) {
 			if(sender.hasPermission("mlps.admin.stopserver")) {
-				sender.sendMessage(Main.prefix() + "§7Usage: /stop <Reason>");
+				sender.sendMessage(APIs.prefix("main") + "§7Usage: /stop <Reason>");
 			}else {
 				APIs.noPerm((Player) sender);
 			}
@@ -42,9 +42,9 @@ public class StopCMD implements CommandExecutor, Listener{
 			}
 			String reason = sb.toString().trim();
 			if(sender.hasPermission("mlps.admin.stopserver")) {
-				sender.sendMessage(Main.prefix() + "§cServer will stop now!");
+				sender.sendMessage(APIs.prefix("main") + "§cServer will stop now!");
 				IStopBool = true;
-				Bukkit.broadcastMessage(Main.prefix() + "§4The server will be shutdown now.\n§4You will be redirected to the Lobby!\n \n§7Reason: §a" + reason);
+				Bukkit.broadcastMessage(APIs.prefix("main") + "§4The server will be shutdown now.\n§4You will be redirected to the Lobby!\n \n§7Reason: §a" + reason);
 				for(Player all : Bukkit.getOnlinePlayers()) {
 					ByteArrayOutputStream b = new ByteArrayOutputStream();
 					DataOutputStream out = new DataOutputStream(b);
@@ -52,7 +52,7 @@ public class StopCMD implements CommandExecutor, Listener{
 						out.writeUTF("Connect");
 						out.writeUTF("lobby");
 					}catch (Exception ex) {
-						sender.sendMessage(Main.prefix() + "§cPlease try it later again.");
+						sender.sendMessage(APIs.prefix("main") + "§cPlease try it later again.");
 						ex.printStackTrace();
 					}
 					all.sendPluginMessage(this.plugin, "BungeeCord", b.toByteArray());

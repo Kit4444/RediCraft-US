@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.main.Main;
 
-public class setspawn implements CommandExecutor{
+public class Setspawn implements CommandExecutor{
 	
 	File file = new File("plugins/RCUSS/spawn.yml");
 
@@ -35,7 +35,7 @@ public class setspawn implements CommandExecutor{
 			Player p = (Player)sender;
 			if(args.length == 0) {
 				if(p.hasPermission("mlps.admin.setspawn")) {
-					p.sendMessage(Main.prefix() + "§7Usage: /setspawn <type>");
+					p.sendMessage(APIs.prefix("main") + "§7Usage: /setspawn <type>");
 					p.sendMessage("§7Default types: plotworld, freebuild, nether, theend");
 				}else {
 					APIs.noPerm(p);
@@ -78,15 +78,15 @@ public class setspawn implements CommandExecutor{
 		try {
 			cfg.save(file);
 			if(type.equalsIgnoreCase("plotworld")) {
-				p.sendMessage(Main.prefix() + "§aA default Spawn has been saved to disk.");
+				p.sendMessage(APIs.prefix("main") + "§aA default Spawn has been saved to disk.");
 			}else if(type.equalsIgnoreCase("freebuild")) {
-				p.sendMessage(Main.prefix() + "§aA default Spawn has been saved to disk.");
+				p.sendMessage(APIs.prefix("main") + "§aA default Spawn has been saved to disk.");
 			}else if(type.equalsIgnoreCase("nether")) {
-				p.sendMessage(Main.prefix() + "§aA default Spawn has been saved to disk.");
+				p.sendMessage(APIs.prefix("main") + "§aA default Spawn has been saved to disk.");
 			}else if(type.equalsIgnoreCase("theend")) {
-				p.sendMessage(Main.prefix() + "§aA default Spawn has been saved to disk.");
+				p.sendMessage(APIs.prefix("main") + "§aA default Spawn has been saved to disk.");
 			}else {
-				p.sendMessage(Main.prefix() + "§aA spawn has been saved to disk.");
+				p.sendMessage(APIs.prefix("main") + "§aA spawn has been saved to disk.");
 			}
 		}catch (IOException e) {
 			e.printStackTrace();

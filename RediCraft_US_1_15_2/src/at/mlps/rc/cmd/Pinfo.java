@@ -75,7 +75,7 @@ public class Pinfo implements CommandExecutor {
 					APIs.sendMSGReady(p, "cmd.pinfo.onlynumchars");
 				}
 			}else {
-				p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "usage") + " §7/pinfo <PlayerID>");
+				p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + " §7/pinfo <PlayerID>");
 			}
 		}
 		return false;

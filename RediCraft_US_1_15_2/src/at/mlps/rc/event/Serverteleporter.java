@@ -84,13 +84,24 @@ public class Serverteleporter implements Listener, CommandExecutor{
 		inv.setItem(16, APIs.naviItem(Material.GOLDEN_SHOVEL, farmserver, "Farmserver"));
 		inv.setItem(20, APIs.naviItem(Material.BRICKS, towny, "Towny"));
 		inv.setItem(24, APIs.naviItem(Material.IRON_AXE, survival, "Survival"));
-		if(p.hasPermission("mlps.isTeam")) {
-			inv.setItem(26, APIs.naviItem(Material.WOODEN_AXE, bauserver, "Staffserver"));
+		if(APIs.getServerName().equalsIgnoreCase("Farmserver")) {
+			inv.setItem(2, APIs.defItem(Material.EMERALD, 1, wt_inventory)); //dailyrewards
+			inv.setItem(13, APIs.defItem(Material.NETHER_STAR, 1, spawn)); //spawn
+			if(p.hasPermission("mlps.isTeam")) {
+				inv.setItem(26, APIs.naviItem(Material.WOODEN_AXE, bauserver, "Staffserver"));
+			}else {
+				inv.setItem(26, APIs.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
+			}
 		}else {
-			inv.setItem(26, APIs.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
+			if(p.hasPermission("mlps.isTeam")) {
+				inv.setItem(2, APIs.naviItem(Material.WOODEN_AXE, bauserver, "Staffserver"));
+				inv.setItem(26, APIs.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
+			}else {
+				inv.setItem(2, APIs.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
+				inv.setItem(26, APIs.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
+			}
+			inv.setItem(13, APIs.defItem(Material.NETHER_STAR, 1, spawn)); //spawn
 		}
-		inv.setItem(2, APIs.defItem(Material.EMERALD, 1, wt_inventory)); //dailyrewards
-		inv.setItem(13, APIs.defItem(Material.NETHER_STAR, 1, spawn)); //spawn
 		p.openInventory(inv);
 		p.updateInventory();
 	}
@@ -110,7 +121,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 				e.setCancelled(true);
 				boolean lock = getData("Lobby", "locked");
 				if(lock) {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Lobby"));
+					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Lobby"));
 				}else {
 					boolean monitor = getData("Lobby", "monitoring");
 					boolean online = getData("Lobby", "online");
@@ -122,18 +133,20 @@ public class Serverteleporter implements Listener, CommandExecutor{
 							sendPlayer(p, "lobby", spawn);
 						}
 					}else {
-						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Lobby"));
+						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Lobby"));
 					}
 					
 				}
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(wt_inventory)) {
 				e.setCancelled(true);
-				worldteleporter(p);
+				if(APIs.getServerName().equalsIgnoreCase("farmserver") || APIs.getServerName().equalsIgnoreCase("survival")) {
+					worldteleporter(p);
+				}
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(creative)) {
 				e.setCancelled(true);
 				boolean lock = getData("Creative", "locked");
 				if(lock) {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Creative"));
+					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Creative"));
 				}else {
 					boolean monitor = getData("Creative", "monitoring");
 					boolean online = getData("Creative", "online");
@@ -145,7 +158,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 							sendPlayer(p, "creative", creative);
 						}
 					}else {
-						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Creative"));
+						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Creative"));
 					}
 					
 				}
@@ -153,7 +166,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 				e.setCancelled(true);
 				boolean lock = getData("Survival", "locked");
 				if(lock) {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Survival"));
+					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Survival"));
 				}else {
 					boolean monitor = getData("Survival", "monitoring");
 					boolean online = getData("Survival", "online");
@@ -165,7 +178,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 							sendPlayer(p, "survival", survival);
 						}
 					}else {
-						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Survival"));
+						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Survival"));
 					}
 					
 				}
@@ -173,7 +186,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 				e.setCancelled(true);
 				boolean lock = getData("SkyBlock", "locked");
 				if(lock) {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "SkyBlock"));
+					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "SkyBlock"));
 				}else {
 					boolean monitor = getData("SkyBlock", "monitoring");
 					boolean online = getData("SkyBlock", "online");
@@ -185,7 +198,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 							sendPlayer(p, "skyblock", skyblock);
 						}
 					}else {
-						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "SkyBlock"));
+						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "SkyBlock"));
 					}
 					
 				}
@@ -193,7 +206,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 				e.setCancelled(true);
 				boolean lock = getData("Farmserver", "locked");
 				if(lock) {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Farmserver"));
+					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Farmserver"));
 				}else {
 					boolean monitor = getData("Farmserver", "monitoring");
 					boolean online = getData("Farmserver", "online");
@@ -205,7 +218,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 							sendPlayer(p, "farmserver", farmserver);
 						}
 					}else {
-						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Creative"));
+						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Creative"));
 					}
 					
 				}
@@ -213,7 +226,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 				e.setCancelled(true);
 				boolean lock = getData("Towny", "locked");
 				if(lock) {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Towny"));
+					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Towny"));
 				}else {
 					boolean monitor = getData("Towny", "monitoring");
 					boolean online = getData("Towny", "online");
@@ -225,7 +238,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 							sendPlayer(p, "towny", towny);
 						}
 					}else {
-						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Towny"));
+						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Towny"));
 					}
 					
 				}
@@ -233,7 +246,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 				e.setCancelled(true);
 				boolean lock = getData("Staffserver", "locked");
 				if(lock) {
-					p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Staffserver"));
+					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Staffserver"));
 				}else {
 					boolean monitor = getData("Staffserver", "monitoring");
 					boolean online = getData("Staffserver", "online");
@@ -245,7 +258,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 							sendPlayer(p, "bauserver", bauserver);
 						}
 					}else {
-						p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Staffserver"));
+						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Staffserver"));
 					}
 					
 				}
@@ -309,7 +322,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 		ByteArrayOutputStream b = new ByteArrayOutputStream();
 		DataOutputStream out = new DataOutputStream(b);
 		try {
-			p.sendMessage(Main.prefix() + APIs.returnStringReady(p, "event.navigator.sendPlayer.success").replace("%server", dserver));
+			p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.navigator.sendPlayer.success").replace("%server", dserver));
 			out.writeUTF("Connect");
 			out.writeUTF(server);
 		} catch (IOException e) {
@@ -331,17 +344,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 	public static void worldteleporter(Player p) {
 		Inventory inv = Bukkit.createInventory(null, 9*1, wt_inventory);
 		ItemStack item = APIs.defItem(Material.GRAY_STAINED_GLASS_PANE, 1, "");
-		if(APIs.getServerName().equalsIgnoreCase("Survival") || APIs.getServerName().equalsIgnoreCase("Creative")) {
-			inv.setItem(0, item);
-			inv.setItem(1, item);
-			inv.setItem(2, item);
-			inv.setItem(3, APIs.defItem(Material.GRASS_BLOCK, 1, wt_plotworld));
-			inv.setItem(4, item);
-			inv.setItem(5, APIs.defItem(Material.GRASS_BLOCK, 1, wt_freebuild));
-			inv.setItem(6, item);
-			inv.setItem(7, item);
-			inv.setItem(8, item);
-		}else if(APIs.getServerName().equalsIgnoreCase("Farmserver")) {
+		if(APIs.getServerName().equalsIgnoreCase("Farmserver")) {
 			inv.setItem(0, item);
 			inv.setItem(1, item);
 			inv.setItem(2, APIs.defItem(Material.GRASS_BLOCK, 1, wt_freebuild));
@@ -351,27 +354,16 @@ public class Serverteleporter implements Listener, CommandExecutor{
 			inv.setItem(6, APIs.defItem(Material.END_STONE, 1, wt_theend));
 			inv.setItem(7, item);
 			inv.setItem(8, item);
-		}else if(APIs.getServerName().equalsIgnoreCase("SkyBlock")) {
+		}else if(APIs.getServerName().equalsIgnoreCase("Survival")) {
 			inv.setItem(0, item);
 			inv.setItem(1, item);
 			inv.setItem(2, item);
-			inv.setItem(3, item);
-			inv.setItem(4, APIs.defItem(Material.GRASS_BLOCK, 1, wt_freebuild));
-			inv.setItem(5, item);
+			inv.setItem(3, APIs.defItem(Material.GRASS_BLOCK, 1, wt_freebuild));
+			inv.setItem(4, item);
+			inv.setItem(5, APIs.defItem(Material.GRASS_BLOCK, 1, wt_plotworld));
 			inv.setItem(6, item);
 			inv.setItem(7, item);
 			inv.setItem(8, item);
-		}else {
-			ItemStack err = APIs.defItem(Material.BARRIER, 1, "§cerrored");
-			inv.setItem(0, err);
-			inv.setItem(1, err);
-			inv.setItem(2, err);
-			inv.setItem(3, err);
-			inv.setItem(4, err);
-			inv.setItem(5, err);
-			inv.setItem(6, err);
-			inv.setItem(7, err);
-			inv.setItem(8, err);
 		}
 		p.openInventory(inv);
 		p.updateInventory();

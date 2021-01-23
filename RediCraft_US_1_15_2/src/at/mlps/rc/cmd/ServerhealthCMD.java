@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.api.PerformanceMonitor;
-import at.mlps.rc.main.Main;
 import net.minecraft.server.v1_16_R3.MinecraftServer;
 
 public class ServerhealthCMD implements CommandExecutor{
@@ -22,7 +21,7 @@ public class ServerhealthCMD implements CommandExecutor{
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(!(sender instanceof Player)) {
-			sender.sendMessage(Main.prefix() + "§7Bitte nur inGame ausführen!");
+			sender.sendMessage(APIs.prefix("main") + "§7Bitte nur inGame ausführen!");
 		}else {
 			Player p = (Player)sender;
 			Runtime runtime = Runtime.getRuntime();
