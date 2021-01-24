@@ -80,7 +80,6 @@ public class Main extends JavaPlugin implements Listener{
 	
 	private void registerMisc() {
 		fillList();
-		APIs.loadConfig();
 		ScoreboardCLS sb = new ScoreboardCLS();
 		sb.sbSched(0, 50, 20);
 	}
