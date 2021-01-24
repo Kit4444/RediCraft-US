@@ -54,9 +54,17 @@ public class Serverupdater implements Listener{
 		    int code1 = random(0, 5000);
 			int code2 = random(5001, 10000);
 			String gcode1 = code1 + "-" + code2;
+			int staffs = 0;
+			for(Player all : Bukkit.getOnlinePlayers()) {
+				if(isStaff(all)) {
+					if(isLoggedin(all)) {
+						staffs++;
+					}
+				}
+			}
 		    try {
 		    	Main.mysql.update("UPDATE useless_testtable SET toupdate = '" + gcode1 + "' WHERE type = '" + APIs.getServerName().toLowerCase() + "';");
-		    	PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_serverstats SET ramusage = ?, serverid = ?, currPlayers = ?, maxPlayers = ?, lastupdateTS = ?, lastupdateST = ?, ramavailable = ?, version = ?, tps = ? WHERE servername = ?");
+		    	PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_serverstats SET ramusage = ?, serverid = ?, currPlayers = ?, maxPlayers = ?, lastupdateTS = ?, lastupdateST = ?, ramavailable = ?, version = ?, tps = ?, currStaffmembers = ? WHERE servername = ?");
 		    	ps.setInt(1, (int) ramusage);
 				ps.setString(2, APIs.getServerId());
 				ps.setInt(3, players);
@@ -66,7 +74,8 @@ public class Serverupdater implements Listener{
 				ps.setInt(7, (int) ramtotal);
 				ps.setString(8, "1.16.5");
 				ps.setString(9, tps);
-				ps.setString(10, APIs.getServerName());
+				ps.setInt(10, staffs);
+				ps.setString(11, APIs.getServerName());
 				ps.executeUpdate();
 				ps.close();
 		    }catch (SQLException e) { e.printStackTrace(); Bukkit.getConsoleSender().sendMessage("§cCan't update DB-Stats."); }
@@ -131,6 +140,34 @@ public class Serverupdater implements Listener{
 			}catch (SQLException e) {
 				
 			}
+		}
+	}
+	
+	private static boolean isStaff(Player p) {
+		try {
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT isstaff FROM redicore_userstats WHERE uuid = ?");
+			ps.setString(1, p.getUniqueId().toString().replace("-", ""));
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			boolean staff = rs.getBoolean("isstaff");
+			return staff;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	private static boolean isLoggedin(Player p) {
+		try {
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT loggedin FROM redicore_userstats WHERE uuid = ?");
+			ps.setString(1, p.getUniqueId().toString().replace("-", ""));
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			boolean staff = rs.getBoolean("loggedin");
+			return staff;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 	
