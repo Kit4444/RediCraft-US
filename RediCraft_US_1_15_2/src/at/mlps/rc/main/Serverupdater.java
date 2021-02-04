@@ -32,11 +32,12 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 public class Serverupdater implements Listener{
 	
 	@SuppressWarnings({ "deprecation", "resource" })
-	public static void updateServer() {
+	public void updateServer() {
 		Serverrestarter();
 		if(MySQL.isConnected()) {
 			userUpdater();
 			updateWorlds();
+			APIs api = new APIs();
 			Runtime runtime = Runtime.getRuntime();
 			long ramusage = (runtime.totalMemory() - runtime.freeMemory()) / 1048576L;
 			long ramtotal = runtime.totalMemory() / 1048576L;
@@ -63,10 +64,10 @@ public class Serverupdater implements Listener{
 				}
 			}
 		    try {
-		    	Main.mysql.update("UPDATE useless_testtable SET toupdate = '" + gcode1 + "' WHERE type = '" + APIs.getServerName().toLowerCase() + "';");
+		    	Main.mysql.update("UPDATE useless_testtable SET toupdate = '" + gcode1 + "' WHERE type = '" + api.getServerName().toLowerCase() + "';");
 		    	PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_serverstats SET ramusage = ?, serverid = ?, currPlayers = ?, maxPlayers = ?, lastupdateTS = ?, lastupdateST = ?, ramavailable = ?, version = ?, tps = ?, currStaffmembers = ? WHERE servername = ?");
 		    	ps.setInt(1, (int) ramusage);
-				ps.setString(2, APIs.getServerId());
+				ps.setString(2, api.getServerId());
 				ps.setInt(3, players);
 				ps.setInt(4, pmax);
 				ps.setInt(5, (int) timestamp);
@@ -75,7 +76,7 @@ public class Serverupdater implements Listener{
 				ps.setString(8, "1.16.5");
 				ps.setString(9, tps);
 				ps.setInt(10, staffs);
-				ps.setString(11, APIs.getServerName());
+				ps.setString(11, api.getServerName());
 				ps.executeUpdate();
 				ps.close();
 		    }catch (SQLException e) { e.printStackTrace(); Bukkit.getConsoleSender().sendMessage("§cCan't update DB-Stats."); }
@@ -86,7 +87,8 @@ public class Serverupdater implements Listener{
 	
 	static int secs = 0;
 	
-	public static void userUpdater() {
+	public void userUpdater() {
+		APIs api = new APIs();
 		for(Player all : Bukkit.getOnlinePlayers()) {
 			String uuid = all.getUniqueId().toString().replace("-", "");
 			try {
@@ -128,7 +130,7 @@ public class Serverupdater implements Listener{
 	        		ps.setString(1, "Player");
 	        	}
 	    		ps.setBoolean(2, true);
-	    		ps.setString(3, APIs.getServerName());
+	    		ps.setString(3, api.getServerName());
 	    		if(all.hasPermission("mlps.isStaff")) {
 	    			ps.setBoolean(4, true);
 	    		}else {
@@ -143,7 +145,7 @@ public class Serverupdater implements Listener{
 		}
 	}
 	
-	private static boolean isStaff(Player p) {
+	private boolean isStaff(Player p) {
 		try {
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT isstaff FROM redicore_userstats WHERE uuid = ?");
 			ps.setString(1, p.getUniqueId().toString().replace("-", ""));
@@ -157,13 +159,15 @@ public class Serverupdater implements Listener{
 		}
 	}
 	
-	private static boolean isLoggedin(Player p) {
+	private boolean isLoggedin(Player p) {
 		try {
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT loggedin FROM redicore_userstats WHERE uuid = ?");
 			ps.setString(1, p.getUniqueId().toString().replace("-", ""));
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			boolean staff = rs.getBoolean("loggedin");
+			ps.close();
+			rs.close();
 			return staff;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -171,8 +175,9 @@ public class Serverupdater implements Listener{
 		}
 	}
 	
-	public static void updateWorlds() {
-		String server = APIs.getServerName();
+	public void updateWorlds() {
+		APIs api = new APIs();
+		String server = api.getServerName();
 		for(World w : Bukkit.getWorlds()) {
 			HashMap<String, Object> hm = new HashMap<>();
 			hm.put("server", server);
@@ -201,6 +206,7 @@ public class Serverupdater implements Listener{
 					ps.setString(4, server);
 					ps.setString(5, w.getName());
 					ps.executeUpdate();
+					ps.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -208,114 +214,115 @@ public class Serverupdater implements Listener{
 		}
 	}
 	
-	public static void Serverrestarter() {
+	public void Serverrestarter() {
 		secs++;
 		if(secs == 59) {
 			secs = 0;
 		}
+		APIs api = new APIs();
 		SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
 	    String stime = time.format(new Date());
 	    if(stime.equals("20:00:00")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "4 Stunden").replace("%time_en", "4 hours"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "4 Stunden").replace("%time_en", "4 hours"));
 	    	}
 	    }else if(stime.equals("21:00:00")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "3 Stunden").replace("%time_en", "3 hours"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "3 Stunden").replace("%time_en", "3 hours"));
 	    	}
 	    }else if(stime.equals("22:00:00")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "2 Stunden").replace("%time_en", "2 hours"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "2 Stunden").replace("%time_en", "2 hours"));
 	    	}
 	    }else if(stime.equals("22:30:00")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "90 Minuten").replace("%time_en", "90 minutes"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "90 Minuten").replace("%time_en", "90 minutes"));
 	    	}
 	    }else if(stime.equals("23:00:00")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "60 Minuten").replace("%time_en", "60 minutes"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "60 Minuten").replace("%time_en", "60 minutes"));
 	    	}
 	    }else if(stime.equals("23:30:00")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "30 Minuten").replace("%time_en", "30 minutes"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "30 Minuten").replace("%time_en", "30 minutes"));
 	    	}
 	    }else if(stime.equals("23:45:00")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "15 Minuten").replace("%time_en", "15 minutes"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "15 Minuten").replace("%time_en", "15 minutes"));
 	    	}
 	    }else if(stime.equals("23:55:00")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "5 Minuten").replace("%time_en", "5 minutes"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "5 Minuten").replace("%time_en", "5 minutes"));
 	    	}
 	    }else if(stime.equals("23:56:00")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "4 Minuten").replace("%time_en", "4 minutes"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "4 Minuten").replace("%time_en", "4 minutes"));
 	    	}
 	    }else if(stime.equals("23:57:00")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "3 Minuten").replace("%time_en", "3 minutes"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "3 Minuten").replace("%time_en", "3 minutes"));
 	    	}
 	    }else if(stime.equals("23:58:00")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "2 Minuten").replace("%time_en", "2 minutes"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "2 Minuten").replace("%time_en", "2 minutes"));
 	    	}
 	    }else if(stime.equals("23:59:00")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "1 Minute").replace("%time_en", "1 minute"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "1 Minute").replace("%time_en", "1 minute"));
 	    	}
 	    }else if(stime.equals("23:59:50")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "10 Sekunden").replace("%time_en", "10 seconds"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "10 Sekunden").replace("%time_en", "10 seconds"));
 	    	}
 	    }else if(stime.equals("23:59:51")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "9 Sekunden").replace("%time_en", "9 seconds"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "9 Sekunden").replace("%time_en", "9 seconds"));
 	    	}
 	    }else if(stime.equals("23:59:52")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "8 Sekunden").replace("%time_en", "8 seconds"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "8 Sekunden").replace("%time_en", "8 seconds"));
 	    	}
 	    }else if(stime.equals("23:59:53")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "7 Sekunden").replace("%time_en", "7 seconds"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "7 Sekunden").replace("%time_en", "7 seconds"));
 	    	}
 	    }else if(stime.equals("23:59:54")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "6 Sekunden").replace("%time_en", "6 seconds"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "6 Sekunden").replace("%time_en", "6 seconds"));
 	    	}
 	    }else if(stime.equals("23:59:55")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "5 Sekunden").replace("%time_en", "5 seconds"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "5 Sekunden").replace("%time_en", "5 seconds"));
 	    	}
 	    }else if(stime.equals("23:59:56")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "4 Sekunden").replace("%time_en", "4 seconds"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "4 Sekunden").replace("%time_en", "4 seconds"));
 	    	}
 	    }else if(stime.equals("23:59:57")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "3 Sekunden").replace("%time_en", "3 seconds"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "3 Sekunden").replace("%time_en", "3 seconds"));
 	    	}
 	    }else if(stime.equals("23:59:58")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "2 Sekunden").replace("%time_en", "2 seconds"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "2 Sekunden").replace("%time_en", "2 seconds"));
 	    	}
 	    }else if(stime.equals("23:59:59")) {
 	    	for(Player all : Bukkit.getOnlinePlayers()) {
-	    		all.sendMessage(APIs.returnStringReady(all, "restarter.time").replace("%time_de", "1 Sekunde").replace("%time_en", "1 second"));
+	    		all.sendMessage(api.returnStringReady(all, "restarter.time").replace("%time_de", "1 Sekunde").replace("%time_en", "1 second"));
 	    	}
 	    }else if(stime.equals("00:00:01")) {
 	    	Bukkit.shutdown();
 	    }
 	}
 	
-	private static String format(double tps) {
+	private String format(double tps) {
 		return String.valueOf((tps > 18.0 ? ChatColor.GREEN : (tps > 16.0 ? ChatColor.YELLOW : ChatColor.RED)).toString()) + (tps > 20.0 ? "*" : "") + Math.min((double)Math.round(tps * 100.0) / 100.0, 20.0);
 	}
 	
-	static String prefix = "§7[§aClear§cLag§7]";
-	static int time = 0;
+	static String prefix = "§aClear§cLag §7 ";
+	public static int time = 0;
 	
-	public static void clearlag() {
+	public void clearlag() {
 		Serverrestarter();
 		time++;
 		if(time == 600) {
@@ -339,7 +346,9 @@ public class Serverupdater implements Listener{
 		}else if(time == 900) {
 			time = 0;
 			int worldentities = 0;
+			int worlds = 0;
 			for(World world : Bukkit.getWorlds()) {
+				worlds++;
 				for(Entity e : world.getEntities()) {
 					if(e instanceof Item) {
 						worldentities++;
@@ -347,16 +356,21 @@ public class Serverupdater implements Listener{
 					}
 				}
 			}
-			Bukkit.broadcastMessage(prefix + " Removed §6" + worldentities + " §7Items on §6" + Bukkit.getWorlds().size() + " Worlds§7!");
+			APIs api = new APIs();
+			for(Player all : Bukkit.getOnlinePlayers()) {
+				all.sendMessage(prefix + api.returnStringReady(all, "clearlag.broadcastmsg").replace("%entities", String.valueOf(worldentities)).replace("%worlds", String.valueOf(worlds)));
+			}
 		}
 	}
 	
-	public static int getPlayTime(Player p) {
+	public int getPlayTime(Player p) {
 		try {
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT playtime FROM redicore_userstats WHERE uuid = ?");
 			ps.setString(1, p.getUniqueId().toString().replace("-", ""));
 			ResultSet rs = ps.executeQuery();
 			rs.next();
+			ps.close();
+			rs.close();
 			return rs.getInt("playtime");
 		}catch (SQLException e) {
 			return 0;
@@ -369,6 +383,7 @@ public class Serverupdater implements Listener{
 			ps.setLong(1, playtime);
 			ps.setString(2, p.getUniqueId().toString().replace("-", ""));
 			ps.executeUpdate();
+			ps.close();
 		}catch (SQLException e) {
 		}
 	}
@@ -424,7 +439,7 @@ public class Serverupdater implements Listener{
 		return number;
 	}
 	
-	private static String parseTimeWorld(long time) {
+	private String parseTimeWorld(long time) {
 		long gameTime = time;
 		long hours = gameTime / 1000 + 6;
 		long minutes = (gameTime % 1000) * 60 / 1000;

@@ -24,89 +24,91 @@ public class MoneyAPI implements Listener, CommandExecutor{
 		if(!(sender instanceof Player)) {
 			Bukkit.getConsoleSender().sendMessage(Main.consolesend);
 		}else {
+			APIs api = new APIs();
 			Player p = (Player)sender;
 			if(cmd.getName().equalsIgnoreCase("money")) {
 				if(args.length == 0) {
-					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.money.player.own").replace("%money", String.valueOf(getMoney(p.getUniqueId()))));
-					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.money.bank.own").replace("%money", String.valueOf(getBankMoney(p.getUniqueId()))));
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.money.player.own").replace("%money", String.valueOf(getMoney(p.getUniqueId()))));
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.money.bank.own").replace("%money", String.valueOf(getBankMoney(p.getUniqueId()))));
 				}else if(args.length == 1) {
 					Player p2 = Bukkit.getPlayerExact(args[0]);
-					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.money.player.other").replace("%money", String.valueOf(getMoney(p2.getUniqueId()))).replace("%displayer", p2.getDisplayName()));
-					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.money.bank.other").replace("%money", String.valueOf(getBankMoney(p2.getUniqueId())).replace("%displayer", p2.getDisplayName())));
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.money.player.other").replace("%money", String.valueOf(getMoney(p2.getUniqueId()))).replace("%displayer", p2.getDisplayName()));
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.money.bank.other").replace("%money", String.valueOf(getBankMoney(p2.getUniqueId())).replace("%displayer", p2.getDisplayName())));
 				}else {
-					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + " §7/money [Player]");
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " §7/money [Player]");
 				}
 			}else if(cmd.getName().equalsIgnoreCase("setmoney")) {
 				if(p.hasPermission("mlps.setmoney")) {
 					if(args.length == 0) {
-						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + " §7/setmoney <Player> <Money>");
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " §7/setmoney <Player> <Money>");
 					}else if(args.length >= 1 && args.length <= 2) {
 						Player p2 = Bukkit.getPlayerExact(args[0]);
 						if(p2 == null) {
-							APIs.sendMSGReady(p, "cmd.setmoney.playernotonline");
+							api.sendMSGReady(p, "cmd.setmoney.playernotonline");
 						}else {
 							int money = Integer.parseInt(args[1]);
 							if(money < 0) {
-								APIs.sendMSGReady(p, "cmd.setmoney.belowzero");
+								api.sendMSGReady(p, "cmd.setmoney.belowzero");
 							}else {
 								setMoney(p2.getUniqueId(), money);
-								p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.setmoney.successfull").replace("%money", args[1]).replace("%displayer", p2.getDisplayName()));
-								//APIs.sendMSGReady(p, "cmd.setmoney.successfull");
+								p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.setmoney.successfull").replace("%money", args[1]).replace("%displayer", p2.getDisplayName()));
 							}
 						}
 					}else {
-						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + " §7/setmoney <Player> <Money>");
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " §7/setmoney <Player> <Money>");
 					}
 				}else {
-					APIs.noPerm(p);
+					api.noPerm(p);
 				}
 			}else if(cmd.getName().equalsIgnoreCase("addmoney")) {
 				if(p.hasPermission("mlps.addmoney")) {
 					if(args.length >= 1 && args.length <= 2) {
 						Player p2 = Bukkit.getPlayerExact(args[0]);
 						if(p2 == null) {
-							APIs.sendMSGReady(p, "cmd.addmoney.playernotonline");
+							api.sendMSGReady(p, "cmd.addmoney.playernotonline");
 						}else {
-							int money = Integer.parseInt(args[1]);
-							int oldmoney = getMoney(p2.getUniqueId());
-							setMoney(p2.getUniqueId(), (money + oldmoney));
-							p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.addmoney.successfull").replace("%money", String.valueOf(money)).replace("%displayer", p2.getDisplayName()));
-							//APIs.sendMSGReady(p, "cmd.addmoney.successfull");
+							if(args[1].matches("^[0-9]+$")) {
+								int money = Integer.parseInt(args[1]);
+								int oldmoney = getMoney(p2.getUniqueId());
+								setMoney(p2.getUniqueId(), (money + oldmoney));
+								p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.addmoney.successfull").replace("%money", String.valueOf(money)).replace("%displayer", p2.getDisplayName()).replace("%newmoney", String.valueOf(money)));
+							}
 						}
 					}else {
-						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + " §7/addmoney <Player> <Money>");
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " §7/addmoney <Player> <Money>");
 					}
 				}else {
-					APIs.noPerm(p);
+					api.noPerm(p);
 				}
 			}else if(cmd.getName().equalsIgnoreCase("removemoney")) {
 				if(p.hasPermission("mlps.removemoney")) {
 					if(args.length >= 1 && args.length <= 2) {
 						Player p2 = Bukkit.getPlayerExact(args[0]);
 						if(p2 == null) {
-							APIs.sendMSGReady(p, "cmd.removemoney.playernotonline");
+							api.sendMSGReady(p, "cmd.removemoney.playernotonline");
 						}else {
-							int money = Integer.parseInt(args[1]);
-							int oldmoney = getMoney(p.getUniqueId());
-							if(money <= oldmoney) {
-								setMoney(p2.getUniqueId(), (oldmoney - money));
-								p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.removemoney.successfull").replace("%money", String.valueOf(money)).replace("%displayer", p2.getDisplayName()));
-								//APIs.sendMSGReady(p, "cmd.removemoney.successfull");
-							}else {
-								APIs.sendMSGReady(p, "cmd.removemoney.belowzero");
+							if(args[1].matches("^[0-9]+$")) {
+								int money = Integer.parseInt(args[1]);
+								int oldmoney = getMoney(p.getUniqueId());
+								if(money <= oldmoney) {
+									setMoney(p2.getUniqueId(), (oldmoney - money));
+									p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.removemoney.successfull").replace("%money", String.valueOf(money)).replace("%displayer", p2.getDisplayName()).replace("%newmoney", String.valueOf(money)));
+								}else {
+									api.sendMSGReady(p, "cmd.removemoney.belowzero");
+								}
 							}
 						}
 					}else {
-						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + " §7/removemoney <Player> <Money>");
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " §7/removemoney <Player> <Money>");
 					}
 				}else {
-					APIs.noPerm(p);
+					api.noPerm(p);
 				}
 			}else if(cmd.getName().equalsIgnoreCase("pay")) {
 				if(args.length >= 1 && args.length <= 2) {
 					Player p2 = Bukkit.getPlayerExact(args[0]);
 					if(p2 == null) {
-						APIs.sendMSGReady(p, "cmd.pay.playernotonline");
+						api.sendMSGReady(p, "cmd.pay.playernotonline");
 					}else {
 						int money = Integer.parseInt(args[1]);
 						int oldmoney2 = getMoney(p2.getUniqueId());
@@ -114,14 +116,13 @@ public class MoneyAPI implements Listener, CommandExecutor{
 						if(money <= oldmoney1) {
 							setMoney(p2.getUniqueId(), (oldmoney2 + money));
 							setMoney(p.getUniqueId(), (oldmoney1 - money));
-							p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.pay.successfull").replace("%displayer", p2.getDisplayName()).replace("%money", args[1]));
-							//APIs.sendMSGReady(p, "cmd.pay.successfull");
+							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.pay.successfull").replace("%displayer", p2.getDisplayName()).replace("%money", args[1]));
 						}else {
-							APIs.sendMSGReady(p, "cmd.pay.belowzero");
+							api.sendMSGReady(p, "cmd.pay.belowzero");
 						}
 					}
 				}else {
-					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + " §7/pay <Player> <Money>");
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " §7/pay <Player> <Money>");
 				}
 			}else if(cmd.getName().equalsIgnoreCase("topmoney")) {
 				try {
@@ -130,7 +131,7 @@ public class MoneyAPI implements Listener, CommandExecutor{
 					int i = 0;
 					while(rs.next()) {
 						i++;
-						p.sendMessage("§7Place §a" + i + " §7| User: §a" + APIs.getNamefromUUID(rs.getString("uuid_ut")) + " §7| Balance: §a" + rs.getInt("money") + " §7Coins");
+						p.sendMessage("§7Place §a" + i + " §7| User: §a" + api.getNamefromUUID(rs.getString("uuid_ut")) + " §7| Balance: §a" + rs.getInt("money") + " §7Coins");
 					}
 				}catch (SQLException e) {
 				}
@@ -139,21 +140,21 @@ public class MoneyAPI implements Listener, CommandExecutor{
 					if(p.hasPermission("mlps.setbankmoney")) {
 						Player p2 = Bukkit.getPlayerExact(args[0]);
 						if(p2 == null) {
-							APIs.sendMSGReady(p, "cmd.setbankmoney.playernotonline");
+							api.sendMSGReady(p, "cmd.setbankmoney.playernotonline");
 						}else {
 							int money = Integer.parseInt(args[1]);
 							if(money <= 0) {
-								APIs.sendMSGReady(p, "cmd.setbankmoney.belowzero");
+								api.sendMSGReady(p, "cmd.setbankmoney.belowzero");
 							}else {
 								setBankMoney(p2.getUniqueId(), money);
-								p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.setbankmoney.successfull").replace("%money", args[1]).replace("%displayer", p2.getDisplayName()));
+								p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.setbankmoney.successfull").replace("%money", args[1]).replace("%displayer", p2.getDisplayName()));
 							}
 						}
 					}else {
-						APIs.noPerm(p);
+						api.noPerm(p);
 					}
 				}else {
-					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + " §7/setbankmoney <Player> <Money>");
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " §7/setbankmoney <Player> <Money>");
 				}
 			}else if(cmd.getName().equalsIgnoreCase("bankdeposit")) { //add to bankaccount
 				if(args.length == 1) {
@@ -163,12 +164,12 @@ public class MoneyAPI implements Listener, CommandExecutor{
 					if(money <= currMoney) {
 						setBankMoney(p.getUniqueId(), (bankcurrMoney + money));
 						setMoney(p.getUniqueId(), (currMoney - money));
-						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.bankdeposit.successfull").replace("%money", args[0]));
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.bankdeposit.successfull").replace("%money", args[0]));
 					}else {
-						APIs.sendMSGReady(p, "cmd.bankdeposit.moreaspossible");
+						api.sendMSGReady(p, "cmd.bankdeposit.moreaspossible");
 					}
 				}else {
-					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + " §7/bankdeposit <Money>");
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " §7/bankdeposit <Money>");
 				}
 			}else if(cmd.getName().equalsIgnoreCase("bankwithdraw")) { //remove from bankaccount
 				if(args.length == 1) {
@@ -178,12 +179,12 @@ public class MoneyAPI implements Listener, CommandExecutor{
 					if(money <= currMoney) {
 						setBankMoney(p.getUniqueId(), (currMoney - money));
 						setMoney(p.getUniqueId(), (usercurrMoney + money));
-						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.bankwithdraw.successfull").replace("%money", args[0]));
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.bankwithdraw.successfull").replace("%money", args[0]));
 					}else {
-						APIs.sendMSGReady(p, "cmd.bankwithdraw.moreaspossible");
+						api.sendMSGReady(p, "cmd.bankwithdraw.moreaspossible");
 					}
 				}else {
-					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + " §7/bankwithdraw <Money>");
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " §7/bankwithdraw <Money>");
 				}
 			}
 		}
@@ -198,6 +199,8 @@ public class MoneyAPI implements Listener, CommandExecutor{
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			i = rs.getInt("bankmoney");
+			rs.close();
+			ps.close();
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -212,6 +215,8 @@ public class MoneyAPI implements Listener, CommandExecutor{
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			i = rs.getInt("money");
+			rs.close();
+			ps.close();
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -229,7 +234,7 @@ public class MoneyAPI implements Listener, CommandExecutor{
 			ps.setInt(1, money);
 			ps.setString(2, uuid.toString().replace("-", ""));
 			ps.executeUpdate();
-			ps.closeOnCompletion();
+			ps.close();
 		}catch (SQLException e) {
 		}
 	}
@@ -240,7 +245,7 @@ public class MoneyAPI implements Listener, CommandExecutor{
 			ps.setInt(1, money);
 			ps.setString(2, uuid.toString().replace("-", ""));
 			ps.executeUpdate();
-			ps.closeOnCompletion();
+			ps.close();
 		}catch (SQLException e) {
 		}
 	}

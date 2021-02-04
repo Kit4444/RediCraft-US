@@ -18,28 +18,29 @@ public class PingCMD implements CommandExecutor{
 			Bukkit.getConsoleSender().sendMessage(Main.consolesend);
 		}else {
 			Player p = (Player)sender;
+			APIs api = new APIs();
 			int ping = ((CraftPlayer)p).getHandle().ping;
 			if(args.length == 0) {
-				p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7 /ping <me|Player|all>");
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7 /ping <me|Player|all>");
 			}else if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("me")) {
-					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.ping.own").replace("%ping", String.valueOf(ping)));
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.ping.own").replace("%ping", String.valueOf(ping)));
 				}else if(args[0].equalsIgnoreCase("all")) {
 					for(Player all : Bukkit.getOnlinePlayers()) {
 						int ping1 = ((CraftPlayer)all).getHandle().ping;
-						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.ping.all").replace("%displayer", all.getDisplayName()).replace("%ping", String.valueOf(ping1)));
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.ping.all").replace("%displayer", all.getDisplayName()).replace("%ping", String.valueOf(ping1)));
 					}
 				}else {
 					Player p2 = Bukkit.getPlayerExact(args[0]);
 					if(p2 == null) {
-						APIs.sendMSGReady(p, "cmd.ping.notonline");
+						api.sendMSGReady(p, "cmd.ping.notonline");
 					}else {
 						int ping2 = ((CraftPlayer)p2).getHandle().ping;
-						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.ping.other").replace("%displayer", p2.getDisplayName()).replace("%ping", String.valueOf(ping2)));
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.ping.other").replace("%displayer", p2.getDisplayName()).replace("%ping", String.valueOf(ping2)));
 					}
 				}
 			}else {
-				p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7 /ping <me|Player|all>");
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7 /ping <me|Player|all>");
 			}
 		}
 		return false;

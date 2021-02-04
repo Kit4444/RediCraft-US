@@ -22,7 +22,8 @@ public class PM_System implements CommandExecutor{
 	File msgf = new File("plugins/RCUSS/msg.yml");
 	
 	private String prefix() {
-		return APIs.prefix("pmsystem");
+		APIs api = new APIs();
+		return api.prefix("pmsystem");
 	}
 
 	@Override
@@ -30,14 +31,15 @@ public class PM_System implements CommandExecutor{
 		if(!(sender instanceof Player)) {
 			Bukkit.getConsoleSender().sendMessage(Main.consolesend);
 		}else {
+			APIs api = new APIs();
 			Player p = (Player)sender;
 			if(cmd.getName().equalsIgnoreCase("msg")) {
 				if(args.length == 0) {
-					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7 /msg <Player> <Message>");
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7 /msg <Player> <Message>");
 				}else {
 					Player p2 = Bukkit.getPlayerExact(args[0]);
 					if(p2 == null) {
-						APIs.sendMSGReady(p, "cmd.msg.playernotonline");
+						api.sendMSGReady(p, "cmd.msg.playernotonline");
 					}else {
 						YamlConfiguration cfg = YamlConfiguration.loadConfiguration(msgf);
 						StringBuilder sb = new StringBuilder();
@@ -46,13 +48,13 @@ public class PM_System implements CommandExecutor{
 						}
 						String msg = sb.toString().trim();
 						if(bpm.contains(p.getUniqueId())) {
-							APIs.sendMSGReady(p, "cmd.msg.blockedmsg");
+							api.sendMSGReady(p, "cmd.msg.blockedmsg");
 						}else {
 							if(bpm.contains(p2.getUniqueId())) {
 								if(p.hasPermission("mlps.bypassbpm")) {
-									APIs.sendMSGReady(p, "cmd.msg.bypassmsg");
-									p.sendMessage(prefix() + APIs.returnStringReady(p, "cmd.msg.you") + " §7» " + p2.getDisplayName() + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
-									p2.sendMessage(prefix() + p.getDisplayName() + " §7» " + APIs.returnStringReady(p2, "cmd.msg.you") + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
+									api.sendMSGReady(p, "cmd.msg.bypassmsg");
+									p.sendMessage(prefix() + api.returnStringReady(p, "cmd.msg.you") + " §7» " + p2.getDisplayName() + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
+									p2.sendMessage(prefix() + p.getDisplayName() + " §7» " + api.returnStringReady(p2, "cmd.msg.you") + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
 									cfg.set(p.getName(), p2.getName());
 									cfg.set(p2.getName(), p.getName());
 									try {
@@ -61,11 +63,11 @@ public class PM_System implements CommandExecutor{
 										e.printStackTrace();
 									}
 								}else {
-									APIs.sendMSGReady(p, "cmd.msg.playerblocked");
+									api.sendMSGReady(p, "cmd.msg.playerblocked");
 								}
 							}else {
-								p.sendMessage(prefix() + APIs.returnStringReady(p, "cmd.msg.you") + " §7» " + p2.getDisplayName() + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
-								p2.sendMessage(prefix() + p.getDisplayName() + " §7» " + APIs.returnStringReady(p2, "cmd.msg.you") + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
+								p.sendMessage(prefix() + api.returnStringReady(p, "cmd.msg.you") + " §7» " + p2.getDisplayName() + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
+								p2.sendMessage(prefix() + p.getDisplayName() + " §7» " + api.returnStringReady(p2, "cmd.msg.you") + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
 								cfg.set(p.getName(), p2.getName());
 								cfg.set(p2.getName(), p.getName());
 								try {
@@ -79,12 +81,12 @@ public class PM_System implements CommandExecutor{
 				}
 			}else if(cmd.getName().equalsIgnoreCase("r")) {
 				if(args.length == 0) {
-					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7 /r <Message>");
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7 /r <Message>");
 				}else {
 					YamlConfiguration cfg = YamlConfiguration.loadConfiguration(msgf);
 					Player p2 = Bukkit.getPlayer(cfg.getString(p.getName()));
 					if(p2 == null) {
-						APIs.sendMSGReady(p, "cmd.r.playernotonline");
+						api.sendMSGReady(p, "cmd.r.playernotonline");
 					}else {
 						StringBuilder sb = new StringBuilder();
 						for(int i = 0; i < args.length; i++) {
@@ -93,9 +95,9 @@ public class PM_System implements CommandExecutor{
 						String msg = sb.toString().trim();
 						if(bpm.contains(p2.getUniqueId())) {
 							if(p.hasPermission("mlps.bypassbpm")) {
-								APIs.sendMSGReady(p, "cmd.msg.bypassmsg");
-								p.sendMessage(prefix() + APIs.returnStringReady(p, "cmd.msg.you") + " §7» " + p2.getDisplayName() + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
-								p2.sendMessage(prefix() + p.getDisplayName() + " §7» " + APIs.returnStringReady(p2, "cmd.msg.you") + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
+								api.sendMSGReady(p, "cmd.msg.bypassmsg");
+								p.sendMessage(prefix() + api.returnStringReady(p, "cmd.msg.you") + " §7» " + p2.getDisplayName() + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
+								p2.sendMessage(prefix() + p.getDisplayName() + " §7» " + api.returnStringReady(p2, "cmd.msg.you") + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
 								cfg.set(p.getName(), p2.getName());
 								cfg.set(p2.getName(), p.getName());
 								try {
@@ -104,21 +106,21 @@ public class PM_System implements CommandExecutor{
 									e.printStackTrace();
 								}
 							}else {
-								APIs.sendMSGReady(p, "cmd.msg.playerblocked");
+								api.sendMSGReady(p, "cmd.msg.playerblocked");
 							}
 						}else {
-							p.sendMessage(prefix() + APIs.returnStringReady(p, "cmd.msg.you") + " §7» " + p2.getDisplayName() + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
-							p2.sendMessage(prefix() + p.getDisplayName() + " §7» " + APIs.returnStringReady(p2, "cmd.msg.you") + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
+							p.sendMessage(prefix() + api.returnStringReady(p, "cmd.msg.you") + " §7» " + p2.getDisplayName() + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
+							p2.sendMessage(prefix() + p.getDisplayName() + " §7» " + api.returnStringReady(p2, "cmd.msg.you") + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
 						}
 					}
 				}
 			}else if(cmd.getName().equalsIgnoreCase("blockmsg")) {
 				if(bpm.contains(p.getUniqueId())) {
 					bpm.remove(p.getUniqueId());
-					APIs.sendMSGReady(p, "cmd.blockpm.remove");
+					api.sendMSGReady(p, "cmd.blockpm.remove");
 				}else {
 					bpm.add(p.getUniqueId());
-					APIs.sendMSGReady(p, "cmd.blockpm.add");
+					api.sendMSGReady(p, "cmd.blockpm.add");
 				}
 			}
 		}

@@ -36,6 +36,7 @@ public class SpawnVillager implements CommandExecutor, Listener{
 		if(!(sender instanceof Player)) {
 			Bukkit.getConsoleSender().sendMessage(Main.consolesend);
 		}else {
+			APIs api = new APIs();
 			Player p = (Player)sender;
 			if(p.hasPermission("mlps.setShopVillager")) {
 				Villager v = (Villager) p.getWorld().spawnEntity(p.getLocation(), EntityType.VILLAGER);
@@ -44,9 +45,9 @@ public class SpawnVillager implements CommandExecutor, Listener{
 				v.setAdult();
 				v.setAgeLock(true);
 				v.teleport(p.getLocation());
-				APIs.sendMSGReady(p, "cmd.setvillager");
+				api.sendMSGReady(p, "cmd.setvillager");
 			}else {
-				APIs.noPerm(p);
+				api.noPerm(p);
 			}
 		}
 		return false;
@@ -59,7 +60,8 @@ public class SpawnVillager implements CommandExecutor, Listener{
 		if(v.getCustomName().equalsIgnoreCase(villagername)) {
 			e.setCancelled(true);
 			ShopInv(p);
-			APIs.sendMSGReady(p, "event.shopvillager.open");
+			APIs api = new APIs();
+			api.sendMSGReady(p, "event.shopvillager.open");
 		}
 	}
 	
@@ -70,7 +72,8 @@ public class SpawnVillager implements CommandExecutor, Listener{
 		if(e.getDamager() == p) {
 			if(v.getCustomName().equals(villagername)) {
 				e.setCancelled(true);
-				APIs.sendMSGReady(p, "event.shopvillager.hurt");
+				APIs api = new APIs();
+				api.sendMSGReady(p, "event.shopvillager.hurt");
 			}
 		}else {
 			e.setCancelled(true);
@@ -79,14 +82,15 @@ public class SpawnVillager implements CommandExecutor, Listener{
 	}
 	
 	private static void ShopInv(Player p) {
+		APIs api = new APIs();
 		Inventory inv = Bukkit.createInventory(null, 9*6, villagername);
 		YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 		long current = System.currentTimeMillis();
 		long player = cfg.getLong(p.getUniqueId().toString());
 		int money = MoneyAPI.getMoney(p.getUniqueId());
-		ItemStack redglass = APIs.defItem(Material.RED_STAINED_GLASS_PANE, 1, "");
-		ItemStack greenglass = APIs.defItem(Material.LIME_STAINED_GLASS_PANE, 1, "");
-		ItemStack comingsoon = APIs.defItem(Material.BARRIER, 1, "§ccoming soon");
+		ItemStack redglass = api.defItem(Material.RED_STAINED_GLASS_PANE, 1, "");
+		ItemStack greenglass = api.defItem(Material.LIME_STAINED_GLASS_PANE, 1, "");
+		ItemStack comingsoon = api.defItem(Material.BARRIER, 1, "§ccoming soon");
 		inv.setItem(0, greenglass);
 		inv.setItem(1, greenglass);
 		inv.setItem(2, greenglass);
@@ -108,33 +112,33 @@ public class SpawnVillager implements CommandExecutor, Listener{
 		inv.setItem(18, greenglass);
 		inv.setItem(19, greenglass);
 		if(p.hasPermission("mlps.userfly")) {
-			inv.setItem(20, APIs.enchItem(Material.BOOK, 1, "§aFly", Enchantment.DURABILITY));
+			inv.setItem(20, api.enchItem(Material.BOOK, 1, "§aFly", Enchantment.DURABILITY));
 		}else {
-			inv.setItem(20, APIs.l2Item(Material.BOOK, 1, "§aFly", "§7Costs:", "§625.000 §7Coins"));
+			inv.setItem(20, api.l2Item(Material.BOOK, 1, "§aFly", "§7Costs:", "§625.000 §7Coins"));
 		}
 		
 		if(p.hasPermission("mlps.colorchat")) {
-			inv.setItem(21, APIs.enchItem(Material.BOOK, 1, "§8C§4o§5l§ao§cr §7Chat", Enchantment.DURABILITY));
+			inv.setItem(21, api.enchItem(Material.BOOK, 1, "§8C§4o§5l§ao§cr §7Chat", Enchantment.DURABILITY));
 		}else {
-			inv.setItem(21, APIs.l2Item(Material.BOOK, 1, "§8C§4o§5l§ao§cr §7Chat", "§7Costs:", "§615.000 §7Coins"));
+			inv.setItem(21, api.l2Item(Material.BOOK, 1, "§8C§4o§5l§ao§cr §7Chat", "§7Costs:", "§615.000 §7Coins"));
 		}
 		
 		if(p.hasPermission("plots.plot.8")) {
-			inv.setItem(22, APIs.enchItem(Material.BOOK, 1, "§aMore Plots", Enchantment.DURABILITY)); //more plots
+			inv.setItem(22, api.enchItem(Material.BOOK, 1, "§aMore Plots", Enchantment.DURABILITY)); //more plots
 		}else {
-			inv.setItem(22, APIs.l2Item(Material.BOOK, 1, "§aMore Plots", "§7Costs:", "§640.000 §7Coins")); //more plots
+			inv.setItem(22, api.l2Item(Material.BOOK, 1, "§aMore Plots", "§7Costs:", "§640.000 §7Coins")); //more plots
 		}
 		
 		if(p.hasPermission("mlps.subeffects")) {
-			inv.setItem(23, APIs.enchItem(Material.BOOK, 1, "§aEffects", Enchantment.DURABILITY)); //effects
+			inv.setItem(23, api.enchItem(Material.BOOK, 1, "§aEffects", Enchantment.DURABILITY)); //effects
 		}else {
-			inv.setItem(23, APIs.l2Item(Material.BOOK, 1, "§aEffects", "§7Costs:", "§625.000 §7Coins")); //effects
+			inv.setItem(23, api.l2Item(Material.BOOK, 1, "§aEffects", "§7Costs:", "§625.000 §7Coins")); //effects
 		}
 		
 		if(current <= player) {
-			inv.setItem(24, APIs.enchItem(Material.BOOK, 1, "§aHeal", Enchantment.DURABILITY));
+			inv.setItem(24, api.enchItem(Material.BOOK, 1, "§aHeal", Enchantment.DURABILITY));
 		}else {
-			inv.setItem(24, APIs.l2Item(Material.BOOK, 1, "§aHeal", "§7Costs:", "§6250 §7Coins")); // heal -> lives + food
+			inv.setItem(24, api.l2Item(Material.BOOK, 1, "§aHeal", "§7Costs:", "§6250 §7Coins")); // heal -> lives + food
 		}
 		inv.setItem(25, redglass);
 		inv.setItem(26, redglass);
@@ -164,19 +168,20 @@ public class SpawnVillager implements CommandExecutor, Listener{
 		inv.setItem(50, redglass);
 		inv.setItem(51, redglass);
 		inv.setItem(52, redglass);
-		inv.setItem(53, APIs.l2Item(Material.IRON_NUGGET, 1, "§aCoins", "§7Your Balance:", "§a" + money + " §7Coins"));
+		inv.setItem(53, api.l2Item(Material.IRON_NUGGET, 1, "§aCoins", "§7Your Balance:", "§a" + money + " §7Coins"));
 		p.openInventory(inv);
 		p.updateInventory();
 	}
 	
 	public void shop(Player p, String name) {
 		int money = MoneyAPI.getMoney(p.getUniqueId());
+		APIs api = new APIs();
 		Inventory inv = Bukkit.createInventory(null, InventoryType.HOPPER, shop + name);
-		inv.setItem(0, APIs.defItem(Material.LIME_STAINED_GLASS_PANE, 1, "§aAccept"));
-		inv.setItem(1, APIs.defItem(Material.GRAY_STAINED_GLASS_PANE, 1, ""));
-		inv.setItem(2, APIs.l2Item(Material.IRON_NUGGET, 1, "§aCoins", "§7Your Balance:", "§a" + money + " §7Coins"));
-		inv.setItem(3, APIs.defItem(Material.GRAY_STAINED_GLASS_PANE, 1, ""));
-		inv.setItem(4, APIs.defItem(Material.RED_STAINED_GLASS_PANE, 1, "§cDecline"));
+		inv.setItem(0, api.defItem(Material.LIME_STAINED_GLASS_PANE, 1, "§aAccept"));
+		inv.setItem(1, api.defItem(Material.GRAY_STAINED_GLASS_PANE, 1, ""));
+		inv.setItem(2, api.l2Item(Material.IRON_NUGGET, 1, "§aCoins", "§7Your Balance:", "§a" + money + " §7Coins"));
+		inv.setItem(3, api.defItem(Material.GRAY_STAINED_GLASS_PANE, 1, ""));
+		inv.setItem(4, api.defItem(Material.RED_STAINED_GLASS_PANE, 1, "§cDecline"));
 		p.openInventory(inv);
 		p.updateInventory();
 	}
@@ -184,6 +189,7 @@ public class SpawnVillager implements CommandExecutor, Listener{
 	@EventHandler
 	public void onClick(InventoryClickEvent e) throws IOException {
 		Player p = (Player) e.getWhoClicked();
+		APIs api = new APIs();
 		if(e.getView().getTitle().equalsIgnoreCase(villagername)) {
 			YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 			int money = MoneyAPI.getMoney(p.getUniqueId());
@@ -192,32 +198,32 @@ public class SpawnVillager implements CommandExecutor, Listener{
 			e.setCancelled(true);
 			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aCoins")) {
 				e.setCancelled(true);
-				p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.villagershop.money").replace("%money", String.valueOf(money)));
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.villagershop.money").replace("%money", String.valueOf(money)));
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aFly")) {
 				e.setCancelled(true);
 				if(p.hasPermission("mlps.userfly")) {
-					APIs.sendMSGReady(p, "event.villagershop.fly");
+					api.sendMSGReady(p, "event.villagershop.fly");
 				}else {
 					shop(p, "§aFly");
 				}
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§8C§4o§5l§ao§cr §7Chat")) {
 				e.setCancelled(true);
 				if(p.hasPermission("mlps.colorchat")) {
-					APIs.sendMSGReady(p, "event.villagershop.color");
+					api.sendMSGReady(p, "event.villagershop.color");
 				}else {
 					shop(p, "§aColor Chat");
 				}
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aMore Plots")) {
 				e.setCancelled(true);
 				if(p.hasPermission("plots.plot.8")) {
-					APIs.sendMSGReady(p, "event.villagershop.plots");
+					api.sendMSGReady(p, "event.villagershop.plots");
 				}else {
 					shop(p, "§aMore Plots");
 				}
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aEffects")) {
 				e.setCancelled(true);
 				if(p.hasPermission("mlps.subeffects")) {
-					APIs.sendMSGReady(p, "event.villagershop.effects");
+					api.sendMSGReady(p, "event.villagershop.effects");
 				}else {
 					shop(p, "§aEffects");
 				}
@@ -229,17 +235,17 @@ public class SpawnVillager implements CommandExecutor, Listener{
 					long mins = secs / 60;
 					long restsecs = secs % 60;
 					String tf = mins + ":" + restsecs;
-					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.villagershop.healwait").replace("%time", tf));
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.villagershop.healwait").replace("%time", tf));
 				}else {
 					p.setFoodLevel(20);
 					p.setHealth(20.0);
 					if(money >= 250) {
 						MoneyAPI.setMoney(p.getUniqueId(), (money - 250));
-						APIs.sendMSGReady(p, "event.villagershop.healsuccess");
+						api.sendMSGReady(p, "event.villagershop.healsuccess");
 						cfg.set(p.getUniqueId().toString(), (current + 600000));
 						cfg.save(file);
 					}else {
-						APIs.sendMSGReady(p, "event.villagershop.healnomoney");
+						api.sendMSGReady(p, "event.villagershop.healnomoney");
 					}
 				}
 			}
@@ -303,22 +309,23 @@ public class SpawnVillager implements CommandExecutor, Listener{
 	}
 	
 	private void doBank(Player p, int money, int subtractor, String permission) {
+		APIs api = new APIs();
 		if(money >= subtractor) {
 			MoneyAPI.setMoney(p.getUniqueId(), (money - subtractor));
 			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + p.getName() + " add " + permission);
 			if(permission.equalsIgnoreCase("mlps.subeffects")) {
-				APIs.sendMSGReady(p, "event.villagershop.purchase.effects");
+				api.sendMSGReady(p, "event.villagershop.purchase.effects");
 			}else if(permission.equalsIgnoreCase("mlps.userfly")) {
-				APIs.sendMSGReady(p, "event.villagershop.purchase.userfly");
+				api.sendMSGReady(p, "event.villagershop.purchase.userfly");
 			}else if(permission.equalsIgnoreCase("mlps.colorchat")) {
-				APIs.sendMSGReady(p, "event.villagershop.purchase.colorchat");
+				api.sendMSGReady(p, "event.villagershop.purchase.colorchat");
 			}else if(permission.equalsIgnoreCase("plots.plot.8")) {
-				APIs.sendMSGReady(p, "event.villagershop.purchase.plots");
+				api.sendMSGReady(p, "event.villagershop.purchase.plots");
 			}else if(permission.equalsIgnoreCase("")) {
 				
 			}
 		}else {
-			p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "event.villagershop.notenoughmoney"));
+			p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.villagershop.notenoughmoney"));
 		}
 	}
 }

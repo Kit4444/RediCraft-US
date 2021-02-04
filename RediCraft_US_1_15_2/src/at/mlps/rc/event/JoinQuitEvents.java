@@ -2,7 +2,6 @@ package at.mlps.rc.event;
 
 import java.io.File;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -30,6 +29,7 @@ public class JoinQuitEvents implements Listener{
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
+		APIs api = new APIs();
 		e.setJoinMessage(null);
 		Player p = e.getPlayer();
 		SimpleDateFormat time = new SimpleDateFormat("dd/MM/yy - HH:mm:ss");
@@ -39,53 +39,71 @@ public class JoinQuitEvents implements Listener{
         YamlConfiguration cfg = YamlConfiguration.loadConfiguration(spawnfile);
         try {
 			PermissionUser pu = PermissionsEx.getUser(p);
-    		PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET userrank = ?, online = ?, server = ?, lastjoints = ?, lastjoinstring = ?, lastloginip = ?, isstaff = ? WHERE uuid = ?");
+    		PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET userrank = ?, rankcolor = ?, online = ?, server = ?, lastjoints = ?, lastjoinstring = ?, lastloginip = ?, isstaff = ?, username = ? WHERE uuid = ?");
     		if(pu.inGroup("PMan")) {
         		ps.setString(1, "Projectmanager");
+        		ps.setString(2, "#ffaa00");
+    		}else if(pu.inGroup("HumanR")) {
+    			ps.setString(1, "Projectmanager");
+        		ps.setString(2, "#aa00aa");
         	}else if(pu.inGroup("CMan")) {
         		ps.setString(1, "Community Manager");
+        		ps.setString(2, "#00aa00");
         	}else if(pu.inGroup("AMan")) {
         		ps.setString(1, "Game Moderation Manager");
+        		ps.setString(2, "#aa0000");
         	}else if(pu.inGroup("Developer")) {
         		ps.setString(1, "Developer");
+        		ps.setString(2, "#ff55ff");
         	}else if(pu.inGroup("Admin")) {
         		ps.setString(1, "Game Moderator");
+        		ps.setString(2, "#ff5555");
         	}else if(pu.inGroup("Mod")) {
         		ps.setString(1, "Moderator");
+        		ps.setString(2, "#55ff55");
         	}else if(pu.inGroup("Support")) {
         		ps.setString(1, "Support");
+        		ps.setString(2, "#5555ff");
         	}else if(pu.inGroup("Translator")) {
         		ps.setString(1, "Content");
+        		ps.setString(2, "#ffff55");
         	}else if(pu.inGroup("Builder")) {
         		ps.setString(1, "Builder");
+        		ps.setString(2, "#55ffff");
         	}else if(pu.inGroup("RLTM")) {
         		ps.setString(1, "Retired Legend Team Member");
+        		ps.setString(2, "#00aaaa");
         	}else if(pu.inGroup("RTM")) {
         		ps.setString(1, "Retired Team Member");
+        		ps.setString(2, "#00aaaa");
         	}else if(pu.inGroup("Partner")) {
         		ps.setString(1, "Partner");
+        		ps.setString(2, "#00aa00");
         	}else if(pu.inGroup("Beta")) {
         		ps.setString(1, "Beta-Tester");
-        	}else if(pu.inGroup("Patron")) {
-        		ps.setString(1, "Patron");
+        		ps.setString(2, "#00aaaa");
         	}else if(pu.inGroup("NitroBooster")) {
         		ps.setString(1, "Nitrobooster");
+        		ps.setString(2, "#00aaaa");
         	}else if(pu.inGroup("Friend")) {
         		ps.setString(1, "Friend");
+        		ps.setString(2, "#00aaaa");
         	}else {
         		ps.setString(1, "Player");
+        		ps.setString(2, "#aaaaaa");
         	}
-    		ps.setBoolean(2, true);
-    		ps.setString(3, APIs.getServerName());
-    		ps.setLong(4, ts.getTime());
-    		ps.setString(5, stime);
-    		ps.setString(6, p.getAddress().getHostString());
+    		ps.setBoolean(3, true);
+    		ps.setString(4, api.getServerName());
+    		ps.setLong(5, ts.getTime());
+    		ps.setString(6, stime);
+    		ps.setString(7, p.getAddress().getHostString());
     		if(p.hasPermission("mlps.isStaff")) {
-    			ps.setBoolean(7, true);
+    			ps.setBoolean(8, true);
     		}else {
-    			ps.setBoolean(7, false);
+    			ps.setBoolean(8, false);
     		}
-    		ps.setString(8, uuid);
+    		ps.setString(9, p.getName());
+    		ps.setString(10, uuid);
     		ps.executeUpdate();
     		ps.close();
 		}catch (SQLException ex) {
@@ -95,7 +113,8 @@ public class JoinQuitEvents implements Listener{
         	Bukkit.getScheduler().scheduleSyncDelayedTask(Main.instance, new Runnable() {
 				@Override
 				public void run() {
-					String sname = APIs.getServerName();
+					APIs api = new APIs();
+					String sname = api.getServerName();
 					if(sname.equalsIgnoreCase("Survival")) {
 						p.teleport(retLoc(cfg, "freebuild"));
 					}else if(sname.equalsIgnoreCase("Creative")) {
@@ -107,27 +126,7 @@ public class JoinQuitEvents implements Listener{
 					}
 				}
 			}, 20);
-		}else {
-			String sname = APIs.getServerName();
-			if(sname.equalsIgnoreCase("Survival")) {
-				p.teleport(retLoc(cfg, "freebuild"));
-			}else if(sname.equalsIgnoreCase("Creative")) {
-				p.teleport(retLoc(cfg, "plotworld"));
-			}else if(sname.equalsIgnoreCase("SkyBlock")) {
-				p.teleport(retLoc(cfg, "plotworld"));
-			}else if(sname.equalsIgnoreCase("Farmserver")) {
-				p.teleport(retLoc(cfg, "freebuild"));
-			}
 		}
-        if(p.hasPermission("mlps.isSA")) {
-        	String isVer = Main.instance.getDescription().getVersion();
-            String shouldVer = retVersion();
-            if(!isVer.equalsIgnoreCase(shouldVer)) {
-            	p.sendMessage(APIs.prefix("main") + "§cInfo, the Version you use is different to the DB.");
-            	p.sendMessage("§aServerversion§7: " + isVer);
-            	p.sendMessage("§cDB-Version§7: " + shouldVer);
-            }
-        }
 	}
 	
 	@EventHandler
@@ -189,20 +188,6 @@ public class JoinQuitEvents implements Listener{
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
 		e.setDeathMessage(null);
-	}
-	
-	private String retVersion() {
-		String s = "";
-		try {
-			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT version FROM redicore_versions WHERE type = ?");
-			ps.setString(1, "game");
-			ResultSet rs = ps.executeQuery();
-			rs.next();
-			s = rs.getString("version");
-			rs.close();
-			ps.closeOnCompletion();
-		}catch (SQLException ex) { ex.printStackTrace(); }
-		return s;
 	}
 	
 	private Location retLoc(YamlConfiguration cfg, String type) {

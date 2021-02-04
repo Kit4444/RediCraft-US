@@ -16,36 +16,37 @@ public class WeatherCMD implements CommandExecutor{
 		if(!(sender instanceof Player)) {
 			Bukkit.getConsoleSender().sendMessage(Main.consolesend);
 		}else {
+			APIs api = new APIs();
 			Player p = (Player)sender;
 			if(args.length == 0) {
-				p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7 /weather <clear|rain|thunder> [time in seconds]");
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7 /weather <clear|rain|thunder> [time in seconds]");
 			}else if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("clear")) {
 					if(p.hasPermission("mlps.setweather")) {
 						p.getWorld().setThundering(false);
 						p.getWorld().setStorm(false);
-						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.weather.clear").replace("%world", p.getWorld().getName()));
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.weather.clear").replace("%world", p.getWorld().getName()));
 					}else {
-						APIs.noPerm(p);
+						api.noPerm(p);
 					}
 				}else if(args[0].equalsIgnoreCase("rain")) {
 					if(p.hasPermission("mlps.setweather")) {
 						p.getWorld().setThundering(false);
 						p.getWorld().setStorm(true);
-						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.weather.notime").replace("%world", p.getWorld().getName()).replace("%weather", "rain").replace("%wetter", "Regen"));
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.weather.notime").replace("%world", p.getWorld().getName()).replace("%weather", "rain").replace("%wetter", "Regen"));
 					}else {
-						APIs.noPerm(p);
+						api.noPerm(p);
 					}
 				}else if(args[0].equalsIgnoreCase("thunder")) {
 					if(p.hasPermission("mlps.setweather")) {
 						p.getWorld().setStorm(true);
 						p.getWorld().setThundering(true);
-						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.weather.notime").replace("%world", p.getWorld().getName()).replace("%weather", "thunder").replace("%wetter", "Gewitter"));
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.weather.notime").replace("%world", p.getWorld().getName()).replace("%weather", "thunder").replace("%wetter", "Gewitter"));
 					}else {
-						APIs.noPerm(p);
+						api.noPerm(p);
 					}
 				}else {
-					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7 /weather <clear|rain|thunder> [time in seconds]");
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7 /weather <clear|rain|thunder> [time in seconds]");
 				}
 			}else if(args.length == 2) {
 				if(args[0].equalsIgnoreCase("rain")) {
@@ -54,9 +55,9 @@ public class WeatherCMD implements CommandExecutor{
 						p.getWorld().setThundering(false);
 						p.getWorld().setStorm(true);
 						p.getWorld().setWeatherDuration(time);
-						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.weather.time").replace("%world", p.getWorld().getName()).replace("%weather", "rain").replace("%wetter", "Regen").replace("%seconds", String.valueOf(time)));
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.weather.time").replace("%world", p.getWorld().getName()).replace("%weather", "rain").replace("%wetter", "Regen").replace("%seconds", String.valueOf(time)));
 						}else {
-						APIs.noPerm(p);
+						api.noPerm(p);
 					}
 				}else if(args[0].equalsIgnoreCase("thunder")) {
 					if(p.hasPermission("mlps.setweather")) {
@@ -64,12 +65,12 @@ public class WeatherCMD implements CommandExecutor{
 						p.getWorld().setStorm(true);
 						p.getWorld().setThundering(true);
 						p.getWorld().setThunderDuration(time);
-						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.weather.time").replace("%world", p.getWorld().getName()).replace("%weather", "thunder").replace("%wetter", "Gewitter").replace("%seconds", String.valueOf(time)));
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.weather.time").replace("%world", p.getWorld().getName()).replace("%weather", "thunder").replace("%wetter", "Gewitter").replace("%seconds", String.valueOf(time)));
 					}else {
-						APIs.noPerm(p);
+						api.noPerm(p);
 					}
 				}else {
-					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7 /weather <clear|rain|thunder> [time in seconds]");
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7 /weather <clear|rain|thunder> [time in seconds]");
 				}
 			}
 		}

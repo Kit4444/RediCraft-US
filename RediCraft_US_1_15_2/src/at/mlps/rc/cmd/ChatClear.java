@@ -17,6 +17,7 @@ public class ChatClear implements CommandExecutor{
 			Bukkit.getConsoleSender().sendMessage(Main.consolesend);
 		}else {
 			Player p = (Player)sender;
+			APIs api = new APIs();
 			if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("private")) {
 					p.sendMessage("\n \n \n \n \n \n \n \n \n \n");
@@ -29,7 +30,7 @@ public class ChatClear implements CommandExecutor{
 					p.sendMessage("\n \n \n \n \n \n \n \n \n \n");
 					p.sendMessage("\n \n \n \n \n \n \n \n \n \n");
 					p.sendMessage("\n \n \n \n \n \n \n \n \n \n");
-					APIs.sendMSGReady(p, "cmd.cc.private");
+					api.sendMSGReady(p, "cmd.cc.private");
 				}else if(args[0].equalsIgnoreCase("public")) {
 					if(p.hasPermission("mlps.clearchat")) {
 						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
@@ -42,12 +43,12 @@ public class ChatClear implements CommandExecutor{
 						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
 						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
 						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						APIs.sendMSGReady(p, "cmd.cc.public");
+						api.sendMSGReady(p, "cmd.cc.public");
 						for(Player all : Bukkit.getOnlinePlayers()) {
-							all.sendMessage(APIs.prefix("main") + APIs.returnStringReady(all, "cmd.cc.forall.public").replace("%displayer", p.getDisplayName()));
+							all.sendMessage(api.prefix("main") + api.returnStringReady(all, "cmd.cc.forall.public").replace("%displayer", p.getDisplayName()));
 						}
 					}else {
-						APIs.noPerm(p);
+						api.noPerm(p);
 					}
 				}else if(args[0].equalsIgnoreCase("anonymous")) {
 					if(p.hasPermission("mlps.clearchat")) {
@@ -61,18 +62,18 @@ public class ChatClear implements CommandExecutor{
 						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
 						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
 						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						APIs.sendMSGReady(p, "cmd.cc.anonymous");
+						api.sendMSGReady(p, "cmd.cc.anonymous");
 						for(Player all : Bukkit.getOnlinePlayers()) {
-							APIs.sendMSGReady(all, "cmd.cc.forall.anonymous");
+							api.sendMSGReady(all, "cmd.cc.forall.anonymous");
 						}
 					}else {
-						APIs.noPerm(p);
+						api.noPerm(p);
 					}
 				}else {
-					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7 /cc <private|public|anonymous>");
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7 /cc <private|public|anonymous>");
 				}
 			}else {
-				p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7 /cc <private|public|anonymous>");
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7 /cc <private|public|anonymous>");
 			}
 		}
 		return false;

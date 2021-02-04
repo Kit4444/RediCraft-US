@@ -16,36 +16,38 @@ public class TimeCMD implements CommandExecutor{
 		if(!(sender instanceof Player)) {
 			Bukkit.getConsoleSender().sendMessage(Main.consolesend);
 		}else {
+			APIs api = new APIs();
 			Player p = (Player)sender;
 			if(args.length == 0) {
-				p.sendMessage(APIs.prefix("main") + "§7Usage: /time <set|add|remove|info> [time]");
+				p.sendMessage(api.prefix("main") + "§7Usage: /time <set|add|remove|info> [time]");
 			}else if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("info")) {
-					p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.time.info").replace("%world", p.getWorld().getName()).replace("%time", String.valueOf(p.getWorld().getTime())));
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.time.info").replace("%world", p.getWorld().getName()).replace("%time", String.valueOf(p.getWorld().getTime())));
 				}
 			}else if(args.length == 2) {
 				if(args[0].equalsIgnoreCase("set")) {
 					if(p.hasPermission("mlps.setTime")) {
-						if(args[1].equalsIgnoreCase("day")) {
-							p.getWorld().setTime(0);
-							p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.time.set").replace("%world", p.getWorld().getName()).replace("%time", String.valueOf(p.getWorld().getTime())));
-						}else if(args[1].equalsIgnoreCase("midnight")) {
-							p.getWorld().setTime(18000);
-							p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.time.set").replace("%world", p.getWorld().getName()).replace("%time", String.valueOf(p.getWorld().getTime())));
-						}else if(args[1].equalsIgnoreCase("night")) {
-							p.getWorld().setTime(13000);
-							p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.time.set").replace("%world", p.getWorld().getName()).replace("%time", String.valueOf(p.getWorld().getTime())));
-						}else if(args[1].equalsIgnoreCase("noon")) {
-							p.getWorld().setTime(6000);
-							p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.time.set").replace("%world", p.getWorld().getName()).replace("%time", String.valueOf(p.getWorld().getTime())));
-						}else {
+						if(args[1].matches("^[0-9]+$")) {
 							long time = Long.valueOf(args[1]);
 							p.getWorld().setTime(time);
-							p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.time.set").replace("%world", p.getWorld().getName()).replace("%time", String.valueOf(p.getWorld().getTime())));
+							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.time.set").replace("%world", p.getWorld().getName()).replace("%timelong", String.valueOf(p.getWorld().getTime())).replace("%timedigital", parseTimeWorld(p.getWorld().getTime())));
+						}else {
+							if(args[1].equalsIgnoreCase("day")) {
+								p.getWorld().setTime(0);
+								p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.time.set").replace("%world", p.getWorld().getName()).replace("%timelong", String.valueOf(p.getWorld().getTime())).replace("%timedigital", parseTimeWorld(p.getWorld().getTime())));
+							}else if(args[1].equalsIgnoreCase("midnight")) {
+								p.getWorld().setTime(18000);
+								p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.time.set").replace("%world", p.getWorld().getName()).replace("%timelong", String.valueOf(p.getWorld().getTime())).replace("%timedigital", parseTimeWorld(p.getWorld().getTime())));
+							}else if(args[1].equalsIgnoreCase("night")) {
+								p.getWorld().setTime(13000);
+								p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.time.set").replace("%world", p.getWorld().getName()).replace("%timelong", String.valueOf(p.getWorld().getTime())).replace("%timedigital", parseTimeWorld(p.getWorld().getTime())));
+							}else if(args[1].equalsIgnoreCase("noon")) {
+								p.getWorld().setTime(6000);
+								p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.time.set").replace("%world", p.getWorld().getName()).replace("%timelong", String.valueOf(p.getWorld().getTime())).replace("%timedigital", parseTimeWorld(p.getWorld().getTime())));
+							}
 						}
-						
 					}else {
-						APIs.noPerm(p);
+						api.noPerm(p);
 					}
 				}else if(args[0].equalsIgnoreCase("remove")) {
 					if(p.hasPermission("mlps.setTime")) {
@@ -53,9 +55,9 @@ public class TimeCMD implements CommandExecutor{
 						long time = Long.valueOf(args[1]);
 						long newtime = (ctime - time);
 						p.getWorld().setTime(newtime);
-						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.time.set").replace("%world", p.getWorld().getName()).replace("%time", String.valueOf(p.getWorld().getTime())));
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.time.set").replace("%world", p.getWorld().getName()).replace("%time", String.valueOf(p.getWorld().getTime())).replace("%timedigital", parseTimeWorld(p.getWorld().getTime())));
 					}else {
-						APIs.noPerm(p);
+						api.noPerm(p);
 					}
 				}else if(args[0].equalsIgnoreCase("add")) {
 					if(p.hasPermission("mlps.setTime")) {
@@ -63,13 +65,30 @@ public class TimeCMD implements CommandExecutor{
 						long time = Long.valueOf(args[1]);
 						long newtime = (ctime + time);
 						p.getWorld().setTime(newtime);
-						p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.time.set").replace("%world", p.getWorld().getName()).replace("%time", String.valueOf(p.getWorld().getTime())));
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.time.set").replace("%world", p.getWorld().getName()).replace("%time", String.valueOf(p.getWorld().getTime())).replace("%timedigital", parseTimeWorld(p.getWorld().getTime())));
 					}else {
-						APIs.noPerm(p);
+						api.noPerm(p);
 					}
 				}
 			}
 		}
 		return false;
+	}
+	
+	private String parseTimeWorld(long time) {
+		long gameTime = time;
+		long hours = gameTime / 1000 + 6;
+		long minutes = (gameTime % 1000) * 60 / 1000;
+		String ampm = "AM";
+		if(hours >= 12) {
+			hours -= 12; ampm = "PM";
+		}
+		if(hours >= 12) {
+			hours -= 12; ampm = "AM";
+		}
+		if(hours == 0) hours = 12;
+		String mm = "0" + minutes;
+		mm = mm.substring(mm.length() - 2, mm.length());
+		return hours + ":" + mm + " " + ampm;
 	}
 }

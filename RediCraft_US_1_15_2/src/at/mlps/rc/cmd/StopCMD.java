@@ -29,11 +29,12 @@ public class StopCMD implements CommandExecutor, Listener{
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		APIs api = new APIs();
 		if(args.length == 0) {
 			if(sender.hasPermission("mlps.admin.stopserver")) {
-				sender.sendMessage(APIs.prefix("main") + "§7Usage: /stop <Reason>");
+				sender.sendMessage(api.prefix("main") + "§7Usage: /stop <Reason>");
 			}else {
-				APIs.noPerm((Player) sender);
+				api.noPerm((Player) sender);
 			}
 		}else if(args.length >= 1) {
 			StringBuilder sb = new StringBuilder();
@@ -42,9 +43,9 @@ public class StopCMD implements CommandExecutor, Listener{
 			}
 			String reason = sb.toString().trim();
 			if(sender.hasPermission("mlps.admin.stopserver")) {
-				sender.sendMessage(APIs.prefix("main") + "§cServer will stop now!");
+				sender.sendMessage(api.prefix("main") + "§cServer will stop now!");
 				IStopBool = true;
-				Bukkit.broadcastMessage(APIs.prefix("main") + "§4The server will be shutdown now.\n§4You will be redirected to the Lobby!\n \n§7Reason: §a" + reason);
+				Bukkit.broadcastMessage(api.prefix("main") + "§4The server will be shutdown now.\n§4You will be redirected to the Lobby!\n \n§7Reason: §a" + reason);
 				for(Player all : Bukkit.getOnlinePlayers()) {
 					ByteArrayOutputStream b = new ByteArrayOutputStream();
 					DataOutputStream out = new DataOutputStream(b);
@@ -52,7 +53,7 @@ public class StopCMD implements CommandExecutor, Listener{
 						out.writeUTF("Connect");
 						out.writeUTF("lobby");
 					}catch (Exception ex) {
-						sender.sendMessage(APIs.prefix("main") + "§cPlease try it later again.");
+						sender.sendMessage(api.prefix("main") + "§cPlease try it later again.");
 						ex.printStackTrace();
 					}
 					all.sendPluginMessage(this.plugin, "BungeeCord", b.toByteArray());
@@ -64,7 +65,7 @@ public class StopCMD implements CommandExecutor, Listener{
 					}
 				}.runTaskLater(Main.instance, 200);
 			}else {
-				APIs.noPerm((Player) sender);
+				api.noPerm((Player) sender);
 			}
 		}
 		return true;

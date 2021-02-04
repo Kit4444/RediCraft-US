@@ -16,12 +16,13 @@ public class WorkBenchCMD implements CommandExecutor{
 		if(!(sender instanceof Player)) {
 			Bukkit.getConsoleSender().sendMessage(Main.consolesend);
 		}else {
+			APIs api = new APIs();
 			Player p = (Player)sender;
 			if(p.hasPermission("mlps.workbench")) {
 				p.openWorkbench(null, true);
-				APIs.sendMSGReady(p, "cmd.workbench");
+				api.sendMSGReady(p, "cmd.workbench");
 			}else {
-				APIs.noPerm(p);
+				api.noPerm(p);
 			}
 		}
 		return false;

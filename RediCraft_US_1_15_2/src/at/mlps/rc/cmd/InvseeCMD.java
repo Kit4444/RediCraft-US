@@ -17,24 +17,25 @@ public class InvseeCMD implements CommandExecutor{
 			Bukkit.getConsoleSender().sendMessage(Main.consolesend);
 		}else {
 			Player p = (Player)sender;
+			APIs api = new APIs();
 			if(args.length == 1) {
 				Player p2 = Bukkit.getPlayerExact(args[0]);
 				if(p2 == null) {
-					APIs.sendMSGReady(p, "cmd.invsee.playeroffline");
+					api.sendMSGReady(p, "cmd.invsee.playeroffline");
 				}else {
 					if(p.hasPermission("mlps.invsee")) {
 						if(p != p2) {
 							p.openInventory(p2.getInventory());
-							p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.invsee.success").replace("%displayer", p2.getDisplayName()));
+							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.invsee.success").replace("%displayer", p2.getDisplayName()));
 						}else {
-							APIs.sendMSGReady(p, "cmd.invsee.notown");
+							api.sendMSGReady(p, "cmd.invsee.notown");
 						}
 					}else {
-						APIs.noPerm(p);
+						api.noPerm(p);
 					}
 				}
 			}else {
-				p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + " §7/invsee <Name>");
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " §7/invsee <Name>");
 			}
 		}
 		return true;

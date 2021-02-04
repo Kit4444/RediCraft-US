@@ -23,42 +23,43 @@ public class LogSystem implements CommandExecutor{
 		if(!(sender instanceof Player)) {
 			Bukkit.getConsoleSender().sendMessage(Main.consolesend);
 		}else {
+			APIs api = new APIs();
 			Player p = (Player)sender;
 			String uuid = p.getUniqueId().toString().replace("-", "");
 			if(cmd.getName().equalsIgnoreCase("login")) {
 				if(p.hasPermission("mlps.canBan")) {
 					if(retStatus(uuid)) {
-						APIs.sendMSGReady(p, "cmd.login.already");
+						api.sendMSGReady(p, "cmd.login.already");
 					}else {
-						APIs.sendMSGReady(p, "cmd.login.success");
+						api.sendMSGReady(p, "cmd.login.success");
 						updateStatus(uuid, true);
 					}
 				}else {
-					APIs.noPerm(p);
+					api.noPerm(p);
 				}
 			}else if(cmd.getName().equalsIgnoreCase("logout")) {
 				if(p.hasPermission("mlps.canBan")) {
 					if(retStatus(uuid)) {
-						APIs.sendMSGReady(p, "cmd.logout.success");
+						api.sendMSGReady(p, "cmd.logout.success");
 						updateStatus(uuid, false);
 					}else {
-						APIs.sendMSGReady(p, "cmd.logout.already");
+						api.sendMSGReady(p, "cmd.logout.already");
 					}
 				}else {
-					APIs.noPerm(p);
+					api.noPerm(p);
 				}
 			}else if(cmd.getName().equalsIgnoreCase("tg") || cmd.getName().equalsIgnoreCase("togglegroup")) {
 				PermissionUser po = PermissionsEx.getUser(p);
 				if(po.inGroup("Patron") || po.inGroup("Beta") || po.inGroup("Mod") || po.inGroup("Support") || po.inGroup("Builder") || po.inGroup("NitroBooster") || po.inGroup("Friend") || po.inGroup("RLTM") || po.inGroup("RTM")) {
 					if(retStatus(uuid)) {
 						updateStatus(uuid, false);
-						APIs.sendMSGReady(p, "cmd.tg.invisible");
+						api.sendMSGReady(p, "cmd.tg.invisible");
 					}else {
 						updateStatus(uuid, true);
-						APIs.sendMSGReady(p, "cmd.tg.visible");
+						api.sendMSGReady(p, "cmd.tg.visible");
 					}
 				}else {
-					APIs.noPerm(p);
+					api.noPerm(p);
 				}
 			}
 		}

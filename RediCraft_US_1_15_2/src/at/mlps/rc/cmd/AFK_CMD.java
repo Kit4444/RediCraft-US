@@ -24,13 +24,14 @@ public class AFK_CMD implements CommandExecutor, Listener{
 		if(!(sender instanceof Player)) {
 			Bukkit.getConsoleSender().sendMessage(Main.consolesend);
 		}else {
+			APIs api = new APIs();
 			Player p = (Player)sender;
 			if(isAFK(p)) {
 				updateAFK(p, false);
-				APIs.sendMSGReady(p, "cmd.afk.leave");
+				api.sendMSGReady(p, "cmd.afk.leave");
 			}else {
 				updateAFK(p, true);
-				APIs.sendMSGReady(p, "cmd.afk.join");
+				api.sendMSGReady(p, "cmd.afk.join");
 			}
 		}
 		return false;
@@ -41,7 +42,8 @@ public class AFK_CMD implements CommandExecutor, Listener{
 		Player p = e.getPlayer();
 		if(isAFK(p)) {
 			updateAFK(p, false);
-			APIs.sendMSGReady(p, "cmd.afk.leave");
+			APIs api = new APIs();
+			api.sendMSGReady(p, "cmd.afk.leave");
 		}
 	}
 	
@@ -54,7 +56,7 @@ public class AFK_CMD implements CommandExecutor, Listener{
 			rs.next();
 			boo = rs.getBoolean("afk");
 			rs.close();
-			ps.closeOnCompletion();
+			ps.close();
 		}catch (SQLException e) { e.printStackTrace(); }
 		return boo;
 	}
@@ -65,7 +67,7 @@ public class AFK_CMD implements CommandExecutor, Listener{
 			ps.setBoolean(1, boo);
 			ps.setString(2, p.getUniqueId().toString().replace("-", ""));
 			ps.executeUpdate();
-			ps.closeOnCompletion();
+			ps.close();
 		}catch (SQLException e) { e.printStackTrace(); }
 	}
 }

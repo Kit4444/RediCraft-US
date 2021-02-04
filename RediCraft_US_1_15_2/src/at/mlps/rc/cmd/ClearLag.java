@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.main.Main;
+import at.mlps.rc.main.Serverupdater;
 
 public class ClearLag implements CommandExecutor{
 
@@ -19,6 +20,7 @@ public class ClearLag implements CommandExecutor{
 		if(!(sender instanceof Player)) {
 			Bukkit.getConsoleSender().sendMessage(Main.consolesend);
 		}else {
+			APIs api = new APIs();
 			Player p = (Player)sender;
 			if(p.hasPermission("mlps.clearLag")) {
 				int worldentities = 0;
@@ -30,9 +32,10 @@ public class ClearLag implements CommandExecutor{
 						}
 					}
 				}
-				p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "cmd.clearlag").replace("%entities", String.valueOf(worldentities)).replace("%worldcount", String.valueOf(Bukkit.getWorlds().size())));
+				Serverupdater.time = 0;
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.clearlag").replace("%entities", String.valueOf(worldentities)).replace("%worldcount", String.valueOf(Bukkit.getWorlds().size())));
 			}else {
-				APIs.noPerm(p);
+				api.noPerm(p);
 			}
 		}
 		return true;

@@ -36,20 +36,28 @@ public class APIs {
 	public static HashMap<String, String> langCache_DE = new HashMap<>();
 	public static HashMap<String, String> langCache_EN = new HashMap<>();
 	
-	public static void loadConfig() {
+	public void loadConfig() {
 		try {
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicraft_languagestrings");
 			ResultSet rs = ps.executeQuery();
+			if(!langCache_DE.isEmpty()) {
+				langCache_DE.clear();
+			}
+			if(!langCache_EN.isEmpty()) {
+				langCache_EN.clear();
+			}
 			while(rs.next()) {
 				langCache_DE.put(rs.getString("lang_key"), rs.getString("German"));
 				langCache_EN.put(rs.getString("lang_key"), rs.getString("English"));
 			}
+			rs.close();
+			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void noPerm(Player p) {
+	public void noPerm(Player p) {
 		if(retLang(p).equalsIgnoreCase("en-uk")) {
 			p.sendMessage(prefix("main") + retString("en-uk", "noPerm"));
 		}else if(retLang(p).equalsIgnoreCase("de-de")) {
@@ -57,7 +65,7 @@ public class APIs {
 		}
 	}
 	
-	public static void notAvailable(Player p) {
+	public void notAvailable(Player p) {
 		if(retLang(p).equalsIgnoreCase("en-uk")) {
 			p.sendMessage(prefix("main") + retString("en-uk", "notAvailable"));
 		}else if(retLang(p).equalsIgnoreCase("de-de")) {
@@ -65,7 +73,7 @@ public class APIs {
 		}
 	}
 	
-	public static void sendMSGReady(Player p, String path) {
+	public void sendMSGReady(Player p, String path) {
 		if(retLang(p).equalsIgnoreCase("en-uk")) {
 			p.sendMessage(prefix("main") + retString("en-uk", path));
 		}else if(retLang(p).equalsIgnoreCase("de-de")) {
@@ -73,7 +81,7 @@ public class APIs {
 		}
 	}
 	
-	public static String returnStringReady(Player p, String path) {
+	public String returnStringReady(Player p, String path) {
 		String s = "";
 		if(retLang(p).equalsIgnoreCase("en-uk")) {
 			s = retString("en-uk", path);
@@ -83,7 +91,7 @@ public class APIs {
 		return s;
 	}
 	
-	private static String retLang(Player p) {
+	private String retLang(Player p) {
 		String langKey = "en-UK";
 		try {
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_userstats WHERE uuid = ?");
@@ -95,7 +103,7 @@ public class APIs {
 		return langKey;
 	}
 
-	private static String retString(String lang, String path) {
+	private String retString(String lang, String path) {
 		
 		String string = "";
 		if(lang.equalsIgnoreCase("en-uk")) {
@@ -114,9 +122,8 @@ public class APIs {
 		return string;
 	}
 	
-	static File file = new File("server.properties");
-	
-	public static String getServerName() {
+	public String getServerName() {
+		File file = new File("server.properties");
 		Properties p = new Properties();
 		String s = "";
 		try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))){
@@ -128,7 +135,8 @@ public class APIs {
 		return s;
 	}
 	
-	public static String getServerId() {
+	public String getServerId() {
+		File file = new File("server.properties");
 		Properties p = new Properties();
 		String s = "";
 		try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file))){
@@ -140,7 +148,7 @@ public class APIs {
 		return s;
 	}
 	
-	public static int getPlayers(String server, String type) {
+	public int getPlayers(String server, String type) {
 		int i = 0;
 		try {
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_serverstats WHERE servername = ?");
@@ -152,7 +160,7 @@ public class APIs {
 		return i;
 	}
 	
-	public static String getUUIDfromName(String name) {
+	public String getUUIDfromName(String name) {
 		String url = "https://api.mojang.com/users/profiles/minecraft/" + name;
 		String uuid = "";
 		try {
@@ -167,7 +175,7 @@ public class APIs {
 		return uuid;
 	}
 	
-	public static String getNamefromUUID(String uuid) {
+	public String getNamefromUUID(String uuid) {
 		String url = "https://api.mojang.com/user/profiles/" + uuid.replace("-", "") + "/names";
 		String name = "";
 		try {
@@ -185,20 +193,22 @@ public class APIs {
 	
 	public static HashMap<String, String> prefix = new HashMap<>();
 	
-	public static void onLoad() {
+	public void onLoad() {
 		try {
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_igprefix");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				prefix.put(rs.getString("type"), rs.getString("prefix"));
 			}
+			rs.close();
+			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 	}
 
-	public static String prefix(String type) {
+	public String prefix(String type) {
 		String s = "";
 		if(type.equalsIgnoreCase("main") || type.equalsIgnoreCase("prefix")) {
 			s = prefix.get("main");
@@ -210,7 +220,7 @@ public class APIs {
 		return s;
 	}
 	
-	public static ItemStack defItem(Material mat, int avg, String dpname) {
+	public ItemStack defItem(Material mat, int avg, String dpname) {
 		ItemStack is = new ItemStack(mat, avg);
 		ItemMeta im = is.getItemMeta();
 		im.setDisplayName(dpname);
@@ -218,7 +228,7 @@ public class APIs {
 		return is;
 	}
 	
-	public static ItemStack potionItem(int avg, PotionType effect, String dpname) {
+	public ItemStack potionItem(int avg, PotionType effect, String dpname) {
 		ItemStack item = new ItemStack(Material.POTION, avg);
 		PotionMeta potion = (PotionMeta) item.getItemMeta();
 		potion.setBasePotionData(new PotionData(effect, false, false));
@@ -227,7 +237,7 @@ public class APIs {
 		return item;
 	}
 	
-	public static ItemStack enchItem(Material mat, int avg, String dpname, Enchantment ench) {
+	public ItemStack enchItem(Material mat, int avg, String dpname, Enchantment ench) {
 		ItemStack item = new ItemStack(mat, avg);
 		ItemMeta mitem = item.getItemMeta();
 		mitem.setDisplayName(dpname);
@@ -237,7 +247,7 @@ public class APIs {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static ItemStack skullItem(int avg, String dpname, String skullowner) {
+	public ItemStack skullItem(int avg, String dpname, String skullowner) {
 		ItemStack skull = new ItemStack(Material.PLAYER_HEAD, avg);
 		SkullMeta skullmeta = (SkullMeta) skull.getItemMeta();
 		skullmeta.setOwner(skullowner);
@@ -246,7 +256,7 @@ public class APIs {
 		return skull;
 	}
 	
-	public static ItemStack l2Item(Material mat, int avg, String dpname, String lore1, String lore2) {
+	public ItemStack l2Item(Material mat, int avg, String dpname, String lore1, String lore2) {
 	    ArrayList<String> lore = new ArrayList<String>();
 	    ItemStack item = new ItemStack(mat, avg);
 	    ItemMeta mitem = item.getItemMeta();
@@ -259,7 +269,7 @@ public class APIs {
 	  }
 	
 	@Deprecated
-	public static ItemStack onlineItem(Material mat, int avg, String dpname, int online) {
+	public ItemStack onlineItem(Material mat, int avg, String dpname, int online) {
 		ArrayList<String> lore = new ArrayList<>();
 		ItemStack item = new ItemStack(mat, avg);
 		ItemMeta mitem = item.getItemMeta();
@@ -270,7 +280,7 @@ public class APIs {
 		return item;
 	}
 	
-	public static ItemStack naviItem(Material mat, String dpname, String servername) {
+	public ItemStack naviItem(Material mat, String dpname, String servername) {
 		ArrayList<String> lore = new ArrayList<>();
 		ItemStack item = new ItemStack(mat, 1);
 		ItemMeta mitem = item.getItemMeta();
@@ -295,7 +305,7 @@ public class APIs {
 		return item;
 	}
 	
-	private static boolean getData(String server, String column) {
+	private boolean getData(String server, String column) {
 		boolean boo = false;
 		try {
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_serverstats WHERE servername = ?");
@@ -309,7 +319,7 @@ public class APIs {
 		return boo;
 	}
 	
-	private static int getPlayers(String server) {
+	private int getPlayers(String server) {
 		int i = 0;
 		try {
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_serverstats WHERE servername = ?");
@@ -323,7 +333,7 @@ public class APIs {
 		return i;
 	}
 	
-	public static void sendHotbarMessage(Player p, String message) {
+	public void sendHotbarMessage(Player p, String message) {
 		p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message));
 	}
 }

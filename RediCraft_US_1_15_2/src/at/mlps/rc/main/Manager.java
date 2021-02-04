@@ -145,7 +145,8 @@ public class Manager {
 		pl.registerEvents(new Blocker(), Main.instance);
 		pl.registerEvents(new Serverupdater(), Main.instance);
 		
-		APIs.loadConfig();
-		APIs.onLoad();
+		APIs api = new APIs();
+		api.loadConfig();
+		api.onLoad();
 	}
 }

@@ -22,31 +22,32 @@ public class ScoreboardChange implements CommandExecutor{
 			Bukkit.getConsoleSender().sendMessage(Main.consolesend);
 		}else {
 			Player p = (Player)sender;
+			APIs api = new APIs();
 			String uuid = p.getUniqueId().toString().replace("-", "");
 			if(args.length == 1) {
-				if(Main.serverlist.contains(APIs.getServerName())) {
+				if(Main.serverlist.contains(api.getServerName())) {
 					if(args[0].equalsIgnoreCase("off")) {
 						updateSB(uuid, 0);
-						APIs.sendMSGReady(p, "cmd.scoreboard.off");
+						api.sendMSGReady(p, "cmd.scoreboard.off");
 					}else if(args[0].equalsIgnoreCase("default")) {
 						updateSB(uuid, 1);
-						APIs.sendMSGReady(p, "cmd.scoreboard.default");
+						api.sendMSGReady(p, "cmd.scoreboard.default");
 					}else if(args[0].equalsIgnoreCase("job")) {
 						updateSB(uuid, 2);
-						APIs.sendMSGReady(p, "cmd.scoreboard.job");
+						api.sendMSGReady(p, "cmd.scoreboard.job");
 					}else if(args[0].equalsIgnoreCase("admin")) {
 						if(p.hasPermission("mlps.canBan")) {
 							updateSB(uuid, 3);
-							APIs.sendMSGReady(p, "cmd.scoreboard.admin");
+							api.sendMSGReady(p, "cmd.scoreboard.admin");
 						}else {
-							APIs.noPerm(p);
+							api.noPerm(p);
 						}
 					}else if(args[0].equalsIgnoreCase("data")) {
 						if(p.hasPermission("mlps.isSA")) {
 							updateSB(uuid, 4);
-							APIs.sendMSGReady(p, "cmd.scoreboard.data");
+							api.sendMSGReady(p, "cmd.scoreboard.data");
 						}else {
-							APIs.noPerm(p);
+							api.noPerm(p);
 						}
 					}else if(args[0].equalsIgnoreCase("redifm")) {
 						updateSB(uuid, 5);
@@ -66,25 +67,25 @@ public class ScoreboardChange implements CommandExecutor{
 				}else {
 					if(args[0].equalsIgnoreCase("off")) {
 						updateSB(uuid, 0);
-						APIs.sendMSGReady(p, "cmd.scoreboard.off");
+						api.sendMSGReady(p, "cmd.scoreboard.off");
 					}else if(args[0].equalsIgnoreCase("default")) {
 						updateSB(uuid, 1);
-						APIs.sendMSGReady(p, "cmd.scoreboard.default");
+						api.sendMSGReady(p, "cmd.scoreboard.default");
 					}else if(args[0].equalsIgnoreCase("job")) {
-						APIs.sendMSGReady(p, "cmd.scoreboard.creajob");
+						api.sendMSGReady(p, "cmd.scoreboard.creajob");
 					}else if(args[0].equalsIgnoreCase("admin")) {
 						if(p.hasPermission("mlps.canBan")) {
 							updateSB(uuid, 3);
-							APIs.sendMSGReady(p, "cmd.scoreboard.admin");
+							api.sendMSGReady(p, "cmd.scoreboard.admin");
 						}else {
-							APIs.noPerm(p);
+							api.noPerm(p);
 						}
 					}else if(args[0].equalsIgnoreCase("data")) {
 						if(p.hasPermission("mlps.isSA")) {
 							updateSB(uuid, 4);
-							APIs.sendMSGReady(p, "cmd.scoreboard.data");
+							api.sendMSGReady(p, "cmd.scoreboard.data");
 						}else {
-							APIs.noPerm(p);
+							api.noPerm(p);
 						}
 					}else if(args[0].equalsIgnoreCase("redifm")) {
 						updateSB(uuid, 5);
@@ -103,7 +104,7 @@ public class ScoreboardChange implements CommandExecutor{
 					}
 				}
 			}else {
-				p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + "§7/sb <off|default|players|job|redifm|admin|data>");
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7/sb <off|default|players|job|redifm|admin|data>");
 			}
 		}
 		return false;

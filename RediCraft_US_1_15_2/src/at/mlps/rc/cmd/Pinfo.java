@@ -22,6 +22,7 @@ public class Pinfo implements CommandExecutor {
 		if(!(sender instanceof Player)) {
 			Bukkit.getConsoleSender().sendMessage(Main.consolesend);
 		}else {
+			APIs api = new APIs();
 			Player p = (Player)sender;
 			if(args.length == 1) {
 				if(args[0].matches("^[0-9]+$")) {
@@ -41,7 +42,8 @@ public class Pinfo implements CommandExecutor {
 							p.sendMessage("§7Role: §a" + rs.getString("userrank"));
 							p.sendMessage("§7Playtime: §a" + retPTime(rs.getInt("playtime")));
 							p.sendMessage("§7First Join: §a" + rs.getString("firstjoinstring"));
-							switch(rs.getString("language")) {
+							String lang = rs.getString("language");
+							switch(lang) {
 								case "en-UK": p.sendMessage("§7Language: §aEnglish"); break;
 								case "de-de": p.sendMessage("§7Language: §aDeutsch"); break;
 								default: p.sendMessage("§7Language: §aunknown Language"); break;
@@ -72,10 +74,10 @@ public class Pinfo implements CommandExecutor {
 						e.printStackTrace();
 					}
 				}else {
-					APIs.sendMSGReady(p, "cmd.pinfo.onlynumchars");
+					api.sendMSGReady(p, "cmd.pinfo.onlynumchars");
 				}
 			}else {
-				p.sendMessage(APIs.prefix("main") + APIs.returnStringReady(p, "usage") + " §7/pinfo <PlayerID>");
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " §7/pinfo <PlayerID>");
 			}
 		}
 		return false;

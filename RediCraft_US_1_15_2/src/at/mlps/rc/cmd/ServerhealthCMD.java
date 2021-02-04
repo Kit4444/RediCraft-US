@@ -20,8 +20,9 @@ public class ServerhealthCMD implements CommandExecutor{
 	@SuppressWarnings({ "deprecation", "resource" })
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		APIs api = new APIs();
 		if(!(sender instanceof Player)) {
-			sender.sendMessage(APIs.prefix("main") + "§7Bitte nur inGame ausführen!");
+			sender.sendMessage(api.prefix("main") + "§7Bitte nur inGame ausführen!");
 		}else {
 			Player p = (Player)sender;
 			Runtime runtime = Runtime.getRuntime();
@@ -46,13 +47,13 @@ public class ServerhealthCMD implements CommandExecutor{
 				p.sendMessage("§7CPU-Cores: §9" + runtime.availableProcessors() + " §7Cores");
 				p.sendMessage("§7CPU-Load: §9" + df.format(cpu.getCpuUsage()));
 				p.sendMessage("§7IP + Port: §9" + Bukkit.getIp() + "§7:§9" + Bukkit.getPort());
-				p.sendMessage("§7Servername + ID: §9" + APIs.getServerName() + " §7/§9 " + APIs.getServerId());
+				p.sendMessage("§7Servername + ID: §9" + api.getServerName() + " §7/§9 " + api.getServerId());
 				p.sendMessage("§7Date & Time: §9" + sdate + " §7/§9 " + stime);
 				String str = sb.substring(0, sb.length() - 1);
 				String str2 = str.substring(0, 28);
 				p.sendMessage(str2);
 			}else {
-				APIs.noPerm(p);
+				api.noPerm(p);
 			}
 		}
 		return true;

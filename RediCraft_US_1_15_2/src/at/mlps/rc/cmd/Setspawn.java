@@ -25,6 +25,7 @@ public class Setspawn implements CommandExecutor{
 		if(!(sender instanceof Player)) {
 			Bukkit.getConsoleSender().sendMessage(Main.consolesend);
 		}else {
+			APIs api = new APIs();
 			if(!file.exists()) {
 				try {
 					file.createNewFile();
@@ -35,10 +36,10 @@ public class Setspawn implements CommandExecutor{
 			Player p = (Player)sender;
 			if(args.length == 0) {
 				if(p.hasPermission("mlps.admin.setspawn")) {
-					p.sendMessage(APIs.prefix("main") + "§7Usage: /setspawn <type>");
+					p.sendMessage(api.prefix("main") + "§7Usage: /setspawn <type>");
 					p.sendMessage("§7Default types: plotworld, freebuild, nether, theend");
 				}else {
-					APIs.noPerm(p);
+					api.noPerm(p);
 				}
 			}else if(args.length >= 1 && args.length <= 1) {
 				if(p.hasPermission("mlps.admin.setspawn")) {
@@ -46,7 +47,7 @@ public class Setspawn implements CommandExecutor{
 					YamlConfiguration cfg = YamlConfiguration.loadConfiguration(file);
 					saveCFG(cfg, p, type);
 				}else {
-					APIs.noPerm(p);
+					api.noPerm(p);
 				}
 			}
 		}
@@ -54,6 +55,7 @@ public class Setspawn implements CommandExecutor{
 	}
 	
 	private void saveCFG(YamlConfiguration cfg, Player p, String type) {
+		APIs api = new APIs();
 		SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
 		String stime = time.format(new Date());
 		SimpleDateFormat date = new SimpleDateFormat("dd.MM.yy");
@@ -78,15 +80,15 @@ public class Setspawn implements CommandExecutor{
 		try {
 			cfg.save(file);
 			if(type.equalsIgnoreCase("plotworld")) {
-				p.sendMessage(APIs.prefix("main") + "§aA default Spawn has been saved to disk.");
+				p.sendMessage(api.prefix("main") + "§aA default Spawn has been saved to disk.");
 			}else if(type.equalsIgnoreCase("freebuild")) {
-				p.sendMessage(APIs.prefix("main") + "§aA default Spawn has been saved to disk.");
+				p.sendMessage(api.prefix("main") + "§aA default Spawn has been saved to disk.");
 			}else if(type.equalsIgnoreCase("nether")) {
-				p.sendMessage(APIs.prefix("main") + "§aA default Spawn has been saved to disk.");
+				p.sendMessage(api.prefix("main") + "§aA default Spawn has been saved to disk.");
 			}else if(type.equalsIgnoreCase("theend")) {
-				p.sendMessage(APIs.prefix("main") + "§aA default Spawn has been saved to disk.");
+				p.sendMessage(api.prefix("main") + "§aA default Spawn has been saved to disk.");
 			}else {
-				p.sendMessage(APIs.prefix("main") + "§aA spawn has been saved to disk.");
+				p.sendMessage(api.prefix("main") + "§aA spawn has been saved to disk.");
 			}
 		}catch (IOException e) {
 			e.printStackTrace();

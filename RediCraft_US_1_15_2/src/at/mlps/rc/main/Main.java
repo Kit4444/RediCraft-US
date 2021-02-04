@@ -20,9 +20,10 @@ import net.milkbowl.vault.economy.Economy;
 
 public class Main extends JavaPlugin implements Listener{
 	
+	static APIs api = new APIs();
 	public static String mysqlprefix = "§eMySQL §7- ";
 	public static MySQL mysql;
-	public static String consolesend = APIs.prefix("main") + "§cPlease use this command ingame!";
+	public static String consolesend = api.prefix("main") + "§cPlease use this command ingame!";
 	public static ArrayList<String> serverlist = new ArrayList<>();
 	public static Main instance;
 	static File file = new File("plugins/RCUSS");
@@ -63,7 +64,7 @@ public class Main extends JavaPlugin implements Listener{
 			Bukkit.getServicesManager().register(Economy.class, new Vault(), Bukkit.getPluginManager().getPlugin("Vault"), ServicePriority.Normal);
 		}
 		UpdateOnline(true);
-		Bukkit.getConsoleSender().sendMessage(APIs.prefix("main") + "§aPlugin wurde geladen.");
+		Bukkit.getConsoleSender().sendMessage(api.prefix("main") + "§aPlugin wurde geladen.");
 	}
 	
 	public void onDisable() {
@@ -75,7 +76,7 @@ public class Main extends JavaPlugin implements Listener{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		Bukkit.getConsoleSender().sendMessage(APIs.prefix("main") + "§cPlugin wurde gestoppt");
+		Bukkit.getConsoleSender().sendMessage(api.prefix("main") + "§cPlugin wurde gestoppt");
 	}
 	
 	private void registerMisc() {
@@ -94,14 +95,14 @@ public class Main extends JavaPlugin implements Listener{
 		try {
 			PreparedStatement ps = at.mlps.rc.mysql.lb.MySQL.getConnection().prepareStatement("UPDATE redicore_serverstats SET online = ? WHERE servername = ?");
 			ps.setBoolean(1, online);
-			ps.setString(2, APIs.getServerName());
+			ps.setString(2, api.getServerName());
 			ps.executeUpdate();
 			ps.closeOnCompletion();
 			if(online == true) {
 				PreparedStatement ps1 = at.mlps.rc.mysql.lb.MySQL.getConnection().prepareStatement("UPDATE redicore_serverstats SET onlinesince = ? WHERE servername = ?");
 				SimpleDateFormat time = new SimpleDateFormat("dd/MM/yy - HH:mm:ss");
 				ps1.setString(1, time.format(new Date()));
-				ps1.setString(2, APIs.getServerName());
+				ps1.setString(2, api.getServerName());
 				ps1.executeUpdate();
 			}
 		}catch (SQLException e) { }

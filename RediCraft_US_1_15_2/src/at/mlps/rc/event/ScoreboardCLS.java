@@ -23,6 +23,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import com.gamingmesh.jobs.Jobs;
 import com.gamingmesh.jobs.container.JobProgression;
+
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.api.PerformanceMonitor;
 import at.mlps.rc.cmd.MoneyAPI;
@@ -48,19 +49,20 @@ public class ScoreboardCLS implements Listener{
 		Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
 		Objective o = sb.registerNewObjective("aaa", "dummy");
 		
+		APIs api = new APIs();
 		int ping = ((CraftPlayer)p).getHandle().ping;
 		PermissionUser pu = PermissionsEx.getUser(p);
-		int pusergen = APIs.getPlayers("BungeeCord", "currPlayers");
-		int pusermax = APIs.getPlayers("BungeeCord", "maxPlayers");
+		int pusergen = api.getPlayers("BungeeCord", "currPlayers");
+		int pusermax = api.getPlayers("BungeeCord", "maxPlayers");
 		int pusercurr = Bukkit.getOnlinePlayers().size();
-		String dbpr = APIs.prefix("scoreboard");
+		String dbpr = api.prefix("scoreboard");
 		int userperc = (pusergen * 100 / pusermax);
 		int cashmoney = MoneyAPI.getMoney(p.getUniqueId());
 		int bankmoney = MoneyAPI.getBankMoney(p.getUniqueId());
 		
 		o.setDisplaySlot(DisplaySlot.SIDEBAR);
 		o.setDisplayName(dbpr);
-		if(Main.serverlist.contains(APIs.getServerName())) {
+		if(Main.serverlist.contains(api.getServerName())) {
 			if(getSB(p) == 0) {
 				//do nothing - as this is the off-state of the scoreboard
 			}else if(getSB(p) == 1) {
@@ -83,7 +85,7 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("§7Ping:").setScore(4);
 					o.getScore("  §a" + ping + "§7ms").setScore(3);
 					o.getScore("  §b").setScore(2);
-					o.getScore(APIs.returnStringReady(p, "scoreboard.sideboard.rank")).setScore(1);
+					o.getScore(api.returnStringReady(p, "scoreboard.sideboard.rank")).setScore(1);
 					if (pu.inGroup("Developer")) {
 					    o.getScore("  §dDeveloper").setScore(0);
 					}else if (pu.inGroup("PMan")) {
@@ -123,13 +125,13 @@ public class ScoreboardCLS implements Listener{
 					}
 				}else if(sbmain >= 6 && sbmain <= 10) {
 					o.getScore("§7Server:").setScore(8);
-					o.getScore("  §a" + APIs.getServerName() + " §7/§a " + APIs.getServerId()).setScore(7);
+					o.getScore("  §a" + api.getServerName() + " §7/§a " + api.getServerId()).setScore(7);
 					o.getScore("  §9").setScore(6);
-					o.getScore(APIs.returnStringReady(p, "scoreboard.sideboard.money")).setScore(5);
+					o.getScore(api.returnStringReady(p, "scoreboard.sideboard.money")).setScore(5);
 					o.getScore("  §a" + bankmoney + "§7 Bank").setScore(4);
 					o.getScore("  §a" + cashmoney + "§7 Cash").setScore(3);
 					o.getScore("  §8").setScore(2);
-					o.getScore(APIs.returnStringReady(p, "scoreboard.sideboard.playerid")).setScore(1);
+					o.getScore(api.returnStringReady(p, "scoreboard.sideboard.playerid")).setScore(1);
 					o.getScore("  §7" + igpre(p) + " §9" + igid(p)).setScore(0);
 				}
 			}else if(getSB(p) == 2) {
@@ -160,9 +162,9 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("§7Reason:").setScore(1);
 					o.getScore("  §4§a" + retLatestReport("reason")).setScore(0);
 				}else if(sbmain >= 6 && sbmain <= 10) {
-					o.getScore("§7Reports total " + APIs.getServerName()).setScore(7);
+					o.getScore("§7Reports total " + api.getServerName()).setScore(7);
 					o.getScore("§1  §a" + retRepsTotCuSe() + " §7Reports").setScore(6);
-					o.getScore("§7Reports today " + APIs.getServerName()).setScore(5);
+					o.getScore("§7Reports today " + api.getServerName()).setScore(5);
 					o.getScore("§2  §a" + retRepsTodCuSe() + " §7Reports").setScore(4);
 					o.getScore("§7Reports total Network").setScore(3);
 					o.getScore("§3  §a" + retRepstotal() + " §7Reports").setScore(2);
@@ -253,7 +255,7 @@ public class ScoreboardCLS implements Listener{
 					}else {
 						o.getScore("§3§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(2);
 					}
-					o.getScore("§7Playerload " + APIs.getServerName()).setScore(1);
+					o.getScore("§7Playerload " + api.getServerName()).setScore(1);
 					if(curruserperc <= 10) {
 						o.getScore("§4§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(0);
 					}else if(curruserperc >= 11 && curruserperc <= 20) {
@@ -285,7 +287,7 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("  §2§a" + ramusage + "§7MB /§c " + ramtotal + "§7MB").setScore(4);
 					o.getScore("§7Playerload Network:").setScore(3);
 					o.getScore("  §3§a" + pusergen + " §7Players").setScore(2);
-					o.getScore("§7Playerload " + APIs.getServerName()).setScore(1);
+					o.getScore("§7Playerload " + api.getServerName()).setScore(1);
 					o.getScore("  §4§a" + Bukkit.getOnlinePlayers().size() + " §7Players").setScore(0);
 				}
 			}else if(getSB(p) == 5) {
@@ -374,7 +376,7 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("§7Ping:").setScore(4);
 					o.getScore("  §a" + ping + "§7ms").setScore(3);
 					o.getScore("  §b").setScore(2);
-					o.getScore(APIs.returnStringReady(p, "scoreboard.sideboard.rank")).setScore(1);
+					o.getScore(api.returnStringReady(p, "scoreboard.sideboard.rank")).setScore(1);
 					if (pu.inGroup("Developer")) {
 					    o.getScore("  §dDeveloper").setScore(0);
 					}else if (pu.inGroup("PMan")) {
@@ -414,13 +416,13 @@ public class ScoreboardCLS implements Listener{
 					}
 				}else if(sbmain >= 6 && sbmain <= 10) {
 					o.getScore("§7Server:").setScore(8);
-					o.getScore("  §a" + APIs.getServerName() + " §7/§a " + APIs.getServerId()).setScore(7);
+					o.getScore("  §a" + api.getServerName() + " §7/§a " + api.getServerId()).setScore(7);
 					o.getScore("  §9").setScore(6);
-					o.getScore(APIs.returnStringReady(p, "scoreboard.sideboard.money")).setScore(5);
+					o.getScore(api.returnStringReady(p, "scoreboard.sideboard.money")).setScore(5);
 					o.getScore("  §a" + bankmoney + "§7 Bank").setScore(4);
 					o.getScore("  §a" + cashmoney + "§7 Cash").setScore(3);
 					o.getScore("  §8").setScore(2);
-					o.getScore(APIs.returnStringReady(p, "scoreboard.sideboard.playerid")).setScore(1);
+					o.getScore(api.returnStringReady(p, "scoreboard.sideboard.playerid")).setScore(1);
 					o.getScore("  §7" + igpre(p) + " §9" + igid(p)).setScore(0);
 				}
 			}else if(getSB(p) == 3) {
@@ -436,9 +438,9 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("§7Reason:").setScore(1);
 					o.getScore("  §4§a" + retLatestReport("reason")).setScore(0);
 				}else if(sbmain >= 6 && sbmain <= 10) {
-					o.getScore("§7Reports total " + APIs.getServerName()).setScore(7);
+					o.getScore("§7Reports total " + api.getServerName()).setScore(7);
 					o.getScore("§1  §a" + retRepsTotCuSe() + " §7Reports").setScore(6);
-					o.getScore("§7Reports today " + APIs.getServerName()).setScore(5);
+					o.getScore("§7Reports today " + api.getServerName()).setScore(5);
 					o.getScore("§2  §a" + retRepsTodCuSe() + " §7Reports").setScore(4);
 					o.getScore("§7Reports total Network").setScore(3);
 					o.getScore("§3  §a" + retRepstotal() + " §7Reports").setScore(2);
@@ -529,7 +531,7 @@ public class ScoreboardCLS implements Listener{
 					}else {
 						o.getScore("§3§c⬛⬛⬛⬛⬛⬛⬛⬛⬛⬛").setScore(2);
 					}
-					o.getScore("§7Playerload " + APIs.getServerName()).setScore(1);
+					o.getScore("§7Playerload " + api.getServerName()).setScore(1);
 					if(curruserperc <= 10) {
 						o.getScore("§4§e⬛§a⬜⬜⬜⬜⬜⬜⬜⬜⬜").setScore(0);
 					}else if(curruserperc >= 11 && curruserperc <= 20) {
@@ -561,7 +563,7 @@ public class ScoreboardCLS implements Listener{
 					o.getScore("  §2§a" + ramusage + "§7MB /§c " + ramtotal + "§7MB").setScore(4);
 					o.getScore("§7Playerload Network:").setScore(3);
 					o.getScore("  §3§a" + pusergen + " §7Players").setScore(2);
-					o.getScore("§7Playerload " + APIs.getServerName()).setScore(1);
+					o.getScore("§7Playerload " + api.getServerName()).setScore(1);
 					o.getScore("  §4§a" + Bukkit.getOnlinePlayers().size() + " §7Players").setScore(0);
 				}
 			}else if(getSB(p) == 5) {
@@ -1011,7 +1013,8 @@ public class ScoreboardCLS implements Listener{
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) throws IllegalStateException, IllegalArgumentException, SQLException {
 		setScoreboard(e.getPlayer());
-		e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(APIs.returnStringReady(e.getPlayer(), "event.join.welcomemessage").replace("%server", APIs.getServerName()).replace("%displayer", e.getPlayer().getDisplayName())));
+		APIs api = new APIs();
+		e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(api.returnStringReady(e.getPlayer(), "event.join.welcomemessage").replace("%server", api.getServerName()).replace("%displayer", e.getPlayer().getDisplayName())));
 	}
 	
 	private String igid(Player p) {
@@ -1022,6 +1025,8 @@ public class ScoreboardCLS implements Listener{
 		    ResultSet rs = ps.executeQuery();
 		    rs.next();
 		    s = rs.getString("userid");
+		    rs.close();
+		    ps.close();
 		}catch (SQLException e) { }
 		return s;
 	}
@@ -1039,6 +1044,8 @@ public class ScoreboardCLS implements Listener{
 			}else {
 				prefix = pre;
 			}
+			rs.close();
+		    ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -1053,6 +1060,8 @@ public class ScoreboardCLS implements Listener{
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			boo = rs.getBoolean("afk");
+			rs.close();
+		    ps.close();
 		}catch (SQLException e) { e.printStackTrace(); }
 		return boo;
 	}
@@ -1136,9 +1145,10 @@ public class ScoreboardCLS implements Listener{
 	
 	private int retRepsTotCuSe() {
 		int reports = 0;
+		APIs api = new APIs();
 		try {
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_reports WHERE server = ?");
-			ps.setString(1, APIs.getServerName());
+			ps.setString(1, api.getServerName());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				reports++;
@@ -1154,11 +1164,12 @@ public class ScoreboardCLS implements Listener{
 	
 	private int retRepsTodCuSe() {
 		int reports = 0;
+		APIs api = new APIs();
 		try {
 			String csdate = retDate("yyyy.MM.dd");
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_reports WHERE time_string = ? AND server = ?");
 			ps.setString(1, csdate);
-			ps.setString(2, APIs.getServerName());
+			ps.setString(2, api.getServerName());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				reports++;
@@ -1180,9 +1191,10 @@ public class ScoreboardCLS implements Listener{
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			s = rs.getString(type);
+			rs.close();
+		    ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			s = e.getMessage();
 		}
 		return s;
 	}
@@ -1250,11 +1262,14 @@ public class ScoreboardCLS implements Listener{
 		return prefix.replace("&", "§");
 	}
 	
+	int cacheTimer = 0;
+	
 	public void sbSched(int delay, int periodsb, int periodot) {
+		Serverupdater su = new Serverupdater();
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				Serverupdater.updateServer();
+				su.updateServer();
 				sbmain++;
 				if(sbmain == 10) {
 					sbmain = 0;
@@ -1276,12 +1291,18 @@ public class ScoreboardCLS implements Listener{
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				Serverupdater.clearlag();
-				Serverupdater.Serverrestarter();
+				APIs api = new APIs();
+				su.Serverrestarter();
+				su.clearlag();
+				cacheTimer++;
+				if(cacheTimer == 0) {
+					cacheTimer = 0;
+					api.loadConfig();
+				}
 				SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
 				String stime = time.format(new Date());
 				for(Player all : Bukkit.getOnlinePlayers()) {
-					all.setPlayerListHeaderFooter(APIs.returnStringReady(all, "scoreboard.playerlist.top").replace("|", "\n"), APIs.returnStringReady(all, "scoreboard.playerlist.bottom").replace("|", "\n").replace("%time", stime).replace("%servername", APIs.getServerName()).replace("%serverid", APIs.getServerId()));
+					all.setPlayerListHeaderFooter(api.returnStringReady(all, "scoreboard.playerlist.top").replace("|", "\n"), api.returnStringReady(all, "scoreboard.playerlist.bottom").replace("|", "\n").replace("%time", stime).replace("%servername", api.getServerName()).replace("%serverid", api.getServerId()));
 				}
 			}
 		}.runTaskTimerAsynchronously(Main.instance, delay, periodot);
