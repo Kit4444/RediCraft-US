@@ -2,8 +2,9 @@ package at.mlps.rc.cmd;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.UUID;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,10 +16,10 @@ import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.main.Main;
+import at.mlps.rc.mysql.lb.MySQL;
 
 public class PM_System implements CommandExecutor{
 	
-	static ArrayList<UUID> bpm = new ArrayList<>();
 	File msgf = new File("plugins/RCUSS/msg.yml");
 	
 	private String prefix() {
@@ -47,10 +48,10 @@ public class PM_System implements CommandExecutor{
 							sb.append(args[i]).append(" ");
 						}
 						String msg = sb.toString().trim();
-						if(bpm.contains(p.getUniqueId())) {
+						if(hasPMBlocked(p)) {
 							api.sendMSGReady(p, "cmd.msg.blockedmsg");
 						}else {
-							if(bpm.contains(p2.getUniqueId())) {
+							if(hasPMBlocked(p2)) {
 								if(p.hasPermission("mlps.bypassbpm")) {
 									api.sendMSGReady(p, "cmd.msg.bypassmsg");
 									p.sendMessage(prefix() + api.returnStringReady(p, "cmd.msg.you") + " §7» " + p2.getDisplayName() + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
@@ -93,7 +94,7 @@ public class PM_System implements CommandExecutor{
 							sb.append(args[i]).append(" ");
 						}
 						String msg = sb.toString().trim();
-						if(bpm.contains(p2.getUniqueId())) {
+						if(hasPMBlocked(p2)) {
 							if(p.hasPermission("mlps.bypassbpm")) {
 								api.sendMSGReady(p, "cmd.msg.bypassmsg");
 								p.sendMessage(prefix() + api.returnStringReady(p, "cmd.msg.you") + " §7» " + p2.getDisplayName() + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
@@ -115,15 +116,45 @@ public class PM_System implements CommandExecutor{
 					}
 				}
 			}else if(cmd.getName().equalsIgnoreCase("blockmsg")) {
-				if(bpm.contains(p.getUniqueId())) {
-					bpm.remove(p.getUniqueId());
+				if(hasPMBlocked(p)) {
+					setBlockPM(p, false);
 					api.sendMSGReady(p, "cmd.blockpm.remove");
 				}else {
-					bpm.add(p.getUniqueId());
+					setBlockPM(p, true);
 					api.sendMSGReady(p, "cmd.blockpm.add");
 				}
 			}
 		}
 		return true;
 	}
+	
+	private void setBlockPM(Player p, boolean status) {
+		try {
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET disablePMs = ? WHERE uuid = ?");
+			ps.setBoolean(1, status);
+			ps.setString(2, p.getUniqueId().toString().replace("-", ""));
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private boolean hasPMBlocked(Player p) {
+		boolean pm = false;
+		try {
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT disablePMs FROM redicore_userstats WHERE uuid = ?");
+			ps.setString(1, p.getUniqueId().toString().replace("-", ""));
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				pm = rs.getBoolean("disablePMs");
+			}
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return pm;
+	}
+	
 }
