@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -198,5 +200,14 @@ public class JoinQuitEvents implements Listener{
 			loc = null;
 		}
 		return loc;
+	}
+	
+	private List<String> changeTo(List<String> array){
+		List<String> output = new ArrayList<>();
+		for(String s : array) {
+			s.replace("PMan", "Project Manager").replace("HumanR", "Human Resources").replace("CMan", "Community Manager").replace("AMan", "Game Moderation Manager").replace("Admin", "Game Moderator").replace("Mod", "Moderator").replace("Support", "Supporter").replace("RTM", "Retired Team Member").replace("Beta", "Beta-Tester").replace("dafault", "Player").replace("NitroBooster", "Nitro Booster").replace("RLTM", "Retired Legend Team Member");
+			output.add(s);
+		}
+		return output;
 	}
 }
