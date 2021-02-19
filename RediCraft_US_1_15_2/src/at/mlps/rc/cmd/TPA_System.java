@@ -115,11 +115,11 @@ public class TPA_System implements CommandExecutor{
     private boolean hasTPABlocked(Player p) {
     	boolean block = false;
     	try {
-			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT disablePMs FROM redicore_userstats WHERE uuid = ?");
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT disableTPAR FROM redicore_userstats WHERE uuid = ?");
 			ps.setString(1, p.getUniqueId().toString().replace("-", ""));
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
-				block = rs.getBoolean("disablePMs");
+				block = rs.getBoolean("disableTPAR");
 			}
 			rs.close();
 			ps.close();
@@ -131,7 +131,7 @@ public class TPA_System implements CommandExecutor{
     
     private void setTPABlocked(Player p, boolean status) {
     	try {
-			PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET disablePMs = ? WHERE uuid = ?");
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET disableTPAR = ? WHERE uuid = ?");
 			ps.setBoolean(1, status);
 			ps.setString(2, p.getUniqueId().toString().replace("-", ""));
 			ps.executeUpdate();
