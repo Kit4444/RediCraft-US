@@ -70,8 +70,9 @@ public class MoneyAPI implements Listener, CommandExecutor{
 							if(args[1].matches("^[0-9]+$")) {
 								int money = Integer.parseInt(args[1]);
 								int oldmoney = getMoney(p2.getUniqueId());
-								setMoney(p2.getUniqueId(), (money + oldmoney));
-								p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.addmoney.successfull").replace("%money", String.valueOf(money)).replace("%displayer", p2.getDisplayName()).replace("%newmoney", String.valueOf(money)));
+								int newmoney = (money + oldmoney);
+								setMoney(p2.getUniqueId(), newmoney);
+								p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.addmoney.successfull").replace("%money", String.valueOf(newmoney)).replace("%displayer", p2.getDisplayName()).replace("%newmoney", String.valueOf(money)));
 							}
 						}
 					}else {
