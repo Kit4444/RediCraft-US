@@ -25,6 +25,7 @@ import com.gamingmesh.jobs.Jobs;
 import com.gamingmesh.jobs.container.JobProgression;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ChannelManager;
 import at.mlps.rc.api.PerformanceMonitor;
 import at.mlps.rc.cmd.MoneyAPI;
 import at.mlps.rc.main.Main;
@@ -43,6 +44,8 @@ public class ScoreboardCLS implements Listener{
 	 */
 	
 	int sbmain = 0;
+	private static HashMap<String, String> tabHM = new HashMap<>();
+	private static HashMap<String, String> chatHM = new HashMap<>();
 	
 	@SuppressWarnings("deprecation")
 	public void setScoreboard(Player p) throws IllegalStateException, IllegalArgumentException, SQLException {
@@ -326,19 +329,6 @@ public class ScoreboardCLS implements Listener{
 						o.getScore("  §6§a" + alb.substring(0, 24)).setScore(0);
 					}
 				}
-			}else if(getSB(p) == 6) {
-				if(p.hasPermission("mlps.isTeam")) {
-					o.getScore("§7Servers/Players:").setScore(7);
-					o.getScore("  §bStaffserver§7: §a" + getPlayers("Staffserver")).setScore(6);
-				}else {
-					o.getScore("§7Servers/Players:").setScore(6);
-				}
-				o.getScore("  §6Lobby§7: §a" + getPlayers("Lobby")).setScore(5);
-				o.getScore("  §eCreative§7: §a" + getPlayers("Creative")).setScore(4);
-				o.getScore("  §cSurvival§7: §a" + getPlayers("Survival")).setScore(3);
-				o.getScore("  §fSky§2Block§7: §a" + getPlayers("SkyBlock")).setScore(2);
-				o.getScore("  §6Towny§7: §a" + getPlayers("Towny")).setScore(1);
-				o.getScore("  §5Farmserver§7: §a" + getPlayers("Farmserver")).setScore(0);
 			}else if(getSB(p) == 6) {
 				if(p.hasPermission("mlps.isTeam")) {
 					o.getScore("§7Servers/Players:").setScore(7);
@@ -675,7 +665,7 @@ public class ScoreboardCLS implements Listener{
 					}else {
 						hr.addPlayer(all);
 						all.setDisplayName(retPrefix("hr", "prefix_chat") + all.getName());
-						all.setPlayerListName(retPrefix("hr", "prefix_chat") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
+						all.setPlayerListName(retPrefix("hr", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
 					}
 				}else {
 					if(isAFK(all)) {
@@ -1003,10 +993,11 @@ public class ScoreboardCLS implements Listener{
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
+		String channel = ChannelManager.playerChannel.get(p).replace("public", "English").replace("german", "German");
 		if(p.hasPermission("mlps.colorChat")) {
-			e.setFormat(p.getDisplayName() + "§7 (§9" + igid(p) + "§7): " + ChatColor.translateAlternateColorCodes('&', e.getMessage().replace("%", "%%")));
+			e.setFormat("§7[§a" + channel + "§7] " + p.getDisplayName() + "§7 (§9" + igid(p) + "§7): " + ChatColor.translateAlternateColorCodes('&', e.getMessage().replace("%", "%%")));
 		}else {
-			e.setFormat(p.getDisplayName() + "§7 (§9" + igid(p) + "§7): " + e.getMessage().replace("%", "%%"));
+			e.setFormat("§7[§a" + channel + "§7] " + p.getDisplayName() + "§7 (§9" + igid(p) + "§7): " + e.getMessage().replace("%", "%%"));
 		}
 	}
 	
@@ -1075,16 +1066,18 @@ public class ScoreboardCLS implements Listener{
 	
 	private int getPlayers(String server) {
 		int i = 0;
+		PreparedStatement ps;
 		try {
-			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_serverstats WHERE servername = ?");
+			ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_serverstats WHERE servername = ?");
 			ps.setString(1, server);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			i = rs.getInt("currPlayers");
 			rs.close();
 			ps.close();
-		} catch (SQLException e) { }
-		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return i;
 	}
 	
@@ -1248,18 +1241,26 @@ public class ScoreboardCLS implements Listener{
 	
 	private String retPrefix(String rank, String type) {
 		String prefix = "";
-		try {
-			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_ranks WHERE rank = ?");
-			ps.setString(1, rank);
-			ResultSet rs = ps.executeQuery();
-			rs.next();
-			prefix = rs.getString(type);
-			rs.close();
-			ps.close();
-		}catch (SQLException e) {
-			prefix = "§0ERR";
+		if(type.equalsIgnoreCase("prefix_chat")) {
+			prefix = chatHM.get(rank);
+		}else if(type.equalsIgnoreCase("prefix_tab")) {
+			prefix = tabHM.get(rank);
 		}
 		return prefix.replace("&", "§");
+	}
+	
+	public void downloadStrings() {
+		try {
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_ranks");
+			ResultSet rs = ps.executeQuery();
+			tabHM.clear();
+			chatHM.clear();
+			while(rs.next()) {
+				tabHM.put(rs.getString("rank"), rs.getString("prefix_tab"));
+				chatHM.put(rs.getString("rank"), rs.getString("prefix_chat"));
+			}
+		}catch (SQLException e) {
+		}
 	}
 	
 	int cacheTimer = 0;

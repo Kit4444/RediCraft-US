@@ -216,6 +216,8 @@ public class APIs {
 			s = prefix.get("scoreboard");
 		}else if(type.equalsIgnoreCase("pmsystem") || type.equalsIgnoreCase("pm")) {
 			s = prefix.get("pmsys");
+		}else if(type.equalsIgnoreCase("system")) {
+			s = prefix.get("system");
 		}
 		return s;
 	}

@@ -2,12 +2,11 @@ package at.mlps.rc.event;
 
 import java.io.File;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -129,6 +128,36 @@ public class JoinQuitEvents implements Listener{
 				}
 			}, 20);
 		}
+        int notify_pm = 0;
+        int notify_tpar = 0;
+        try {
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT disablePMs,disableTPAR FROM redicore_userstats WHERE uuid = ?");
+			ps.setString(1, p.getUniqueId().toString().replace("-", ""));
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				if(rs.getBoolean("disablePMs")) {
+					notify_pm = 1;
+				}else {
+					notify_pm = 0;
+				}
+				if(rs.getBoolean("disableTPAR")) {
+					notify_tpar = 1;
+				}else {
+					notify_tpar = 0;
+				}
+			}else {
+				notify_pm = -1;
+				notify_tpar = -1;
+			}
+        } catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+        if(notify_pm == 1) {
+        	p.sendMessage(api.prefix("system") + api.returnStringReady(p, "event.join.blockpmnotify"));
+        }
+        if(notify_tpar == 1) {
+        	p.sendMessage(api.prefix("system") + api.returnStringReady(p, "event.join.tparnotify"));
+        }
 	}
 	
 	@EventHandler
@@ -141,47 +170,64 @@ public class JoinQuitEvents implements Listener{
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         PermissionUser pu = PermissionsEx.getUser(p);
         try {
-        	PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET userrank = ?, lastjoints = ?, lastjoinstring = ?, lastloginip = ?, online = ? WHERE uuid = ?");
+        	PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET userrank = ?, rankcolor = ?, lastjoints = ?, lastjoinstring = ?, lastloginip = ?, online = ? WHERE uuid = ?");
         	if(pu.inGroup("PMan")) {
         		ps.setString(1, "Projectmanager");
+        		ps.setString(2, "#ffaa00");
+    		}else if(pu.inGroup("HumanR")) {
+    			ps.setString(1, "Projectmanager");
+        		ps.setString(2, "#aa00aa");
         	}else if(pu.inGroup("CMan")) {
         		ps.setString(1, "Community Manager");
+        		ps.setString(2, "#00aa00");
         	}else if(pu.inGroup("AMan")) {
         		ps.setString(1, "Game Moderation Manager");
+        		ps.setString(2, "#aa0000");
         	}else if(pu.inGroup("Developer")) {
         		ps.setString(1, "Developer");
+        		ps.setString(2, "#ff55ff");
         	}else if(pu.inGroup("Admin")) {
         		ps.setString(1, "Game Moderator");
+        		ps.setString(2, "#ff5555");
         	}else if(pu.inGroup("Mod")) {
         		ps.setString(1, "Moderator");
+        		ps.setString(2, "#55ff55");
         	}else if(pu.inGroup("Support")) {
         		ps.setString(1, "Support");
+        		ps.setString(2, "#5555ff");
         	}else if(pu.inGroup("Translator")) {
         		ps.setString(1, "Content");
+        		ps.setString(2, "#ffff55");
         	}else if(pu.inGroup("Builder")) {
         		ps.setString(1, "Builder");
+        		ps.setString(2, "#55ffff");
         	}else if(pu.inGroup("RLTM")) {
         		ps.setString(1, "Retired Legend Team Member");
+        		ps.setString(2, "#00aaaa");
         	}else if(pu.inGroup("RTM")) {
         		ps.setString(1, "Retired Team Member");
+        		ps.setString(2, "#00aaaa");
         	}else if(pu.inGroup("Partner")) {
         		ps.setString(1, "Partner");
+        		ps.setString(2, "#00aa00");
         	}else if(pu.inGroup("Beta")) {
         		ps.setString(1, "Beta-Tester");
-        	}else if(pu.inGroup("Patron")) {
-        		ps.setString(1, "Patron");
+        		ps.setString(2, "#00aaaa");
         	}else if(pu.inGroup("NitroBooster")) {
         		ps.setString(1, "Nitrobooster");
+        		ps.setString(2, "#00aaaa");
         	}else if(pu.inGroup("Friend")) {
         		ps.setString(1, "Friend");
+        		ps.setString(2, "#00aaaa");
         	}else {
         		ps.setString(1, "Player");
+        		ps.setString(2, "#aaaaaa");
         	}
-        	ps.setLong(2, ts.getTime());
-        	ps.setString(3, stime);
-        	ps.setString(4, p.getAddress().getHostString());
-        	ps.setBoolean(5, false);
-        	ps.setString(6, uuid);
+        	ps.setLong(3, ts.getTime());
+        	ps.setString(4, stime);
+        	ps.setString(5, p.getAddress().getHostString());
+        	ps.setBoolean(6, false);
+        	ps.setString(7, uuid);
         	ps.executeUpdate();
         	ps.close();
         }catch (SQLException ex) { ex.printStackTrace(); }
@@ -200,14 +246,5 @@ public class JoinQuitEvents implements Listener{
 			loc = null;
 		}
 		return loc;
-	}
-	
-	private List<String> changeTo(List<String> array){
-		List<String> output = new ArrayList<>();
-		for(String s : array) {
-			s.replace("PMan", "Project Manager").replace("HumanR", "Human Resources").replace("CMan", "Community Manager").replace("AMan", "Game Moderation Manager").replace("Admin", "Game Moderator").replace("Mod", "Moderator").replace("Support", "Supporter").replace("RTM", "Retired Team Member").replace("Beta", "Beta-Tester").replace("dafault", "Player").replace("NitroBooster", "Nitro Booster").replace("RLTM", "Retired Legend Team Member");
-			output.add(s);
-		}
-		return output;
 	}
 }

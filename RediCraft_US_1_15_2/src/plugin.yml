@@ -1,5 +1,5 @@
 author: Maurice_Bailey
-version: 20200814_0002-0026s
+version: 20210219_0002-00342s
 name: RediCore_SubServer
 description: This is the Core-Plugin of RediCraft.
 website: www.redicraft.eu
@@ -63,4 +63,8 @@ commands:
         - tpnp
         - tpdisallow
     blocktpa:
-    
+    channel:
+    tphere:
+        aliases:
+        - tph
+    tp:

@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ChannelManager;
 import at.mlps.rc.cmd.AFK_CMD;
 import at.mlps.rc.cmd.CMD_SetID_SetPf;
 import at.mlps.rc.cmd.ChatClear;
@@ -29,6 +30,7 @@ import at.mlps.rc.cmd.SkullCMD;
 import at.mlps.rc.cmd.SpawnVillager;
 import at.mlps.rc.cmd.StopCMD;
 import at.mlps.rc.cmd.TPA_System;
+import at.mlps.rc.cmd.TP_Command;
 import at.mlps.rc.cmd.TimeCMD;
 import at.mlps.rc.cmd.WeatherCMD;
 import at.mlps.rc.cmd.WorkBenchCMD;
@@ -131,6 +133,9 @@ public class Manager {
 		Main.instance.getCommand("tpaccept").setExecutor(new TPA_System());
 		Main.instance.getCommand("tpdeny").setExecutor(new TPA_System());
 		Main.instance.getCommand("blocktpa").setExecutor(new TPA_System());
+		Main.instance.getCommand("channel").setExecutor(new ChannelManager());
+		Main.instance.getCommand("tphere").setExecutor(new TP_Command());
+		Main.instance.getCommand("tp").setExecutor(new TP_Command());
 		
 		PluginManager pl = Bukkit.getPluginManager();
 		pl.registerEvents(new ScoreboardCLS(), Main.instance);
@@ -144,9 +149,13 @@ public class Manager {
 		pl.registerEvents(new StopCMD(Main.instance), Main.instance);
 		pl.registerEvents(new Blocker(), Main.instance);
 		pl.registerEvents(new Serverupdater(), Main.instance);
+		pl.registerEvents(new ChannelManager(), Main.instance);
 		
 		APIs api = new APIs();
 		api.loadConfig();
 		api.onLoad();
+		
+		ScoreboardCLS sb = new ScoreboardCLS();
+		sb.downloadStrings();
 	}
 }
