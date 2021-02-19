@@ -1,6 +1,8 @@
 package at.mlps.rc.cmd;
 
-import java.util.ArrayList;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -11,12 +13,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.mysql.lb.MySQL;
 
 public class TPA_System implements CommandExecutor{
 	
     static HashMap<UUID, UUID> tprequests = new HashMap<>();
     static HashMap<UUID, Boolean> tprequesttype = new HashMap<>();
-    static ArrayList<UUID> tpblock = new ArrayList<>();
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -35,19 +37,15 @@ public class TPA_System implements CommandExecutor{
                     }else {
                         if(p2.getName() == p.getName()) {
                         	api.sendMSGReady(p, "cmd.tpa.ownrequest");
-                            //p.sendMessage(api.prefix("main") + "§cDu kannst dir selbst keine TPA-Anfrage senden. Du Trottel!");
                         }else {
-                            if(tpblock.contains(p2.getUniqueId())) {
+                            if(hasTPABlocked(p2)) {
                             	api.sendMSGReady(p, "cmd.tpa.playerblocked");
-                                //p.sendMessage(api.prefix("main") + "§cDieser Spieler hat TPA-Anfragen geblockt.");
                             }else {
                                 tprequests.put(p2.getUniqueId(), p.getUniqueId());
                                 tprequesttype.put(p2.getUniqueId(), false);
                                 p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.tpa.success.ownmsg").replace("%displayer", p2.getDisplayName()));
                                 p2.sendMessage(api.prefix("main") + api.returnStringReady(p2, "cmd.tpa.success.othermsg.main").replace("%displayer", p.getDisplayName()));
                                 api.sendMSGReady(p2, "cmd.tpa.success.othermsg.info");
-                                //p.sendMessage(api.prefix("main") + "§7Du hast dem Spieler §a" + p2.getName() + " §7eine TPA-Anfrage geschickt.");
-                                //p2.sendMessage(api.prefix("main") + "§7Du hast eine TPA-Anfrage von §a" + p.getName() + " §7bekommen.");
                             }
                         }
                     }
@@ -64,19 +62,15 @@ public class TPA_System implements CommandExecutor{
                     }else {
                         if(p2.getName() == p.getName()) {
                         	api.sendMSGReady(p, "cmd.tpahere.ownrequest");
-                            //p.sendMessage(api.prefix("main") + "§cDu kannst dir selbst keine TPA-Anfrage senden. Du Trottel!");
                         }else {
-                            if(tpblock.contains(p2.getUniqueId())) {
+                            if(hasTPABlocked(p2)) {
                             	api.sendMSGReady(p, "cmd.tpahere.playerblocked");
-                                //p.sendMessage(api.prefix("main") + "§cDieser Spieler hat TPA-Anfragen geblockt.");
                             }else {
                                 tprequests.put(p2.getUniqueId(), p.getUniqueId());
                                 tprequesttype.put(p2.getUniqueId(), true);
                                 p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.tpahere.success.ownmsg").replace("%displayer", p2.getDisplayName()));
                                 p2.sendMessage(api.prefix("main") + api.returnStringReady(p2, "cmd.tpahere.success.othermsg.main").replace("%displayer", p.getDisplayName()));
                                 api.sendMSGReady(p2, "cmd.tpahere.success.othermsg.info");
-                                //p.sendMessage(api.prefix("main") + "§7Du hast dem Spieler §a" + p2.getName() + " §7eine TPA-Anfrage geschickt.");
-                                //p2.sendMessage(api.prefix("main") + "§7Du hast eine TPA-Anfrage von §a" + p.getName() + " §7bekommen.");
                             }
                         }
                     }
@@ -106,16 +100,45 @@ public class TPA_System implements CommandExecutor{
                 	api.sendMSGReady(p, "cmd.tpdeny.noreqopen");
                 }
             }else if(cmd.getName().equalsIgnoreCase("blocktpa")) {
-                if(tpblock.contains(p.getUniqueId())) {
-                    tpblock.remove(p.getUniqueId());
+                if(hasTPABlocked(p)) {
+                    setTPABlocked(p, false);
                     api.sendMSGReady(p, "cmd.blocktpa.removed");
                 }else {
-                    tpblock.add(p.getUniqueId());
+                	setTPABlocked(p, true);
                     api.sendMSGReady(p, "cmd.blocktpa.added");
                 }
             }
         }
         return false;
+    }
+    
+    private boolean hasTPABlocked(Player p) {
+    	boolean block = false;
+    	try {
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT disablePMs FROM redicore_userstats WHERE uuid = ?");
+			ps.setString(1, p.getUniqueId().toString().replace("-", ""));
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				block = rs.getBoolean("disablePMs");
+			}
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return block;
+    }
+    
+    private void setTPABlocked(Player p, boolean status) {
+    	try {
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET disablePMs = ? WHERE uuid = ?");
+			ps.setBoolean(1, status);
+			ps.setString(2, p.getUniqueId().toString().replace("-", ""));
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
     }
 
 }
