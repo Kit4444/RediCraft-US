@@ -32,6 +32,7 @@ import at.mlps.rc.cmd.StopCMD;
 import at.mlps.rc.cmd.TPA_System;
 import at.mlps.rc.cmd.TP_Command;
 import at.mlps.rc.cmd.TimeCMD;
+import at.mlps.rc.cmd.Vanish_CMD;
 import at.mlps.rc.cmd.WeatherCMD;
 import at.mlps.rc.cmd.WorkBenchCMD;
 import at.mlps.rc.cmd.Setspawn;
@@ -57,7 +58,6 @@ public class Manager {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -136,6 +136,7 @@ public class Manager {
 		Main.instance.getCommand("channel").setExecutor(new ChannelManager());
 		Main.instance.getCommand("tphere").setExecutor(new TP_Command());
 		Main.instance.getCommand("tp").setExecutor(new TP_Command());
+		Main.instance.getCommand("vanish").setExecutor(new Vanish_CMD());
 		
 		PluginManager pl = Bukkit.getPluginManager();
 		pl.registerEvents(new ScoreboardCLS(), Main.instance);
@@ -150,6 +151,7 @@ public class Manager {
 		pl.registerEvents(new Blocker(), Main.instance);
 		pl.registerEvents(new Serverupdater(), Main.instance);
 		pl.registerEvents(new ChannelManager(), Main.instance);
+		pl.registerEvents(new Vanish_CMD(), Main.instance);
 		
 		APIs api = new APIs();
 		api.loadConfig();

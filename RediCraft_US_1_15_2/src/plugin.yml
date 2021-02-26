@@ -1,5 +1,5 @@
 author: Maurice_Bailey
-version: 20210219_0002-00342s
+version: 20210226_0002-00344s
 name: RediCore_SubServer
 description: This is the Core-Plugin of RediCraft.
 website: www.redicraft.eu
@@ -68,3 +68,6 @@ commands:
         aliases:
         - tph
     tp:
+    vanish:
+        aliases:
+        - v
