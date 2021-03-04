@@ -20,10 +20,11 @@ public class SkullCMD implements CommandExecutor{
 			APIs api = new APIs();
 			if(args.length == 1) {
 				p.getInventory().addItem(api.skullItem(1, args[0] + "'s Head", args[0]));
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.head").replace("%player", args[0]));
 			}else {
 				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " §7/head <Headname>");
 			}
 		}
-		return false;
+		return true;
 	}
 }
