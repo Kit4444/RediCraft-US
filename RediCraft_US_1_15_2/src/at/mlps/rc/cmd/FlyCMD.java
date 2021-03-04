@@ -17,7 +17,7 @@ import at.mlps.rc.main.Main;
 
 public class FlyCMD implements CommandExecutor, Listener{
 	
-	static ArrayList<UUID> flylist = new ArrayList<>();
+	public static ArrayList<UUID> flylist = new ArrayList<>();
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -27,7 +27,7 @@ public class FlyCMD implements CommandExecutor, Listener{
 			APIs api = new APIs();
 			Player p = (Player)sender;
 			if(args.length == 0) {
-				if(p.hasPermission("mlps.canFly.own")) {
+				if(p.hasPermission("mlps.canFly.own") || p.hasPermission("mlps.userfly")) {
 					if(flylist.contains(p.getUniqueId())) {
 						flylist.remove(p.getUniqueId());
 						p.setAllowFlight(false);

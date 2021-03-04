@@ -35,12 +35,18 @@ public class GamemodeCMD implements CommandExecutor{
 					if(gm.equalsIgnoreCase("0")) {
 						p.setGameMode(GameMode.SURVIVAL);
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.own").replace("%gamemode", "Survival"));
+						if(FlyCMD.flylist.contains(p.getUniqueId())) {
+							p.setAllowFlight(true);
+						}
 					}else if(gm.equalsIgnoreCase("1")) {
 						p.setGameMode(GameMode.CREATIVE);
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.own").replace("%gamemode", "Creative"));
 					}else if(gm.equalsIgnoreCase("2")) {
 						p.setGameMode(GameMode.ADVENTURE);
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.own").replace("%gamemode", "Adventure"));
+						if(FlyCMD.flylist.contains(p.getUniqueId())) {
+							p.setAllowFlight(true);
+						}
 					}else if(gm.equalsIgnoreCase("3")) {
 						p.setGameMode(GameMode.SPECTATOR);
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.own").replace("%gamemode", "Spectator"));
@@ -60,12 +66,18 @@ public class GamemodeCMD implements CommandExecutor{
 						if(gm.equalsIgnoreCase("0")) {
 							p2.setGameMode(GameMode.SURVIVAL);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.other").replace("%gamemode", "Survival").replace("%displayer", p2.getDisplayName()));
+							if(FlyCMD.flylist.contains(p2.getUniqueId())) {
+								p2.setAllowFlight(true);
+							}
 						}else if(gm.equalsIgnoreCase("1")) {
 							p2.setGameMode(GameMode.CREATIVE);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.other").replace("%gamemode", "Creative").replace("%displayer", p2.getDisplayName()));
 						}else if(gm.equalsIgnoreCase("2")) {
 							p2.setGameMode(GameMode.ADVENTURE);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.other").replace("%gamemode", "Adventure").replace("%displayer", p2.getDisplayName()));
+							if(FlyCMD.flylist.contains(p2.getUniqueId())) {
+								p2.setAllowFlight(true);
+							}
 						}else if(gm.equalsIgnoreCase("3")) {
 							p2.setGameMode(GameMode.SPECTATOR);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.other").replace("%gamemode", "Spectator").replace("%displayer", p2.getDisplayName()));
