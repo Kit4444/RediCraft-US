@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -342,6 +343,17 @@ public class ScoreboardCLS implements Listener{
 				o.getScore("  §fSky§2Block§7: §a" + getPlayers("SkyBlock")).setScore(2);
 				o.getScore("  §6Towny§7: §a" + getPlayers("Towny")).setScore(1);
 				o.getScore("  §5Farmserver§7: §a" + getPlayers("Farmserver")).setScore(0);
+			}else if(getSB(p) == 7) {
+				//server, world, x, y, z
+				Location loc = p.getLocation();
+				DecimalFormat df = new DecimalFormat("#.##");
+				o.getScore("§7Position").setScore(6);
+				o.getScore("§0").setScore(5);
+				o.getScore("§7Server:§a " + api.getServerName()).setScore(4);
+				o.getScore("§7World:§a " + loc.getWorld().getName()).setScore(3);
+				o.getScore("§7X:§a " + df.format(loc.getX())).setScore(2);
+				o.getScore("§7Y:§a " + df.format(loc.getY())).setScore(1);
+				o.getScore("§7Z:§a " + df.format(loc.getZ())).setScore(0);
 			}
 		}else {
 			if(getSB(p) == 0) {
@@ -605,6 +617,17 @@ public class ScoreboardCLS implements Listener{
 				o.getScore("  §fSky§2Block§7: §a" + getPlayers("SkyBlock")).setScore(2);
 				o.getScore("  §6Towny§7: §a" + getPlayers("Towny")).setScore(1);
 				o.getScore("  §5Farmserver§7: §a" + getPlayers("Farmserver")).setScore(0);
+			}else if(getSB(p) == 7) {
+				//server, world, x, y, z
+				Location loc = p.getLocation();
+				DecimalFormat df = new DecimalFormat("#.##");
+				o.getScore("§7Position").setScore(6);
+				o.getScore("§0").setScore(5);
+				o.getScore("§7Server:§a " + api.getServerName()).setScore(4);
+				o.getScore("§7World:§a " + loc.getWorld().getName()).setScore(3);
+				o.getScore("§7X:§a " + df.format(loc.getX())).setScore(2);
+				o.getScore("§7Y:§a " + df.format(loc.getY())).setScore(1);
+				o.getScore("§7Z:§a " + df.format(loc.getZ())).setScore(0);
 			}
 		}
 		

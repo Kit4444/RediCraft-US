@@ -53,6 +53,8 @@ public class ScoreboardChange implements CommandExecutor{
 						updateSB(uuid, 5);
 					}else if(args[0].equalsIgnoreCase("players")) {
 						updateSB(uuid, 6);
+					}else if(args[0].equalsIgnoreCase("location")) {
+						updateSB(uuid, 7);
 					}
 					ScoreboardCLS sb = new ScoreboardCLS();
 					try {
@@ -91,6 +93,8 @@ public class ScoreboardChange implements CommandExecutor{
 						updateSB(uuid, 5);
 					}else if(args[0].equalsIgnoreCase("players")) {
 						updateSB(uuid, 6);
+					}else if(args[0].equalsIgnoreCase("location")) {
+						updateSB(uuid, 7);
 					}
 					ScoreboardCLS sb = new ScoreboardCLS();
 					try {
@@ -104,7 +108,7 @@ public class ScoreboardChange implements CommandExecutor{
 					}
 				}
 			}else {
-				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7/sb <off|default|players|job|redifm|admin|data>");
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7/sb <off|default|players|job|redifm|location|admin|data>");
 			}
 		}
 		return false;
