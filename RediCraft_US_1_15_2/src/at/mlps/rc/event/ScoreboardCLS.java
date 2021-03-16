@@ -647,7 +647,6 @@ public class ScoreboardCLS implements Listener{
 		Team rtm = getTeam(sb, "00090", retPrefix("rtm", "prefix_tab"), ChatColor.GRAY); //dark-purple
 		Team partner = getTeam(sb, "00100", retPrefix("partner", "prefix_tab"), ChatColor.GRAY); //green
 		Team beta = getTeam(sb, "00110", retPrefix("beta", "prefix_tab"), ChatColor.GRAY); //dark-blue & red
-		Team patron = getTeam(sb, "00120", retPrefix("patron", "prefix_tab"), ChatColor.GRAY); //dark-aqua
 		Team nitrobooster = getTeam(sb, "00130", retPrefix("dcnitro", "prefix_tab"), ChatColor.GRAY); //dark-blue
 		Team freund = getTeam(sb, "00140", retPrefix("freund", "prefix_tab"), ChatColor.GRAY); //dark-aqua
 		Team spieler = getTeam(sb, "00150", retPrefix("spieler", "prefix_tab"), ChatColor.GRAY); //gray
@@ -929,26 +928,6 @@ public class ScoreboardCLS implements Listener{
 						beta.addPlayer(all);
 						all.setDisplayName(retPrefix("beta", "prefix_chat") + all.getName());
 						all.setPlayerListName(retPrefix("beta", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
-					}
-				}else {
-					if(isAFK(all)) {
-						afk.addPlayer(all);
-						all.setPlayerListName("§9AFK §7| " + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
-					}else {
-						spieler.addPlayer(all);
-						all.setDisplayName(retPrefix("spieler", "prefix_chat") + all.getName());
-						all.setPlayerListName(retPrefix("spieler", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
-					}
-				}
-			}else if(pp.inGroup("Patron")) {
-				if(rs.getBoolean("loggedin")) {
-					if(isAFK(all)) {
-						afk.addPlayer(all);
-						all.setPlayerListName("§9AFK §7- " + all.getName() + " §7| ID§7: §a" + igid(all) + " §f" + igpre(all));
-					}else {
-						patron.addPlayer(all);
-						all.setDisplayName(retPrefix("patron", "prefix_chat") + all.getName());
-						all.setPlayerListName(retPrefix("patron", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " §f" + igpre(all));
 					}
 				}else {
 					if(isAFK(all)) {
