@@ -62,9 +62,21 @@ public class Serverupdater implements Listener{
 					}
 				}
 			}
+			boolean dmap = false;
+			if(Bukkit.getPluginManager().isPluginEnabled("dynmap")) {
+				dmap = true;
+			}
+			boolean hybrid = false;
+			String ttps = tps.substring(2, 7);
+			String newtps = "";
+			if(ttps.startsWith("*")) {
+				newtps = ttps.substring(1);
+			}else {
+				newtps = ttps;
+			}
 		    try {
 		    	Main.mysql.update("UPDATE useless_testtable SET toupdate = '" + gcode1 + "' WHERE type = '" + api.getServerName().toLowerCase() + "';");
-		    	PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_serverstats SET ramusage = ?, serverid = ?, currPlayers = ?, maxPlayers = ?, lastupdateTS = ?, lastupdateST = ?, ramavailable = ?, version = ?, tps = ?, currStaffmembers = ? WHERE servername = ?");
+		    	PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_serverstats SET ramusage = ?, serverid = ?, currPlayers = ?, maxPlayers = ?, lastupdateTS = ?, lastupdateST = ?, ramavailable = ?, version = ?, tps = ?, currStaffmembers = ?, dynmap = ?, hybrid = ? WHERE servername = ?");
 		    	ps.setInt(1, (int) ramusage);
 				ps.setString(2, api.getServerId());
 				ps.setInt(3, players);
@@ -73,9 +85,11 @@ public class Serverupdater implements Listener{
 				ps.setString(6, stime);
 				ps.setInt(7, (int) ramtotal);
 				ps.setString(8, "1.16.5");
-				ps.setString(9, tps);
+				ps.setString(9, newtps);
 				ps.setInt(10, staffs);
-				ps.setString(11, api.getServerName());
+				ps.setBoolean(11, dmap);
+				ps.setBoolean(12, hybrid);
+				ps.setString(13, api.getServerName());
 				ps.executeUpdate();
 				ps.close();
 		    }catch (SQLException e) { e.printStackTrace(); Bukkit.getConsoleSender().sendMessage("§cCan't update DB-Stats."); }
