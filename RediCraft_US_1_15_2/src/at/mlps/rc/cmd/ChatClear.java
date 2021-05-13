@@ -20,29 +20,15 @@ public class ChatClear implements CommandExecutor{
 			APIs api = new APIs();
 			if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("private")) {
-					p.sendMessage("\n \n \n \n \n \n \n \n \n \n");
-					p.sendMessage("\n \n \n \n \n \n \n \n \n \n");
-					p.sendMessage("\n \n \n \n \n \n \n \n \n \n");
-					p.sendMessage("\n \n \n \n \n \n \n \n \n \n");
-					p.sendMessage("\n \n \n \n \n \n \n \n \n \n");
-					p.sendMessage("\n \n \n \n \n \n \n \n \n \n");
-					p.sendMessage("\n \n \n \n \n \n \n \n \n \n");
-					p.sendMessage("\n \n \n \n \n \n \n \n \n \n");
-					p.sendMessage("\n \n \n \n \n \n \n \n \n \n");
-					p.sendMessage("\n \n \n \n \n \n \n \n \n \n");
+					
+					clearUserChat(10, p);
+					
 					api.sendMSGReady(p, "cmd.cc.private");
 				}else if(args[0].equalsIgnoreCase("public")) {
 					if(p.hasPermission("mlps.clearchat")) {
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
+						
+						clearPublicChat(7);
+						
 						api.sendMSGReady(p, "cmd.cc.public");
 						for(Player all : Bukkit.getOnlinePlayers()) {
 							all.sendMessage(api.prefix("main") + api.returnStringReady(all, "cmd.cc.forall.public").replace("%displayer", p.getDisplayName()));
@@ -51,17 +37,10 @@ public class ChatClear implements CommandExecutor{
 						api.noPerm(p);
 					}
 				}else if(args[0].equalsIgnoreCase("anonymous")) {
-					if(p.hasPermission("mlps.clearchat")) {
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
-						Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
+					if(p.hasPermission("mlps.clearchat")){
+						
+						clearPublicChat(7);
+						
 						api.sendMSGReady(p, "cmd.cc.anonymous");
 						for(Player all : Bukkit.getOnlinePlayers()) {
 							api.sendMSGReady(all, "cmd.cc.forall.anonymous");
@@ -77,5 +56,17 @@ public class ChatClear implements CommandExecutor{
 			}
 		}
 		return false;
+	}
+	
+	private void clearPublicChat(int times){
+		for(int i = 0; i < times; i++){
+			Bukkit.broadcastMessage("\n \n \n \n \n \n \n \n \n \n");
+		}
+	}
+	
+	private void clearUserChat(int times, Player player){
+		for(int i = 0; i < times; i++){
+			player.sendMessage("\n \n \n \n \n \n \n \n \n \n");
+		}
 	}
 }
