@@ -42,6 +42,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 	static String towny = "§6Towny";
 	static String farmserver = "§5Farmserver";
 	static String bauserver = "§bStaffserver";
+	static String gameslobby = "§dGameslobby";
 	
 	static String wt_inventory = "§aWorld§cTeleporter";
 	static String wt_freebuild = "§aFreebuild";
@@ -69,8 +70,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 		inv.setItem(8, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		inv.setItem(9, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		inv.setItem(11, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(12, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(14, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
+		inv.setItem(13, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		inv.setItem(15, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		inv.setItem(17, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		inv.setItem(18, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
@@ -109,7 +109,8 @@ public class Serverteleporter implements Listener, CommandExecutor{
 				inv.setItem(2, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 				inv.setItem(26, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 			}
-			inv.setItem(13, api.defItem(Material.NETHER_STAR, 1, spawn)); //spawn
+			inv.setItem(12, api.naviItem(Material.RED_BED, gameslobby, "Gameslobby"));
+			inv.setItem(14, api.defItem(Material.NETHER_STAR, 1, spawn)); //spawn
 		}
 		p.openInventory(inv);
 		p.updateInventory();
@@ -272,6 +273,26 @@ public class Serverteleporter implements Listener, CommandExecutor{
 					}
 					
 				}
+			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(gameslobby)) {
+				e.setCancelled(true);
+				boolean lock = getData("Gameslobby", "locked");
+				if(lock) {
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Gameslobby"));
+				}else {
+					boolean monitor = getData("Gameslobby", "monitoring");
+					boolean online = getData("Gameslobby", "online");
+					if(online) {
+						if(monitor) {
+							api.sendMSGReady(p, "event.navigator.sendPlayer.monitorinfo");
+							sendPlayer(p, "gameslobby", bauserver);
+						}else {
+							sendPlayer(p, "gameslobby", bauserver);
+						}
+					}else {
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Gameslobby"));
+					}
+					
+				}
 			}
 		}else if(e.getView().getTitle().equalsIgnoreCase(wt_inventory)) {
 			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(wt_freebuild)) {
@@ -279,7 +300,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 					api.sendMSGReady(p, "event.worldteleporter.notset");
 				}else {
 					p.teleport(retLoc(cfg, "freebuild"));
-					api.sendMSGReady(p, "event.worldteleporter.freebuild");
+					p.sendMessage(api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§aFreebuild"));
 				}
 				e.setCancelled(true);
 				p.closeInventory();
@@ -288,7 +309,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 					api.sendMSGReady(p, "event.worldteleporter.notset");
 				}else {
 					p.teleport(retLoc(cfg, "nether"));
-					api.sendMSGReady(p, "event.worldteleporter.nether");
+					p.sendMessage(api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§cNether"));
 				}
 				e.setCancelled(true);
 				p.closeInventory();
@@ -297,7 +318,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 					api.sendMSGReady(p, "event.worldteleporter.notset");
 				}else {
 					p.teleport(retLoc(cfg, "plotworld"));
-					api.sendMSGReady(p, "event.worldteleporter.plotworld");
+					p.sendMessage(api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§aPlotworld"));
 				}
 				e.setCancelled(true);
 				p.closeInventory();
@@ -306,7 +327,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 					api.sendMSGReady(p, "event.worldteleporter.notset");
 				}else {
 					p.teleport(retLoc(cfg, "theend"));
-					api.sendMSGReady(p, "event.worldteleporter.theend");
+					p.sendMessage(api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§1The End"));
 				}
 				p.closeInventory();
 				e.setCancelled(true);

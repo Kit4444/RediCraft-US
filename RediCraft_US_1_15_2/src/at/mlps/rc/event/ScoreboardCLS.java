@@ -650,6 +650,7 @@ public class ScoreboardCLS implements Listener{
 		Team nitrobooster = getTeam(sb, "00130", retPrefix("dcnitro", "prefix_tab"), ChatColor.GRAY); //dark-blue
 		Team freund = getTeam(sb, "00140", retPrefix("freund", "prefix_tab"), ChatColor.GRAY); //dark-aqua
 		Team spieler = getTeam(sb, "00150", retPrefix("spieler", "prefix_tab"), ChatColor.GRAY); //gray
+		
 		Team tafk = getTeam(sb, "00160", retPrefix("tafk", "prefix_tab"), ChatColor.GRAY);
 		Team afk = getTeam(sb, "00170", retPrefix("safk", "prefix_tab"), ChatColor.GRAY);
 		

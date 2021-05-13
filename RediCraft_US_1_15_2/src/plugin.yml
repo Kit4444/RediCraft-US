@@ -1,4 +1,4 @@
-author: Maurice_Bailey
+author: Newt
 version: 20210226_0002-00344s
 name: RediCore_SubServer
 description: This is the Core-Plugin of RediCraft.
@@ -71,3 +71,4 @@ commands:
     vanish:
         aliases:
         - v
+    
