@@ -40,7 +40,7 @@ public class PM_System implements CommandExecutor{
 				}else {
 					Player p2 = Bukkit.getPlayerExact(args[0]);
 					if(p2 == null) {
-						api.sendMSGReady(p, "cmd.msg.playernotonline");
+						api.sendMSGReady(p, "notonline");
 					}else {
 						YamlConfiguration cfg = YamlConfiguration.loadConfiguration(msgf);
 						StringBuilder sb = new StringBuilder();
@@ -87,7 +87,7 @@ public class PM_System implements CommandExecutor{
 					YamlConfiguration cfg = YamlConfiguration.loadConfiguration(msgf);
 					Player p2 = Bukkit.getPlayer(cfg.getString(p.getName()));
 					if(p2 == null) {
-						api.sendMSGReady(p, "cmd.r.playernotonline");
+						api.sendMSGReady(p, "notonline");
 					}else {
 						StringBuilder sb = new StringBuilder();
 						for(int i = 0; i < args.length; i++) {
