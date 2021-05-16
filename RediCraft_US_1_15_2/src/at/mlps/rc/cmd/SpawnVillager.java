@@ -56,27 +56,29 @@ public class SpawnVillager implements CommandExecutor, Listener{
 	@EventHandler
 	public void onInteract(PlayerInteractEntityEvent e) {
 		Player p = e.getPlayer();
-		Villager v = (Villager) e.getRightClicked();
-		if(v.getCustomName().equalsIgnoreCase(villagername)) {
-			e.setCancelled(true);
-			ShopInv(p);
-			APIs api = new APIs();
-			api.sendMSGReady(p, "event.shopvillager.open");
+		if(e.getRightClicked().getType() == EntityType.VILLAGER) {
+			Villager v = (Villager) e.getRightClicked();
+			if(v.getCustomName().equalsIgnoreCase(villagername)) {
+				e.setCancelled(true);
+				ShopInv(p);
+				APIs api = new APIs();
+				api.sendMSGReady(p, "event.shopvillager.open");
+			}
 		}
 	}
 	
 	@EventHandler
 	public void onDamage(EntityDamageByEntityEvent e) {
-		Player p = (Player) e.getDamager();
-		Villager v = (Villager) e.getEntity();
-		if(e.getDamager() == p) {
-			if(v.getCustomName().equals(villagername)) {
-				e.setCancelled(true);
-				APIs api = new APIs();
-				api.sendMSGReady(p, "event.shopvillager.hurt");
+		if(e.getDamager().getType() == EntityType.PLAYER) {
+			Player p = (Player) e.getDamager();
+			if(e.getEntityType() == EntityType.VILLAGER) {
+				Villager v = (Villager) e.getEntity();
+				if(v.getCustomName().equals(villagername)) {
+					e.setCancelled(true);
+					APIs api = new APIs();
+					api.sendMSGReady(p, "event.shopvillager.hurt");
+				}
 			}
-		}else {
-			e.setCancelled(true);
 		}
 		
 	}
@@ -111,7 +113,7 @@ public class SpawnVillager implements CommandExecutor, Listener{
 		inv.setItem(17, redglass);
 		inv.setItem(18, greenglass);
 		inv.setItem(19, greenglass);
-		if(p.hasPermission("mlps.userfly")) {
+		if(p.hasPermission("mlps.userfly") || p.hasPermission("mlps.canFly.own")) {
 			inv.setItem(20, api.enchItem(Material.BOOK, 1, "§aFly", Enchantment.DURABILITY));
 		}else {
 			inv.setItem(20, api.l2Item(Material.BOOK, 1, "§aFly", "§7Costs:", "§625.000 §7Coins"));
