@@ -230,7 +230,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 							sendPlayer(p, "farmserver", farmserver);
 						}
 					}else {
-						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Creative"));
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Farmserver"));
 					}
 					
 				}
@@ -301,7 +301,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 					api.sendMSGReady(p, "event.worldteleporter.notset");
 				}else {
 					p.teleport(retLoc(cfg, "freebuild"));
-					p.sendMessage(api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§aFreebuild"));
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§aFreebuild"));
 				}
 				e.setCancelled(true);
 				p.closeInventory();
@@ -310,7 +310,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 					api.sendMSGReady(p, "event.worldteleporter.notset");
 				}else {
 					p.teleport(retLoc(cfg, "freebuild"));
-					p.sendMessage(api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§aOverworld"));
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§aOverworld"));
 				}
 				e.setCancelled(true);
 				p.closeInventory();
@@ -319,7 +319,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 					api.sendMSGReady(p, "event.worldteleporter.notset");
 				}else {
 					p.teleport(retLoc(cfg, "nether"));
-					p.sendMessage(api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§cNether"));
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§cNether"));
 				}
 				e.setCancelled(true);
 				p.closeInventory();
@@ -328,7 +328,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 					api.sendMSGReady(p, "event.worldteleporter.notset");
 				}else {
 					p.teleport(retLoc(cfg, "plotworld"));
-					p.sendMessage(api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§aPlotworld"));
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§aPlotworld"));
 				}
 				e.setCancelled(true);
 				p.closeInventory();
@@ -337,7 +337,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 					api.sendMSGReady(p, "event.worldteleporter.notset");
 				}else {
 					p.teleport(retLoc(cfg, "theend"));
-					p.sendMessage(api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§1The End"));
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§1The End"));
 				}
 				p.closeInventory();
 				e.setCancelled(true);
