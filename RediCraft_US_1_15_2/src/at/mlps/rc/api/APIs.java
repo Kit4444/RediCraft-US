@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.libs.org.apache.commons.io.IOUtils;
 import org.bukkit.enchantments.Enchantment;
@@ -301,6 +302,18 @@ public class APIs {
 		if(monitor) {
 			lore.add("§7Monitoring: §cyes");
 		}
+		mitem.setLore(lore);
+		mitem.setDisplayName(dpname);
+		item.setItemMeta(mitem);
+		return item;
+	}
+	
+	public ItemStack wt_item(Material mat, String dpname, String bukkitWorld) {
+		ArrayList<String> lore = new ArrayList<>();
+		ItemStack item = new ItemStack(mat, 1);
+		ItemMeta mitem = item.getItemMeta();
+		lore.add("§7Current User on");
+		lore.add("§a" + dpname + "§7: §a" + Bukkit.getWorld(bukkitWorld).getPlayers().size());
 		mitem.setLore(lore);
 		mitem.setDisplayName(dpname);
 		item.setItemMeta(mitem);

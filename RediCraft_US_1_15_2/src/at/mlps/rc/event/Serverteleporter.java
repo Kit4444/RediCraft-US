@@ -46,8 +46,9 @@ public class Serverteleporter implements Listener, CommandExecutor{
 	
 	static String wt_inventory = "§aWorld§cTeleporter";
 	static String wt_freebuild = "§aFreebuild";
+	static String wt_overworld = "§aOverworld";
 	static String wt_plotworld = "§aPlotworld";
-	static String wt_theend = "§0The End";
+	static String wt_theend = "§5The End";
 	static String wt_nether = "§cNether";
 	
 	static String locked = " §7- §4locked";
@@ -304,6 +305,15 @@ public class Serverteleporter implements Listener, CommandExecutor{
 				}
 				e.setCancelled(true);
 				p.closeInventory();
+			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(wt_overworld)) {
+				if(retLoc(cfg, "freebuild") == null) {
+					api.sendMSGReady(p, "event.worldteleporter.notset");
+				}else {
+					p.teleport(retLoc(cfg, "freebuild"));
+					p.sendMessage(api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§aOverworld"));
+				}
+				e.setCancelled(true);
+				p.closeInventory();
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(wt_nether)) {
 				if(retLoc(cfg, "nether") == null) {
 					api.sendMSGReady(p, "event.worldteleporter.notset");
@@ -330,6 +340,8 @@ public class Serverteleporter implements Listener, CommandExecutor{
 					p.sendMessage(api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§1The End"));
 				}
 				p.closeInventory();
+				e.setCancelled(true);
+			}else {
 				e.setCancelled(true);
 			}
 		}
@@ -380,11 +392,14 @@ public class Serverteleporter implements Listener, CommandExecutor{
 		if(api.getServerName().equalsIgnoreCase("Farmserver")) {
 			inv.setItem(0, item);
 			inv.setItem(1, item);
-			inv.setItem(2, api.defItem(Material.GRASS_BLOCK, 1, wt_freebuild));
+			//inv.setItem(2, api.defItem(Material.GRASS_BLOCK, 1, wt_overworld));
+			inv.setItem(2, api.wt_item(Material.GRASS_BLOCK, wt_overworld, "world"));
 			inv.setItem(3, item);
-			inv.setItem(4, api.defItem(Material.NETHERRACK, 1, wt_nether));
+			//inv.setItem(4, api.defItem(Material.NETHERRACK, 1, wt_nether));
+			inv.setItem(4, api.wt_item(Material.NETHERRACK, wt_nether, "world_nether"));
 			inv.setItem(5, item);
-			inv.setItem(6, api.defItem(Material.END_STONE, 1, wt_theend));
+			//inv.setItem(6, api.defItem(Material.END_STONE, 1, wt_theend));
+			inv.setItem(6, api.wt_item(Material.END_STONE, wt_theend, "world_the_end"));
 			inv.setItem(7, item);
 			inv.setItem(8, item);
 		}else if(api.getServerName().equalsIgnoreCase("Survival")) {
