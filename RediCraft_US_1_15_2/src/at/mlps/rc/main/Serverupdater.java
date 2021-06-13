@@ -333,24 +333,24 @@ public class Serverupdater implements Listener{
 		return String.valueOf((tps > 18.0 ? ChatColor.GREEN : (tps > 16.0 ? ChatColor.YELLOW : ChatColor.RED)).toString()) + (tps > 20.0 ? "*" : "") + Math.min((double)Math.round(tps * 100.0) / 100.0, 20.0);
 	}
 	
-	static String prefix = "§aClear§cLag §7»";
+	static String prefix = "§aClear§cLag §7» ";
 	public static int time = 0;
 	
 	
 	public void clearlag() {
 		time++;
 		if(time == 870) {
-			Bukkit.broadcastMessage(prefix + " Removing items in §a30 seconds§7.");
+			Bukkit.broadcastMessage(prefix + "Removing items in §a30 seconds§7.");
 		}else if(time == 895) {
-			Bukkit.broadcastMessage(prefix + " Removing items in §a5 seconds§7.");
+			Bukkit.broadcastMessage(prefix + "Removing items in §a5 seconds§7.");
 		}else if(time == 896) {
-			Bukkit.broadcastMessage(prefix + " Removing items in §24 seconds§7.");
+			Bukkit.broadcastMessage(prefix + "Removing items in §24 seconds§7.");
 		}else if(time == 897) {
-			Bukkit.broadcastMessage(prefix + " Removing items in §e3 seconds§7.");
+			Bukkit.broadcastMessage(prefix + "Removing items in §e3 seconds§7.");
 		}else if(time == 898) {
-			Bukkit.broadcastMessage(prefix + " Removing items in §c2 seconds§7.");
+			Bukkit.broadcastMessage(prefix + "Removing items in §c2 seconds§7.");
 		}else if(time == 899) {
-			Bukkit.broadcastMessage(prefix + " Removing items in §41 second§7.");
+			Bukkit.broadcastMessage(prefix + "Removing items in §41 second§7.");
 		}else if(time == 900) {
 			time = 0;
 			int worldentities = 0;

@@ -1292,11 +1292,18 @@ public class ScoreboardCLS implements Listener{
 		}.runTaskTimer(Main.instance, delay, periodsb);
 		
 		new BukkitRunnable() {
+
+			@Override
+			public void run() {
+				su.clearlag();
+			}
+		}.runTaskTimer(Main.instance, delay, periodot);
+		
+		new BukkitRunnable() {
 			@Override
 			public void run() {
 				APIs api = new APIs();
 				su.Serverrestarter();
-				su.clearlag();
 				cacheTimer++;
 				if(cacheTimer == 0) {
 					cacheTimer = 0;
