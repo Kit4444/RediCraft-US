@@ -38,7 +38,6 @@ import at.mlps.rc.cmd.WorkBenchCMD;
 import at.mlps.rc.cmd.Setspawn;
 import at.mlps.rc.event.Blocker;
 import at.mlps.rc.event.JoinQuitEvents;
-import at.mlps.rc.event.KilledStats;
 import at.mlps.rc.event.ScoreboardCLS;
 import at.mlps.rc.event.Serverteleporter;
 import at.mlps.rc.mysql.lpb.MySQL;
