@@ -15,6 +15,7 @@ import java.util.Properties;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.libs.org.apache.commons.io.IOUtils;
+import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -354,6 +355,7 @@ public class APIs {
 	
 	public int getPlayerPing(Player p) {
 		int ping = -1;
+		ping = ((CraftPlayer)p).getHandle().e;
 		return ping;
 	}
 }
