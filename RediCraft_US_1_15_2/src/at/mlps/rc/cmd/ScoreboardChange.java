@@ -108,7 +108,7 @@ public class ScoreboardChange implements CommandExecutor{
 					}
 				}
 			}else {
-				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ง7/sb <off|default|players|job|redifm|location|admin|data>");
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ยง7/sb <off|default|players|job|redifm|location|admin|data>");
 			}
 		}
 		return false;

@@ -19,7 +19,7 @@ public class TimeCMD implements CommandExecutor{
 			APIs api = new APIs();
 			Player p = (Player)sender;
 			if(args.length == 0) {
-				p.sendMessage(api.prefix("main") + "ง7Usage: /time <set|add|remove|info> [time]");
+				p.sendMessage(api.prefix("main") + "ยง7Usage: /time <set|add|remove|info> [time]");
 			}else if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("info")) {
 					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.time.info").replace("%world", p.getWorld().getName()).replace("%time", String.valueOf(p.getWorld().getTime())));

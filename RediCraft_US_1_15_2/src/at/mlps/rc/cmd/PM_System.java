@@ -36,7 +36,7 @@ public class PM_System implements CommandExecutor{
 			Player p = (Player)sender;
 			if(cmd.getName().equalsIgnoreCase("msg")) {
 				if(args.length == 0) {
-					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ง7 /msg <Player> <Message>");
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ยง7 /msg <Player> <Message>");
 				}else {
 					Player p2 = Bukkit.getPlayerExact(args[0]);
 					if(p2 == null) {
@@ -54,8 +54,8 @@ public class PM_System implements CommandExecutor{
 							if(hasPMBlocked(p2)) {
 								if(p.hasPermission("mlps.bypassbpm")) {
 									api.sendMSGReady(p, "cmd.msg.bypassmsg");
-									p.sendMessage(prefix() + api.returnStringReady(p, "cmd.msg.you") + " ง7ป " + p2.getDisplayName() + "ง7: " + ChatColor.translateAlternateColorCodes('&', msg));
-									p2.sendMessage(prefix() + p.getDisplayName() + " ง7ป " + api.returnStringReady(p2, "cmd.msg.you") + "ง7: " + ChatColor.translateAlternateColorCodes('&', msg));
+									p.sendMessage(prefix() + api.returnStringReady(p, "cmd.msg.you") + " ยง7ยง " + p2.getDisplayName() + "ยง7: " + ChatColor.translateAlternateColorCodes('&', msg));
+									p2.sendMessage(prefix() + p.getDisplayName() + " ยง7ยง " + api.returnStringReady(p2, "cmd.msg.you") + "ยง7: " + ChatColor.translateAlternateColorCodes('&', msg));
 									cfg.set(p.getName(), p2.getName());
 									cfg.set(p2.getName(), p.getName());
 									try {
@@ -67,8 +67,8 @@ public class PM_System implements CommandExecutor{
 									api.sendMSGReady(p, "cmd.msg.playerblocked");
 								}
 							}else {
-								p.sendMessage(prefix() + api.returnStringReady(p, "cmd.msg.you") + " ง7ป " + p2.getDisplayName() + "ง7: " + ChatColor.translateAlternateColorCodes('&', msg));
-								p2.sendMessage(prefix() + p.getDisplayName() + " ง7ป " + api.returnStringReady(p2, "cmd.msg.you") + "ง7: " + ChatColor.translateAlternateColorCodes('&', msg));
+								p.sendMessage(prefix() + api.returnStringReady(p, "cmd.msg.you") + " ยง7ยง " + p2.getDisplayName() + "ยง7: " + ChatColor.translateAlternateColorCodes('&', msg));
+								p2.sendMessage(prefix() + p.getDisplayName() + " ยง7ยง " + api.returnStringReady(p2, "cmd.msg.you") + "ยง7: " + ChatColor.translateAlternateColorCodes('&', msg));
 								cfg.set(p.getName(), p2.getName());
 								cfg.set(p2.getName(), p.getName());
 								try {
@@ -82,7 +82,7 @@ public class PM_System implements CommandExecutor{
 				}
 			}else if(cmd.getName().equalsIgnoreCase("r")) {
 				if(args.length == 0) {
-					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ง7 /r <Message>");
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ยง7 /r <Message>");
 				}else {
 					YamlConfiguration cfg = YamlConfiguration.loadConfiguration(msgf);
 					Player p2 = Bukkit.getPlayer(cfg.getString(p.getName()));
@@ -97,8 +97,8 @@ public class PM_System implements CommandExecutor{
 						if(hasPMBlocked(p2)) {
 							if(p.hasPermission("mlps.bypassbpm")) {
 								api.sendMSGReady(p, "cmd.msg.bypassmsg");
-								p.sendMessage(prefix() + api.returnStringReady(p, "cmd.msg.you") + " ง7ป " + p2.getDisplayName() + "ง7: " + ChatColor.translateAlternateColorCodes('&', msg));
-								p2.sendMessage(prefix() + p.getDisplayName() + " ง7ป " + api.returnStringReady(p2, "cmd.msg.you") + "ง7: " + ChatColor.translateAlternateColorCodes('&', msg));
+								p.sendMessage(prefix() + api.returnStringReady(p, "cmd.msg.you") + " ยง7ยง " + p2.getDisplayName() + "ยง7: " + ChatColor.translateAlternateColorCodes('&', msg));
+								p2.sendMessage(prefix() + p.getDisplayName() + " ยง7ยง " + api.returnStringReady(p2, "cmd.msg.you") + "ยง7: " + ChatColor.translateAlternateColorCodes('&', msg));
 								cfg.set(p.getName(), p2.getName());
 								cfg.set(p2.getName(), p.getName());
 								try {
@@ -110,8 +110,8 @@ public class PM_System implements CommandExecutor{
 								api.sendMSGReady(p, "cmd.msg.playerblocked");
 							}
 						}else {
-							p.sendMessage(prefix() + api.returnStringReady(p, "cmd.msg.you") + " ง7ป " + p2.getDisplayName() + "ง7: " + ChatColor.translateAlternateColorCodes('&', msg));
-							p2.sendMessage(prefix() + p.getDisplayName() + " ง7ป " + api.returnStringReady(p2, "cmd.msg.you") + "ง7: " + ChatColor.translateAlternateColorCodes('&', msg));
+							p.sendMessage(prefix() + api.returnStringReady(p, "cmd.msg.you") + " ยง7ยง " + p2.getDisplayName() + "ยง7: " + ChatColor.translateAlternateColorCodes('&', msg));
+							p2.sendMessage(prefix() + p.getDisplayName() + " ยง7ยง " + api.returnStringReady(p2, "cmd.msg.you") + "ยง7: " + ChatColor.translateAlternateColorCodes('&', msg));
 						}
 					}
 				}

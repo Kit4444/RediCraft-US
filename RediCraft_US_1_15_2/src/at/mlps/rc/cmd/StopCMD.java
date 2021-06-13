@@ -32,7 +32,7 @@ public class StopCMD implements CommandExecutor, Listener{
 		APIs api = new APIs();
 		if(args.length == 0) {
 			if(sender.hasPermission("mlps.admin.stopserver")) {
-				sender.sendMessage(api.prefix("main") + "§7Usage: /stop <Reason>");
+				sender.sendMessage(api.prefix("main") + "Â§7Usage: /stop <Reason>");
 			}else {
 				api.noPerm((Player) sender);
 			}
@@ -43,9 +43,9 @@ public class StopCMD implements CommandExecutor, Listener{
 			}
 			String reason = sb.toString().trim();
 			if(sender.hasPermission("mlps.admin.stopserver")) {
-				sender.sendMessage(api.prefix("main") + "§cServer will stop now!");
+				sender.sendMessage(api.prefix("main") + "Â§cServer will stop now!");
 				IStopBool = true;
-				Bukkit.broadcastMessage(api.prefix("main") + "§4The server will be shutdown now.\n§4You will be redirected to the Lobby!\n \n§7Reason: §a" + reason);
+				Bukkit.broadcastMessage(api.prefix("main") + "Â§4The server will be shutdown now.\nÂ§4You will be redirected to the Lobby!\n \nÂ§7Reason: Â§a" + reason);
 				for(Player all : Bukkit.getOnlinePlayers()) {
 					ByteArrayOutputStream b = new ByteArrayOutputStream();
 					DataOutputStream out = new DataOutputStream(b);
@@ -53,7 +53,7 @@ public class StopCMD implements CommandExecutor, Listener{
 						out.writeUTF("Connect");
 						out.writeUTF("lobby");
 					}catch (Exception ex) {
-						sender.sendMessage(api.prefix("main") + "§cPlease try it later again.");
+						sender.sendMessage(api.prefix("main") + "Â§cPlease try it later again.");
 						ex.printStackTrace();
 					}
 					all.sendPluginMessage(this.plugin, "BungeeCord", b.toByteArray());
@@ -76,7 +76,7 @@ public class StopCMD implements CommandExecutor, Listener{
 		if(IStopBool == false) {
 			e.allow();
 		}else {
-			e.disallow(Result.KICK_OTHER, "§aRedi§cCraft\n \n§7Server will be shutdown in a few seconds.\n§7Try it in a minute again.");
+			e.disallow(Result.KICK_OTHER, "Â§aRediÂ§cCraft\n \nÂ§7Server will be shutdown in a few seconds.\nÂ§7Try it in a minute again.");
 		}
 	}
 }

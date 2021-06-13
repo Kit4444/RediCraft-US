@@ -38,6 +38,7 @@ import at.mlps.rc.cmd.WorkBenchCMD;
 import at.mlps.rc.cmd.Setspawn;
 import at.mlps.rc.event.Blocker;
 import at.mlps.rc.event.JoinQuitEvents;
+import at.mlps.rc.event.KilledStats;
 import at.mlps.rc.event.ScoreboardCLS;
 import at.mlps.rc.event.Serverteleporter;
 import at.mlps.rc.mysql.lpb.MySQL;
@@ -152,6 +153,7 @@ public class Manager {
 		pl.registerEvents(new Serverupdater(), Main.instance);
 		pl.registerEvents(new ChannelManager(), Main.instance);
 		pl.registerEvents(new Vanish_CMD(), Main.instance);
+		//pl.registerEvents(new KilledStats(), Main.instance);
 		
 		APIs api = new APIs();
 		api.loadConfig();

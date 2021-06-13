@@ -49,10 +49,10 @@ public class ChatClear implements CommandExecutor{
 						api.noPerm(p);
 					}
 				}else {
-					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ง7 /cc <private|public|anonymous>");
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ยง7 /cc <private|public|anonymous>");
 				}
 			}else {
-				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ง7 /cc <private|public|anonymous>");
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ยง7 /cc <private|public|anonymous>");
 			}
 		}
 		return false;

@@ -36,8 +36,8 @@ public class Setspawn implements CommandExecutor{
 			Player p = (Player)sender;
 			if(args.length == 0) {
 				if(p.hasPermission("mlps.admin.setspawn")) {
-					p.sendMessage(api.prefix("main") + "§7Usage: /setspawn <type>");
-					p.sendMessage("§7Default types: plotworld, freebuild, nether, theend");
+					p.sendMessage(api.prefix("main") + "Â§7Usage: /setspawn <type>");
+					p.sendMessage("Â§7Default types: plotworld, freebuild, nether, theend");
 				}else {
 					api.noPerm(p);
 				}
@@ -80,15 +80,15 @@ public class Setspawn implements CommandExecutor{
 		try {
 			cfg.save(file);
 			if(type.equalsIgnoreCase("plotworld")) {
-				p.sendMessage(api.prefix("main") + "§aA default Spawn has been saved to disk.");
+				p.sendMessage(api.prefix("main") + "Â§aA default Spawn has been saved to disk.");
 			}else if(type.equalsIgnoreCase("freebuild")) {
-				p.sendMessage(api.prefix("main") + "§aA default Spawn has been saved to disk.");
+				p.sendMessage(api.prefix("main") + "Â§aA default Spawn has been saved to disk.");
 			}else if(type.equalsIgnoreCase("nether")) {
-				p.sendMessage(api.prefix("main") + "§aA default Spawn has been saved to disk.");
+				p.sendMessage(api.prefix("main") + "Â§aA default Spawn has been saved to disk.");
 			}else if(type.equalsIgnoreCase("theend")) {
-				p.sendMessage(api.prefix("main") + "§aA default Spawn has been saved to disk.");
+				p.sendMessage(api.prefix("main") + "Â§aA default Spawn has been saved to disk.");
 			}else {
-				p.sendMessage(api.prefix("main") + "§aA spawn has been saved to disk.");
+				p.sendMessage(api.prefix("main") + "Â§aA spawn has been saved to disk.");
 			}
 		}catch (IOException e) {
 			e.printStackTrace();

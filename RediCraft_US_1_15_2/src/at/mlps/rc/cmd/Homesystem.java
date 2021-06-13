@@ -46,7 +46,7 @@ public class Homesystem implements CommandExecutor, Listener{
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		APIs api = new APIs();
 		if(!(sender instanceof Player)) {
-			Bukkit.getConsoleSender().sendMessage(api.prefix("main") + "§cBitte nur ingame benutzen.");
+			Bukkit.getConsoleSender().sendMessage(api.prefix("main") + "Â§cBitte nur ingame benutzen.");
 		}else {
 			Player p = (Player)sender;
 			String uuid = p.getUniqueId().toString();
@@ -55,13 +55,13 @@ public class Homesystem implements CommandExecutor, Listener{
 					String home = args[0];
 					sethome(p, home.toLowerCase(), home);
 				}else{
-					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7 /sethome <Homename>");
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "Â§7 /sethome <Homename>");
 				}
 			}else if(cmd.getName().equalsIgnoreCase("delhome")) {
 				if(args.length == 1) {
 					delHome(p, args[0]);
 				}else {
-					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7 /delhome <Homename>");
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "Â§7 /delhome <Homename>");
 				}
 			}else if(cmd.getName().equalsIgnoreCase("home")) {
 				if(args.length == 1) {
@@ -81,18 +81,18 @@ public class Homesystem implements CommandExecutor, Listener{
 						api.sendMSGReady(p, "cmd.home.nothome");
 					}
 				}else {
-					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7 /home <Homename>");
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "Â§7 /home <Homename>");
 				}
 			}else if(cmd.getName().equalsIgnoreCase("listhomes")) {
 				try {
 					PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_homesystem WHERE uuid = ?");
 					ps.setString(1, uuid);
 					ResultSet rs = ps.executeQuery();
-					p.sendMessage("§7========[§aHomelist§7]========");
+					p.sendMessage("Â§7========[Â§aHomelistÂ§7]========");
 					int i = 0;
 					while(rs.next()) {
 						i++;
-						p.sendMessage("§7ID: §a" + rs.getInt("ID") + " §7| Homename: §a" + rs.getString("cshn") + " §7| Date: §a" + rs.getString("datetime") + " §7| Server: §a" + rs.getString("server"));
+						p.sendMessage("Â§7ID: Â§a" + rs.getInt("ID") + " Â§7| Homename: Â§a" + rs.getString("cshn") + " Â§7| Date: Â§a" + rs.getString("datetime") + " Â§7| Server: Â§a" + rs.getString("server"));
 					}
 					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.listhomes.homes").replace("%homecount", String.valueOf(i)));
 				}catch (SQLException e) {
@@ -115,7 +115,7 @@ public class Homesystem implements CommandExecutor, Listener{
 				try {
 					if(Main.mysql.isInDatabase("redicore_homesystem", hm)) {
 						api.sendMSGReady(p, "cmd.sethome.homeexistsalready");
-						//p.sendMessage(api.prefix("main") + "§7Dieses Home existiert bereits. Lösche es oder verwende einen anderen Namen.");
+						//p.sendMessage(api.prefix("main") + "Â§7Dieses Home existiert bereits. LÂ§sche es oder verwende einen anderen Namen.");
 					}else {
 						Location loc = p.getLocation();
 						PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO redicore_homesystem SET uuid = ?, name = ?, x = ?, y = ?, z = ?, yaw = ?, pitch = ?, world = ?, cshn = ?, home = ?, server = ?, datetime = ?");
@@ -134,7 +134,7 @@ public class Homesystem implements CommandExecutor, Listener{
 						ps.executeUpdate();
 						ps.closeOnCompletion();
 						countHome(p, true);
-						//p.sendMessage(api.prefix("main") + "§7Home gesetzt! Home: §a" + homename + "§7 | Homecount: §a" + getHomeCount(p));
+						//p.sendMessage(api.prefix("main") + "Â§7Home gesetzt! Home: Â§a" + homename + "Â§7 | Homecount: Â§a" + getHomeCount(p));
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.sethome.successfully").replace("%home", homename).replace("%count", String.valueOf(getHomeCount(p))));
 					}
 				}catch (SQLException e) {
@@ -144,7 +144,7 @@ public class Homesystem implements CommandExecutor, Listener{
 				try {
 					if(Main.mysql.isInDatabase("redicore_homesystem", hm)) {
 						api.sendMSGReady(p, "cmd.sethome.homeexistsalready");
-						//p.sendMessage(api.prefix("main") + "§7Dieses Home existiert bereits. Lösche es oder verwende einen anderen Namen.");
+						//p.sendMessage(api.prefix("main") + "Â§7Dieses Home existiert bereits. LÂ§sche es oder verwende einen anderen Namen.");
 					}else {
 						Location loc = p.getLocation();
 						PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO redicore_homesystem SET uuid = ?, name = ?, x = ?, y = ?, z = ?, yaw = ?, pitch = ?, world = ?, cshn = ?, home = ?, server = ?, datetime = ?");
@@ -165,8 +165,8 @@ public class Homesystem implements CommandExecutor, Listener{
 						countHome(p, true);
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.sethome.limitexceeded.bypass").replace("%maxhomes", String.valueOf(maxhomes)));
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.sethome.successfully").replace("%home", homename).replace("%count", String.valueOf(getHomeCount(p))));
-						//p.sendMessage(api.prefix("main") + "§c10 Home limit überschritten - Übersprungen durch Berechtigung.");
-						//p.sendMessage(api.prefix("main") + "§7Home gesetzt! Home: §a" + homename + "§7 | Homecount: §a" + getHomeCount(p));
+						//p.sendMessage(api.prefix("main") + "Â§c10 Home limit Â§berschritten - Â§bersprungen durch Berechtigung.");
+						//p.sendMessage(api.prefix("main") + "Â§7Home gesetzt! Home: Â§a" + homename + "Â§7 | Homecount: Â§a" + getHomeCount(p));
 						//p.sendMessage(api.prefix("main") + LanguageHandler.returnStringReady(p, "cmd.home.set.successfully").replace("%home", homename).replace("%count", homecount));
 					}
 				}catch (SQLException e) {
@@ -178,7 +178,7 @@ public class Homesystem implements CommandExecutor, Listener{
 				try {
 					if(Main.mysql.isInDatabase("redicore_homesystem", hm)) {
 						api.sendMSGReady(p, "cmd.sethome.homeexistsalready");
-						//p.sendMessage(api.prefix("main") + "§7Dieses Home existiert bereits. Lösche es oder verwende einen anderen Namen.");
+						//p.sendMessage(api.prefix("main") + "Â§7Dieses Home existiert bereits. LÂ§sche es oder verwende einen anderen Namen.");
 					}else {
 						Location loc = p.getLocation();
 						PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO redicore_homesystem SET uuid = ?, name = ?, x = ?, y = ?, z = ?, yaw = ?, pitch = ?, world = ?, cshn = ?, home = ?, server = ?, datetime = ?");
@@ -198,7 +198,7 @@ public class Homesystem implements CommandExecutor, Listener{
 						ps.closeOnCompletion();
 						countHome(p, true);
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.sethome.successfully").replace("%home", homename).replace("%count", String.valueOf(getHomeCount(p))));
-						//p.sendMessage(api.prefix("main") + "§7Home gesetzt! Home: §a" + homename + "§7 | Homecount: §a" + getHomeCount(p));
+						//p.sendMessage(api.prefix("main") + "Â§7Home gesetzt! Home: Â§a" + homename + "Â§7 | Homecount: Â§a" + getHomeCount(p));
 						//p.sendMessage(api.prefix("main") + LanguageHandler.returnStringReady(p, "cmd.home.set.successfully").replace("%home", homename).replace("%count", homecount));
 					}
 				}catch (SQLException e) {
@@ -206,7 +206,7 @@ public class Homesystem implements CommandExecutor, Listener{
 				}
 			}else {
 				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.sethome.limitexceeded.nobypass").replace("%maxhomes", String.valueOf(maxhomes)));
-				//p.sendMessage(api.prefix("main") + "§cDu hast bereits " + maxhomes + " Homes. Lösche ein nicht gebrauchtes Home, um dieses zu setzen.");
+				//p.sendMessage(api.prefix("main") + "Â§cDu hast bereits " + maxhomes + " Homes. LÂ§sche ein nicht gebrauchtes Home, um dieses zu setzen.");
 			}
 		}
 	}
@@ -226,10 +226,10 @@ public class Homesystem implements CommandExecutor, Listener{
 				ps.executeUpdate();
 				countHome(p, false);
 				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.delhome.successfully").replace("%home", homename));
-				//p.sendMessage(api.prefix("main") + "§7Home §a" + homename + " §7wurde erfolgreich gelöscht.");
+				//p.sendMessage(api.prefix("main") + "Â§7Home Â§a" + homename + " Â§7wurde erfolgreich gelÂ§scht.");
 			}else {
 				api.sendMSGReady(p, "cmd.delhome.notexisting");
-				//p.sendMessage(api.prefix("main") + "§7Dieses Home existiert nicht.");
+				//p.sendMessage(api.prefix("main") + "Â§7Dieses Home existiert nicht.");
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();

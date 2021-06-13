@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.api.PerformanceMonitor;
-import net.minecraft.server.v1_16_R3.MinecraftServer;
+import net.minecraft.server.MinecraftServer;
 
 public class ServerhealthCMD implements CommandExecutor{
 	
@@ -22,7 +22,7 @@ public class ServerhealthCMD implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		APIs api = new APIs();
 		if(!(sender instanceof Player)) {
-			sender.sendMessage(api.prefix("main") + "ง7Bitte nur inGame ausführen!");
+			sender.sendMessage(api.prefix("main") + "ยง7Bitte nur inGame ausfยงhren!");
 		}else {
 			Player p = (Player)sender;
 			Runtime runtime = Runtime.getRuntime();
@@ -30,25 +30,25 @@ public class ServerhealthCMD implements CommandExecutor{
 			String stime = time.format(new Date());
 			SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
 			String sdate = date.format(new Date());
-			StringBuilder sb = new StringBuilder("ง7TPS from last 1m งa" );
+			StringBuilder sb = new StringBuilder("ยง7TPS from last 1m ยงa" );
 			PerformanceMonitor cpu = new PerformanceMonitor();
 			DecimalFormat df = new DecimalFormat("#.##");
 			for(double tps : MinecraftServer.getServer().recentTps) {
 				sb.append(format(tps));
-				sb.append( "ง7,งa " );
+				sb.append( "ยง7,ยงa " );
 			}
 			if(p.hasPermission("mlps.admin.checkServer")) {
-				p.sendMessage("ง7งm================ง7[งcServerinfoง7]งm================");
-				p.sendMessage("ง7operating System: ง9" + System.getProperty("os.name"));
-				p.sendMessage("ง7Architecture: ง9" + System.getProperty("os.arch"));
-				p.sendMessage("ง7Java Vendor: ง9" + System.getProperty("java.vendor"));
-				p.sendMessage("ง7Java Version: ง9" + System.getProperty("java.version"));
-				p.sendMessage("ง7RAM: งa" + (runtime.totalMemory() - runtime.freeMemory()) / 1048576L + "ง8MB ง7/ งc" + runtime.totalMemory() / 1048576L + "ง8MB ง7(งe" + runtime.freeMemory() / 1048576L + "ง8MB freeง7)");
-				p.sendMessage("ง7CPU-Cores: ง9" + runtime.availableProcessors() + " ง7Cores");
-				p.sendMessage("ง7CPU-Load: ง9" + df.format(cpu.getCpuUsage()));
-				p.sendMessage("ง7IP + Port: ง9" + Bukkit.getIp() + "ง7:ง9" + Bukkit.getPort());
-				p.sendMessage("ง7Servername + ID: ง9" + api.getServerName() + " ง7/ง9 " + api.getServerId());
-				p.sendMessage("ง7Date & Time: ง9" + sdate + " ง7/ง9 " + stime);
+				p.sendMessage("ยง7ยงm================ยง7[ยงcServerinfoยง7]ยงm================");
+				p.sendMessage("ยง7operating System: ยง9" + System.getProperty("os.name"));
+				p.sendMessage("ยง7Architecture: ยง9" + System.getProperty("os.arch"));
+				p.sendMessage("ยง7Java Vendor: ยง9" + System.getProperty("java.vendor"));
+				p.sendMessage("ยง7Java Version: ยง9" + System.getProperty("java.version"));
+				p.sendMessage("ยง7RAM: ยงa" + (runtime.totalMemory() - runtime.freeMemory()) / 1048576L + "ยง8MB ยง7/ ยงc" + runtime.totalMemory() / 1048576L + "ยง8MB ยง7(ยงe" + runtime.freeMemory() / 1048576L + "ยง8MB freeยง7)");
+				p.sendMessage("ยง7CPU-Cores: ยง9" + runtime.availableProcessors() + " ยง7Cores");
+				p.sendMessage("ยง7CPU-Load: ยง9" + df.format(cpu.getCpuUsage()));
+				p.sendMessage("ยง7IP + Port: ยง9" + Bukkit.getIp() + "ยง7:ยง9" + Bukkit.getPort());
+				p.sendMessage("ยง7Servername + ID: ยง9" + api.getServerName() + " ยง7/ยง9 " + api.getServerId());
+				p.sendMessage("ยง7Date & Time: ยง9" + sdate + " ยง7/ยง9 " + stime);
 				String str = sb.substring(0, sb.length() - 1);
 				String str2 = str.substring(0, 28);
 				p.sendMessage(str2);

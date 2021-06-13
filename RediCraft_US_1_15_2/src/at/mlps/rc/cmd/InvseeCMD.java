@@ -35,7 +35,7 @@ public class InvseeCMD implements CommandExecutor{
 					}
 				}
 			}else {
-				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " ง7/invsee <Name>");
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " ยง7/invsee <Name>");
 			}
 		}
 		return true;

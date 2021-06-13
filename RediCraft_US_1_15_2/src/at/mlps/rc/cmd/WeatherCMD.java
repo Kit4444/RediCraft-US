@@ -19,7 +19,7 @@ public class WeatherCMD implements CommandExecutor{
 			APIs api = new APIs();
 			Player p = (Player)sender;
 			if(args.length == 0) {
-				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ง7 /weather <clear|rain|thunder> [time in seconds]");
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ยง7 /weather <clear|rain|thunder> [time in seconds]");
 			}else if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("clear")) {
 					if(p.hasPermission("mlps.setweather")) {
@@ -46,7 +46,7 @@ public class WeatherCMD implements CommandExecutor{
 						api.noPerm(p);
 					}
 				}else {
-					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ง7 /weather <clear|rain|thunder> [time in seconds]");
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ยง7 /weather <clear|rain|thunder> [time in seconds]");
 				}
 			}else if(args.length == 2) {
 				if(args[0].equalsIgnoreCase("rain")) {
@@ -70,7 +70,7 @@ public class WeatherCMD implements CommandExecutor{
 						api.noPerm(p);
 					}
 				}else {
-					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ง7 /weather <clear|rain|thunder> [time in seconds]");
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ยง7 /weather <clear|rain|thunder> [time in seconds]");
 				}
 			}
 		}

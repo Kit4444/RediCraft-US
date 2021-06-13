@@ -21,9 +21,9 @@ import net.milkbowl.vault.economy.Economy;
 public class Main extends JavaPlugin implements Listener{
 	
 	static APIs api = new APIs();
-	public static String mysqlprefix = "§eMySQL §7- ";
+	public static String mysqlprefix = "Â§eMySQL Â§7- ";
 	public static MySQL mysql;
-	public static String consolesend = api.prefix("main") + "§cPlease use this command ingame!";
+	public static String consolesend = api.prefix("main") + "Â§cPlease use this command ingame!";
 	public static ArrayList<String> serverlist = new ArrayList<>();
 	public static Main instance;
 	static File file = new File("plugins/RCUSS");
@@ -64,7 +64,7 @@ public class Main extends JavaPlugin implements Listener{
 			Bukkit.getServicesManager().register(Economy.class, new Vault(), Bukkit.getPluginManager().getPlugin("Vault"), ServicePriority.Normal);
 		}
 		UpdateOnline(true);
-		Bukkit.getConsoleSender().sendMessage(api.prefix("main") + "§aPlugin wurde geladen.");
+		Bukkit.getConsoleSender().sendMessage(api.prefix("main") + "Â§aPlugin wurde geladen.");
 	}
 	
 	public void onDisable() {
@@ -76,7 +76,7 @@ public class Main extends JavaPlugin implements Listener{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		Bukkit.getConsoleSender().sendMessage(api.prefix("main") + "§cPlugin wurde gestoppt");
+		Bukkit.getConsoleSender().sendMessage(api.prefix("main") + "Â§cPlugin wurde gestoppt");
 	}
 	
 	private void registerMisc() {

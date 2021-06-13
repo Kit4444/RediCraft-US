@@ -23,13 +23,13 @@ public class TPA_System implements CommandExecutor{
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(!(sender instanceof Player)) {
-            Bukkit.getConsoleSender().sendMessage("§cBitte ingame ausführen.");
+            Bukkit.getConsoleSender().sendMessage("Â§cBitte ingame ausfÂ§hren.");
         }else {
         	APIs api = new APIs();
             Player p = (Player)sender;
             if(cmd.getName().equalsIgnoreCase("tpa")) {
                 if(args.length == 0) {
-                    p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7/tpa <Player>");
+                    p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "Â§7/tpa <Player>");
                 }else if(args.length == 1) {
                     Player p2 = Bukkit.getPlayerExact(args[0]);
                     if(p2 == null) {
@@ -50,11 +50,11 @@ public class TPA_System implements CommandExecutor{
                         }
                     }
                 }else {
-                	p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7/tpa <Player>");
+                	p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "Â§7/tpa <Player>");
                 }
             }else if(cmd.getName().equalsIgnoreCase("tpahere")) {
             	if(args.length == 0) {
-                    p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7/tpahere <Player>");
+                    p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "Â§7/tpahere <Player>");
                 }else if(args.length == 1) {
                     Player p2 = Bukkit.getPlayerExact(args[0]);
                     if(p2 == null) {
@@ -75,7 +75,7 @@ public class TPA_System implements CommandExecutor{
                         }
                     }
                 }else {
-                	p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7/tpa <Player>");
+                	p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "Â§7/tpa <Player>");
                 }
             }else if(cmd.getName().equalsIgnoreCase("tpaccept")) {
                 if(tprequests.containsKey(p.getUniqueId())) {

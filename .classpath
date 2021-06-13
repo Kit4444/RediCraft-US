@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="RediCraft_US_1_15_2/src"/>
+	<classpathentry kind="lib" path="C:/Users/Newt/Documents/Workspace/API/Minecraft_Deps/Jobs4.17.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Newt/Documents/Workspace/API/Minecraft_Deps/PermissionsEx-1.23.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Newt/Documents/Workspace/API/Minecraft_Deps/spigot117.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Newt/Documents/Workspace/API/Minecraft_Deps/Vault.jar"/>
+	<classpathentry kind="output" path="RediCraft_US_1_15_2/bin"/>
+</classpath>

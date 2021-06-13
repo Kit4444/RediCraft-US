@@ -46,10 +46,10 @@ public class TP_Command implements CommandExecutor {
 							p.teleport(loc);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.tp.location").replace("%x", s_x).replace("%y", s_y).replace("%z", s_z));
 						}else {
-							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ง7/tp <Player> | /tp <x> <y> <z>");
+							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ยง7/tp <Player> | /tp <x> <y> <z>");
 						}
 					}else {
-						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ง7/tp <Player> | /tp <x> <y> <z>");
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ยง7/tp <Player> | /tp <x> <y> <z>");
 					}
 				}else {
 					api.noPerm(p);
@@ -70,7 +70,7 @@ public class TP_Command implements CommandExecutor {
 							api.sendMSGReady(p, "nameexceedslimit");
 						}
 					}else {
-						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ง7/tphere <Player>");
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ยง7/tphere <Player>");
 					}
 				}else {
 					api.noPerm(p);

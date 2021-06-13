@@ -33,27 +33,27 @@ public class Serverteleporter implements Listener, CommandExecutor{
 		plugin = m;
 	}
 	
-	public static String title = "§aServer§cNavigator";
-	static String dailyrew = "§aDaily Rewards";
-	static String spawn = "§6Lobby";
-	static String skyblock = "§7Sky§2Block";
-	static String creative = "§eCreative";
-	static String survival = "§cSurvival";
-	static String towny = "§6Towny";
-	static String farmserver = "§5Farmserver";
-	static String bauserver = "§bStaffserver";
-	static String gameslobby = "§dGameslobby";
+	public static String title = "Â§aServerÂ§cNavigator";
+	static String dailyrew = "Â§aDaily Rewards";
+	static String spawn = "Â§6Lobby";
+	static String skyblock = "Â§7SkyÂ§2Block";
+	static String creative = "Â§eCreative";
+	static String survival = "Â§cSurvival";
+	static String towny = "Â§6Towny";
+	static String farmserver = "Â§5Farmserver";
+	static String bauserver = "Â§bStaffserver";
+	static String gameslobby = "Â§dGameslobby";
 	
-	static String wt_inventory = "§aWorld§cTeleporter";
-	static String wt_freebuild = "§aFreebuild";
-	static String wt_overworld = "§aOverworld";
-	static String wt_plotworld = "§aPlotworld";
-	static String wt_theend = "§5The End";
-	static String wt_nether = "§cNether";
+	static String wt_inventory = "Â§aWorldÂ§cTeleporter";
+	static String wt_freebuild = "Â§aFreebuild";
+	static String wt_overworld = "Â§aOverworld";
+	static String wt_plotworld = "Â§aPlotworld";
+	static String wt_theend = "Â§5The End";
+	static String wt_nether = "Â§cNether";
 	
-	static String locked = " §7- §4locked";
-	static String monitored = " §7- §9monitoring";
-	static String offline = " §7- §eoffline";
+	static String locked = " Â§7- Â§4locked";
+	static String monitored = " Â§7- Â§9monitoring";
+	static String offline = " Â§7- Â§eoffline";
 	
 	static File spawnfile = new File("plugins/RCUSS/spawn.yml");
 	
@@ -61,25 +61,25 @@ public class Serverteleporter implements Listener, CommandExecutor{
 	public static void mainnavi(Player p) {
 		APIs api = new APIs();
 		Inventory inv = Bukkit.createInventory(null, 9*3, title);
-		inv.setItem(0, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(1, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(3, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(4, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(5, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(6, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(7, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(8, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(9, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(11, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(13, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(15, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(17, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(18, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(19, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(21, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(22, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(23, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(25, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
+		inv.setItem(0, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+		inv.setItem(1, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+		inv.setItem(3, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+		inv.setItem(4, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+		inv.setItem(5, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+		inv.setItem(6, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+		inv.setItem(7, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+		inv.setItem(8, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+		inv.setItem(9, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+		inv.setItem(11, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+		inv.setItem(13, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+		inv.setItem(15, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+		inv.setItem(17, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+		inv.setItem(18, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+		inv.setItem(19, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+		inv.setItem(21, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+		inv.setItem(22, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+		inv.setItem(23, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+		inv.setItem(25, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
 		//inv w/ items
 		inv.setItem(6, api.naviItem(Material.DIAMOND_PICKAXE, creative, "Creative"));
 		inv.setItem(10, api.naviItem(Material.GRASS_BLOCK, skyblock, "SkyBlock"));
@@ -92,7 +92,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 			if(p.hasPermission("mlps.isTeam")) {
 				inv.setItem(26, api.naviItem(Material.WOODEN_AXE, bauserver, "Staffserver"));
 			}else {
-				inv.setItem(26, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
+				inv.setItem(26, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
 			}
 		}else if(api.getServerName().equalsIgnoreCase("Survival")) {
 			inv.setItem(2, api.defItem(Material.EMERALD, 1, wt_inventory)); //dailyrewards
@@ -100,15 +100,15 @@ public class Serverteleporter implements Listener, CommandExecutor{
 			if(p.hasPermission("mlps.isTeam")) {
 				inv.setItem(26, api.naviItem(Material.WOODEN_AXE, bauserver, "Staffserver"));
 			}else {
-				inv.setItem(26, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
+				inv.setItem(26, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
 			}
 		}else {
 			if(p.hasPermission("mlps.isTeam")) {
 				inv.setItem(2, api.naviItem(Material.WOODEN_AXE, bauserver, "Staffserver"));
-				inv.setItem(26, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
+				inv.setItem(26, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
 			}else {
-				inv.setItem(2, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-				inv.setItem(26, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
+				inv.setItem(2, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
+				inv.setItem(26, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "Â§0"));
 			}
 			inv.setItem(12, api.naviItem(Material.RED_BED, gameslobby, "Gameslobby"));
 			inv.setItem(14, api.defItem(Material.NETHER_STAR, 1, spawn)); //spawn
@@ -301,7 +301,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 					api.sendMSGReady(p, "event.worldteleporter.notset");
 				}else {
 					p.teleport(retLoc(cfg, "freebuild"));
-					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§aFreebuild"));
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "Â§aFreebuild"));
 				}
 				e.setCancelled(true);
 				p.closeInventory();
@@ -310,7 +310,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 					api.sendMSGReady(p, "event.worldteleporter.notset");
 				}else {
 					p.teleport(retLoc(cfg, "freebuild"));
-					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§aOverworld"));
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "Â§aOverworld"));
 				}
 				e.setCancelled(true);
 				p.closeInventory();
@@ -319,7 +319,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 					api.sendMSGReady(p, "event.worldteleporter.notset");
 				}else {
 					p.teleport(retLoc(cfg, "nether"));
-					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§cNether"));
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "Â§cNether"));
 				}
 				e.setCancelled(true);
 				p.closeInventory();
@@ -328,7 +328,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 					api.sendMSGReady(p, "event.worldteleporter.notset");
 				}else {
 					p.teleport(retLoc(cfg, "plotworld"));
-					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§aPlotworld"));
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "Â§aPlotworld"));
 				}
 				e.setCancelled(true);
 				p.closeInventory();
@@ -337,7 +337,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 					api.sendMSGReady(p, "event.worldteleporter.notset");
 				}else {
 					p.teleport(retLoc(cfg, "theend"));
-					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "§1The End"));
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.worldteleporter.success").replace("%type", "Â§1The End"));
 				}
 				p.closeInventory();
 				e.setCancelled(true);

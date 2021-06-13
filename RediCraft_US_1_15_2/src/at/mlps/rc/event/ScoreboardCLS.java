@@ -11,7 +11,6 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -54,7 +53,7 @@ public class ScoreboardCLS implements Listener{
 		Objective o = sb.registerNewObjective("aaa", "dummy");
 		
 		APIs api = new APIs();
-		int ping = ((CraftPlayer)p).getHandle().ping;
+		int ping = api.getPlayerPing(p);
 		PermissionUser pu = PermissionsEx.getUser(p);
 		int pusergen = api.getPlayers("BungeeCord", "currPlayers");
 		int pusermax = api.getPlayers("BungeeCord", "maxPlayers");

@@ -40,7 +40,7 @@ public class ChannelManager implements Listener, CommandExecutor{
 			Player p = (Player)sender;
 			APIs api = new APIs();
 			if(args.length == 0) {
-				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " ง7/channel <newChannel|current|list>");
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " ยง7/channel <newChannel|current|list>");
 			}else if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("list")) {
 					StringBuilder sb = new StringBuilder();

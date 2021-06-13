@@ -22,7 +22,7 @@ public class SkullCMD implements CommandExecutor{
 				p.getInventory().addItem(api.skullItem(1, args[0] + "'s Head", args[0]));
 				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.head").replace("%player", args[0]));
 			}else {
-				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " ง7/head <Headname>");
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " ยง7/head <Headname>");
 			}
 		}
 		return true;

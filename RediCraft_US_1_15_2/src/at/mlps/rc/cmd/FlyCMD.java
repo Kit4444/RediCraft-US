@@ -60,7 +60,7 @@ public class FlyCMD implements CommandExecutor, Listener{
 					}
 				}
 			}else {
-				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ง7 /fly [Player]");
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "ยง7 /fly [Player]");
 			}
 		}
 		return false;

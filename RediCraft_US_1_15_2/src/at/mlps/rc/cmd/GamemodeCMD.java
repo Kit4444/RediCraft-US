@@ -21,11 +21,11 @@ public class GamemodeCMD implements CommandExecutor{
 			APIs api = new APIs();
 			if(args.length == 0 ) {
 				if(p.hasPermission("mlps.gamemode.other")) {
-					p.sendMessage(api.prefix("main") + "ง7Usage: /gm* <0|1|2|3> [Player]");
-					p.sendMessage(api.prefix("main") + "ง7* -> งa/gm ง7|งa /gamemode ง7are useable");
+					p.sendMessage(api.prefix("main") + "ยง7Usage: /gm* <0|1|2|3> [Player]");
+					p.sendMessage(api.prefix("main") + "ยง7* -> ยงa/gm ยง7|ยงa /gamemode ยง7are useable");
 				}else if(p.hasPermission("mlps.gamemode.own")) {
-					p.sendMessage(api.prefix("main") + "ง7Usage: /gm* <0|1|2|3>");
-					p.sendMessage(api.prefix("main") + "ง7* -> งa/gm ง7|งa /gamemode ง7are useable");
+					p.sendMessage(api.prefix("main") + "ยง7Usage: /gm* <0|1|2|3>");
+					p.sendMessage(api.prefix("main") + "ยง7* -> ยงa/gm ยง7|ยงa /gamemode ยง7are useable");
 				}else {
 					api.noPerm(p);
 				}
@@ -51,7 +51,7 @@ public class GamemodeCMD implements CommandExecutor{
 						p.setGameMode(GameMode.SPECTATOR);
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.own").replace("%gamemode", "Spectator"));
 					}else {
-						p.sendMessage(api.prefix("main") + "ง7Usage: /gm* <0|1|2|3>");
+						p.sendMessage(api.prefix("main") + "ยง7Usage: /gm* <0|1|2|3>");
 					}
 				}else {
 					api.noPerm(p);
@@ -88,9 +88,9 @@ public class GamemodeCMD implements CommandExecutor{
 				}
 			}else {
 				if(p.hasPermission("mlps.gamemode.other")) {
-					p.sendMessage(api.prefix("main") + "ง7Usage: /gm <0|1|2|3> [Player]");
+					p.sendMessage(api.prefix("main") + "ยง7Usage: /gm <0|1|2|3> [Player]");
 				}else if(p.hasPermission("mlps.gamemode.own")) {
-					p.sendMessage(api.prefix("main") + "ง7Usage: /gm <0|1|2|3>");
+					p.sendMessage(api.prefix("main") + "ยง7Usage: /gm <0|1|2|3>");
 				}else {
 					api.noPerm(p);
 				}

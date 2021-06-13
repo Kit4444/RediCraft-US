@@ -25,7 +25,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.mysql.lb.MySQL;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_16_R3.MinecraftServer;
+import net.minecraft.server.MinecraftServer;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
@@ -84,7 +84,7 @@ public class Serverupdater implements Listener{
 				ps.setInt(5, (int) timestamp);
 				ps.setString(6, stime);
 				ps.setInt(7, (int) ramtotal);
-				ps.setString(8, "1.16.5");
+				ps.setString(8, "1.17");
 				ps.setString(9, newtps);
 				ps.setInt(10, staffs);
 				ps.setBoolean(11, dmap);
@@ -92,9 +92,9 @@ public class Serverupdater implements Listener{
 				ps.setString(13, api.getServerName());
 				ps.executeUpdate();
 				ps.close();
-		    }catch (SQLException e) { e.printStackTrace(); Bukkit.getConsoleSender().sendMessage("§cCan't update DB-Stats."); }
+		    }catch (SQLException e) { e.printStackTrace(); Bukkit.getConsoleSender().sendMessage("Â§cCan't update DB-Stats."); }
 		}else {
-			Bukkit.getConsoleSender().sendMessage("§cDB is not connected.");
+			Bukkit.getConsoleSender().sendMessage("Â§cDB is not connected.");
 		}
 	}
 	
@@ -333,22 +333,24 @@ public class Serverupdater implements Listener{
 		return String.valueOf((tps > 18.0 ? ChatColor.GREEN : (tps > 16.0 ? ChatColor.YELLOW : ChatColor.RED)).toString()) + (tps > 20.0 ? "*" : "") + Math.min((double)Math.round(tps * 100.0) / 100.0, 20.0);
 	}
 	
-	static String prefix = "§aClear§cLag §7» ";
+	static String prefix = "Â§aClearÂ§cLag Â§7Â»";
 	public static int time = 0;
 	
 	
 	public void clearlag() {
 		time++;
-		if(time == 895) {
-			Bukkit.broadcastMessage(prefix + " Removing items in §a5 seconds§7.");
+		if(time == 870) {
+			Bukkit.broadcastMessage(prefix + " Removing items in Â§a30 secondsÂ§7.");
+		}else if(time == 895) {
+			Bukkit.broadcastMessage(prefix + " Removing items in Â§a5 secondsÂ§7.");
 		}else if(time == 896) {
-			Bukkit.broadcastMessage(prefix + " Removing items in §24 seconds§7.");
+			Bukkit.broadcastMessage(prefix + " Removing items in Â§24 secondsÂ§7.");
 		}else if(time == 897) {
-			Bukkit.broadcastMessage(prefix + " Removing items in §e3 seconds§7.");
+			Bukkit.broadcastMessage(prefix + " Removing items in Â§e3 secondsÂ§7.");
 		}else if(time == 898) {
-			Bukkit.broadcastMessage(prefix + " Removing items in §c2 seconds§7.");
+			Bukkit.broadcastMessage(prefix + " Removing items in Â§c2 secondsÂ§7.");
 		}else if(time == 899) {
-			Bukkit.broadcastMessage(prefix + " Removing items in §41 second§7.");
+			Bukkit.broadcastMessage(prefix + " Removing items in Â§41 secondÂ§7.");
 		}else if(time == 900) {
 			time = 0;
 			int worldentities = 0;

@@ -25,15 +25,15 @@ public class Dynmap_CMD implements CommandExecutor{
 			int z = p.getLocation().getBlockZ();
 			String url = "/?worldname=" + mapname + "&mapname=flat&zoom=6&x=" + x + "&y=" + y + "&z=" + z;
 			if(server.equalsIgnoreCase("Creative")) {
-				p.sendMessage(api.prefix("main") + "§aURL§7: http://map.redicraft.eu:21201" + url);
+				p.sendMessage(api.prefix("main") + "Â§aURLÂ§7: http://map.redicraft.eu:21201" + url);
 			}else if(server.equalsIgnoreCase("Survival")) {
-				p.sendMessage(api.prefix("main") + "§aURL§7: http://map.redicraft.eu:21203" + url);
+				p.sendMessage(api.prefix("main") + "Â§aURLÂ§7: http://map.redicraft.eu:21203" + url);
 			}else if(server.equalsIgnoreCase("Farmserver")) {
-				p.sendMessage(api.prefix("main") + "§aURL§7: http://map.redicraft.eu:21205" + url);
+				p.sendMessage(api.prefix("main") + "Â§aURLÂ§7: http://map.redicraft.eu:21205" + url);
 			}else if(server.equalsIgnoreCase("Towny")) {
-				p.sendMessage(api.prefix("main") + "§aURL§7: http://map.redicraft.eu:21214" + url);
+				p.sendMessage(api.prefix("main") + "Â§aURLÂ§7: http://map.redicraft.eu:21214" + url);
 			}else if(server.equalsIgnoreCase("SkyBlock")) {
-				p.sendMessage(api.prefix("main") + "§aURL§7: http://map.redicraft.eu:21204" + url);
+				p.sendMessage(api.prefix("main") + "Â§aURLÂ§7: http://map.redicraft.eu:21204" + url);
 			}else {
 				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.onlinemap.invalidserver"));
 			}
