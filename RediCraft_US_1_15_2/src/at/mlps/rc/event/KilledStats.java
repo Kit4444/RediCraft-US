@@ -11,9 +11,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
 
 import at.mlps.rc.mysql.lb.MySQL;
 
@@ -27,6 +25,7 @@ public class KilledStats implements Listener{
 	 * gotkilled_mobs -> value how often a player got killed by mobs (except a player)
 	 */
 
+	@SuppressWarnings("unused")
 	public void onKill(EntityDeathEvent e) {
 		Entity causer = e.getEntity();
 		Entity vict = e.getEntity().getKiller();

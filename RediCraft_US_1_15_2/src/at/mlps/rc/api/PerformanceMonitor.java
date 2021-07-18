@@ -8,7 +8,6 @@ public class PerformanceMonitor {
 	static long lastProcessCpuTime = 0;
 	static int availableProcessors = ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors();
 	
-	@SuppressWarnings("restriction")
 	public synchronized double getCpuUsage() {
 		if(lastSystemTime == 0) {
 			baselineCounters();
@@ -24,7 +23,6 @@ public class PerformanceMonitor {
 		lastProcessCpuTime = processCpuTime;
 		return cpuUsage / availableProcessors;
 	}
-	@SuppressWarnings("restriction")
 	private void baselineCounters() {
 		lastSystemTime = System.nanoTime();
 		if(ManagementFactory.getOperatingSystemMXBean() instanceof com.sun.management.OperatingSystemMXBean) {

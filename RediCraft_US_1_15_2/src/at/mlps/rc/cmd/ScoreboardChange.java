@@ -60,10 +60,13 @@ public class ScoreboardChange implements CommandExecutor{
 					try {
 						sb.setScoreboard(p);
 					} catch (IllegalStateException e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (SQLException e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}else {
@@ -100,10 +103,13 @@ public class ScoreboardChange implements CommandExecutor{
 					try {
 						sb.setScoreboard(p);
 					} catch (IllegalStateException e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (SQLException e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
