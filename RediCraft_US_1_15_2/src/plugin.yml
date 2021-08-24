@@ -1,5 +1,5 @@
 author: Newt
-version: 20210226_0002-00344s
+version: 20210802_0002-00402s
 name: RediCore_SubServer
 description: This is the Core-Plugin of RediCraft.
 website: www.redicraft.eu
@@ -71,4 +71,5 @@ commands:
     vanish:
         aliases:
         - v
+    speed:
     

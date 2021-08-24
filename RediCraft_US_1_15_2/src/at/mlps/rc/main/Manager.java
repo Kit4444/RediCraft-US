@@ -28,6 +28,7 @@ import at.mlps.rc.cmd.ScoreboardChange;
 import at.mlps.rc.cmd.ServerhealthCMD;
 import at.mlps.rc.cmd.SkullCMD;
 import at.mlps.rc.cmd.SpawnVillager;
+import at.mlps.rc.cmd.SpeedCMD;
 import at.mlps.rc.cmd.StopCMD;
 import at.mlps.rc.cmd.TPA_System;
 import at.mlps.rc.cmd.TP_Command;
@@ -137,6 +138,7 @@ public class Manager {
 		Main.instance.getCommand("tphere").setExecutor(new TP_Command());
 		Main.instance.getCommand("tp").setExecutor(new TP_Command());
 		Main.instance.getCommand("vanish").setExecutor(new Vanish_CMD());
+		Main.instance.getCommand("speed").setExecutor(new SpeedCMD());
 		
 		PluginManager pl = Bukkit.getPluginManager();
 		pl.registerEvents(new ScoreboardCLS(), Main.instance);
