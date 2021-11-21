@@ -1,5 +1,5 @@
 author: Newt
-version: 20210802_0002-00402s
+version: 20211117_0002-00435b
 name: RediCore_SubServer
 description: This is the Core-Plugin of RediCraft.
 website: www.redicraft.eu
@@ -9,6 +9,7 @@ main: at.mlps.rc.main.Main
 softdepend: [PermissionsEx, Jobs]
 
 commands:
+    topplaytime:
     sb:
     afk:
     cc:
@@ -43,6 +44,9 @@ commands:
     bankwithdraw:
     pay:
     head:
+    headlist:
+        aliases:
+        - heads
     login:
     logout:
     tg:
@@ -72,4 +76,11 @@ commands:
         aliases:
         - v
     speed:
+    settings:
+        aliases:
+        - profilesettings
+        - ps
+        - profile
+        - options
+        - profileoptions
     

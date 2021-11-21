@@ -154,6 +154,8 @@ public class ScoreboardCLS implements Listener{
 				DecimalFormat df = new DecimalFormat("#.##");
 				o.getScore("§9Jobs").setScore(15);
 				for(JobProgression job : jobs) {
+					o.getScore("§7Level: §a" + job.getLevel()).setScore(i);
+					i++;
 					o.getScore("§7Exp: §a" + df.format(job.getExperience()) + " §7/§c" + df.format(job.getMaxExperience())).setScore(i);
 					i++;
 					o.getScore("§7Job: §6" + job.getJob().getName()).setScore(i);
@@ -276,10 +278,12 @@ public class ScoreboardCLS implements Listener{
 			p.setScoreboard(sb);
 		}else if(getSB(p) == 6) {
 			if(p.hasPermission("mlps.isTeam")) {
-				o.getScore("§7Servers/Players:").setScore(7);
+				o.getScore("§7Servers/Players:").setScore(8);
+				o.getScore("  §a§lNetwork§7: §a" + getPlayers("BungeeCord")).setScore(7);
 				o.getScore("  §bStaffserver§7: §a" + getPlayers("Staffserver")).setScore(6);
 			}else {
-				o.getScore("§7Servers/Players:").setScore(6);
+				o.getScore("§7Servers/Players:").setScore(7);
+				o.getScore("  §aNetwork§7: §a" + getPlayers("BungeeCord")).setScore(6);
 			}
 			o.getScore("  §6Lobby§7: §a" + getPlayers("Lobby")).setScore(5);
 			o.getScore("  §eCreative§7: §a" + getPlayers("Creative")).setScore(4);

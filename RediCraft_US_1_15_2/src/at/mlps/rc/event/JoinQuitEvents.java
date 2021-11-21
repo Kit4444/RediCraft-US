@@ -13,9 +13,12 @@ import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import at.mlps.rc.api.APIs;
@@ -27,6 +30,36 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 public class JoinQuitEvents implements Listener{
 	
 	static File spawnfile = new File("plugins/RCUSS/spawn.yml");
+	
+	@EventHandler(priority=EventPriority.HIGHEST)
+	public void onLogin(PlayerLoginEvent e) {
+		Player p = e.getPlayer();
+		APIs api = new APIs();
+		String level = getEntryLevel(api.getServerName());
+		if(level.equalsIgnoreCase("All")) {
+			e.allow();
+		}else if(level.equalsIgnoreCase("Staff")) {
+			if(p.hasPermission("mlps.isStaff")) {
+				e.allow();
+			}else {
+				e.disallow(Result.KICK_OTHER, "§aRedi§cCraft\n \n§7This Server is just for Staff members allowed.");
+			}
+		}else if(level.equalsIgnoreCase("Alpha")) {
+			if(p.hasPermission("mlps.isAlphatester")) {
+				e.allow();
+			}else {
+				e.disallow(Result.KICK_OTHER, "§aRedi§cCraft\n \n§7This Server is just for Alpha-Testers free.");
+			}
+		}else if(level.equalsIgnoreCase("Beta")) {
+			if(p.hasPermission("mlps.isBetatester")) {
+				e.allow();
+			}else {
+				e.disallow(Result.KICK_OTHER, "§aRedi§cCraft\n \n§7This Server is just for Beta-Testers free.");
+			}
+		}else {
+			Bukkit.getConsoleSender().sendMessage("Level: " + level);
+		}
+	}
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
@@ -149,17 +182,10 @@ public class JoinQuitEvents implements Listener{
 			if(rs.next()) {
 				if(rs.getBoolean("disablePMs")) {
 					notify_pm = 1;
-				}else {
-					notify_pm = 0;
 				}
 				if(rs.getBoolean("disableTPAR")) {
 					notify_tpar = 1;
-				}else {
-					notify_tpar = 0;
 				}
-			}else {
-				notify_pm = -1;
-				notify_tpar = -1;
 			}
         } catch (SQLException e1) {
 			e1.printStackTrace();
@@ -270,5 +296,23 @@ public class JoinQuitEvents implements Listener{
 			loc = null;
 		}
 		return loc;
+	}
+	
+	public String getEntryLevel(String server) {
+		String level = "";
+		try {
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT entrylevel FROM redicore_serverstats WHERE servername = ?");
+			ps.setString(1, server);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			level = rs.getString("entrylevel");
+			rs.close();
+			ps.closeOnCompletion();
+		} catch (SQLException e) {
+			level = "NONE";
+			e.printStackTrace();
+		}
+		Bukkit.getConsoleSender().sendMessage("OUTPUT #315 " + level);
+		return level;
 	}
 }

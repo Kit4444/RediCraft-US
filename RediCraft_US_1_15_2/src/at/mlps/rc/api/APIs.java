@@ -10,15 +10,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 
 import org.bukkit.Bukkit;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.block.banner.Pattern;
+import org.bukkit.block.banner.PatternType;
 import org.bukkit.craftbukkit.libs.org.apache.commons.io.IOUtils;
 import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BannerMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -260,6 +265,18 @@ public class APIs {
 		return skull;
 	}
 	
+	public ItemStack bannerTest() {
+		ItemStack is = new ItemStack(Material.GRAY_BANNER, 1);
+		BannerMeta bm = (BannerMeta) is.getItemMeta();
+		List<Pattern> patterns = new ArrayList<>();
+		patterns.add(new Pattern(DyeColor.RED, PatternType.BRICKS));
+		patterns.add(new Pattern(DyeColor.YELLOW, PatternType.STRIPE_DOWNLEFT));
+		bm.setPatterns(patterns);
+		bm.setDisplayName("§cTest");
+		is.setItemMeta(bm);
+		return is;
+	}
+	
 	public ItemStack l2Item(Material mat, int avg, String dpname, String lore1, String lore2) {
 	    ArrayList<String> lore = new ArrayList<String>();
 	    ItemStack item = new ItemStack(mat, avg);
@@ -291,6 +308,24 @@ public class APIs {
 		boolean online = getData(servername, "online");
 		boolean locked = getData(servername, "locked");
 		boolean monitor = getData(servername, "monitoring");
+		String entrylevel = getEntrylevel(servername);
+		if(entrylevel.equalsIgnoreCase(ServerEntryLevel.ALL.toString())) {
+			lore.add("§7Server Entrylevel:");
+			lore.add("§aEveryone");
+			lore.add("§f");
+		}else if(entrylevel.equalsIgnoreCase(ServerEntryLevel.STAFF.toString())) {
+			lore.add("§7Server Entrylevel:");
+			lore.add("§eStaff");
+			lore.add("§f");
+		}else if(entrylevel.equalsIgnoreCase(ServerEntryLevel.ALPHA.toString())) {
+			lore.add("§7Server Entrylevel:");
+			lore.add("§cAlphatester");
+			lore.add("§f");
+		}else if(entrylevel.equalsIgnoreCase(ServerEntryLevel.BETA.toString())) {
+			lore.add("§7Server Entrylevel:");
+			lore.add("§dBetatester");
+			lore.add("§f");
+		}
 		if(online){
 			lore.add("§7Online: §ayes");
 			lore.add("§7Online: §a" + getPlayers(servername) + " §7Players");
@@ -333,6 +368,20 @@ public class APIs {
 			rs.close();
 		}catch (SQLException e) { e.printStackTrace(); }
 		return boo;
+	}
+	
+	private String getEntrylevel(String server) {
+		String level = "";
+		try {
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_serverstats WHERE servername = ?");
+			ps.setString(1, server);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			level = rs.getString("entrylevel");
+			ps.close();
+			rs.close();
+		}catch (SQLException e) { e.printStackTrace(); }
+		return level;
 	}
 	
 	private int getPlayers(String server) {

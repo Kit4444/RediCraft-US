@@ -88,7 +88,8 @@ public class Serverteleporter implements Listener, CommandExecutor{
 		inv.setItem(24, api.naviItem(Material.IRON_AXE, survival, "Survival"));
 		if(api.getServerName().equalsIgnoreCase("Farmserver")) {
 			inv.setItem(2, api.defItem(Material.EMERALD, 1, wt_inventory)); //dailyrewards
-			inv.setItem(13, api.defItem(Material.NETHER_STAR, 1, spawn)); //spawn
+			inv.setItem(12, api.naviItem(Material.RED_BED, gameslobby, "Gameslobby"));
+			inv.setItem(14, api.defItem(Material.NETHER_STAR, 1, spawn)); //spawn
 			if(p.hasPermission("mlps.isTeam")) {
 				inv.setItem(26, api.naviItem(Material.WOODEN_AXE, bauserver, "Staffserver"));
 			}else {
@@ -96,7 +97,8 @@ public class Serverteleporter implements Listener, CommandExecutor{
 			}
 		}else if(api.getServerName().equalsIgnoreCase("Survival")) {
 			inv.setItem(2, api.defItem(Material.EMERALD, 1, wt_inventory)); //dailyrewards
-			inv.setItem(13, api.defItem(Material.NETHER_STAR, 1, spawn)); //spawn
+			inv.setItem(12, api.naviItem(Material.RED_BED, gameslobby, "Gameslobby"));
+			inv.setItem(14, api.defItem(Material.NETHER_STAR, 1, spawn)); //spawn
 			if(p.hasPermission("mlps.isTeam")) {
 				inv.setItem(26, api.naviItem(Material.WOODEN_AXE, bauserver, "Staffserver"));
 			}else {

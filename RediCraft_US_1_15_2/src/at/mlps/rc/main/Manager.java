@@ -24,14 +24,17 @@ import at.mlps.rc.cmd.MoneyAPI;
 import at.mlps.rc.cmd.PM_System;
 import at.mlps.rc.cmd.Pinfo;
 import at.mlps.rc.cmd.PingCMD;
+import at.mlps.rc.cmd.ProfileSettings;
 import at.mlps.rc.cmd.ScoreboardChange;
 import at.mlps.rc.cmd.ServerhealthCMD;
 import at.mlps.rc.cmd.SkullCMD;
+import at.mlps.rc.cmd.SkullListCMD;
 import at.mlps.rc.cmd.SpawnVillager;
 import at.mlps.rc.cmd.SpeedCMD;
 import at.mlps.rc.cmd.StopCMD;
 import at.mlps.rc.cmd.TPA_System;
 import at.mlps.rc.cmd.TP_Command;
+import at.mlps.rc.cmd.TopPlaytimeCMD;
 import at.mlps.rc.cmd.TimeCMD;
 import at.mlps.rc.cmd.Vanish_CMD;
 import at.mlps.rc.cmd.WeatherCMD;
@@ -120,6 +123,7 @@ public class Manager {
 		Main.instance.getCommand("bankwithdraw").setExecutor(new MoneyAPI());
 		Main.instance.getCommand("pay").setExecutor(new MoneyAPI());
 		Main.instance.getCommand("head").setExecutor(new SkullCMD());
+		Main.instance.getCommand("headlist").setExecutor(new SkullListCMD());
 		Main.instance.getCommand("login").setExecutor(new LogSystem());
 		Main.instance.getCommand("logout").setExecutor(new LogSystem());
 		Main.instance.getCommand("tg").setExecutor(new LogSystem());
@@ -139,6 +143,8 @@ public class Manager {
 		Main.instance.getCommand("tp").setExecutor(new TP_Command());
 		Main.instance.getCommand("vanish").setExecutor(new Vanish_CMD());
 		Main.instance.getCommand("speed").setExecutor(new SpeedCMD());
+		Main.instance.getCommand("settings").setExecutor(new ProfileSettings());
+		Main.instance.getCommand("topplaytime").setExecutor(new TopPlaytimeCMD());
 		
 		PluginManager pl = Bukkit.getPluginManager();
 		pl.registerEvents(new ScoreboardCLS(), Main.instance);
@@ -154,6 +160,8 @@ public class Manager {
 		pl.registerEvents(new Serverupdater(), Main.instance);
 		pl.registerEvents(new ChannelManager(), Main.instance);
 		pl.registerEvents(new Vanish_CMD(), Main.instance);
+		pl.registerEvents(new SkullListCMD(), Main.instance);
+		pl.registerEvents(new ProfileSettings(), Main.instance);
 		//pl.registerEvents(new KilledStats(), Main.instance);
 		
 		APIs api = new APIs();

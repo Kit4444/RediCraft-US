@@ -127,12 +127,12 @@ public class MoneyAPI implements Listener, CommandExecutor{
 				}
 			}else if(cmd.getName().equalsIgnoreCase("topmoney")) {
 				try {
-					PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_money ORDER BY money DESC LIMIT 10");
+					PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_userstats ORDER BY money DESC LIMIT 10");
 					ResultSet rs = ps.executeQuery();
 					int i = 0;
 					while(rs.next()) {
 						i++;
-						p.sendMessage("§7Place §a" + i + " §7| User: §a" + api.getNamefromUUID(rs.getString("uuid_ut")) + " §7| Balance: §a" + rs.getInt("money") + " §7Coins");
+						p.sendMessage("§7Place §a" + i + " §7| User: §a" +rs.getString("username") + " §7| Balance: §a" + rs.getInt("money") + " §7Coins");
 					}
 				}catch (SQLException e) {
 				}
@@ -276,4 +276,6 @@ public class MoneyAPI implements Listener, CommandExecutor{
 		}
 		return boo;
 	}
+	
+	
 }
