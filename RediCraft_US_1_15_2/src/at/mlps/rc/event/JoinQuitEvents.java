@@ -131,6 +131,9 @@ public class JoinQuitEvents implements Listener{
 			}else if(po.inGroup("friend")) {
 				ps.setString(1, "Friend");
     			ps.setString(2, "#aaaaaa");
+			}else if(po.inGroup("vip")) {
+				ps.setString(1, "VIP");
+    			ps.setString(2, "#ffff55");
 			}else if(po.inGroup("default")) {
 				ps.setString(1, "Player");
     			ps.setString(2, "#ffffff");
@@ -266,6 +269,9 @@ public class JoinQuitEvents implements Listener{
 			}else if(po.inGroup("friend")) {
 				ps.setString(1, "Friend");
     			ps.setString(2, "#aaaaaa");
+			}else if(po.inGroup("vip")) {
+				ps.setString(1, "VIP");
+    			ps.setString(2, "#ffff55");
 			}else if(po.inGroup("default")) {
 				ps.setString(1, "Player");
     			ps.setString(2, "#ffffff");
