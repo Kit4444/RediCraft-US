@@ -25,6 +25,7 @@ import at.mlps.rc.cmd.PM_System;
 import at.mlps.rc.cmd.Pinfo;
 import at.mlps.rc.cmd.PingCMD;
 import at.mlps.rc.cmd.ProfileSettings;
+import at.mlps.rc.cmd.RedeemGifts;
 import at.mlps.rc.cmd.ScoreboardChange;
 import at.mlps.rc.cmd.ServerhealthCMD;
 import at.mlps.rc.cmd.SkullCMD;
@@ -44,6 +45,7 @@ import at.mlps.rc.event.Blocker;
 import at.mlps.rc.event.JoinQuitEvents;
 import at.mlps.rc.event.ScoreboardCLS;
 import at.mlps.rc.event.Serverteleporter;
+import at.mlps.rc.event.XP_Boost;
 import at.mlps.rc.mysql.lpb.MySQL;
 
 public class Manager {
@@ -145,6 +147,7 @@ public class Manager {
 		Main.instance.getCommand("speed").setExecutor(new SpeedCMD());
 		Main.instance.getCommand("settings").setExecutor(new ProfileSettings());
 		Main.instance.getCommand("topplaytime").setExecutor(new TopPlaytimeCMD());
+		Main.instance.getCommand("redeemgift").setExecutor(new RedeemGifts());
 		
 		PluginManager pl = Bukkit.getPluginManager();
 		pl.registerEvents(new ScoreboardCLS(), Main.instance);
@@ -162,6 +165,8 @@ public class Manager {
 		pl.registerEvents(new Vanish_CMD(), Main.instance);
 		pl.registerEvents(new SkullListCMD(), Main.instance);
 		pl.registerEvents(new ProfileSettings(), Main.instance);
+		pl.registerEvents(new XP_Boost(), Main.instance);
+		pl.registerEvents(new RedeemGifts(), Main.instance);
 		//pl.registerEvents(new KilledStats(), Main.instance);
 		
 		APIs api = new APIs();

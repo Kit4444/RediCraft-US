@@ -10,6 +10,7 @@ softdepend: [PermissionsEx, Jobs]
 
 commands:
     topplaytime:
+    redeemgift:
     sb:
     afk:
     cc:
