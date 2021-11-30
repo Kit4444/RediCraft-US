@@ -80,6 +80,7 @@ public class RedeemGifts implements CommandExecutor, Listener{
 		Player p = (Player) e.getWhoClicked();
 		APIs api = new APIs();
 		if(e.getView().getTitle().equalsIgnoreCase("§7Gift: §aVIP Role")) {
+			e.setCancelled(true);
 			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aAccept")) {
 				PermissionUser po = PermissionsEx.getUser(p);
 				if(po.inGroup("pman") || po.inGroup("cman") || po.inGroup("gmmman") || po.inGroup("dev") || po.inGroup("hr") || po.inGroup("cm") || po.inGroup("ct") || po.inGroup("st") || po.inGroup("bd") || po.inGroup("gm") || po.inGroup("aot") || po.inGroup("train") || po.inGroup("rltm") || po.inGroup("rtm") || po.inGroup("part") || po.inGroup("fs") || po.inGroup("nb") || po.inGroup("bt")) {
@@ -91,17 +92,21 @@ public class RedeemGifts implements CommandExecutor, Listener{
 				}
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
+				p.closeInventory();
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§eMoneytize")) {
 				p.sendMessage(api.prefix("main") + "§7You have moneytized your gift.");
 				MoneyAPI.addMoney(p.getUniqueId(), 150000);
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
+				p.closeInventory();
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cDecline")) {
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
 				p.sendMessage(api.prefix("main") + "§7You have declined your gift.");
+				p.closeInventory();
 			}
 		}else if(e.getView().getTitle().equalsIgnoreCase("§7Gift: §a3 Days XP Boost")) {
+			e.setCancelled(true);
 			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aAccept")) {
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
@@ -110,17 +115,21 @@ public class RedeemGifts implements CommandExecutor, Listener{
 				long in3d = current + threedays;
 				setGift(p, in3d, "3d:xpboost");
 				p.sendMessage(api.prefix("main") + "§7You have now 3 days Double XP Boost.");
+				p.closeInventory();
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§eMoneytize")) {
 				p.sendMessage(api.prefix("main") + "§7You have moneytized your gift.");
 				MoneyAPI.addMoney(p.getUniqueId(), 25000);
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
+				p.closeInventory();
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cDecline")) {
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
 				p.sendMessage(api.prefix("main") + "§7You have declined your gift.");
+				p.closeInventory();
 			}
 		}else if(e.getView().getTitle().equalsIgnoreCase("§7Gift: §aXP Shot")) {
+			e.setCancelled(true);
 			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aAccept")) {
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
@@ -135,17 +144,21 @@ public class RedeemGifts implements CommandExecutor, Listener{
 				}
 				p.giveExp(random2);
 				p.sendMessage(api.prefix("main") + "§7You have received§a " + random2 + " §7XP.");
+				p.closeInventory();
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§eMoneytize")) {
 				p.sendMessage(api.prefix("main") + "§7You have moneytized your gift.");
 				MoneyAPI.addMoney(p.getUniqueId(), 10000);
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
+				p.closeInventory();
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cDecline")) {
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
 				p.sendMessage(api.prefix("main") + "§7You have declined your gift.");
+				p.closeInventory();
 			}
 		}else if(e.getView().getTitle().equalsIgnoreCase("§7Gift: §aEnchanted Items Fullset")) {
+			e.setCancelled(true);
 			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aAccept")) {
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
@@ -207,15 +220,18 @@ public class RedeemGifts implements CommandExecutor, Listener{
 				shovel.setItemMeta(mshovel);
 				p.getInventory().addItem(helmet, chestplate, leggings, boots, sword, pickaxe, axe, shovel, beef);
 				p.sendMessage(api.prefix("main") + "You've got your Netherite Fullset enchanted.");
+				p.closeInventory();
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§eMoneytize")) {
 				p.sendMessage(api.prefix("main") + "§7You have moneytized your gift.");
 				MoneyAPI.addMoney(p.getUniqueId(), 400000);
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
+				p.closeInventory();
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cDecline")) {
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
 				p.sendMessage(api.prefix("main") + "§7You have declined your gift.");
+				p.closeInventory();
 			}
 		}
 	}
