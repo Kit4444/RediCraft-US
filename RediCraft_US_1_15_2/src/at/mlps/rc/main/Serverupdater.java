@@ -23,15 +23,13 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.TPSMonitor;
 import at.mlps.rc.mysql.lb.MySQL;
-import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.MinecraftServer;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class Serverupdater implements Listener{
 	
-	@SuppressWarnings({ "deprecation", "resource" })
 	public void updateServer() {
 		if(MySQL.isConnected()) {
 			userUpdater();
@@ -46,11 +44,8 @@ public class Serverupdater implements Listener{
 			long timestamp = ts.getTime();
 			SimpleDateFormat time = new SimpleDateFormat("dd/MM/yy - HH:mm:ss");
 		    String stime = time.format(new Date());
-		    StringBuilder sb = new StringBuilder("");
-		    for(double tps : MinecraftServer.getServer().recentTps) {
-		    	sb.append(format(tps));
-		    }
-		    String tps = sb.substring(0, sb.length() - 1);
+		    
+		    String tps = TPSMonitor.getTPSasString();
 		    int code1 = random(0, 5000);
 			int code2 = random(5001, 10000);
 			String gcode1 = code1 + "-" + code2;
@@ -67,13 +62,7 @@ public class Serverupdater implements Listener{
 				dmap = true;
 			}
 			boolean hybrid = false;
-			String ttps = tps.substring(2, 7);
-			String newtps = "";
-			if(ttps.startsWith("*")) {
-				newtps = ttps.substring(1);
-			}else {
-				newtps = ttps;
-			}
+			
 		    try {
 		    	Main.mysql.update("UPDATE useless_testtable SET toupdate = '" + gcode1 + "' WHERE type = '" + api.getServerName().toLowerCase() + "';");
 		    	PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_serverstats SET ramusage = ?, serverid = ?, currPlayers = ?, maxPlayers = ?, lastupdateTS = ?, lastupdateST = ?, ramavailable = ?, version = ?, tps = ?, currStaffmembers = ?, dynmap = ?, hybrid = ? WHERE servername = ?");
@@ -85,7 +74,7 @@ public class Serverupdater implements Listener{
 				ps.setString(6, stime);
 				ps.setInt(7, (int) ramtotal);
 				ps.setString(8, "1.17");
-				ps.setString(9, newtps);
+				ps.setString(9, tps);
 				ps.setInt(10, staffs);
 				ps.setBoolean(11, dmap);
 				ps.setBoolean(12, hybrid);
@@ -327,10 +316,6 @@ public class Serverupdater implements Listener{
 	    }else if(stime.equals("00:00:01")) {
 	    	Bukkit.shutdown();
 	    }
-	}
-	
-	private String format(double tps) {
-		return String.valueOf((tps > 18.0 ? ChatColor.GREEN : (tps > 16.0 ? ChatColor.YELLOW : ChatColor.RED)).toString()) + (tps > 20.0 ? "*" : "") + Math.min((double)Math.round(tps * 100.0) / 100.0, 20.0);
 	}
 	
 	static String prefix = "§aClear§cLag §7» ";

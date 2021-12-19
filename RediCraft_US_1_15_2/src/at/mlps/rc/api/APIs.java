@@ -3,8 +3,6 @@ package at.mlps.rc.api;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,8 +16,6 @@ import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
-import org.bukkit.craftbukkit.libs.org.apache.commons.io.IOUtils;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -29,10 +25,6 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-import org.json.simple.parser.ParseException;
 
 import at.mlps.rc.mysql.lb.MySQL;
 import net.md_5.bungee.api.ChatMessageType;
@@ -167,7 +159,7 @@ public class APIs {
 		return i;
 	}
 	
-	public String getUUIDfromName(String name) {
+	/*public String getUUIDfromName(String name) {
 		String url = "https://api.mojang.com/users/profiles/minecraft/" + name;
 		String uuid = "";
 		try {
@@ -196,7 +188,7 @@ public class APIs {
 			name = "ERRORED";
 		}
 		return name;
-	}
+	}*/
 	
 	public static HashMap<String, String> prefix = new HashMap<>();
 	
@@ -404,7 +396,7 @@ public class APIs {
 	
 	public int getPlayerPing(Player p) {
 		int ping = -1;
-		ping = ((CraftPlayer)p).getHandle().e;
+		ping = p.getPing();
 		return ping;
 	}
 }
