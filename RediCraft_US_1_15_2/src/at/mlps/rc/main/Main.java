@@ -14,6 +14,7 @@ import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.TPSMonitor;
 import at.mlps.rc.event.ScoreboardCLS;
 import at.mlps.rc.mysql.lpb.MySQL;
 import net.milkbowl.vault.economy.Economy;
@@ -31,6 +32,8 @@ public class Main extends JavaPlugin implements Listener{
 	static File pdata = new File("plugins/RCUSS/playerdata.yml");
 	
 	public void onEnable() {
+		instance = this;
+		TPSMonitor.startTPSMonitor();
 		if(!file.exists()) {
 			file.mkdir();
 		}
@@ -56,7 +59,6 @@ public class Main extends JavaPlugin implements Listener{
 			}
 		}
 		Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-		instance = this;
 		registerMisc();
 		Manager man = new Manager();
 		man.init();
