@@ -71,6 +71,11 @@ public class JoinQuitEvents implements Listener{
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         String uuid = p.getUniqueId().toString().replace("-", "");
         YamlConfiguration cfg = YamlConfiguration.loadConfiguration(spawnfile);
+        for(Player all : Bukkit.getOnlinePlayers()) {
+        	if(all.hasPermission("mlps.canBan")) {
+        		all.sendMessage("§7[§a+§7] " + p.getDisplayName());
+        	}
+        }
         try {
 			PermissionUser po = PermissionsEx.getUser(p);
     		PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET userrank = ?, rankcolor = ?, online = ?, server = ?, lastjoints = ?, lastjoinstring = ?, lastloginip = ?, isstaff = ?, username = ? WHERE uuid = ?");
@@ -210,6 +215,11 @@ public class JoinQuitEvents implements Listener{
         String stime = time.format(new Date());
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         PermissionUser po = PermissionsEx.getUser(p);
+        for(Player all : Bukkit.getOnlinePlayers()) {
+        	if(all.hasPermission("mlps.canBan")) {
+        		all.sendMessage("§7[§c-§7] " + p.getDisplayName());
+        	}
+        }
         try {
         	PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET userrank = ?, rankcolor = ?, lastjoints = ?, lastjoinstring = ?, lastloginip = ?, online = ? WHERE uuid = ?");
         	if(po.inGroup("pman")) {
