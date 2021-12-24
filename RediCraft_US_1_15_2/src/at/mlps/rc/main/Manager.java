@@ -42,6 +42,7 @@ import at.mlps.rc.cmd.WeatherCMD;
 import at.mlps.rc.cmd.WorkBenchCMD;
 import at.mlps.rc.cmd.Setspawn;
 import at.mlps.rc.event.Blocker;
+import at.mlps.rc.event.ColorSigns;
 import at.mlps.rc.event.JoinQuitEvents;
 import at.mlps.rc.event.ScoreboardCLS;
 import at.mlps.rc.event.Serverteleporter;
@@ -167,6 +168,7 @@ public class Manager {
 		pl.registerEvents(new ProfileSettings(), Main.instance);
 		pl.registerEvents(new XP_Boost(), Main.instance);
 		pl.registerEvents(new RedeemGifts(), Main.instance);
+		pl.registerEvents(new ColorSigns(), Main.instance);
 		//pl.registerEvents(new KilledStats(), Main.instance);
 		
 		APIs api = new APIs();
