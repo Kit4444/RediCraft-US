@@ -1086,9 +1086,11 @@ public class ScoreboardCLS implements Listener{
 	}
 	
 	int cacheTimer = 21600;
+	public static HashMap<Player, Long> afk_timer = new HashMap<>();
 	
 	public void sbSched(int delay, int periodsb, int periodot) {
 		Serverupdater su = new Serverupdater();
+		APIs api = new APIs();
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -1106,6 +1108,20 @@ public class ScoreboardCLS implements Listener{
 						e.printStackTrace();
 					} catch (SQLException e) {
 						e.printStackTrace();
+					}
+					if(afk_timer.containsKey(all)) {
+						long timeinsec = (System.currentTimeMillis() / 1000);
+						long max_time = 900; //time is temporarily hardcoded - it will be variable setable over the database.
+						long notif_time = (max_time - 60);
+						long diff_time = (timeinsec - afk_timer.get(all));
+						if(diff_time == notif_time) {
+							//all.sendMessage("NOTIFY #1117");
+							api.sendMSGReady(all, "event.autokick.info");
+						}
+						if(diff_time == max_time) {
+							//all.sendMessage("KICK #1120");
+							all.kickPlayer("§aRedi§cCraft\n \n§7You've got kicked from our Server.\n§7Reason: " + api.returnStringReady(all, "event.autokick.kick") + "\n§7Issuer: §aServer");
+						}
 					}
 				}
 			}
