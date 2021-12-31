@@ -1,6 +1,8 @@
 package at.mlps.rc.event;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +10,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.io.IOUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -20,6 +23,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.main.Main;
@@ -221,7 +226,7 @@ public class JoinQuitEvents implements Listener{
         	}
         }
         try {
-        	PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET userrank = ?, rankcolor = ?, lastjoints = ?, lastjoinstring = ?, lastloginip = ?, online = ? WHERE uuid = ?");
+        	PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET userrank = ?, rankcolor = ?, lastjoints = ?, lastjoinstring = ?, lastloginip = ?, online = ?, lj_ip_isp = ?, lj_ip_tz = ?, lj_ip_cty = ? WHERE uuid = ?");
         	if(po.inGroup("pman")) {
     			ps.setString(1, "Project Manager");
     			ps.setString(2, "#5555ff");
@@ -293,7 +298,10 @@ public class JoinQuitEvents implements Listener{
         	ps.setString(4, stime);
         	ps.setString(5, p.getAddress().getHostString());
         	ps.setBoolean(6, false);
-        	ps.setString(7, uuid);
+        	ps.setString(7, getFromAPI(p, "isp"));
+        	ps.setString(8, getFromAPI(p, "timezone"));
+        	ps.setString(9, getFromAPI(p, "country"));
+        	ps.setString(10, uuid);
         	ps.executeUpdate();
         	ps.close();
         }catch (SQLException ex) { ex.printStackTrace(); }
@@ -330,5 +338,20 @@ public class JoinQuitEvents implements Listener{
 		}
 		Bukkit.getConsoleSender().sendMessage("OUTPUT #315 " + level);
 		return level;
+	}
+	
+	public String getFromAPI(Player p, String key) {
+		String url = "http://www.ip-api.com/json/";
+		String data = "";
+		try {
+			@SuppressWarnings("deprecation")
+			String uuidJson = IOUtils.toString(new URL(url + p.getAddress()));
+			if(uuidJson.isEmpty()) return "ERRORED!";
+			JSONObject obj = (JSONObject) JSONValue.parseWithException(uuidJson);
+			data = obj.get(key).toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return data;
 	}
 }
