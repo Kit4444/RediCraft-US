@@ -3,6 +3,7 @@ package at.mlps.rc.api;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.io.IOUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -25,6 +27,9 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 import at.mlps.rc.mysql.lb.MySQL;
 import net.md_5.bungee.api.ChatMessageType;
@@ -159,7 +164,7 @@ public class APIs {
 		return i;
 	}
 	
-	/*public String getUUIDfromName(String name) {
+	public String getUUIDfromName(String name) {
 		String url = "https://api.mojang.com/users/profiles/minecraft/" + name;
 		String uuid = "";
 		try {
@@ -168,7 +173,7 @@ public class APIs {
 			if(UUIDJson.isEmpty()) return "ERRORED";
 			JSONObject UUIDObject = (JSONObject) JSONValue.parseWithException(UUIDJson);
 			uuid =  UUIDObject.get("id").toString();
-		}catch(IOException|ParseException e) {
+		}catch(Exception e) {
 			uuid = "ERRORED";
 		}
 		return uuid;
@@ -184,11 +189,11 @@ public class APIs {
 			String playerSlot = nameVal.get(nameVal.size()-1).toString();
 			JSONObject UUIDObject = (JSONObject) JSONValue.parseWithException(playerSlot);
 			name =  UUIDObject.get("name").toString();
-		}catch(IOException|ParseException e) {
+		}catch(Exception e) {
 			name = "ERRORED";
 		}
 		return name;
-	}*/
+	}
 	
 	public static HashMap<String, String> prefix = new HashMap<>();
 	
