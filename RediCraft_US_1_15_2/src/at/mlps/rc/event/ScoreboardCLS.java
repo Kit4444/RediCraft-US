@@ -1085,12 +1085,24 @@ public class ScoreboardCLS implements Listener{
 		}
 	}
 	
+	private void updateAFK(Player p, boolean boo) {
+		try {
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET afk = ? WHERE uuid = ?");
+			ps.setBoolean(1, boo);
+			ps.setString(2, p.getUniqueId().toString().replace("-", ""));
+			ps.executeUpdate();
+			ps.close();
+		}catch (SQLException e) { e.printStackTrace(); }
+	}
+	
 	int cacheTimer = 21600;
+	int cacheTimer_afk = 2; //3600s equals to 60 minutes (60*60)
 	public static HashMap<Player, Long> afk_timer = new HashMap<>();
+	public static HashMap<Player, Boolean> autoAFK = new HashMap<>();
+	public static HashMap<String, Integer> serverAFK = new HashMap<>();
 	
 	public void sbSched(int delay, int periodsb, int periodot) {
 		Serverupdater su = new Serverupdater();
-		APIs api = new APIs();
 		new BukkitRunnable() {
 			@Override
 			public void run() {
@@ -1108,20 +1120,6 @@ public class ScoreboardCLS implements Listener{
 						e.printStackTrace();
 					} catch (SQLException e) {
 						e.printStackTrace();
-					}
-					if(afk_timer.containsKey(all)) {
-						long timeinsec = (System.currentTimeMillis() / 1000);
-						long max_time = 900; //time is temporarily hardcoded - it will be variable setable over the database.
-						long notif_time = (max_time - 60);
-						long diff_time = (timeinsec - afk_timer.get(all));
-						if(diff_time == notif_time) {
-							//all.sendMessage("NOTIFY #1117");
-							api.sendMSGReady(all, "event.autokick.info");
-						}
-						if(diff_time == max_time) {
-							//all.sendMessage("KICK #1120");
-							all.kickPlayer("§aRedi§cCraft\n \n§7You've got kicked from our Server.\n§7Reason: " + api.returnStringReady(all, "event.autokick.kick") + "\n§7Issuer: §aServer");
-						}
 					}
 				}
 			}
@@ -1148,10 +1146,59 @@ public class ScoreboardCLS implements Listener{
 				}
 				SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
 				String stime = time.format(new Date());
+				cacheTimer_afk--;
+				if(cacheTimer_afk == 0) {
+					cacheTimer_afk = 3600;
+					try {
+						PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT auto_afk_kick,auto_afk_set FROM redicore_serverstats WHERE servername = ?");
+						ps.setString(1, api.getServerName());
+						ResultSet rs = ps.executeQuery();
+						rs.next();
+						serverAFK.put("kick", rs.getInt("auto_afk_kick"));
+						serverAFK.put("set", rs.getInt("auto_afk_set"));
+						rs.close();
+						ps.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
 				for(Player all : Bukkit.getOnlinePlayers()) {
 					all.setPlayerListHeaderFooter(api.returnStringReady(all, "scoreboard.playerlist.top").replace("|", "\n"), api.returnStringReady(all, "scoreboard.playerlist.bottom").replace("|", "\n").replace("%time", stime).replace("%servername", api.getServerName()).replace("%serverid", api.getServerId()));
+					
+					if(afk_timer.containsKey(all)) {
+						long timeinsec = (System.currentTimeMillis() / 1000);
+						long max_time;
+						long set_time;
+						if(serverAFK.containsKey("kick")) {
+							max_time = serverAFK.get("kick");
+						}else {
+							max_time = 900;
+						}
+						if(serverAFK.containsKey("set")) {
+							set_time = serverAFK.get("set");
+						}else {
+							set_time = 120;
+						}
+						long notif_time = (max_time - 60);
+						long diff_time = (timeinsec - afk_timer.get(all));
+						
+						if(diff_time == notif_time) {
+							if(!all.hasPermission("mlps.canBan")) {
+								api.sendMSGReady(all, "event.autokick.info");
+							}
+						}
+						if(diff_time == set_time) {
+							api.sendMSGReady(all, "event.autokick.autoafk");
+							updateAFK(all, true);
+						}
+						if(diff_time == max_time) {
+							if(!all.hasPermission("mlps.canBan")) {
+								all.kickPlayer("§aRedi§cCraft\n \n§7You've got kicked from our Server.\n§7Reason: " + api.returnStringReady(all, "event.autokick.kick") + "\n§7Issuer: §aServer");
+							}
+						}
+					}
 				}
 			}
-		}.runTaskTimerAsynchronously(Main.instance, delay, periodot);
+		}.runTaskTimer(Main.instance, delay, periodot);
 	}
 }
