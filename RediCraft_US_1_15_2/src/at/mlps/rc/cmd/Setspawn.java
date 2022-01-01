@@ -14,6 +14,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 
 public class Setspawn implements CommandExecutor{
@@ -38,8 +39,10 @@ public class Setspawn implements CommandExecutor{
 				if(p.hasPermission("mlps.admin.setspawn")) {
 					p.sendMessage(api.prefix("main") + "§7Usage: /setspawn <type>");
 					p.sendMessage("§7Default types: plotworld, freebuild, nether, theend");
+					ActionLogger.log(api.getServerName(), p, "Player executed setspawn command.");
 				}else {
 					api.noPerm(p);
+					ActionLogger.log(api.getServerName(), p, "Player attempted to execute the gc command.");
 				}
 			}else if(args.length >= 1 && args.length <= 1) {
 				if(p.hasPermission("mlps.admin.setspawn")) {

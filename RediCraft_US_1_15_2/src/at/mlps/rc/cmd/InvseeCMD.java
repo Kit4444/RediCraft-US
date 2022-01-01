@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 
 public class InvseeCMD implements CommandExecutor{
@@ -27,11 +28,14 @@ public class InvseeCMD implements CommandExecutor{
 						if(p != p2) {
 							p.openInventory(p2.getInventory());
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.invsee.success").replace("%displayer", p2.getDisplayName()));
+							ActionLogger.log(api.getServerName(), p, "Player used invsee command.");
 						}else {
 							api.sendMSGReady(p, "cmd.invsee.notown");
+							ActionLogger.log(api.getServerName(), p, "Player attempted to use invsee command, was own inventory.");
 						}
 					}else {
 						api.noPerm(p);
+						ActionLogger.log(api.getServerName(), p, "Player attempted to use invsee command.");
 					}
 				}
 			}else {

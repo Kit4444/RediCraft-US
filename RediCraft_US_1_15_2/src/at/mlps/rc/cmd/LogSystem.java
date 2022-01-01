@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 import at.mlps.rc.mysql.lb.MySQL;
 import ru.tehkode.permissions.PermissionUser;
@@ -34,8 +35,10 @@ public class LogSystem implements CommandExecutor{
 						api.sendMSGReady(p, "cmd.login.success");
 						updateStatus(uuid, true);
 					}
+					ActionLogger.log(api.getServerName(), p, "Player used login command.");
 				}else {
 					api.noPerm(p);
+					ActionLogger.log(api.getServerName(), p, "Player attempted to use login command.");
 				}
 			}else if(cmd.getName().equalsIgnoreCase("logout")) {
 				if(p.hasPermission("mlps.canBan")) {
@@ -45,8 +48,10 @@ public class LogSystem implements CommandExecutor{
 					}else {
 						api.sendMSGReady(p, "cmd.logout.already");
 					}
+					ActionLogger.log(api.getServerName(), p, "Player used logout command.");
 				}else {
 					api.noPerm(p);
+					ActionLogger.log(api.getServerName(), p, "Player attempted to use logout command.");
 				}
 			}else if(cmd.getName().equalsIgnoreCase("tg") || cmd.getName().equalsIgnoreCase("togglegroup")) {
 				PermissionUser po = PermissionsEx.getUser(p);
@@ -58,8 +63,10 @@ public class LogSystem implements CommandExecutor{
 						updateStatus(uuid, true);
 						api.sendMSGReady(p, "cmd.tg.visible");
 					}
+					ActionLogger.log(api.getServerName(), p, "Player used togglegroup command.");
 				}else {
 					api.noPerm(p);
+					ActionLogger.log(api.getServerName(), p, "Player attempted to use tg command.");
 				}
 			}
 		}

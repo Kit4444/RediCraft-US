@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.api.PerformanceMonitor;
 import at.mlps.rc.api.TPSMonitor;
 
@@ -31,6 +32,7 @@ public class ServerhealthCMD implements CommandExecutor{
 			PerformanceMonitor cpu = new PerformanceMonitor();
 			DecimalFormat df = new DecimalFormat("#.##");
 			if(p.hasPermission("mlps.admin.checkServer")) {
+				ActionLogger.log(api.getServerName(), p, "Player executed the gc command.");
 				p.sendMessage("§7§m================§7[§cServerinfo§7]§m================");
 				p.sendMessage("§7operating System: §9" + System.getProperty("os.name"));
 				p.sendMessage("§7Architecture: §9" + System.getProperty("os.arch"));
@@ -45,6 +47,7 @@ public class ServerhealthCMD implements CommandExecutor{
 				p.sendMessage("§7TPS from last 1m: §a" + TPSMonitor.getColorTPS());
 			}else {
 				api.noPerm(p);
+				ActionLogger.log(api.getServerName(), p, "Player attempted to executed the gc command.");
 			}
 		}
 		return true;

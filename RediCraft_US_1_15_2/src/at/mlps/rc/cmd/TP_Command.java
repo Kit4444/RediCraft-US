@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 
 public class TP_Command implements CommandExecutor {
@@ -28,6 +29,7 @@ public class TP_Command implements CommandExecutor {
 							if(p2 != null) {
 								p.teleport(p2);
 								p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.tp").replace("%displayer", p2.getDisplayName()));
+								ActionLogger.log(api.getServerName(), p, "Player executed tp to " + p2.getName() + ".");
 							}else {
 								api.sendMSGReady(p, "notonline");
 							}
@@ -45,6 +47,7 @@ public class TP_Command implements CommandExecutor {
 							Location loc = new Location(p.getWorld(), x, y, z);
 							p.teleport(loc);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.tp.location").replace("%x", s_x).replace("%y", s_y).replace("%z", s_z));
+							ActionLogger.log(api.getServerName(), p, "Player executed tp to X:" + x + ", Y:" + y + ", Z: " + z + ".");
 						}else {
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7/tp <Player> | /tp <x> <y> <z>");
 						}
@@ -53,6 +56,7 @@ public class TP_Command implements CommandExecutor {
 					}
 				}else {
 					api.noPerm(p);
+					ActionLogger.log(api.getServerName(), p, "Player attempted to execute tp.");
 				}
 			}else if(cmd.getName().equalsIgnoreCase("tphere")) {
 				if(p.hasPermission("mlps.admin.tp")) {
@@ -63,6 +67,7 @@ public class TP_Command implements CommandExecutor {
 							if(p2 != null) {
 								p2.teleport(p);
 								p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.tphere").replace("%displayer", p2.getDisplayName()));
+								ActionLogger.log(api.getServerName(), p, "Player executed tphere, " + p2.getName() + " has been teleported to player.");
 							}else {
 								api.sendMSGReady(p, "notonline");
 							}
@@ -74,6 +79,7 @@ public class TP_Command implements CommandExecutor {
 					}
 				}else {
 					api.noPerm(p);
+					ActionLogger.log(api.getServerName(), p, "Player attempted to execute tphere.");
 				}
 			}
 		}

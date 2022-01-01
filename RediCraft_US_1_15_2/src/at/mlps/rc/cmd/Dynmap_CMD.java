@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 
 public class Dynmap_CMD implements CommandExecutor{
@@ -30,13 +31,12 @@ public class Dynmap_CMD implements CommandExecutor{
 				p.sendMessage(api.prefix("main") + "§aURL§7: http://map.redicraft.eu:21203" + url);
 			}else if(server.equalsIgnoreCase("Farmserver")) {
 				p.sendMessage(api.prefix("main") + "§aURL§7: http://map.redicraft.eu:21205" + url);
-			}else if(server.equalsIgnoreCase("Towny")) {
-				p.sendMessage(api.prefix("main") + "§aURL§7: http://map.redicraft.eu:21214" + url);
 			}else if(server.equalsIgnoreCase("SkyBlock")) {
 				p.sendMessage(api.prefix("main") + "§aURL§7: http://map.redicraft.eu:21204" + url);
 			}else {
 				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.onlinemap.invalidserver"));
 			}
+			ActionLogger.log(api.getServerName(), p, "Player executed onlinemap command.");
 		}
 		return true;
 	}

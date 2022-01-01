@@ -16,6 +16,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 import at.mlps.rc.mysql.lb.MySQL;
 
@@ -30,6 +31,7 @@ public class ProfileSettings implements CommandExecutor, Listener{
 			APIs api = new APIs();
 			openSettingsInv(p);
 			p.sendMessage(api.prefix("default") + "§7The Profile Settings have been opened.");
+			ActionLogger.log(api.getServerName(), p, "Player used profilesettings command.");
 		}
 		return true;
 	}
@@ -157,14 +159,14 @@ public class ProfileSettings implements CommandExecutor, Listener{
 		}else if(e.getView().getTitle().equalsIgnoreCase("§6" + p.getName() + "'s Scoreboardsettings")) {
 			e.setCancelled(true);
 			switch(e.getCurrentItem().getItemMeta().getDisplayName()) {
-			case "§cOff": updateSB(p.getUniqueId().toString().replace("-", ""), 0); openSettingsSBInv(p); api.sendMSGReady(p, "profilesettings.scoreboard.off"); break;
-			case "§aDefault": updateSB(p.getUniqueId().toString().replace("-", ""), 1); openSettingsSBInv(p); api.sendMSGReady(p, "profilesettings.scoreboard.default"); break;
-			case "§6RediFM": updateSB(p.getUniqueId().toString().replace("-", ""), 5); openSettingsSBInv(p); api.sendMSGReady(p, "profilesettings.scoreboard.redifm"); break;
-			case "§3Players": updateSB(p.getUniqueId().toString().replace("-", ""), 6); openSettingsSBInv(p); api.sendMSGReady(p, "profilesettings.scoreboard.players"); break;
-			case "§5Location": updateSB(p.getUniqueId().toString().replace("-", ""), 7); openSettingsSBInv(p); api.sendMSGReady(p, "profilesettings.scoreboard.location"); break;
-			case "§bJobs": updateSB(p.getUniqueId().toString().replace("-", ""), 2); openSettingsSBInv(p); api.sendMSGReady(p, "profilesettings.scoreboard.jobs"); break;
-			case "§cAdmins": updateSB(p.getUniqueId().toString().replace("-", ""), 3); openSettingsSBInv(p); api.sendMSGReady(p, "profilesettings.scoreboard.admin"); break;
-			case "§dData": updateSB(p.getUniqueId().toString().replace("-", ""), 4); openSettingsSBInv(p); api.sendMSGReady(p, "profilesettings.scoreboard.data"); break;
+			case "§cOff": updateSB(p, 0); openSettingsSBInv(p); api.sendMSGReady(p, "profilesettings.scoreboard.off"); break;
+			case "§aDefault": updateSB(p, 1); openSettingsSBInv(p); api.sendMSGReady(p, "profilesettings.scoreboard.default"); break;
+			case "§6RediFM": updateSB(p, 5); openSettingsSBInv(p); api.sendMSGReady(p, "profilesettings.scoreboard.redifm"); break;
+			case "§3Players": updateSB(p, 6); openSettingsSBInv(p); api.sendMSGReady(p, "profilesettings.scoreboard.players"); break;
+			case "§5Location": updateSB(p, 7); openSettingsSBInv(p); api.sendMSGReady(p, "profilesettings.scoreboard.location"); break;
+			case "§bJobs": updateSB(p, 2); openSettingsSBInv(p); api.sendMSGReady(p, "profilesettings.scoreboard.jobs"); break;
+			case "§cAdmins": updateSB(p, 3); openSettingsSBInv(p); api.sendMSGReady(p, "profilesettings.scoreboard.admin"); break;
+			case "§dData": updateSB(p, 4); openSettingsSBInv(p); api.sendMSGReady(p, "profilesettings.scoreboard.data"); break;
 			case "§cHidden": api.sendMSGReady(p, "profilesettings.scoreboard.hidden"); break;
 			}
 		}
@@ -185,23 +187,27 @@ public class ProfileSettings implements CommandExecutor, Listener{
 	}
 	
 	static void updateSetting(Player p, String setting, boolean newState) {
+		APIs api = new APIs();
 		try {
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET " + setting + " = ? WHERE uuid = ?");
 			ps.setBoolean(1, newState);
 			ps.setString(2, p.getUniqueId().toString().replace("-", ""));
 			ps.executeUpdate();
+			ActionLogger.log(api.getServerName(), p, "Player updated in profilesettings " + setting + " to " + newState);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void updateSB(String uuid, int id) {
+	private void updateSB(Player p, int id) {
+		APIs api = new APIs();
 		try {
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET scoreboard = ? WHERE uuid = ?");
 			ps.setInt(1, id);
-			ps.setString(2, uuid);
+			ps.setString(2, p.getUniqueId().toString().replace("-", ""));
 			ps.executeUpdate();
 			ps.close();
+			ActionLogger.log(api.getServerName(), p, "Player updated in profilesettings/scoreboard to " + id);
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}

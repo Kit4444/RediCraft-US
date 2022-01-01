@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.mysql.lb.MySQL;
 
 public class TopPlaytimeCMD implements CommandExecutor{
@@ -31,6 +32,7 @@ public class TopPlaytimeCMD implements CommandExecutor{
 						p.sendMessage("§7Top §a" + i + " §7| User: §a" + rs.getString("username") + " §7| Playtime: §a" + retPTime(rs.getInt("playtime")));
 						i++;
 					}
+					ActionLogger.log(api.getServerName(), p, "Player executed topplaytime.");
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

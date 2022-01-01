@@ -14,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 import at.mlps.rc.mysql.lb.MySQL;
 
@@ -29,9 +30,11 @@ public class AFK_CMD implements CommandExecutor, Listener{
 			if(isAFK(p)) {
 				updateAFK(p, false);
 				api.sendMSGReady(p, "cmd.afk.leave");
+				ActionLogger.log(api.getServerName(), p, "Player executed \" AFK \", disabled it.");
 			}else {
 				updateAFK(p, true);
 				api.sendMSGReady(p, "cmd.afk.join");
+				ActionLogger.log(api.getServerName(), p, "Player executed \" AFK \", enabled it.");
 			}
 		}
 		return false;
@@ -44,6 +47,7 @@ public class AFK_CMD implements CommandExecutor, Listener{
 			updateAFK(p, false);
 			APIs api = new APIs();
 			api.sendMSGReady(p, "cmd.afk.leave");
+			ActionLogger.log(api.getServerName(), p, "Player moved, AFK got disabled.");
 		}
 	}
 	

@@ -19,6 +19,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 import at.mlps.rc.mysql.lb.MySQL;
 
@@ -76,6 +77,7 @@ public class Homesystem implements CommandExecutor, Listener{
 						Location loc = new Location(Bukkit.getWorld(rs.getString("world")), rs.getDouble("x"), rs.getDouble("y"), rs.getDouble("z"), (float) rs.getDouble("yaw"), (float) rs.getDouble("pitch"));
 						p.teleport(loc);
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.home.teleport").replace("%home", rs.getString("cshn")));
+						ActionLogger.log(api.getServerName(), p, "Player used home command.");
 					}catch (SQLException e) {
 						//e.printStackTrace();
 						api.sendMSGReady(p, "cmd.home.nothome");
@@ -88,6 +90,7 @@ public class Homesystem implements CommandExecutor, Listener{
 					PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_homesystem WHERE uuid = ?");
 					ps.setString(1, uuid);
 					ResultSet rs = ps.executeQuery();
+					ActionLogger.log(api.getServerName(), p, "Player used listhomes command.");
 					p.sendMessage("§7========[§aHomelist§7]========");
 					int i = 0;
 					while(rs.next()) {
@@ -110,7 +113,8 @@ public class Homesystem implements CommandExecutor, Listener{
 		hm.put("home", homename);
 		hm.put("uuid", uuid);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
-		if(p.hasPermission("mlps.homes.infinite")) { 
+		if(p.hasPermission("mlps.homes.infinite")) {
+			ActionLogger.log(api.getServerName(), p, "Player used sethome command, bypassed the homelimit.");
 			if(getHomeCount(p) <= maxhomes) {
 				try {
 					if(Main.mysql.isInDatabase("redicore_homesystem", hm)) {
@@ -175,6 +179,7 @@ public class Homesystem implements CommandExecutor, Listener{
 			}
 		}else {
 			if(getHomeCount(p) <= maxhomes) { //wenn weniger als oder gleichviel homes hat, dann zulassen, wenn wenn mehr aber keine berechtigung, blocken.
+				ActionLogger.log(api.getServerName(), p, "Player used sethome command.");
 				try {
 					if(Main.mysql.isInDatabase("redicore_homesystem", hm)) {
 						api.sendMSGReady(p, "cmd.sethome.homeexistsalready");
@@ -205,6 +210,7 @@ public class Homesystem implements CommandExecutor, Listener{
 					e.printStackTrace();
 				}
 			}else {
+				ActionLogger.log(api.getServerName(), p, "Player attempted to use sethome command, reached homelimit.");
 				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.sethome.limitexceeded.nobypass").replace("%maxhomes", String.valueOf(maxhomes)));
 				//p.sendMessage(api.prefix("main") + "§cDu hast bereits " + maxhomes + " Homes. L§sche ein nicht gebrauchtes Home, um dieses zu setzen.");
 			}
@@ -217,6 +223,7 @@ public class Homesystem implements CommandExecutor, Listener{
 		HashMap<String, Object> hm = new HashMap<>();
 		hm.put("uuid", uuid);
 		hm.put("home", homename);
+		ActionLogger.log(api.getServerName(), p, "Player used delhome command.");
 		try {
 			if(Main.mysql.isInDatabase("redicore_homesystem", hm)) {
 				PreparedStatement ps = MySQL.getConnection().prepareStatement("DELETE FROM redicore_homesystem WHERE uuid = ? AND home = ? AND server = ?");

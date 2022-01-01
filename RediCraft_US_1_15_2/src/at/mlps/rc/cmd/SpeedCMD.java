@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 
 public class SpeedCMD implements CommandExecutor{
@@ -28,9 +29,11 @@ public class SpeedCMD implements CommandExecutor{
 						if(p.isFlying()) {
 							p.setFlySpeed((float) 0);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.fly").replace("%speed", String.valueOf(0)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, flymode.");
 						}else {
 							p.setWalkSpeed((float) 0);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.walk").replace("%speed", String.valueOf(0)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, walkmode.");
 						}
 					}else {
 						api.noPerm(p);
@@ -39,9 +42,11 @@ public class SpeedCMD implements CommandExecutor{
 						if(p.isFlying()) {
 							p.setFlySpeed((float) 0.1);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.fly").replace("%speed", String.valueOf(1)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, flymode.");
 						}else {
 							p.setWalkSpeed((float) 0.1);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.walk").replace("%speed", String.valueOf(1)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, walkmode.");
 						}
 					}else {
 						api.noPerm(p);
@@ -50,9 +55,11 @@ public class SpeedCMD implements CommandExecutor{
 						if(p.isFlying()) {
 							p.setFlySpeed((float) 0.2);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.fly").replace("%speed", String.valueOf(2)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, flymode.");
 						}else {
 							p.setWalkSpeed((float) 0.2);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.walk").replace("%speed", String.valueOf(2)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, walkmode.");
 						}
 					}else {
 						api.noPerm(p);
@@ -61,9 +68,11 @@ public class SpeedCMD implements CommandExecutor{
 						if(p.isFlying()) {
 							p.setFlySpeed((float) 0.3);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.fly").replace("%speed", String.valueOf(3)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, flymode.");
 						}else {
 							p.setWalkSpeed((float) 0.3);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.walk").replace("%speed", String.valueOf(3)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, walkmode.");
 						}
 					}else {
 						api.noPerm(p);
@@ -72,9 +81,11 @@ public class SpeedCMD implements CommandExecutor{
 						if(p.isFlying()) {
 							p.setFlySpeed((float) 0.4);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.fly").replace("%speed", String.valueOf(4)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, flymode.");
 						}else {
 							p.setWalkSpeed((float) 0.4);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.walk").replace("%speed", String.valueOf(4)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, walkmode.");
 						}
 					}else {
 						api.noPerm(p);
@@ -83,9 +94,11 @@ public class SpeedCMD implements CommandExecutor{
 						if(p.isFlying()) {
 							p.setFlySpeed((float) 0.5);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.fly").replace("%speed", String.valueOf(5)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, flymode.");
 						}else {
 							p.setWalkSpeed((float) 0.5);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.walk").replace("%speed", String.valueOf(5)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, walkmode.");
 						}
 					}else {
 						api.noPerm(p);
@@ -94,9 +107,11 @@ public class SpeedCMD implements CommandExecutor{
 						if(p.isFlying()) {
 							p.setFlySpeed((float) 0.6);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.fly").replace("%speed", String.valueOf(6)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, flymode.");
 						}else {
 							p.setWalkSpeed((float) 0.6);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.walk").replace("%speed", String.valueOf(6)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, walkmode.");
 						}
 					}else {
 						api.noPerm(p);
@@ -105,9 +120,11 @@ public class SpeedCMD implements CommandExecutor{
 						if(p.isFlying()) {
 							p.setFlySpeed((float) 0.7);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.fly").replace("%speed", String.valueOf(7)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, flymode.");
 						}else {
 							p.setWalkSpeed((float) 0.7);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.walk").replace("%speed", String.valueOf(7)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, walkmode.");
 						}
 					}else {
 						api.noPerm(p);
@@ -116,9 +133,11 @@ public class SpeedCMD implements CommandExecutor{
 						if(p.isFlying()) {
 							p.setFlySpeed((float) 0.8);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.fly").replace("%speed", String.valueOf(8)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, flymode.");
 						}else {
 							p.setWalkSpeed((float) 0.8);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.walk").replace("%speed", String.valueOf(8)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, walkmode.");
 						}
 					}else {
 						api.noPerm(p);
@@ -127,9 +146,11 @@ public class SpeedCMD implements CommandExecutor{
 						if(p.isFlying()) {
 							p.setFlySpeed((float) 0.9);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.fly").replace("%speed", String.valueOf(9)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, flymode.");
 						}else {
 							p.setWalkSpeed((float) 0.9);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.walk").replace("%speed", String.valueOf(9)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, walkmode.");
 						}
 					}else {
 						api.noPerm(p);
@@ -138,9 +159,11 @@ public class SpeedCMD implements CommandExecutor{
 						if(p.isFlying()) {
 							p.setFlySpeed((float) 1);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.fly").replace("%speed", String.valueOf(10)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, flymode.");
 						}else {
 							p.setWalkSpeed((float) 1);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.walk").replace("%speed", String.valueOf(10)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, walkmode.");
 						}
 					}else {
 						api.noPerm(p);
@@ -152,9 +175,11 @@ public class SpeedCMD implements CommandExecutor{
 						if(p.isFlying()) {
 							p.setFlySpeed((float) 0.2);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.fly").replace("%speed", String.valueOf(2)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, flymode, reset.");
 						}else {
 							p.setWalkSpeed((float) 0.2);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.speed.walk").replace("%speed", String.valueOf(2)));
+							ActionLogger.log(api.getServerName(), p, "Player executed the speed command, walkmode, reset.");
 						}
 					}else {
 						api.noPerm(p);

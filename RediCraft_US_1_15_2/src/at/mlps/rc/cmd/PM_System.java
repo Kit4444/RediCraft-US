@@ -15,6 +15,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 import at.mlps.rc.mysql.lb.MySQL;
 
@@ -96,6 +97,7 @@ public class PM_System implements CommandExecutor{
 						String msg = sb.toString().trim();
 						if(hasPMBlocked(p2)) {
 							if(p.hasPermission("mlps.bypassbpm")) {
+								ActionLogger.log(api.getServerName(), p, "Player used msg command, bypassed the pm block of " + p2.getName() + " - Message: " + msg + ".");
 								api.sendMSGReady(p, "cmd.msg.bypassmsg");
 								p.sendMessage(prefix() + api.returnStringReady(p, "cmd.msg.you") + " §7§ " + p2.getDisplayName() + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
 								p2.sendMessage(prefix() + p.getDisplayName() + " §7§ " + api.returnStringReady(p2, "cmd.msg.you") + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
@@ -108,8 +110,10 @@ public class PM_System implements CommandExecutor{
 								}
 							}else {
 								api.sendMSGReady(p, "cmd.msg.playerblocked");
+								ActionLogger.log(api.getServerName(), p, "Player attempted to pm " + p2.getName() + " but they blocked pms.");
 							}
 						}else {
+							ActionLogger.log(api.getServerName(), p, "Player used msg command, recipient is " + p2.getName() + ", Message: " + msg + ".");
 							p.sendMessage(prefix() + api.returnStringReady(p, "cmd.msg.you") + " §7§ " + p2.getDisplayName() + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
 							p2.sendMessage(prefix() + p.getDisplayName() + " §7§ " + api.returnStringReady(p2, "cmd.msg.you") + "§7: " + ChatColor.translateAlternateColorCodes('&', msg));
 						}
@@ -119,9 +123,11 @@ public class PM_System implements CommandExecutor{
 				if(hasPMBlocked(p)) {
 					setBlockPM(p, false);
 					api.sendMSGReady(p, "cmd.blockpm.remove");
+					ActionLogger.log(api.getServerName(), p, "Player used blockmsg command, disabled it.");
 				}else {
 					setBlockPM(p, true);
 					api.sendMSGReady(p, "cmd.blockpm.add");
+					ActionLogger.log(api.getServerName(), p, "Player used blockmsg command, enabled it.");
 				}
 			}
 		}

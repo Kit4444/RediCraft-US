@@ -15,6 +15,7 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 
 public class StopCMD implements CommandExecutor, Listener{
@@ -44,6 +45,11 @@ public class StopCMD implements CommandExecutor, Listener{
 			String reason = sb.toString().trim();
 			if(sender.hasPermission("mlps.admin.stopserver")) {
 				sender.sendMessage(api.prefix("main") + "§cServer will stop now!");
+				if(sender instanceof Player) {
+					ActionLogger.log(api.getServerName(), (Player)sender, "Player has stopped the server.");
+				}else {
+					ActionLogger.log(api.getServerName(), "Console", "User has stopped the server.");
+				}
 				IStopBool = true;
 				Bukkit.broadcastMessage(api.prefix("main") + "§4The server will be shutdown now.\n§4You will be redirected to the Lobby!\n \n§7Reason: §a" + reason);
 				for(Player all : Bukkit.getOnlinePlayers()) {

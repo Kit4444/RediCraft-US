@@ -12,6 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 import at.mlps.rc.mysql.lb.MySQL;
 
@@ -57,6 +58,7 @@ public class CMD_SetID_SetPf implements CommandExecutor{
 										ps.executeUpdate();
 										ps.close();
 										p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.setid.updatesuccessfull").replace("%displayer", p2.getDisplayName()).replace("%id", String.valueOf(id)));
+										ActionLogger.log(api.getServerName(), p, "Player executed setid command for " + p2.getName() + "!");
 									}catch (SQLException e1) {
 										e1.printStackTrace();
 									}
@@ -82,17 +84,20 @@ public class CMD_SetID_SetPf implements CommandExecutor{
 											ps.executeUpdate();
 											ps.close();
 											p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.setid.updatesuccessfull").replace("%displayer", p2.getDisplayName()).replace("%id", String.valueOf(id)));
+											ActionLogger.log(api.getServerName(), p, "Player executed setid command for " + p2.getName() + "!");
 										}catch (SQLException e1) {
 											e1.printStackTrace();
 										}
 									}
 								}else {
 									p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.setid.limitexceeded").replace("%minid", String.valueOf(minid)).replace("%maxid", String.valueOf(maxid)));
+									ActionLogger.log(api.getServerName(), p, "Player attempted to exceed the id-limitation.");
 								}
 							}
 						}
 					}else {
 						api.noPerm(p);
+						ActionLogger.log(api.getServerName(), p, "Player attempted to change the id.");
 					}
 				}else {
 					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7/setid <Player> <ID>");
@@ -123,6 +128,7 @@ public class CMD_SetID_SetPf implements CommandExecutor{
 										ps.executeUpdate();
 										ps.close();
 										p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.setpf.playerreset").replace("%displayer", p2.getDisplayName()));
+										ActionLogger.log(api.getServerName(), p, "Player resetted prefix for " + p2.getName());
 									}catch (SQLException e) { }
 								}else {
 									try {
@@ -133,14 +139,17 @@ public class CMD_SetID_SetPf implements CommandExecutor{
 										ps.executeUpdate();
 										ps.close();
 										p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.setpf.newprefix").replace("%displayer", p2.getDisplayName()).replace("%prefix", prefix).replace("|", "\n"));
+										ActionLogger.log(api.getServerName(), p, "Player changed prefix for " + p2.getName());
 									}catch (SQLException e) { }
 								}
 							}else {
 								p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.setpf.prefixtoolong").replace("%length", String.valueOf(prefix.length())));
+								ActionLogger.log(api.getServerName(), p, "Player attempted to exceed max charlimit for prefix.");
 							}
 						}
 					}else {
 						api.noPerm(p);
+						ActionLogger.log(api.getServerName(), p, "Player attempted to change prefix.");
 					}
 				}
 			}

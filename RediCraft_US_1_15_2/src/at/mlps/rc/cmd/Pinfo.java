@@ -12,6 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 import at.mlps.rc.mysql.lb.MySQL;
 
@@ -30,6 +31,7 @@ public class Pinfo implements CommandExecutor {
 					HashMap<String, Object> hm = new HashMap<>();
 					hm.put("userid", id);
 					try {
+						ActionLogger.log(api.getServerName(), p, "Player used pinfo command.");
 						if(Main.mysql.isInDatabase("redicore_userstats", hm)) {
 							PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_userstats WHERE userid = ?");
 							ps.setInt(1, id);

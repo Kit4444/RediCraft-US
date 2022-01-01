@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 
 public class ChatClear implements CommandExecutor{
@@ -24,6 +25,7 @@ public class ChatClear implements CommandExecutor{
 					clearUserChat(10, p);
 					
 					api.sendMSGReady(p, "cmd.cc.private");
+					ActionLogger.log(api.getServerName(), p, "Player cleared chat for themself.");
 				}else if(args[0].equalsIgnoreCase("public")) {
 					if(p.hasPermission("mlps.clearchat")) {
 						
@@ -33,8 +35,10 @@ public class ChatClear implements CommandExecutor{
 						for(Player all : Bukkit.getOnlinePlayers()) {
 							all.sendMessage(api.prefix("main") + api.returnStringReady(all, "cmd.cc.forall.public").replace("%displayer", p.getDisplayName()));
 						}
+						ActionLogger.log(api.getServerName(), p, "Player cleared chat for public, not anonymously.");
 					}else {
 						api.noPerm(p);
+						ActionLogger.log(api.getServerName(), p, "Player attempted to clear chat for public, not anonymously.");
 					}
 				}else if(args[0].equalsIgnoreCase("anonymous")) {
 					if(p.hasPermission("mlps.clearchat")){
@@ -45,8 +49,10 @@ public class ChatClear implements CommandExecutor{
 						for(Player all : Bukkit.getOnlinePlayers()) {
 							api.sendMSGReady(all, "cmd.cc.forall.anonymous");
 						}
+						ActionLogger.log(api.getServerName(), p, "Player cleared chat for public, anonymously.");
 					}else {
 						api.noPerm(p);
+						ActionLogger.log(api.getServerName(), p, "Player attempted to clear chat for public, not anonymously.");
 					}
 				}else {
 					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7 /cc <private|public|anonymous>");

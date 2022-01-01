@@ -15,6 +15,7 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 
 public class Vanish_CMD implements CommandExecutor, Listener{
@@ -24,20 +25,7 @@ public class Vanish_CMD implements CommandExecutor, Listener{
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(!(sender instanceof Player)) {
-			if(args.length == 1) {
-				Player p2 = Bukkit.getPlayer(args[0]);
-				if(p2 != null) {
-					if(!isVanished(p2)) {
-						vanishPlayer(p2);
-					}else {
-						unvanishPlayer(p2);
-					}
-				}else {
-					sender.sendMessage("Player is not online on the current server.");
-				}
-			}else {
-				sender.sendMessage("No player specified!");
-			}
+			
 		}else {
 			Player p = (Player)sender;
 			APIs api = new APIs();
@@ -45,10 +33,12 @@ public class Vanish_CMD implements CommandExecutor, Listener{
 				if(p.hasPermission("mlps.vanish.own")) {
 					if(!isVanished(p)) {
 						vanishPlayer(p);
-						p.sendMessage(api.returnStringReady(p, "cmd.vanish.own").replace("%state", "vanished"));
+						p.sendMessage(api.prefix("default") + api.returnStringReady(p, "cmd.vanish.own").replace("%state", "vanished"));
+						ActionLogger.log(api.getServerName(), p, "Player executed vanish, enabled it.");
 					}else {
 						unvanishPlayer(p);
-						p.sendMessage(api.returnStringReady(p, "cmd.vanish.own").replace("%state", "unvanished"));
+						p.sendMessage(api.prefix("default") + api.returnStringReady(p, "cmd.vanish.own").replace("%state", "unvanished"));
+						ActionLogger.log(api.getServerName(), p, "Player executed vanish, disabled it.");
 					}
 				}else {
 					api.noPerm(p);
@@ -61,16 +51,19 @@ public class Vanish_CMD implements CommandExecutor, Listener{
 							vanishPlayer(p2);
 							p.sendMessage(api.returnStringReady(p, "cmd.vanish.other.own").replace("%state", "vanished").replace("%displayer", p2.getDisplayName()));
 							p2.sendMessage(api.returnStringReady(p, "cmd.vanish.other.other").replace("%state", "vanished").replace("%displayer", p.getDisplayName()));
+							ActionLogger.log(api.getServerName(), p, "Player executed vanish, enabled it for " + p2.getName() + ".");
 						}else {
 							unvanishPlayer(p2);
 							p.sendMessage(api.returnStringReady(p, "cmd.vanish.other.own").replace("%state", "unvanished").replace("%displayer", p2.getDisplayName()));
 							p2.sendMessage(api.returnStringReady(p, "cmd.vanish.other.other").replace("%state", "unvanished").replace("%displayer", p.getDisplayName()));
+							ActionLogger.log(api.getServerName(), p, "Player executed vanish, disabled it for " + p2.getName() + ".");
 						}
 					}else {
 						api.sendMSGReady(p, "playernotonline");
 					}
 				}else {
 					api.noPerm(p);
+					ActionLogger.log(api.getServerName(), p, "Player attempted to execute vanish.");
 				}
 			}
 		}

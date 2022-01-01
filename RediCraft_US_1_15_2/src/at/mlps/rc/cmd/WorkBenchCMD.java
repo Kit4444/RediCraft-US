@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 
 public class WorkBenchCMD implements CommandExecutor{
@@ -21,8 +22,10 @@ public class WorkBenchCMD implements CommandExecutor{
 			if(p.hasPermission("mlps.workbench")) {
 				p.openWorkbench(null, true);
 				api.sendMSGReady(p, "cmd.workbench");
+				ActionLogger.log(api.getServerName(), p, "Player executed workbench command.");
 			}else {
 				api.noPerm(p);
+				ActionLogger.log(api.getServerName(), p, "Player attempted to execute workbench command.");
 			}
 		}
 		return false;

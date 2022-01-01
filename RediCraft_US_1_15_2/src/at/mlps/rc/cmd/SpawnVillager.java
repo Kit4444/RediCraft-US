@@ -23,6 +23,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 
 public class SpawnVillager implements CommandExecutor, Listener{
@@ -46,8 +47,10 @@ public class SpawnVillager implements CommandExecutor, Listener{
 				v.setAgeLock(true);
 				v.teleport(p.getLocation());
 				api.sendMSGReady(p, "cmd.setvillager");
+				ActionLogger.log(api.getServerName(), p, "Player executed the spawnvillager command.");
 			}else {
 				api.noPerm(p);
+				ActionLogger.log(api.getServerName(), p, "Player attempted to executed the spawnvillager command.");
 			}
 		}
 		return false;
@@ -63,6 +66,7 @@ public class SpawnVillager implements CommandExecutor, Listener{
 				ShopInv(p);
 				APIs api = new APIs();
 				api.sendMSGReady(p, "event.shopvillager.open");
+				ActionLogger.log(api.getServerName(), p, "Player interacted with the villager.");
 			}
 		}
 	}
@@ -77,6 +81,7 @@ public class SpawnVillager implements CommandExecutor, Listener{
 					e.setCancelled(true);
 					APIs api = new APIs();
 					api.sendMSGReady(p, "event.shopvillager.hurt");
+					ActionLogger.log(api.getServerName(), p, "Player attempted to hit the villager.");
 				}
 			}
 		}

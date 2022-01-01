@@ -26,6 +26,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.mysql.lb.MySQL;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
@@ -86,9 +87,11 @@ public class RedeemGifts implements CommandExecutor, Listener{
 				if(po.inGroup("pman") || po.inGroup("cman") || po.inGroup("gmmman") || po.inGroup("dev") || po.inGroup("hr") || po.inGroup("cm") || po.inGroup("ct") || po.inGroup("st") || po.inGroup("bd") || po.inGroup("gm") || po.inGroup("aot") || po.inGroup("train") || po.inGroup("rltm") || po.inGroup("rtm") || po.inGroup("part") || po.inGroup("fs") || po.inGroup("nb") || po.inGroup("bt")) {
 					p.sendMessage(api.prefix("main") + "§7We will moneytize this gift, as you have a higher role.");
 					MoneyAPI.addMoney(p.getUniqueId(), 150000);
+					ActionLogger.log(api.getServerName(), p, "Player attempted to redeem VIP Role, moneytized it due to having a higher role.");
 				}else {
 					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + p.getName() + " group set vip");
 					p.sendMessage(api.prefix("main") + "§7You have now the role VIP.");
+					ActionLogger.log(api.getServerName(), p, "Player redeemed VIP Role.");
 				}
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
@@ -99,11 +102,13 @@ public class RedeemGifts implements CommandExecutor, Listener{
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
 				p.closeInventory();
+				ActionLogger.log(api.getServerName(), p, "Player moneytized the VIP Role.");
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cDecline")) {
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
 				p.sendMessage(api.prefix("main") + "§7You have declined your gift.");
 				p.closeInventory();
+				ActionLogger.log(api.getServerName(), p, "Player declined the VIP Role.");
 			}
 		}else if(e.getView().getTitle().equalsIgnoreCase("§7Gift: §a3 Days XP Boost")) {
 			e.setCancelled(true);
@@ -116,17 +121,20 @@ public class RedeemGifts implements CommandExecutor, Listener{
 				setGift(p, in3d, "3d:xpboost");
 				p.sendMessage(api.prefix("main") + "§7You have now 3 days Double XP Boost.");
 				p.closeInventory();
+				ActionLogger.log(api.getServerName(), p, "Player redeemed the 3D XP Boost.");
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§eMoneytize")) {
 				p.sendMessage(api.prefix("main") + "§7You have moneytized your gift.");
 				MoneyAPI.addMoney(p.getUniqueId(), 25000);
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
 				p.closeInventory();
+				ActionLogger.log(api.getServerName(), p, "Player moneytized the 3D XP Boost.");
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cDecline")) {
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
 				p.sendMessage(api.prefix("main") + "§7You have declined your gift.");
 				p.closeInventory();
+				ActionLogger.log(api.getServerName(), p, "Player declined the 3D XP Boost.");
 			}
 		}else if(e.getView().getTitle().equalsIgnoreCase("§7Gift: §aXP Shot")) {
 			e.setCancelled(true);
@@ -142,6 +150,7 @@ public class RedeemGifts implements CommandExecutor, Listener{
 				case 3: random2 = random(75, 400);
 				case 4: random2 = random(100, 500);
 				}
+				ActionLogger.log(api.getServerName(), p, "Player redeemed the XP Shot.");
 				p.giveExp(random2);
 				p.sendMessage(api.prefix("main") + "§7You have received§a " + random2 + " §7XP.");
 				p.closeInventory();
@@ -151,11 +160,13 @@ public class RedeemGifts implements CommandExecutor, Listener{
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
 				p.closeInventory();
+				ActionLogger.log(api.getServerName(), p, "Player moneytized the XP Shot.");
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cDecline")) {
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
 				p.sendMessage(api.prefix("main") + "§7You have declined your gift.");
 				p.closeInventory();
+				ActionLogger.log(api.getServerName(), p, "Player declined the XP Shot.");
 			}
 		}else if(e.getView().getTitle().equalsIgnoreCase("§7Gift: §aEnchanted Items Fullset")) {
 			e.setCancelled(true);
@@ -221,17 +232,20 @@ public class RedeemGifts implements CommandExecutor, Listener{
 				p.getInventory().addItem(helmet, chestplate, leggings, boots, sword, pickaxe, axe, shovel, beef);
 				p.sendMessage(api.prefix("main") + "You've got your Netherite Fullset enchanted.");
 				p.closeInventory();
+				ActionLogger.log(api.getServerName(), p, "Player redeemed the netherite fullset.");
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§eMoneytize")) {
 				p.sendMessage(api.prefix("main") + "§7You have moneytized your gift.");
 				MoneyAPI.addMoney(p.getUniqueId(), 400000);
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
 				p.closeInventory();
+				ActionLogger.log(api.getServerName(), p, "Player moneytized the netherite fullset.");
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cDecline")) {
 				setCodeUsed(p, codeName.get(p.getUniqueId()));
 				codeName.remove(p.getUniqueId());
 				p.sendMessage(api.prefix("main") + "§7You have declined your gift.");
 				p.closeInventory();
+				ActionLogger.log(api.getServerName(), p, "Player declined the netherite fullset.");
 			}
 		}
 	}

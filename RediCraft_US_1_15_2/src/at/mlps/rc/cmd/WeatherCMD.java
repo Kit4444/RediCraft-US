@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 
 public class WeatherCMD implements CommandExecutor{
@@ -26,24 +27,30 @@ public class WeatherCMD implements CommandExecutor{
 						p.getWorld().setThundering(false);
 						p.getWorld().setStorm(false);
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.weather.clear").replace("%world", p.getWorld().getName()));
+						ActionLogger.log(api.getServerName(), p, "Player executed weather command, cleared it.");
 					}else {
 						api.noPerm(p);
+						ActionLogger.log(api.getServerName(), p, "Player attempted to execute weather command.");
 					}
 				}else if(args[0].equalsIgnoreCase("rain")) {
 					if(p.hasPermission("mlps.setweather")) {
 						p.getWorld().setThundering(false);
 						p.getWorld().setStorm(true);
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.weather.notime").replace("%world", p.getWorld().getName()).replace("%weather", "rain").replace("%wetter", "Regen"));
+						ActionLogger.log(api.getServerName(), p, "Player executed weather command, changed to rain.");
 					}else {
 						api.noPerm(p);
+						ActionLogger.log(api.getServerName(), p, "Player attempted to execute weather command.");
 					}
 				}else if(args[0].equalsIgnoreCase("thunder")) {
 					if(p.hasPermission("mlps.setweather")) {
 						p.getWorld().setStorm(true);
 						p.getWorld().setThundering(true);
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.weather.notime").replace("%world", p.getWorld().getName()).replace("%weather", "thunder").replace("%wetter", "Gewitter"));
+						ActionLogger.log(api.getServerName(), p, "Player executed weather command, changed to thunder.");
 					}else {
 						api.noPerm(p);
+						ActionLogger.log(api.getServerName(), p, "Player attempted to execute weather command.");
 					}
 				}else {
 					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7 /weather <clear|rain|thunder> [time in seconds]");
@@ -56,8 +63,10 @@ public class WeatherCMD implements CommandExecutor{
 						p.getWorld().setStorm(true);
 						p.getWorld().setWeatherDuration(time);
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.weather.time").replace("%world", p.getWorld().getName()).replace("%weather", "rain").replace("%wetter", "Regen").replace("%seconds", String.valueOf(time)));
-						}else {
+						ActionLogger.log(api.getServerName(), p, "Player executed weather command, changed to rain, timed it for " + time + " seconds.");
+					}else {
 						api.noPerm(p);
+						ActionLogger.log(api.getServerName(), p, "Player attempted to execute weather command.");
 					}
 				}else if(args[0].equalsIgnoreCase("thunder")) {
 					if(p.hasPermission("mlps.setweather")) {
@@ -66,8 +75,10 @@ public class WeatherCMD implements CommandExecutor{
 						p.getWorld().setThundering(true);
 						p.getWorld().setThunderDuration(time);
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.weather.time").replace("%world", p.getWorld().getName()).replace("%weather", "thunder").replace("%wetter", "Gewitter").replace("%seconds", String.valueOf(time)));
+						ActionLogger.log(api.getServerName(), p, "Player executed weather command, changed to thunder, timed it for " + time + " seconds.");
 					}else {
 						api.noPerm(p);
+						ActionLogger.log(api.getServerName(), p, "Player attempted to execute weather command.");
 					}
 				}else {
 					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7 /weather <clear|rain|thunder> [time in seconds]");

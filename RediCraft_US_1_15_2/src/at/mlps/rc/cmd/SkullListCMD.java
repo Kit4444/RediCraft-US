@@ -12,6 +12,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 
 public class SkullListCMD implements CommandExecutor, Listener{
 	
@@ -24,6 +25,8 @@ public class SkullListCMD implements CommandExecutor, Listener{
 		}else {
 			Player p = (Player)sender;
 			openInvSelector(p);
+			APIs api = new APIs();
+			ActionLogger.log(api.getServerName(), p, "Player executed the headlist command.");
 		}
 		return true;
 	}

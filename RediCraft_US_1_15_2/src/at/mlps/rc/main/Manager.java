@@ -44,6 +44,7 @@ import at.mlps.rc.cmd.Setspawn;
 import at.mlps.rc.event.AutoKickerMethods;
 import at.mlps.rc.event.Blocker;
 import at.mlps.rc.event.ColorSigns;
+import at.mlps.rc.event.FullEventList;
 import at.mlps.rc.event.JoinQuitEvents;
 import at.mlps.rc.event.ScoreboardCLS;
 import at.mlps.rc.event.Serverteleporter;
@@ -171,6 +172,7 @@ public class Manager {
 		pl.registerEvents(new RedeemGifts(), Main.instance);
 		pl.registerEvents(new ColorSigns(), Main.instance);
 		pl.registerEvents(new AutoKickerMethods(), Main.instance);
+		pl.registerEvents(new FullEventList(), Main.instance);
 		//pl.registerEvents(new KilledStats(), Main.instance);
 		
 		APIs api = new APIs();

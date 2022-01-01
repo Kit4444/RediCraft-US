@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 
 public class GamemodeCMD implements CommandExecutor{
@@ -35,26 +36,31 @@ public class GamemodeCMD implements CommandExecutor{
 					if(gm.equalsIgnoreCase("0")) {
 						p.setGameMode(GameMode.SURVIVAL);
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.own").replace("%gamemode", "Survival"));
+						ActionLogger.log(api.getServerName(), p, "Player changed gamemode to survival.");
 						if(FlyCMD.flylist.contains(p.getUniqueId())) {
 							p.setAllowFlight(true);
 						}
 					}else if(gm.equalsIgnoreCase("1")) {
 						p.setGameMode(GameMode.CREATIVE);
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.own").replace("%gamemode", "Creative"));
+						ActionLogger.log(api.getServerName(), p, "Player changed gamemode to creative.");
 					}else if(gm.equalsIgnoreCase("2")) {
 						p.setGameMode(GameMode.ADVENTURE);
-						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.own").replace("%gamemode", "Adventure"));
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.own").replace("%gamemode", "Adventure Mode"));
+						ActionLogger.log(api.getServerName(), p, "Player changed gamemode to adventure mode.");
 						if(FlyCMD.flylist.contains(p.getUniqueId())) {
 							p.setAllowFlight(true);
 						}
 					}else if(gm.equalsIgnoreCase("3")) {
 						p.setGameMode(GameMode.SPECTATOR);
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.own").replace("%gamemode", "Spectator"));
+						ActionLogger.log(api.getServerName(), p, "Player changed gamemode to spectator.");
 					}else {
 						p.sendMessage(api.prefix("main") + "§7Usage: /gm* <0|1|2|3>");
 					}
 				}else {
 					api.noPerm(p);
+					ActionLogger.log(api.getServerName(), p, "Player attempted to change gamemode.");
 				}
 			}else if(args.length >= 2 && args.length <= 2) {
 				if(p.hasPermission("mlps.gamemode.other")) {
@@ -66,25 +72,30 @@ public class GamemodeCMD implements CommandExecutor{
 						if(gm.equalsIgnoreCase("0")) {
 							p2.setGameMode(GameMode.SURVIVAL);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.other").replace("%gamemode", "Survival").replace("%displayer", p2.getDisplayName()));
+							ActionLogger.log(api.getServerName(), p, "Player changed gamemode for " + p2.getName() + " to survival.");
 							if(FlyCMD.flylist.contains(p2.getUniqueId())) {
 								p2.setAllowFlight(true);
 							}
 						}else if(gm.equalsIgnoreCase("1")) {
 							p2.setGameMode(GameMode.CREATIVE);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.other").replace("%gamemode", "Creative").replace("%displayer", p2.getDisplayName()));
+							ActionLogger.log(api.getServerName(), p, "Player changed gamemode for " + p2.getName() + " to creative.");
 						}else if(gm.equalsIgnoreCase("2")) {
 							p2.setGameMode(GameMode.ADVENTURE);
-							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.other").replace("%gamemode", "Adventure").replace("%displayer", p2.getDisplayName()));
+							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.other").replace("%gamemode", "Adventure Mode").replace("%displayer", p2.getDisplayName()));
+							ActionLogger.log(api.getServerName(), p, "Player changed gamemode for " + p2.getName() + " to adventure mode.");
 							if(FlyCMD.flylist.contains(p2.getUniqueId())) {
 								p2.setAllowFlight(true);
 							}
 						}else if(gm.equalsIgnoreCase("3")) {
 							p2.setGameMode(GameMode.SPECTATOR);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.gamemode.other").replace("%gamemode", "Spectator").replace("%displayer", p2.getDisplayName()));
+							ActionLogger.log(api.getServerName(), p, "Player changed gamemode for " + p2.getName() + " to spectator.");
 						}
 					}
 				}else {
 					api.noPerm(p);
+					ActionLogger.log(api.getServerName(), p, "Player attempted to change gamemode for others.");
 				}
 			}else {
 				if(p.hasPermission("mlps.gamemode.other")) {

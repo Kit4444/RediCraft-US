@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.event.ScoreboardCLS;
 import at.mlps.rc.main.Main;
 import at.mlps.rc.mysql.lb.MySQL;
@@ -25,6 +26,7 @@ public class ScoreboardChange implements CommandExecutor{
 			APIs api = new APIs();
 			String uuid = p.getUniqueId().toString().replace("-", "");
 			if(args.length == 1) {
+				ActionLogger.log(api.getServerName(), p, "Player changed the Scoreboard-State.");
 				if(Main.serverlist.contains(api.getServerName())) {
 					if(args[0].equalsIgnoreCase("off")) {
 						updateSB(uuid, 0);

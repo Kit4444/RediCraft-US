@@ -13,6 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 
 public class FlyCMD implements CommandExecutor, Listener{
@@ -32,13 +33,16 @@ public class FlyCMD implements CommandExecutor, Listener{
 						flylist.remove(p.getUniqueId());
 						p.setAllowFlight(false);
 						api.sendMSGReady(p, "cmd.fly.own.false");
+						ActionLogger.log(api.getServerName(), p, "Player executed fly command, disabled it.");
 					}else {
 						flylist.add(p.getUniqueId());
 						p.setAllowFlight(true);
 						api.sendMSGReady(p, "cmd.fly.own.true");
+						ActionLogger.log(api.getServerName(), p, "Player executed fly command, enabled it.");
 					}
 				}else {
 					api.noPerm(p);
+					ActionLogger.log(api.getServerName(), p, "Player attempted to execute fly command.");
 				}
 			}else if(args.length == 1) {
 				Player p2 = Bukkit.getPlayerExact(args[0]);
@@ -50,13 +54,16 @@ public class FlyCMD implements CommandExecutor, Listener{
 							flylist.remove(p2.getUniqueId());
 							p2.setAllowFlight(false);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.fly.other.false").replace("%displayer", p2.getDisplayName()));
+							ActionLogger.log(api.getServerName(), p, "Player executed fly command, disabled it for " + p2.getName());
 						}else {
 							flylist.add(p2.getUniqueId());
 							p2.setAllowFlight(true);
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.fly.other.true").replace("%displayer", p2.getDisplayName()));
+							ActionLogger.log(api.getServerName(), p, "Player executed fly command, enabled it for " + p2.getName());
 						}
 					}else {
 						api.noPerm(p);
+						ActionLogger.log(api.getServerName(), p, "Player attempted to execute fly command for others.");
 					}
 				}
 			}else {

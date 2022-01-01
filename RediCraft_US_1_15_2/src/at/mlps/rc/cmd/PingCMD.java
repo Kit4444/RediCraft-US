@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 
 public class PingCMD implements CommandExecutor{
@@ -22,8 +23,10 @@ public class PingCMD implements CommandExecutor{
 				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7 /ping <me|Player|all>");
 			}else if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("me")) {
+					ActionLogger.log(api.getServerName(), p, "Player used ping command, subcommand me.");
 					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.ping.own").replace("%ping", String.valueOf(api.getPlayerPing(p))));
 				}else if(args[0].equalsIgnoreCase("all")) {
+					ActionLogger.log(api.getServerName(), p, "Player used ping command, subcommand all.");
 					for(Player all : Bukkit.getOnlinePlayers()) {
 						int ping1 = api.getPlayerPing(all);
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.ping.all").replace("%displayer", all.getDisplayName()).replace("%ping", String.valueOf(ping1)));
@@ -34,6 +37,7 @@ public class PingCMD implements CommandExecutor{
 						api.sendMSGReady(p, "cmd.ping.notonline");
 					}else {
 						int ping2 = api.getPlayerPing(p2);
+						ActionLogger.log(api.getServerName(), p, "Player used ping command, specified player.");
 						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.ping.other").replace("%displayer", p2.getDisplayName()).replace("%ping", String.valueOf(ping2)));
 					}
 				}

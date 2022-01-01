@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.main.Main;
 
 public class SkullCMD implements CommandExecutor{
@@ -21,6 +22,7 @@ public class SkullCMD implements CommandExecutor{
 			if(args.length == 1) {
 				p.getInventory().addItem(api.skullItem(1, args[0] + "'s Head", args[0]));
 				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.head").replace("%player", args[0]));
+				ActionLogger.log(api.getServerName(), p, "Player executed the head command.");
 			}else {
 				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + " §7/head <Headname>");
 			}

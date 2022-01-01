@@ -13,6 +13,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import at.mlps.rc.api.APIs;
+import at.mlps.rc.api.ActionLogger;
 import at.mlps.rc.mysql.lb.MySQL;
 
 public class TPA_System implements CommandExecutor{
@@ -40,12 +41,14 @@ public class TPA_System implements CommandExecutor{
                         }else {
                             if(hasTPABlocked(p2)) {
                             	api.sendMSGReady(p, "cmd.tpa.playerblocked");
+                            	ActionLogger.log(api.getServerName(), p, "Player attempted to execute tpa, but the recipient has tp-requests blocked.");
                             }else {
                                 tprequests.put(p2.getUniqueId(), p.getUniqueId());
                                 tprequesttype.put(p2.getUniqueId(), false);
                                 p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.tpa.success.ownmsg").replace("%displayer", p2.getDisplayName()));
                                 p2.sendMessage(api.prefix("main") + api.returnStringReady(p2, "cmd.tpa.success.othermsg.main").replace("%displayer", p.getDisplayName()));
                                 api.sendMSGReady(p2, "cmd.tpa.success.othermsg.info");
+                                ActionLogger.log(api.getServerName(), p, "Player executed tpa, recipient " + p2.getName() + " has accepted.");
                             }
                         }
                     }
@@ -65,12 +68,14 @@ public class TPA_System implements CommandExecutor{
                         }else {
                             if(hasTPABlocked(p2)) {
                             	api.sendMSGReady(p, "cmd.tpahere.playerblocked");
+                            	ActionLogger.log(api.getServerName(), p, "Player attempted to execute tpahere, recipient has blocked tp-requests.");
                             }else {
                                 tprequests.put(p2.getUniqueId(), p.getUniqueId());
                                 tprequesttype.put(p2.getUniqueId(), true);
                                 p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.tpahere.success.ownmsg").replace("%displayer", p2.getDisplayName()));
                                 p2.sendMessage(api.prefix("main") + api.returnStringReady(p2, "cmd.tpahere.success.othermsg.main").replace("%displayer", p.getDisplayName()));
                                 api.sendMSGReady(p2, "cmd.tpahere.success.othermsg.info");
+                                ActionLogger.log(api.getServerName(), p, "Player executed tpahere, recipient " + p2.getName() + " has accepted.");
                             }
                         }
                     }
@@ -88,6 +93,7 @@ public class TPA_System implements CommandExecutor{
                     }
                     tprequests.remove(p.getUniqueId());
                     tprequesttype.remove(p.getUniqueId());
+                    ActionLogger.log(api.getServerName(), p, "Player executed tpaccept.");
                 }else {
                     api.sendMSGReady(p, "cmd.tpaccept.noreqopen");
                 }
@@ -96,6 +102,7 @@ public class TPA_System implements CommandExecutor{
                     tprequests.remove(p.getUniqueId());
                     tprequesttype.remove(p.getUniqueId());
                     api.sendMSGReady(p, "cmd.tpdeny.declined");
+                    ActionLogger.log(api.getServerName(), p, "Player executed tpdeny.");
                 }else {
                 	api.sendMSGReady(p, "cmd.tpdeny.noreqopen");
                 }
@@ -103,9 +110,11 @@ public class TPA_System implements CommandExecutor{
                 if(hasTPABlocked(p)) {
                     setTPABlocked(p, false);
                     api.sendMSGReady(p, "cmd.blocktpa.removed");
+                    ActionLogger.log(api.getServerName(), p, "Player executed blocktpa, disabled it.");
                 }else {
                 	setTPABlocked(p, true);
                     api.sendMSGReady(p, "cmd.blocktpa.added");
+                    ActionLogger.log(api.getServerName(), p, "Player executed blocktpa, enabled it.");
                 }
             }
         }
