@@ -1,8 +1,11 @@
 package at.mlps.rc.event;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +13,6 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.commons.io.IOUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -24,7 +26,8 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import at.mlps.rc.api.APIs;
 import at.mlps.rc.main.Main;
@@ -226,7 +229,7 @@ public class JoinQuitEvents implements Listener{
         	}
         }
         try {
-        	PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET userrank = ?, rankcolor = ?, lastjoints = ?, lastjoinstring = ?, lastloginip = ?, online = ?, lj_ip_isp = ?, lj_ip_tz = ?, lj_ip_cty = ? WHERE uuid = ?");
+        	PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET userrank = ?, rankcolor = ?, lastjoints = ?, lastjoinstring = ?, lastloginip = ?, online = ?, lj_ip_isp = ?, lj_ip_tz = ?, lj_ip_cty = ?, lj_ip_reg = ? WHERE uuid = ?");
         	if(po.inGroup("pman")) {
     			ps.setString(1, "Project Manager");
     			ps.setString(2, "#5555ff");
@@ -301,7 +304,8 @@ public class JoinQuitEvents implements Listener{
         	ps.setString(7, getFromAPI(p, "isp"));
         	ps.setString(8, getFromAPI(p, "timezone"));
         	ps.setString(9, getFromAPI(p, "country"));
-        	ps.setString(10, uuid);
+        	ps.setString(10, getFromAPI(p, "region"));
+        	ps.setString(11, uuid);
         	ps.executeUpdate();
         	ps.close();
         }catch (SQLException ex) { ex.printStackTrace(); }
@@ -336,20 +340,30 @@ public class JoinQuitEvents implements Listener{
 			level = "NONE";
 			e.printStackTrace();
 		}
-		Bukkit.getConsoleSender().sendMessage("OUTPUT #315 " + level);
 		return level;
 	}
 	
 	public String getFromAPI(Player p, String key) {
-		String url = "http://www.ip-api.com/json/";
+		String url_ = "http://www.ip-api.com/json/";
 		String data = "";
+		String useragent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36";
+		
 		try {
-			@SuppressWarnings("deprecation")
-			String uuidJson = IOUtils.toString(new URL(url + p.getAddress()));
-			if(uuidJson.isEmpty()) return "ERRORED!";
-			JSONObject obj = (JSONObject) JSONValue.parseWithException(uuidJson);
-			data = obj.get(key).toString();
-		} catch (Exception e) {
+			URL url = new URL(url_ + p.getAddress().getHostName());
+			URLConnection con = url.openConnection();
+			con.setRequestProperty("User-Agent", useragent);
+			try (InputStreamReader isr = new InputStreamReader(con.getInputStream())){
+				BufferedReader bR = new BufferedReader(isr);
+				JSONParser jP = new JSONParser();
+				JSONObject jO = (JSONObject) jP.parse(bR);
+				if(jO.get(key) == null) return "JSON is empty!";
+				data = jO.get(key).toString();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return data;
