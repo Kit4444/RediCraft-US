@@ -39,7 +39,6 @@ public class Serverteleporter implements Listener, CommandExecutor{
 	static String skyblock = "§7Sky§2Block";
 	static String creative = "§eCreative";
 	static String survival = "§cSurvival";
-	static String towny = "§6Towny";
 	static String farmserver = "§5Farmserver";
 	static String bauserver = "§bStaffserver";
 	static String gameslobby = "§dGameslobby";
@@ -66,12 +65,10 @@ public class Serverteleporter implements Listener, CommandExecutor{
 		inv.setItem(3, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		inv.setItem(4, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		inv.setItem(5, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(6, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		inv.setItem(7, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		inv.setItem(8, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		inv.setItem(9, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		inv.setItem(11, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-		inv.setItem(13, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		inv.setItem(15, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		inv.setItem(17, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		inv.setItem(18, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
@@ -81,39 +78,20 @@ public class Serverteleporter implements Listener, CommandExecutor{
 		inv.setItem(23, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		inv.setItem(25, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		//inv w/ items
+		inv.setItem(2, api.naviItem(Material.GRASS_BLOCK, skyblock, "SkyBlock"));
 		inv.setItem(6, api.naviItem(Material.DIAMOND_PICKAXE, creative, "Creative"));
-		inv.setItem(10, api.naviItem(Material.GRASS_BLOCK, skyblock, "SkyBlock"));
+		inv.setItem(10, api.naviItem(Material.WOODEN_AXE, bauserver, "Staffserver"));
 		inv.setItem(16, api.naviItem(Material.GOLDEN_SHOVEL, farmserver, "Farmserver"));
-		inv.setItem(20, api.naviItem(Material.BRICKS, towny, "Towny"));
+		inv.setItem(20, api.naviItem(Material.RED_BED, gameslobby, "Gameslobby"));
 		inv.setItem(24, api.naviItem(Material.IRON_AXE, survival, "Survival"));
-		if(api.getServerName().equalsIgnoreCase("Farmserver")) {
-			inv.setItem(2, api.defItem(Material.EMERALD, 1, wt_inventory)); //dailyrewards
-			inv.setItem(12, api.naviItem(Material.RED_BED, gameslobby, "Gameslobby"));
-			inv.setItem(14, api.defItem(Material.NETHER_STAR, 1, spawn)); //spawn
-			if(p.hasPermission("mlps.isTeam")) {
-				inv.setItem(26, api.naviItem(Material.WOODEN_AXE, bauserver, "Staffserver"));
-			}else {
-				inv.setItem(26, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-			}
-		}else if(api.getServerName().equalsIgnoreCase("Survival")) {
-			inv.setItem(2, api.defItem(Material.EMERALD, 1, wt_inventory)); //dailyrewards
-			inv.setItem(12, api.naviItem(Material.RED_BED, gameslobby, "Gameslobby"));
-			inv.setItem(14, api.defItem(Material.NETHER_STAR, 1, spawn)); //spawn
-			if(p.hasPermission("mlps.isTeam")) {
-				inv.setItem(26, api.naviItem(Material.WOODEN_AXE, bauserver, "Staffserver"));
-			}else {
-				inv.setItem(26, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-			}
+		if(api.getServerName().equalsIgnoreCase("Farmserver") || api.getServerName().equalsIgnoreCase("Survival")) {
+			inv.setItem(12, api.defItem(Material.AMETHYST_SHARD, 1, wt_inventory));
+			inv.setItem(13, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
+			inv.setItem(14, api.naviItem(Material.AMETHYST_CLUSTER, spawn, "Lobby"));
 		}else {
-			if(p.hasPermission("mlps.isTeam")) {
-				inv.setItem(2, api.naviItem(Material.WOODEN_AXE, bauserver, "Staffserver"));
-				inv.setItem(26, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-			}else {
-				inv.setItem(2, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-				inv.setItem(26, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
-			}
-			inv.setItem(12, api.naviItem(Material.RED_BED, gameslobby, "Gameslobby"));
-			inv.setItem(14, api.defItem(Material.NETHER_STAR, 1, spawn)); //spawn
+			inv.setItem(12, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
+			inv.setItem(13, api.naviItem(Material.AMETHYST_CLUSTER, spawn, "Lobby"));
+			inv.setItem(14, api.defItem(Material.BLACK_STAINED_GLASS_PANE, 1, "§0"));
 		}
 		p.openInventory(inv);
 		p.updateInventory();
@@ -126,6 +104,7 @@ public class Serverteleporter implements Listener, CommandExecutor{
 		YamlConfiguration cfg = YamlConfiguration.loadConfiguration(spawnfile);
 		if(e.getView().getTitle().equalsIgnoreCase(title)) {
 			e.setCancelled(true);
+			if(e.getCurrentItem() == null) return;
 			if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(dailyrew)) {
 				e.setCancelled(true);
 				p.closeInventory();
@@ -236,45 +215,29 @@ public class Serverteleporter implements Listener, CommandExecutor{
 					}
 					
 				}
-			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(towny)) {
-				e.setCancelled(true);
-				boolean lock = getData("Towny", "locked");
-				if(lock) {
-					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Towny"));
-				}else {
-					boolean monitor = getData("Towny", "monitoring");
-					boolean online = getData("Towny", "online");
-					if(online) {
-						if(monitor) {
-							api.sendMSGReady(p, "event.navigator.sendPlayer.monitorinfo");
-							sendPlayer(p, "towny", towny);
-						}else {
-							sendPlayer(p, "towny", towny);
-						}
-					}else {
-						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Towny"));
-					}
-					
-				}
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(bauserver)) {
 				e.setCancelled(true);
-				boolean lock = getData("Staffserver", "locked");
-				if(lock) {
-					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Staffserver"));
-				}else {
-					boolean monitor = getData("Staffserver", "monitoring");
-					boolean online = getData("Staffserver", "online");
-					if(online) {
-						if(monitor) {
-							api.sendMSGReady(p, "event.navigator.sendPlayer.monitorinfo");
-							sendPlayer(p, "bauserver", bauserver);
-						}else {
-							sendPlayer(p, "bauserver", bauserver);
-						}
+				if(p.hasPermission("mlps.isStaff")) {
+					boolean lock = getData("Staffserver", "locked");
+					if(lock) {
+						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.navigator.sendPlayer.locked").replace("%server", "Staffserver"));
 					}else {
-						p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Staffserver"));
+						boolean monitor = getData("Staffserver", "monitoring");
+						boolean online = getData("Staffserver", "online");
+						if(online) {
+							if(monitor) {
+								api.sendMSGReady(p, "event.navigator.sendPlayer.monitorinfo");
+								sendPlayer(p, "bauserver", bauserver);
+							}else {
+								sendPlayer(p, "bauserver", bauserver);
+							}
+						}else {
+							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Staffserver"));
+						}
+						
 					}
-					
+				}else {
+					api.noPerm(p);
 				}
 			}else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(gameslobby)) {
 				e.setCancelled(true);
