@@ -1,9 +1,9 @@
 author: Newt
-version: 20211117_0002-00435b
+version: v3.14.3s
 name: RediCore_SubServer
 description: This is the Core-Plugin of RediCraft.
 website: www.redicraft.eu
-prefix: REDICRAFTCOREPLUGIN
+prefix: REDICORE
 api-version: 1.16
 main: at.mlps.rc.main.Main
 softdepend: [PermissionsEx, Jobs]

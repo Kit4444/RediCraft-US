@@ -10,5 +10,11 @@
 	<classpathentry kind="lib" path="C:/Users/mauri/Documents/Workspace/API/Minecraft_Deps/PermissionsEx-1.23.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/mauri/Documents/Workspace/API/Minecraft_Deps/Vault.jar"/>
 	<classpathentry kind="lib" path="C:/Users/mauri/Documents/Workspace/API/Minecraft_Deps/spigot_1181.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mauri/Desktop/temp/plugins/PlotSquared-Bukkit-6.2.1-Premium.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mauri/Documents/Workspace/API/General_Deps/commons-io-2.11.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mauri/Documents/Workspace/API/General_Deps/commons-io-2.11.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mauri/Documents/Workspace/API/General_Deps/commons-lang3-3.12.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mauri/Documents/Workspace/API/General_Deps/commons-lang3-3.12.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mauri/Documents/Workspace/API/General_Deps/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="RediCraft_US_1_15_2/bin"/>
 </classpath>
