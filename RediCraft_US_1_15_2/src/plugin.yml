@@ -84,4 +84,5 @@ commands:
         - profile
         - options
         - profileoptions
+    deletejobsign:
     
