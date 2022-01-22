@@ -328,7 +328,7 @@ public class ScoreboardCLS implements Listener{
 		Team friend = getTeam(sb, "00180", retPrefix("friend", "prefix_tab"), ChatColor.GRAY);
 		Team vip = getTeam(sb, "00181", retPrefix("vip", "prefix_tab"), ChatColor.GRAY);
 		Team player = getTeam(sb, "00190", retPrefix("default", "prefix_tab"), ChatColor.GRAY);
-		Team afk = getTeam(sb, "00200", retPrefix("safk", "prefix_tab"), ChatColor.GRAY);
+		Team afk = getTeam(sb, "00200", retPrefix("safk", "prefix_tab"), ChatColor.BLUE);
 		
 		for(Player all : Bukkit.getOnlinePlayers()) {
 			PermissionUser pp = PermissionsEx.getUser(all);
@@ -349,7 +349,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -369,7 +369,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -389,7 +389,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -409,7 +409,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -429,7 +429,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -449,7 +449,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -469,7 +469,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -489,7 +489,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -509,7 +509,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -529,7 +529,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -549,7 +549,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -569,7 +569,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -589,7 +589,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -609,7 +609,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -629,7 +629,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -649,7 +649,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -669,7 +669,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -689,7 +689,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -709,7 +709,7 @@ public class ScoreboardCLS implements Listener{
 				}else {
 					if(isAFK(all)) {
 						afk.addPlayer(all);
-						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+						all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 					}else {
 						player.addPlayer(all);
 						all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -728,7 +728,7 @@ public class ScoreboardCLS implements Listener{
 			}else if(pp.inGroup("default")) {
 				if(isAFK(all)) {
 					afk.addPlayer(all);
-					all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + "7| ID: §a" + igid(all) + " " + igpre(all));
+					all.setPlayerListName(retPrefix("safk", "prefix_tab") + all.getName() + " §7| ID: §a" + igid(all) + " " + igpre(all));
 				}else {
 					player.addPlayer(all);
 					all.setDisplayName(retPrefix("default", "prefix_chat") + all.getName());
@@ -1097,6 +1097,7 @@ public class ScoreboardCLS implements Listener{
 	
 	int cacheTimer = 21600;
 	int cacheTimer_afk = 2; //3600s equals to 60 minutes (60*60)
+	int jobSignTimer = 5; //initial 2 secs, then all 60 secs to refresh to avoid overloading DB.
 	public static HashMap<Player, Long> afk_timer = new HashMap<>();
 	public static HashMap<Player, Boolean> autoAFK = new HashMap<>();
 	public static HashMap<String, Integer> serverAFK = new HashMap<>();
@@ -1161,6 +1162,12 @@ public class ScoreboardCLS implements Listener{
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
+				}
+				jobSignTimer--;
+				if(jobSignTimer == 0) {
+					jobSignTimer = 30;
+					JobSigns js = new JobSigns();
+					js.onUpdateSigns();
 				}
 				for(Player all : Bukkit.getOnlinePlayers()) {
 					all.setPlayerListHeaderFooter(api.returnStringReady(all, "scoreboard.playerlist.top").replace("|", "\n"), api.returnStringReady(all, "scoreboard.playerlist.bottom").replace("|", "\n").replace("%time", stime).replace("%servername", api.getServerName()).replace("%serverid", api.getServerId()));
