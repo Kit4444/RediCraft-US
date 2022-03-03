@@ -8,13 +8,11 @@ import java.util.Date;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import com.plotsquared.core.annotations.annotations.NotNull;
-
 import at.mlps.rc.mysql.lb.MySQL;
 
 public class ActionLogger {
 	
-	public static void log(@NotNull String server, @NotNull Player p, @NotNull String action) {
+	public static void log(String server, Player p, String action) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
 		try {
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO redicore_actionlog(uuid, server, dateTime, actionType) VALUES (?, ?, ?, ?)");
@@ -27,7 +25,7 @@ public class ActionLogger {
 		}
 	}
 	
-	public static void log(@NotNull String server, @NotNull String issuer, @NotNull String action) {
+	public static void log(String server, String issuer, String action) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
 		try {
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO redicore_actionlog(uuid, server, dateTime, actionType) VALUES (?, ?, ?, ?)");
@@ -40,7 +38,7 @@ public class ActionLogger {
 		}
 	}
 	
-	public static void logwithCoords(@NotNull String server, @NotNull Player p, @NotNull String action) {
+	public static void logwithCoords(String server, Player p, String action) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
 		try {
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO redicore_actionlog(uuid, server, dateTime, actionType, x, y, z, world) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
@@ -57,7 +55,7 @@ public class ActionLogger {
 		}
 	}
 	
-	public static void logwithBCoords(@NotNull String server, @NotNull Player p, @NotNull Location loc, @NotNull String action) {
+	public static void logwithBCoords(String server, Player p, Location loc, String action) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy - HH:mm:ss");
 		try {
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("INSERT INTO redicore_actionlog(uuid, server, dateTime, actionType, x, y, z, world) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");

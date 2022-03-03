@@ -28,7 +28,8 @@ public class AutoKickerMethods implements Listener{
 		Player p = e.getPlayer();
 		long time = (System.currentTimeMillis() / 1000);
 		ScoreboardCLS.afk_timer.put(p, time);
-		ScoreboardCLS.autoAFK.put(p, dl_AFKSetting(p));
+		ScoreboardCLS.autoAFK.put(p, dl_AFKSetting(p, "setAutoAFK"));
+		ScoreboardCLS.staffKick.put(p, dl_AFKSetting(p, "enableAFKkick"));
 	}
 	
 	@EventHandler
@@ -36,6 +37,7 @@ public class AutoKickerMethods implements Listener{
 		Player p = e.getPlayer();
 		ScoreboardCLS.afk_timer.remove(p);
 		ScoreboardCLS.autoAFK.remove(p);
+		ScoreboardCLS.staffKick.remove(p);
 	}
 	
 	@EventHandler
@@ -45,14 +47,14 @@ public class AutoKickerMethods implements Listener{
 		ScoreboardCLS.afk_timer.put(p, time);
 	}
 	
-	private boolean dl_AFKSetting(Player p) {
+	private boolean dl_AFKSetting(Player p, String col) {
 		boolean boo = false;
 		try {
-			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT setAutoAFK FROM redicore_userstats WHERE uuid = ?");
+			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT " + col + " FROM redicore_userstats WHERE uuid = ?");
 			ps.setString(1, p.getUniqueId().toString().replace("-", ""));
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			boo = rs.getBoolean("setAutoAFK");
+			boo = rs.getBoolean(col);
 			rs.close();
 			ps.close();
 		} catch (SQLException e) {

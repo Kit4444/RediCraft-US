@@ -68,7 +68,6 @@ commands:
         - tpnp
         - tpdisallow
     blocktpa:
-    channel:
     tphere:
         aliases:
         - tph

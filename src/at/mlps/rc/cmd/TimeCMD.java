@@ -23,7 +23,7 @@ public class TimeCMD implements CommandExecutor{
 				p.sendMessage(api.prefix("main") + "§7Usage: /time <set|add|remove|info> [time]");
 			}else if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("info")) {
-					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.time.info").replace("%world", p.getWorld().getName()).replace("%time", String.valueOf(p.getWorld().getTime())));
+					p.sendMessage(api.prefix("main") + api.returnStringReady(p, "cmd.time.info").replace("%world", p.getWorld().getName()).replace("%timedigital", parseTimeWorld(p.getWorld().getTime())));
 				}
 			}else if(args.length == 2) {
 				if(args[0].equalsIgnoreCase("set")) {

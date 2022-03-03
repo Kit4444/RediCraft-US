@@ -227,9 +227,9 @@ public class Serverteleporter implements Listener, CommandExecutor{
 						if(online) {
 							if(monitor) {
 								api.sendMSGReady(p, "event.navigator.sendPlayer.monitorinfo");
-								sendPlayer(p, "bauserver", bauserver);
+								sendPlayer(p, "staffserver", bauserver);
 							}else {
-								sendPlayer(p, "bauserver", bauserver);
+								sendPlayer(p, "staffserver", bauserver);
 							}
 						}else {
 							p.sendMessage(api.prefix("main") + api.returnStringReady(p, "event.navigator.sendPlayer.offline").replace("%server", "Staffserver"));

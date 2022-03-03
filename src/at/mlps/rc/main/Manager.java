@@ -9,7 +9,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 
 import at.mlps.rc.api.APIs;
-import at.mlps.rc.api.ChannelManager;
 import at.mlps.rc.cmd.AFK_CMD;
 import at.mlps.rc.cmd.CMD_SetID_SetPf;
 import at.mlps.rc.cmd.ChatClear;
@@ -144,7 +143,6 @@ public class Manager {
 		Main.instance.getCommand("tpaccept").setExecutor(new TPA_System());
 		Main.instance.getCommand("tpdeny").setExecutor(new TPA_System());
 		Main.instance.getCommand("blocktpa").setExecutor(new TPA_System());
-		Main.instance.getCommand("channel").setExecutor(new ChannelManager());
 		Main.instance.getCommand("tphere").setExecutor(new TP_Command());
 		Main.instance.getCommand("tp").setExecutor(new TP_Command());
 		Main.instance.getCommand("vanish").setExecutor(new Vanish_CMD());
@@ -166,7 +164,6 @@ public class Manager {
 		pl.registerEvents(new StopCMD(Main.instance), Main.instance);
 		pl.registerEvents(new Blocker(), Main.instance);
 		pl.registerEvents(new Serverupdater(), Main.instance);
-		pl.registerEvents(new ChannelManager(), Main.instance);
 		pl.registerEvents(new Vanish_CMD(), Main.instance);
 		pl.registerEvents(new SkullListCMD(), Main.instance);
 		pl.registerEvents(new ProfileSettings(), Main.instance);
