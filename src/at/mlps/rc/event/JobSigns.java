@@ -275,6 +275,7 @@ public class JobSigns implements Listener, CommandExecutor{
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e) {
 		Action a = e.getAction();
+		if(e.getClickedBlock() == null) return;
 		if(e.getClickedBlock().getType() == Material.OAK_SIGN || e.getClickedBlock().getType() == Material.OAK_WALL_SIGN) {
 			Player p = e.getPlayer();
 			Sign s = (Sign) e.getClickedBlock().getState();
