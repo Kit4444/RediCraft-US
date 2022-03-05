@@ -73,7 +73,7 @@ public class Serverupdater implements Listener{
 				ps.setInt(5, (int) timestamp);
 				ps.setString(6, stime);
 				ps.setInt(7, (int) ramtotal);
-				ps.setString(8, "1.18.1");
+				ps.setString(8, "1.18.2");
 				ps.setString(9, tps);
 				ps.setInt(10, staffs);
 				ps.setBoolean(11, dmap);
@@ -95,42 +95,74 @@ public class Serverupdater implements Listener{
 			String uuid = all.getUniqueId().toString().replace("-", "");
 			try {
 				PermissionUser pu = PermissionsEx.getUser(all);
-	    		PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET userrank = ?, online = ?, server = ?, isstaff = ? WHERE uuid = ?");
-	    		if(pu.inGroup("PMan")) {
-	        		ps.setString(1, "Projectmanager");
-	        	}else if(pu.inGroup("CMan")) {
-	        		ps.setString(1, "Community Manager");
-	        	}else if(pu.inGroup("AMan")) {
-	        		ps.setString(1, "Game Moderation Manager");
-	        	}else if(pu.inGroup("Developer")) {
-	        		ps.setString(1, "Developer");
-	        	}else if(pu.inGroup("Admin")) {
-	        		ps.setString(1, "Game Moderator");
-	        	}else if(pu.inGroup("Mod")) {
-	        		ps.setString(1, "Moderator");
-	        	}else if(pu.inGroup("Support")) {
-	        		ps.setString(1, "Support");
-	        	}else if(pu.inGroup("Translator")) {
-	        		ps.setString(1, "Content");
-	        	}else if(pu.inGroup("Builder")) {
-	        		ps.setString(1, "Builder");
-	        	}else if(pu.inGroup("RLTM")) {
-	        		ps.setString(1, "Retired Legend Team Member");
-	        	}else if(pu.inGroup("RTM")) {
-	        		ps.setString(1, "Retired Team Member");
-	        	}else if(pu.inGroup("Partner")) {
-	        		ps.setString(1, "Partner");
-	        	}else if(pu.inGroup("Beta")) {
-	        		ps.setString(1, "Beta-Tester");
-	        	}else if(pu.inGroup("Patron")) {
-	        		ps.setString(1, "Patron");
-	        	}else if(pu.inGroup("NitroBooster")) {
-	        		ps.setString(1, "Nitrobooster");
-	        	}else if(pu.inGroup("Friend")) {
-	        		ps.setString(1, "Friend");
-	        	}else {
-	        		ps.setString(1, "Player");
-	        	}
+	    		PreparedStatement ps = MySQL.getConnection().prepareStatement("UPDATE redicore_userstats SET userrank = ?, online = ?, server = ?, isstaff = ?, rankcolor = ?WHERE uuid = ?");
+	    		if(pu.inGroup("pman")) {
+	    			ps.setString(1, "Project Manager");
+	    			ps.setString(5, "#7c4dff");
+	    		}else if(pu.inGroup("sman")) {
+	    			ps.setString(1, "Staff Manager");
+	    			ps.setString(5, "#fc9403");
+	    		}else if(pu.inGroup("gmmman")) {
+	    			ps.setString(1, "Game Moderation Manager");
+	    			ps.setString(5, "#d32f2f");
+	    		}else if(pu.inGroup("dev")) {
+	    			ps.setString(1, "Developer");
+	    			ps.setString(5, "#aa00aa");
+	    		}else if(pu.inGroup("gman")) {
+	    			ps.setString(1, "General Manager");
+	    			ps.setString(5, "#89cff0");
+	    		}else if(pu.inGroup("sda")) {
+	    			ps.setString(1, "Service & Data Analyst");
+	    			ps.setString(5, "#189192");
+	    		}else if(pu.inGroup("cm")) {
+	    			ps.setString(1, "Community Moderator");
+	    			ps.setString(5, "#00aa00");
+	    		}else if(pu.inGroup("ct")) {
+	    			ps.setString(1, "Content Team");
+	    			ps.setString(5, "#55ff55");
+	    		}else if(pu.inGroup("st")) {
+	    			ps.setString(1, "Support Team");
+	    			ps.setString(5, "#ffff55");
+	    		}else if(pu.inGroup("bd")) {
+	    			ps.setString(1, "Builder");
+	    			ps.setString(5, "#55ffff");
+	    		}else if(pu.inGroup("gm")) {
+	    			ps.setString(1, "Game Moderator");
+	    			ps.setString(5, "#f44336");
+	    		}else if(pu.inGroup("aot")) {
+	    			ps.setString(1, "AddOn-Team");
+	    			ps.setString(5, "#ff55ff");
+	    		}else if(pu.inGroup("train")) {
+	    			ps.setString(1, "Trainee");
+	    			ps.setString(5, "#1497eb");
+	    		}else if(pu.inGroup("rltm")) {
+	    			ps.setString(1, "Retired Legend");
+	    			ps.setString(5, "#00aaaa");
+	    		}else if(pu.inGroup("rtm")) {
+	    			ps.setString(1, "Retired Team Member");
+	    			ps.setString(5, "#00aaaa");
+	    		}else if(pu.inGroup("part")) {
+	    			ps.setString(1, "Partner");
+	    			ps.setString(5, "#00e274");
+	    		}else if(pu.inGroup("fs")) {
+	    			ps.setString(1, "Forum Supporter");
+	    			ps.setString(5, "#f47fff");
+	    		}else if(pu.inGroup("nb")) {
+	    			ps.setString(1, "Nitro Booster");
+	    			ps.setString(5, "#f47fff");
+	    		}else if(pu.inGroup("bt")) {
+	    			ps.setString(1, "Beta Tester");
+	    			ps.setString(5, "#b64dff");
+	    		}else if(pu.inGroup("friend")) {
+	    			ps.setString(1, "Friend");
+	    			ps.setString(5, "#aaaaaa");
+	    		}else if(pu.inGroup("vip")) {
+	    			ps.setString(1, "VIP");
+	    			ps.setString(5, "#b38c3d");
+	    		}else if(pu.inGroup("default")) {
+	    			ps.setString(1, "Player");
+	    			ps.setString(5, "#ffffff");
+	    		}
 	    		ps.setBoolean(2, true);
 	    		ps.setString(3, api.getServerName());
 	    		if(all.hasPermission("mlps.isStaff")) {
@@ -138,7 +170,7 @@ public class Serverupdater implements Listener{
 	    		}else {
 	    			ps.setBoolean(4, false);
 	    		}
-	    		ps.setString(5, uuid);
+	    		ps.setString(6, uuid);
 	    		ps.executeUpdate();
 	    		ps.close();
 			}catch (SQLException e) {
