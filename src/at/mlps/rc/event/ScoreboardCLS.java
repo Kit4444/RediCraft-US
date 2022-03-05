@@ -90,53 +90,8 @@ public class ScoreboardCLS implements Listener{
 				o.getScore("  §a" + ping + "§7ms").setScore(3);
 				o.getScore("  §b").setScore(2);
 				o.getScore(api.returnStringReady(p, "scoreboard.sideboard.rank")).setScore(1);
-				if(po.inGroup("pman")) {
-					o.getScore("§7» §9Project Manager").setScore(0);
-				}else if(po.inGroup("sman")) {
-					o.getScore("§7» §2Staff Manager").setScore(0);
-				}else if(po.inGroup("gmmman")) {
-					o.getScore("§7» §4Game Mod. Manager").setScore(0);
-				}else if(po.inGroup("dev")) {
-					o.getScore("§7» §5Developer").setScore(0);
-				}else if(po.inGroup("gman")) {
-					o.getScore("§7» General Manager").setScore(0);
-				}else if(po.inGroup("sda")) {
-					o.getScore("§7» Service & Data Analyst").setScore(0);
-				}else if(po.inGroup("cm")) {
-					o.getScore("§7» §aCommunity Moderator").setScore(0);
-				}else if(po.inGroup("ct")) {
-					o.getScore("§7» §1Content Team").setScore(0);
-				}else if(po.inGroup("st")) {
-					o.getScore("§7» §eSupport Team").setScore(0);
-				}else if(po.inGroup("bd")) {
-					o.getScore("§7» §bBuilder").setScore(0);
-				}else if(po.inGroup("gm")) {
-					o.getScore("§7» §cGame Moderator").setScore(0);
-				}else if(po.inGroup("aot")) {
-					o.getScore("§7» §dAdd-On Team").setScore(0);
-				}else if(po.inGroup("train")) {
-					o.getScore("§7» §bTrainee").setScore(0);
-				}else if(po.inGroup("rltm")) {
-					o.getScore("§7» §3Retired Legend").setScore(0);
-				}else if(po.inGroup("rtm")) {
-					o.getScore("§7» §3Retired Team Member").setScore(0);
-				}else if(po.inGroup("part")) {
-					o.getScore("§7» §2Partner").setScore(0);
-				}else if(po.inGroup("fs")) {
-					o.getScore("§7» §dForum Supporter").setScore(0);
-				}else if(po.inGroup("nb")) {
-					o.getScore("§7» §dNitro Booster").setScore(0);
-				}else if(po.inGroup("bt")) {
-					o.getScore("§7» §dBeta Tester").setScore(0);
-				}else if(po.inGroup("friend")) {
-					o.getScore("§7» Friend").setScore(0);
-				}else if(po.inGroup("vip")) {
-					o.getScore("§7» §eVIP").setScore(0);
-				}else if(po.inGroup("default")) {
-					o.getScore("§7» §fPlayer").setScore(0);
-				}else {
-					o.getScore("§7» §cunknown Role").setScore(0);
-				}
+				o.getScore(retGroup(po)).setScore(0);
+				
 			}else if(sbmain >= 6 && sbmain <= 10) {
 				o.getScore("§7Server:").setScore(8);
 				o.getScore("  §a" + api.getServerName() + " §7/§a " + api.getServerId()).setScore(7);
@@ -168,15 +123,6 @@ public class ScoreboardCLS implements Listener{
 					i++;
 				}
 			}else {
-				/*
-				 *  %server does
-				 *  not support
-				 *  the Jobview!
-				 *  
-				 *  Setting back
-				 *  to default
-				 *  view!
-				 */
 				o.getScore("§e" + api.getServerName() + " §cdoes").setScore(6);
 				o.getScore("§cnot support").setScore(5);
 				o.getScore("§cthe Jobview!").setScore(4);
@@ -458,8 +404,9 @@ public class ScoreboardCLS implements Listener{
 	public void onChat(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
 		if(p.hasPermission("mlps.colorChat")) {
-			ChatFont cf = new ChatFont();
-			e.setFormat(cf.format(p.getDisplayName() + "§7 (§9" + igid(p) + "§7): " + ChatColor.translateAlternateColorCodes('&', e.getMessage().replace("%", "%%"))));
+			String msg = ChatColor.translateAlternateColorCodes('&', e.getMessage().replace("%", "%%"));
+			msg = ChatFont.translate(msg);
+			e.setFormat(p.getDisplayName() + "§7 (§9" + igid(p) + "§7): " + msg);
 		}else {
 			e.setFormat(p.getDisplayName() + "§7 (§9" + igid(p) + "§7): " + e.getMessage().replace("%", "%%"));
 		}
@@ -484,6 +431,58 @@ public class ScoreboardCLS implements Listener{
 		    ps.close();
 		}catch (SQLException e) { }
 		return s;
+	}
+	
+	private String retGroup(PermissionUser po) {
+		String group = "";
+		if(po.inGroup("pman")) {
+			group = "§7» §aProject Manager";
+		}else if(po.inGroup("sman")) {
+			group = "§7» §aStaff Manager";
+		}else if(po.inGroup("gmmman")) {
+			group = "§7» §aGame Mod. Manager";
+		}else if(po.inGroup("dev")) {
+			group = "§7» §aDeveloper";
+		}else if(po.inGroup("gman")) {
+			group = "§7» §aGeneral Manager";
+		}else if(po.inGroup("sda")) {
+			group = "§7» §aService & Data Analyst";
+		}else if(po.inGroup("cm")) {
+			group = "§7» §aCommunity Moderator";
+		}else if(po.inGroup("ct")) {
+			group = "§7» §aContent Team";
+		}else if(po.inGroup("st")) {
+			group = "§7» §aSupport Team";
+		}else if(po.inGroup("bd")) {
+			group = "§7» §aBuilder";
+		}else if(po.inGroup("gm")) {
+			group = "§7» §aGame Moderator";
+		}else if(po.inGroup("aot")) {
+			group = "§7» §aAdd-On Team";
+		}else if(po.inGroup("train")) {
+			group = "§7» §aTrainee";
+		}else if(po.inGroup("rltm")) {
+			group = "§7» §aRetired Legend";
+		}else if(po.inGroup("rtm")) {
+			group = "§7» §aRetired Team Member";
+		}else if(po.inGroup("part")) {
+			group = "§7» §aPartner";
+		}else if(po.inGroup("fs")) {
+			group = "§7» §aForum Supporter";
+		}else if(po.inGroup("nb")) {
+			group = "§7» §aNitro Booster";
+		}else if(po.inGroup("bt")) {
+			group = "§7» §aBeta Tester";
+		}else if(po.inGroup("friend")) {
+			group = "§7» §aFriend";
+		}else if(po.inGroup("vip")) {
+			group = "§7» §aVIP";
+		}else if(po.inGroup("default")) {
+			group = "§7» §aPlayer";
+		}else {
+			group = "§7» §cunknown Role";
+		}
+		return group;
 	}
 	
 	private String visualizeDouble(float value, String color) {
@@ -781,7 +780,9 @@ public class ScoreboardCLS implements Listener{
 		}else if(type.equalsIgnoreCase("team")) {
 			prefix = roleHM.get(rank);
 		}
-		return prefix.replace("&", "§");
+		String ret = net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', prefix);
+		ret = ChatFont.translate(ret);
+		return ret;
 	}
 	
 	public void downloadStrings() {
