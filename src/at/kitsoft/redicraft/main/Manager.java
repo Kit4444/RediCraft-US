@@ -20,6 +20,7 @@ import at.kitsoft.redicraft.cmd.Homesystem;
 import at.kitsoft.redicraft.cmd.InvseeCMD;
 import at.kitsoft.redicraft.cmd.LogSystem;
 import at.kitsoft.redicraft.cmd.MoneyAPI;
+import at.kitsoft.redicraft.cmd.MultiroleTest;
 import at.kitsoft.redicraft.cmd.PM_System;
 import at.kitsoft.redicraft.cmd.Pinfo;
 import at.kitsoft.redicraft.cmd.PingCMD;
@@ -40,12 +41,15 @@ import at.kitsoft.redicraft.cmd.TopPlaytimeCMD;
 import at.kitsoft.redicraft.cmd.Vanish_CMD;
 import at.kitsoft.redicraft.cmd.WeatherCMD;
 import at.kitsoft.redicraft.cmd.WorkBenchCMD;
+import at.kitsoft.redicraft.event.AchievementSender;
 import at.kitsoft.redicraft.event.AutoKickerMethods;
 import at.kitsoft.redicraft.event.Blocker;
 import at.kitsoft.redicraft.event.ColorSigns;
 import at.kitsoft.redicraft.event.FullEventList;
 import at.kitsoft.redicraft.event.JobSigns;
 import at.kitsoft.redicraft.event.JoinQuitEvents;
+import at.kitsoft.redicraft.event.KilledStats;
+import at.kitsoft.redicraft.event.MOTD_Join;
 import at.kitsoft.redicraft.event.ScoreboardCLS;
 import at.kitsoft.redicraft.event.Serverteleporter;
 import at.kitsoft.redicraft.event.XP_Boost;
@@ -151,6 +155,7 @@ public class Manager {
 		Main.instance.getCommand("topplaytime").setExecutor(new TopPlaytimeCMD());
 		Main.instance.getCommand("redeemgift").setExecutor(new RedeemGifts());
 		Main.instance.getCommand("deletejobsign").setExecutor(new JobSigns());
+		Main.instance.getCommand("role").setExecutor(new MultiroleTest());
 		
 		PluginManager pl = Bukkit.getPluginManager();
 		pl.registerEvents(new ScoreboardCLS(), Main.instance);
@@ -173,7 +178,9 @@ public class Manager {
 		pl.registerEvents(new AutoKickerMethods(), Main.instance);
 		pl.registerEvents(new FullEventList(), Main.instance);
 		pl.registerEvents(new JobSigns(), Main.instance);
-		//pl.registerEvents(new KilledStats(), Main.instance);
+		pl.registerEvents(new KilledStats(), Main.instance);
+		pl.registerEvents(new MOTD_Join(), Main.instance);
+		pl.registerEvents(new AchievementSender(Main.instance), Main.instance);
 		
 		APIs api = new APIs();
 		api.loadConfig();

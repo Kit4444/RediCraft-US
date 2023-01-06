@@ -1,7 +1,5 @@
 package at.kitsoft.redicraft.cmd;
 
-import java.util.List;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,13 +15,12 @@ public class MultiroleTest implements CommandExecutor{
 		if(sender instanceof Player) {
 			Player p = (Player) sender;
 			PermissionUser pu = PermissionsEx.getUser(p);
-			List<String> groups = pu.getParentIdentifiers();
 			StringBuilder sb = new StringBuilder();
-			for(String s : groups) {
+			for(String s : pu.getParentIdentifiers()) {
 				sb.append(s);
 				sb.append(" ");
 			}
-			p.sendMessage("GROUPS (" + groups.size() + "): " + sb.toString());
+			p.sendMessage("§7Groups (§a" + pu.getParentIdentifiers().size() + "§7): §6" + sb.toString());
 		}
 		return false;
 	}

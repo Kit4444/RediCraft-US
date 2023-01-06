@@ -61,7 +61,7 @@ public class SpawnVillager implements CommandExecutor, Listener{
 		Player p = e.getPlayer();
 		if(e.getRightClicked().getType() == EntityType.VILLAGER) {
 			Villager v = (Villager) e.getRightClicked();
-			if(v.getCustomName().equalsIgnoreCase(villagername)) {
+			if(v.getCustomName() != null && v.getCustomName().equalsIgnoreCase(villagername)) {
 				e.setCancelled(true);
 				ShopInv(p);
 				APIs api = new APIs();

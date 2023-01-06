@@ -61,6 +61,9 @@ public class RedeemGifts implements CommandExecutor, Listener{
 							case "3d:xpboost": openDecideInv(p, "3 Days XP Boost", 25000); break;
 							case "1*:xperpts": openDecideInv(p, "XP Shot", 10000); break;
 							case "1*:enchItems": openDecideInv(p, "Enchanted Items Fullset", 400000); break;
+							case "5t:weather": openDecideInv(p, "Use /weather 5 times", 50000); break;
+							case "5t:time": openDecideInv(p, "Use /time 5 times", 50000); break;
+							case "5t:heal": openDecideInv(p, "Use /heal 5 times", 1200);
 							}
 						}else {
 							p.sendMessage(api.prefix("main") + "§7This code has been used already.");
@@ -247,6 +250,15 @@ public class RedeemGifts implements CommandExecutor, Listener{
 				p.closeInventory();
 				ActionLogger.log(api.getServerName(), p, "Player declined the netherite fullset.");
 			}
+		}else if(e.getView().getTitle().equalsIgnoreCase("§7Gift: §aUse /weather 5 times")) {
+			e.setCancelled(true);
+			p.sendMessage(api.prefix("main") + "§cThis is under development.");
+		}else if(e.getView().getTitle().equalsIgnoreCase("§7Gift: §aUse /time 5 times")) {
+			e.setCancelled(true);
+			p.sendMessage(api.prefix("main") + "§cThis is under development.");
+		}else if(e.getView().getTitle().equalsIgnoreCase("§7Gift: §aUse /heal 5 times")) {
+			e.setCancelled(true);
+			p.sendMessage(api.prefix("main") + "§cThis is under development.");
 		}
 	}
 	
@@ -274,15 +286,20 @@ public class RedeemGifts implements CommandExecutor, Listener{
 	
 	private String getGifts(Player p) {
 		List<String> gifts = new ArrayList<>();
-		int i = 0;
+		int open = 0;
+		int total = 0;
 		try {
 			PreparedStatement ps = MySQL.getConnection().prepareStatement("SELECT * FROM redicore_gifts WHERE uuid = ?");
 			ps.setString(1, p.getUniqueId().toString());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				i++;
-				gifts.add("§7ID: §a" + i + " §7| Giftcode: §a" + rs.getString("giftcode") + " §7| Gift: §a" + translateGiftkey(rs.getString("giftkey")) + " §7| Used:§a " + translateBoolean(rs.getBoolean("used")));
+				total++;
+				if(!rs.getBoolean("used")) {
+					open++;
+					gifts.add("§7ID: §a" + open + " §7| Giftcode: §a" + rs.getString("giftcode") + " §7| Gift: §a" + translateGiftkey(rs.getString("giftkey")));
+				}
 			}
+			gifts.add("§7Total Gifts: §6" + total + "§7, not redeemed Gifts: §c" + open);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -298,14 +315,6 @@ public class RedeemGifts implements CommandExecutor, Listener{
 		}
 	}
 	
-	private String translateBoolean(boolean toTranslate) {
-		if(toTranslate) {
-			return "§nyes";
-		}else {
-			return "§ano";
-		}
-	}
-	
 	private String translateGiftkey(String toTranslate) {
 		String translated = "";
 		switch(toTranslate) {
@@ -313,6 +322,10 @@ public class RedeemGifts implements CommandExecutor, Listener{
 		case "3d:xpboost": translated = "3 Days Double XPs"; break;
 		case "1*:xperpts": translated = "Experience Points Shot"; break;
 		case "1*:enchItems": translated = "Enchanted Items Fullset"; break;
+		case "5t:weather": translated = "5 times of using the /weather command"; break;
+		case "5t:time": translated = "5 times of using the /time command"; break;
+		case "5t:heal": translated = "5 times of using the /heal command"; break;
+		default: translated = "Internal Error!"; break;
 		}
 		return translated;
 	}

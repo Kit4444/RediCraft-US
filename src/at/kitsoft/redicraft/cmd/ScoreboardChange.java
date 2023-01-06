@@ -54,9 +54,13 @@ public class ScoreboardChange implements CommandExecutor{
 					}else if(args[0].equalsIgnoreCase("redifm")) {
 						updateSB(uuid, 5);
 					}else if(args[0].equalsIgnoreCase("players")) {
-						updateSB(uuid, 6);
+						updateSB(uuid, 8);
 					}else if(args[0].equalsIgnoreCase("location")) {
 						updateSB(uuid, 7);
+					}else if(args[0].equalsIgnoreCase("servers")) {
+						updateSB(uuid, 6);
+					}else if(args[0].equalsIgnoreCase("entities")) {
+						updateSB(uuid, 9);
 					}
 					ScoreboardCLS sb = new ScoreboardCLS();
 					try {
@@ -97,9 +101,13 @@ public class ScoreboardChange implements CommandExecutor{
 					}else if(args[0].equalsIgnoreCase("redifm")) {
 						updateSB(uuid, 5);
 					}else if(args[0].equalsIgnoreCase("players")) {
-						updateSB(uuid, 6);
+						updateSB(uuid, 8);
 					}else if(args[0].equalsIgnoreCase("location")) {
 						updateSB(uuid, 7);
+					}else if(args[0].equalsIgnoreCase("servers")) {
+						updateSB(uuid, 6);
+					}else if(args[0].equalsIgnoreCase("entities")) {
+						updateSB(uuid, 9);
 					}
 					ScoreboardCLS sb = new ScoreboardCLS();
 					try {
@@ -116,7 +124,7 @@ public class ScoreboardChange implements CommandExecutor{
 					}
 				}
 			}else {
-				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7/sb <off|default|players|job|redifm|location|admin|data>");
+				p.sendMessage(api.prefix("main") + api.returnStringReady(p, "usage") + "§7/sb <off|default|servers|players|entities|job|redifm|location|admin|data>");
 			}
 		}
 		return false;
@@ -129,6 +137,7 @@ public class ScoreboardChange implements CommandExecutor{
 			ps.setString(2, uuid);
 			ps.executeUpdate();
 			ps.close();
+			Bukkit.getConsoleSender().sendMessage("Scoreboard Change > " + uuid + " changed state to " + id);
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}

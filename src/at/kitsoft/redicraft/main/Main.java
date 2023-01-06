@@ -59,6 +59,7 @@ public class Main extends JavaPlugin implements Listener{
 			}
 		}
 		Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+		Bukkit.getMessenger().registerOutgoingPluginChannel(this, "redicraft:advbc");
 		registerMisc();
 		Manager man = new Manager();
 		man.init();
@@ -84,7 +85,7 @@ public class Main extends JavaPlugin implements Listener{
 	private void registerMisc() {
 		fillList();
 		ScoreboardCLS sb = new ScoreboardCLS();
-		sb.sbSched(0, 50, 20);
+		sb.sbSched(0, 20, 20);
 	}
 	
 	private void fillList() {

@@ -73,7 +73,7 @@ public class Serverupdater implements Listener{
 				ps.setInt(5, (int) timestamp);
 				ps.setString(6, stime);
 				ps.setInt(7, (int) ramtotal);
-				ps.setString(8, "1.19");
+				ps.setString(8, "1.19.2");
 				ps.setString(9, tps);
 				ps.setInt(10, staffs);
 				ps.setBoolean(11, dmap);

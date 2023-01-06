@@ -4,8 +4,8 @@ name: RediCore_SubServer
 description: This is the Core-Plugin of RediCraft.
 website: www.redicraft.eu
 prefix: REDICORE
-api-version: 1.16
-main: at.mlps.rc.main.Main
+api-version: 1.19
+main: at.kitsoft.redicraft.main.Main
 softdepend: [PermissionsEx, Jobs]
 
 commands:
@@ -84,4 +84,5 @@ commands:
         - options
         - profileoptions
     deletejobsign:
+    role:
     
