@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>at.kitsoft</groupId>
-    <artifactId>RediCraft-US</artifactId>
+    <artifactId>rediCraft-us</artifactId>
     <version>4.0.0</version>
 
     <properties>
