@@ -8,6 +8,10 @@ api-version: 1.19
 main: at.kitsoft.redicraft.main.Main
 softdepend: [PermissionsEx, Jobs]
 
+libraries:
+    - com.googlecode.json-simple:json-simple:${json-simple.version}
+    - commons-io:commons-io:${commons-io.version}
+
 commands:
     topplaytime:
     redeemgift:

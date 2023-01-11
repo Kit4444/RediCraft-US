@@ -17,6 +17,9 @@
         <permissionsEx.version>1.23.4</permissionsEx.version>
         <jobs-reborn.version>v4.17.2</jobs-reborn.version>
         <vault.version>1.7.1</vault.version>
+
+        <json-simple.version>1.1.1</json-simple.version>
+        <commons-io.version>2.11.0</commons-io.version>
     </properties>
 
     <repositories>
@@ -64,13 +67,13 @@
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
+            <version>${json-simple.version}</version>
         </dependency>
 
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.11.0</version>
+            <version>${commons-io.version}</version>
         </dependency>
     </dependencies>
 
