@@ -1,6 +1,5 @@
-
-# Created by https://www.toptal.com/developers/gitignore/api/java,intellij+all,eclipse,netbeans,maven,gradle,windows,macos,linux
-# Edit at https://www.toptal.com/developers/gitignore?templates=java,intellij+all,eclipse,netbeans,maven,gradle,windows,macos,linux
+# Created by https://www.toptal.com/developers/gitignore/api/java,maven,intellij+all,eclipse,netbeans,visualstudiocode,windows,macos,linux
+# Edit at https://www.toptal.com/developers/gitignore?templates=java,maven,intellij+all,eclipse,netbeans,visualstudiocode,windows,macos,linux
 
 ### Eclipse ###
 .metadata
@@ -62,7 +61,7 @@ local.properties
 
 # Uncomment this line if you wish to ignore the project description file.
 # Typically, this file would be tracked if it contains build/dependency configurations:
-#.project
+.project
 
 ### Eclipse Patch ###
 # Spring Boot Tooling
@@ -102,14 +101,14 @@ local.properties
 # When using Gradle or Maven with auto-import, you should exclude module files,
 # since they will be recreated, and may cause churn.  Uncomment if using
 # auto-import.
-# .idea/artifacts
-# .idea/compiler.xml
-# .idea/jarRepositories.xml
-# .idea/modules.xml
-# .idea/*.iml
-# .idea/modules
-# *.iml
-# *.ipr
+.idea/artifacts
+.idea/compiler.xml
+.idea/jarRepositories.xml
+.idea/modules.xml
+.idea/*.iml
+.idea/modules
+*.iml
+*.ipr
 
 # CMake
 cmake-build-*/
@@ -148,20 +147,13 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 ### Intellij+all Patch ###
-# Ignores the whole .idea folder and all .iml files
-# See https://github.com/joeblau/gitignore.io/issues/186 and https://github.com/joeblau/gitignore.io/issues/360
+# Ignore everything but code style settings and run configurations
+# that are supposed to be shared within teams.
 
 .idea/*
 
-# Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-249601023
-
-*.iml
-modules.xml
-.idea/misc.xml
-*.ipr
-
-# Sonarlint plugin
-.idea/sonarlint
+!.idea/codeStyles
+!.idea/runConfigurations
 
 ### Java ###
 # Compiled class file
@@ -177,7 +169,9 @@ modules.xml
 .mtj.tmp/
 
 # Package Files #
+
 *.jar
+!lib/*.jar
 *.war
 *.nar
 *.ear
@@ -233,6 +227,10 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+### macOS Patch ###
+# iCloud generated files
+*.icloud
+
 ### Maven ###
 target/
 pom.xml.tag
@@ -248,7 +246,7 @@ buildNumber.properties
 
 # Eclipse m2e generated files
 # Eclipse Core
-# .project
+.project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
@@ -261,6 +259,25 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -287,23 +304,3 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
-### Gradle ###
-.gradle
-
-# Ignore Gradle GUI config
-gradle-app.setting
-
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
-
-# Cache of project
-.gradletasknamecache
-
-# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
-# gradle/wrapper/gradle-wrapper.properties
-
-### Gradle Patch ###
-**/build/
-
-# End of https://www.toptal.com/developers/gitignore/api/java,intellij+all,eclipse,netbeans,maven,gradle,windows,macos,linux
